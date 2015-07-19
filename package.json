@@ -1,0 +1,22 @@
+{
+  "name": "interactiveimagejs",
+  "version": "0.1.0",
+  "description": "A jQuery plugin to embed interactive images",
+  "main": "interactive-image.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpchateau/Interactive-Image.git"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ],
+  "author": "Jean-Philippe Chateau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jpchateau/Interactive-Image/issues"
+  },
+  "homepage": "https://github.com/jpchateau/Interactive-Image#readme"
+}
