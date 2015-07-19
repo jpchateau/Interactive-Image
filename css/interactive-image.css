@@ -1,13 +1,10 @@
 .interactive-image {
+    position: relative;
     font-family: 'avantGardeDemiBT', Arial;
     cursor: default;
     z-index: 8;
-    width: 1280px;
-    height: 350px;
-    position: relative;
-    margin: 20px auto;
-    background: url('../images/interactive-paris.jpg');
 }
+
 .interactive-image .icon-button {
     position: absolute;
     z-index: 16;
@@ -20,7 +17,7 @@
     position: absolute;
     width: 160px;
     height: 120px;
-    z-index: 1;
+    z-index: 16;
     text-align: left;
     display: none;
     padding: 10px;
@@ -28,31 +25,35 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
     overflow: auto;
 }
-.interactive-image .container .title {
-    font-size: 1.1em;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    display: block;
+.interactive-image .container .logo {
     margin-left: 10px;
     margin-top: 10px;
 }
+.interactive-image .container .title {
+    font-size: 1.1em;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    display: inline-block;
+}
 .interactive-image .container .description {
+    text-align: left;
     font-size: 0.8em;
     font-weight: normal;
+    margin-top: 10px;
 }
 
+/* icomoon */
 @font-face {
     font-family: 'icomoon';
     src:url('../fonts/icomoon.eot?1pmg9t');
     src:url('../fonts/icomoon.eot?#iefix1pmg9t') format('embedded-opentype'),
-        url('../fonts/icomoon.ttf?1pmg9t') format('truetype'),
-        url('../fonts/icomoon.woff?1pmg9t') format('woff'),
-        url('../fonts/icomoon.svg?1pmg9t#icomoon') format('svg');
+    url('../fonts/icomoon.ttf?1pmg9t') format('truetype'),
+    url('../fonts/icomoon.woff?1pmg9t') format('woff'),
+    url('../fonts/icomoon.svg?1pmg9t#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
 [class^="icon-"], [class*=" icon-"] {
     font-family: 'icomoon';
     speak: none;
@@ -66,7 +67,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
 .icon-radio-checked:before {
     content: "\ea54";
 }

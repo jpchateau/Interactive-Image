@@ -1,11 +1,11 @@
 /**
-* Interactive Image jQuery plug-in
-*
-* @author Jean-Philippe Chateau <contact@jpchateau.com>
-* @version 0.1.0
-* @date 2015-07-16
-* @license MIT http://opensource.org/licenses/MIT
-*/
+ * Interactive Image jQuery plug-in
+ *
+ * @author Jean-Philippe Chateau <contact@jpchateau.com>
+ * @version 0.2.0
+ * @date 2015-07-19
+ * @license MIT http://opensource.org/licenses/MIT
+ */
 (function ($) {
     'use strict';
 
@@ -23,12 +23,7 @@
         };
 
         var createItemElement = function (item) {
-
-            debug('original item');
-            debug(item);
-
             item = $.extend({}, itemDefaults, item);
-            debug('complete item');
             debug(item);
 
             // Icon
@@ -44,35 +39,33 @@
             titleElement.setAttribute('class', 'title');
             titleElement.appendChild(document.createTextNode(item.title));
 
-            // ImageTitle
-            if (typeof item.logo !== "undefined") {
-                var logoElement = document.createElement('img');
-                logoElement.setAttribute('src', item.logo);
-            }
-
             var descriptionElement = document.createElement('p');
             descriptionElement.setAttribute('class', 'description');
             descriptionElement.appendChild(document.createTextNode(item.description));
 
             // Container
-            var element = document.createElement('div');
-            element.setAttribute('class', 'container');
-            element.setAttribute('data-id', item.title);
-            element.style.color = item.fontColor;
-            element.style.backgroundColor = item.backgroundColor;
-            element.style.left = (item.left + 25) + 'px';
-            element.style.top = item.top + 'px';
+            var containerElement = document.createElement('div');
+            containerElement.setAttribute('class', 'container');
+            containerElement.setAttribute('data-id', item.title);
+            containerElement.style.color = item.fontColor;
+            containerElement.style.backgroundColor = item.backgroundColor;
+            containerElement.style.left = (item.left - 80 + 12) + 'px';
+            containerElement.style.top = (item.top + 30) + 'px';
 
+            // Logo
             if (typeof item.logo !== "undefined") {
-                element.appendChild(logoElement);
+                var logoElement = document.createElement('img');
+                logoElement.setAttribute('class', 'logo');
+                logoElement.setAttribute('src', item.logo);
+                containerElement.appendChild(logoElement);
             }
 
-            element.appendChild(titleElement);
-            element.appendChild(descriptionElement);
+            containerElement.appendChild(titleElement);
+            containerElement.appendChild(descriptionElement);
 
-            debug(item.title + ' element created');
+            debug('Item ' + item.title + ' created');
 
-            return $(element);
+            return $(containerElement);
         };
 
         var buildElements = function () {
@@ -89,14 +82,15 @@
                     $container.fadeIn('fast');
                 }
             });
-            debug('event mouseover icon created');
+            debug('Event mouseover on icon created');
 
-            $('.interactive-image').on('mouseleave', '.container', function (event) {
-                if ($(this).css('display') === 'block') {
-                    $(this).fadeOut('slow');
+            $('.interactive-image').on('mouseleave', '.icon-button', function (event) {
+                var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
+                if ($container.css('display') === 'block') {
+                    $container.hide();
                 }
             });
-            debug('event mouseleave container created');
+            debug('Event mouseleave on icon created');
 
             $('.interactive-image').on('mouseover', function (event) {
                 var $icons = $(this).find('.icon-button');
@@ -106,7 +100,7 @@
                     }
                 });
             });
-            debug('event mouseover image created');
+            debug('Event mouseover on image created');
 
             $('.interactive-image').on('mouseleave', function (event) {
                 var $icons = $(this).find('.icon-button');
@@ -116,7 +110,7 @@
                     }
                 });
             });
-            debug('event mouseleave image created');
+            debug('Event mouseleave on image created');
         };
 
         buildElements();
