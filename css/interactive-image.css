@@ -4,7 +4,6 @@
     cursor: default;
     z-index: 8;
 }
-
 .interactive-image .icon-button {
     position: absolute;
     z-index: 16;
@@ -13,9 +12,12 @@
     cursor: pointer;
     font-size: 1.6em;
 }
+.interactive-image .icon-button:hover {
+    text-shadow: 0 0 3px #fff;
+}
 .interactive-image .container {
     position: absolute;
-    width: 160px;
+    width: 180px;
     height: 120px;
     z-index: 16;
     text-align: left;
@@ -24,10 +26,6 @@
     border-radius: 1px !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
     overflow: auto;
-}
-.interactive-image .container .logo {
-    margin-left: 10px;
-    margin-top: 10px;
 }
 .interactive-image .container .title {
     font-size: 1.1em;
