@@ -2,8 +2,8 @@
  * Interactive Image jQuery plug-in
  *
  * @author Jean-Philippe Chateau <contact@jpchateau.com>
- * @version 0.2.1
- * @date 2015-07-19
+ * @version 0.2.2
+ * @date 2015-07-23
  * @license MIT http://opensource.org/licenses/MIT
  */
 (function ($) {
@@ -49,7 +49,7 @@
             containerElement.setAttribute('data-id', item.title);
             containerElement.style.color = item.fontColor;
             containerElement.style.backgroundColor = item.backgroundColor;
-            containerElement.style.left = (item.left - 90 + 12) + 'px';
+            containerElement.style.left = (item.left - 100 + 12) + 'px';
             containerElement.style.top = (item.top + 30) + 'px';
 
             containerElement.appendChild(titleElement);
@@ -63,7 +63,9 @@
         var buildElements = function () {
             var i;
             for (i in items) {
-                $('.interactive-image').append(createItemElement(items[i]));
+                if (items.hasOwnProperty(i)) {
+                    $('.interactive-image').append(createItemElement(items[i]));
+                }
             }
         };
 
@@ -114,10 +116,10 @@
             "debug": false
         };
 
-        var options = $.extend({}, settingsDefaults, options);
+        var config = $.extend({}, settingsDefaults, options);
 
         return this.each(function () {
-            (new $.interactiveImage(items, options));
+            (new $.interactiveImage(items, config));
         });
     };
 }(jQuery));
