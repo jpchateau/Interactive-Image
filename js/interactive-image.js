@@ -3,18 +3,24 @@
  *
  * @author Jean-Philippe Chateau <contact@jpchateau.com>
  * @version 0.2.2
- * @date 2015-07-23
  * @license MIT http://opensource.org/licenses/MIT
  */
 (function ($) {
     'use strict';
 
-    $.interactiveImage = function (items, settings) {
-
+    $.interactiveImage = function (items, settings, $image) {
         var debug = function (message) {
-            if (window.console && window.console.log && settings.debug) {
+            if (window.console && window.console.log && true === settings.debug) {
                 window.console.log(message);
             }
+        };
+
+        var checkSettings = function () {
+            if ('undefined' !== typeof settings.debug && (false !== settings.debug && true !== settings.debug)) {
+                throw 'Error: check debug option';
+            }
+
+            debug('Settings checked');
         };
 
         var itemDefaults = {
@@ -32,7 +38,7 @@
             iconElement.style.left = item.left + 'px';
             iconElement.style.top = item.top + 'px';
             iconElement.setAttribute('data-for', item.title);
-            $('.interactive-image').append(iconElement);
+            $image.append(iconElement);
 
             // Title
             var titleElement = document.createElement('span');
@@ -64,13 +70,13 @@
             var i;
             for (i in items) {
                 if (items.hasOwnProperty(i)) {
-                    $('.interactive-image').append(createItemElement(items[i]));
+                    $image.append(createItemElement(items[i]));
                 }
             }
         };
 
         var bindEvents = function () {
-            $('.interactive-image').on('mouseover', '.icon-button', function (event) {
+            $image.on('mouseover', '.icon-button', function (event) {
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 if ($container.css('display') !== 'block') {
                     $container.fadeIn('fast');
@@ -78,7 +84,7 @@
             });
             debug('Event mouseover on icon created');
 
-            $('.interactive-image').on('mouseleave', '.icon-button', function (event) {
+            $image.on('mouseleave', '.icon-button', function (event) {
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 if ($container.css('display') === 'block') {
                     $container.hide();
@@ -86,7 +92,7 @@
             });
             debug('Event mouseleave on icon created');
 
-            $('.interactive-image').on('mouseover', function (event) {
+            $image.on('mouseover', function (event) {
                 var $icons = $(this).find('.icon-button');
                 $.each($icons, function () {
                     if ($(this).css('display') !== 'block') {
@@ -96,7 +102,7 @@
             });
             debug('Event mouseover on image created');
 
-            $('.interactive-image').on('mouseleave', function (event) {
+            $image.on('mouseleave', function (event) {
                 var $icons = $(this).find('.icon-button');
                 $.each($icons, function () {
                     if ($(this).css('display') === 'block') {
@@ -107,19 +113,24 @@
             debug('Event mouseleave on image created');
         };
 
-        buildElements();
-        bindEvents();
+        try {
+            checkSettings();
+            buildElements();
+            bindEvents();
+        } catch(exception) {
+            $image.html(exception);
+        }
     };
 
     $.fn.interactiveImage = function (items, options) {
-        var settingsDefaults = {
+        var optionsDefaults = {
             "debug": false
         };
 
-        var config = $.extend({}, settingsDefaults, options);
+        options = $.extend({}, optionsDefaults, options);
 
         return this.each(function () {
-            (new $.interactiveImage(items, config));
+            (new $.interactiveImage(items, options, $(this)));
         });
     };
 }(jQuery));
