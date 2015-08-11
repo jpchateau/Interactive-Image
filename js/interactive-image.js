@@ -45,9 +45,17 @@
             titleElement.setAttribute('class', 'title');
             titleElement.appendChild(document.createTextNode(item.title));
 
+            // Description
             var descriptionElement = document.createElement('p');
             descriptionElement.setAttribute('class', 'description');
             descriptionElement.appendChild(document.createTextNode(item.description));
+
+            // Picture
+            if (item.picture) {
+                var pictureElement = document.createElement('img');
+                pictureElement.setAttribute('class', 'picture');
+                pictureElement.src = item.picture;
+            }
 
             // Container
             var containerElement = document.createElement('div');
@@ -55,11 +63,15 @@
             containerElement.setAttribute('data-id', item.title);
             containerElement.style.color = item.fontColor;
             containerElement.style.backgroundColor = item.backgroundColor;
-            containerElement.style.left = (item.left - 100 + 12) + 'px';
+            containerElement.style.left = (item.left - 50) + 'px';
             containerElement.style.top = (item.top + 30) + 'px';
 
             containerElement.appendChild(titleElement);
             containerElement.appendChild(descriptionElement);
+
+            if (item.picture) {
+                containerElement.appendChild(pictureElement);
+            }
 
             debug('Item ' + item.title + ' created');
 
