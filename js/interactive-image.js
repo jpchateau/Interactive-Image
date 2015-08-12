@@ -23,72 +23,108 @@
             debug('Settings checked');
         };
 
-        var itemDefaults = {
-            "fontColor": "#000",
-            "backgroundColor": "#fff"
+        var optionsDefaults = {
+            fontColor: "#000",
+            backgroundColor: "#fff"
         };
 
-        var createItemElement = function (item) {
-            item = $.extend({}, itemDefaults, item);
-            debug(item);
+        function AbstractItem(top, left, backgroundColor, fontColor, title) {
+            this.top = top;
+            this.left = left;
+            this.backgroundColor = backgroundColor;
+            this.fontColor = fontColor;
+            this.title = title;
+        }
 
-            // Icon
+        AbstractItem.prototype.createIcon = function () {
             var iconElement = document.createElement('div');
             iconElement.setAttribute('class', 'icon-button icon-radio-checked');
-            iconElement.style.left = item.left + 'px';
-            iconElement.style.top = item.top + 'px';
-            iconElement.setAttribute('data-for', item.title);
-            $image.append(iconElement);
+            iconElement.style.top = this.top + 'px';
+            iconElement.style.left = this.left + 'px';
+            iconElement.setAttribute('data-for', this.title);
 
-            // Title
+            return iconElement;
+        };
+
+        AbstractItem.prototype.createTitle = function () {
             var titleElement = document.createElement('span');
             titleElement.setAttribute('class', 'title');
-            titleElement.appendChild(document.createTextNode(item.title));
+            titleElement.appendChild(document.createTextNode(this.title));
 
-            // Description
-            var descriptionElement = document.createElement('p');
-            descriptionElement.setAttribute('class', 'description');
-            descriptionElement.appendChild(document.createTextNode(item.description));
+            return titleElement;
+        };
 
-            // Picture
-            if (item.picture) {
+        AbstractItem.prototype.renderHtml = function () {
+            throw 'Error: render method not implemented';
+        };
+
+        function TextItem(top, left, backgroundColor, frontColor, title, description, picture) {
+            var textItem = new AbstractItem(top, left, backgroundColor, frontColor, title);
+            textItem.description = description;
+            textItem.picture = picture;
+
+            textItem.createDescription = function () {
+                var descriptionElement = document.createElement('p');
+                descriptionElement.setAttribute('class', 'description');
+                descriptionElement.appendChild(document.createTextNode(this.description));
+
+                return descriptionElement;
+            };
+
+            textItem.createPicture = function () {
                 var pictureElement = document.createElement('img');
                 pictureElement.setAttribute('class', 'picture');
-                pictureElement.src = item.picture;
-            }
+                pictureElement.src = this.picture;
 
-            // Container
-            var containerElement = document.createElement('div');
-            containerElement.setAttribute('class', 'container');
-            containerElement.setAttribute('data-id', item.title);
-            containerElement.style.color = item.fontColor;
-            containerElement.style.backgroundColor = item.backgroundColor;
-            containerElement.style.left = (item.left - 50) + 'px';
-            containerElement.style.top = (item.top + 30) + 'px';
+                return pictureElement;
+            };
 
-            containerElement.appendChild(titleElement);
-            containerElement.appendChild(descriptionElement);
+            textItem.renderHtml = function () {
+                var containerElement = document.createElement('div');
+                containerElement.setAttribute('class', 'container');
+                containerElement.setAttribute('data-id', this.title);
+                containerElement.style.color = this.fontColor;
+                containerElement.style.backgroundColor = this.backgroundColor;
+                containerElement.style.left = (this.left - 50) + 'px';
+                containerElement.style.top = (this.top + 30) + 'px';
 
-            if (item.picture) {
-                containerElement.appendChild(pictureElement);
-            }
+                containerElement.appendChild(this.createTitle());
+                containerElement.appendChild(this.createDescription());
 
-            debug('Item ' + item.title + ' created');
+                if ('undefined' !== typeof this.picture) {
+                    containerElement.appendChild(this.createPicture());
+                }
 
-            return $(containerElement);
+                return containerElement;
+            };
+
+            return textItem;
+        }
+
+        var createElement = function (options) {
+            options = $.extend({}, optionsDefaults, options);
+            debug('Options:');
+            debug(options);
+
+            var element = new TextItem(options.top, options.left, options.backgroundColor, options.fontColor, options.title, options.description, options.picture);
+            debug('Item ' + element.title + ' created');
+
+            $image.append(element.createIcon());
+
+            return $(element.renderHtml());
         };
 
         var buildElements = function () {
             var i;
             for (i in items) {
                 if (items.hasOwnProperty(i)) {
-                    $image.append(createItemElement(items[i]));
+                    $image.append(createElement(items[i]));
                 }
             }
         };
 
         var bindEvents = function () {
-            $image.on('mouseover', '.icon-button', function (event) {
+            $image.on('mouseover', '.icon-button', function () {
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 if ($container.css('display') !== 'block') {
                     $container.fadeIn('fast');
@@ -96,7 +132,7 @@
             });
             debug('Event mouseover on icon created');
 
-            $image.on('mouseleave', '.icon-button', function (event) {
+            $image.on('mouseleave', '.icon-button', function () {
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 if ($container.css('display') === 'block') {
                     $container.hide();
@@ -104,7 +140,7 @@
             });
             debug('Event mouseleave on icon created');
 
-            $image.on('mouseover', function (event) {
+            $image.on('mouseover', function () {
                 var $icons = $(this).find('.icon-button');
                 $.each($icons, function () {
                     if ($(this).css('display') !== 'block') {
@@ -114,7 +150,7 @@
             });
             debug('Event mouseover on image created');
 
-            $image.on('mouseleave', function (event) {
+            $image.on('mouseleave', function () {
                 var $icons = $(this).find('.icon-button');
                 $.each($icons, function () {
                     if ($(this).css('display') === 'block') {
@@ -129,14 +165,14 @@
             checkSettings();
             buildElements();
             bindEvents();
-        } catch(exception) {
+        } catch (exception) {
             $image.html(exception);
         }
     };
 
     $.fn.interactiveImage = function (items, options) {
         var optionsDefaults = {
-            "debug": false
+            debug: false
         };
 
         options = $.extend({}, optionsDefaults, options);
