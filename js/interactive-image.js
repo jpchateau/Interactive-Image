@@ -2,7 +2,7 @@
  * Interactive Image jQuery plug-in
  *
  * @author Jean-Philippe Chateau <contact@jpchateau.com>
- * @version 0.2.2
+ * @version 0.3
  * @license MIT http://opensource.org/licenses/MIT
  */
 (function ($) {
