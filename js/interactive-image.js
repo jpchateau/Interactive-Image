@@ -11,7 +11,7 @@
     $.interactiveImage = function (items, settings, $image) {
         var debug = function (message) {
             if (window.console && window.console.log && true === settings.debug) {
-                window.console.log(message);
+                console.log(message);
             }
         };
 
@@ -63,10 +63,11 @@
             throw 'Error: render method not implemented';
         };
 
-        var TextItem = function (top, left, backgroundColor, frontColor, title, description, picture) {
+        var TextItem = function (top, left, backgroundColor, frontColor, title, description, picture, link) {
             var textItem = new AbstractItem(top, left, backgroundColor, frontColor, title);
             textItem.description = description;
             textItem.picture = picture;
+            textItem.link = link;
 
             textItem.createDescription = function () {
                 var descriptionElement = createDomElement('p', 'description');
@@ -80,6 +81,22 @@
                 pictureElement.src = this.picture;
 
                 return pictureElement;
+            };
+
+            textItem.createLink = function () {
+                var label, linkElement = document.createElement('a');
+                linkElement.href = this.link.href;
+                linkElement.style.color = this.fontColor;
+
+                if ("undefined" !== this.link.label) {
+                    label = this.link.label;
+                } else {
+                    label = this.link.href;
+                }
+
+                linkElement.appendChild(document.createTextNode(label));
+
+                return linkElement;
             };
 
             textItem.renderHtml = function () {
@@ -97,6 +114,10 @@
                     containerElement.appendChild(this.createPicture());
                 }
 
+                if ('undefined' !== typeof this.link) {
+                    containerElement.appendChild(this.createLink());
+                }
+
                 return containerElement;
             };
 
@@ -108,7 +129,7 @@
             debug('Options:');
             debug(options);
 
-            var element = new TextItem(options.top, options.left, options.backgroundColor, options.fontColor, options.title, options.description, options.picture);
+            var element = new TextItem(options.top, options.left, options.backgroundColor, options.fontColor, options.title, options.description, options.picture, options.link);
             debug('Item ' + element.title + ' created');
 
             $image.append(element.createIcon());

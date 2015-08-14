@@ -17,16 +17,16 @@
 }
 .interactive-image .container {
     position: absolute;
-    width: auto;
+    min-width: 100px;
+    max-width: 280px;
+    min-height: 50px;
     height: auto;
     z-index: 16;
-    text-align: left;
     display: none;
-    padding: 10px 15px 20px;
+    padding: 10px 12px 15px;
     text-align: center;
     border-radius: 1px !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
-    overflow: auto;
 }
 .interactive-image .container .title {
     font-size: 1.1em;
@@ -43,7 +43,10 @@
 }
 .interactive-image .container .picture {
     max-width: 200px;
-    max-height: 80px;
+    max-height: 200px;
+}
+.interactive-image .container a {
+    text-decoration: underline;
 }
 
 /* icomoon */
