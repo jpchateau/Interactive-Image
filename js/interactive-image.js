@@ -2,8 +2,8 @@
  * Interactive Image jQuery plug-in
  *
  * @author Jean-Philippe Chateau <contact@jpchateau.com>
- * @version 0.3
- * @license MIT http://opensource.org/licenses/MIT
+ * @version 0.4.0
+ * @license MIT https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE
  */
 (function ($) {
     'use strict';
