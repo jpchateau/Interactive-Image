@@ -28,27 +28,32 @@
             backgroundColor: "#fff"
         };
 
-        function AbstractItem(top, left, backgroundColor, fontColor, title) {
+        var createDomElement = function (tag, cssClass) {
+            var DOMElement = document.createElement(tag);
+            DOMElement.setAttribute('class', cssClass);
+
+            return DOMElement;
+        };
+
+        var AbstractItem = function (top, left, backgroundColor, fontColor, title) {
             this.top = top;
             this.left = left;
             this.backgroundColor = backgroundColor;
             this.fontColor = fontColor;
             this.title = title;
-        }
+        };
 
         AbstractItem.prototype.createIcon = function () {
-            var iconElement = document.createElement('div');
-            iconElement.setAttribute('class', 'icon-button icon-radio-checked');
+            var iconElement = createDomElement('div', 'icon-button icon-radio-checked');
+            iconElement.setAttribute('data-for', this.title);
             iconElement.style.top = this.top + 'px';
             iconElement.style.left = this.left + 'px';
-            iconElement.setAttribute('data-for', this.title);
 
             return iconElement;
         };
 
         AbstractItem.prototype.createTitle = function () {
-            var titleElement = document.createElement('span');
-            titleElement.setAttribute('class', 'title');
+            var titleElement = createDomElement('span', 'title');
             titleElement.appendChild(document.createTextNode(this.title));
 
             return titleElement;
@@ -58,30 +63,27 @@
             throw 'Error: render method not implemented';
         };
 
-        function TextItem(top, left, backgroundColor, frontColor, title, description, picture) {
+        var TextItem = function (top, left, backgroundColor, frontColor, title, description, picture) {
             var textItem = new AbstractItem(top, left, backgroundColor, frontColor, title);
             textItem.description = description;
             textItem.picture = picture;
 
             textItem.createDescription = function () {
-                var descriptionElement = document.createElement('p');
-                descriptionElement.setAttribute('class', 'description');
+                var descriptionElement = createDomElement('p', 'description');
                 descriptionElement.appendChild(document.createTextNode(this.description));
 
                 return descriptionElement;
             };
 
             textItem.createPicture = function () {
-                var pictureElement = document.createElement('img');
-                pictureElement.setAttribute('class', 'picture');
+                var pictureElement = createDomElement('img', 'picture');
                 pictureElement.src = this.picture;
 
                 return pictureElement;
             };
 
             textItem.renderHtml = function () {
-                var containerElement = document.createElement('div');
-                containerElement.setAttribute('class', 'container');
+                var containerElement = createDomElement('div', 'container');
                 containerElement.setAttribute('data-id', this.title);
                 containerElement.style.color = this.fontColor;
                 containerElement.style.backgroundColor = this.backgroundColor;
@@ -99,7 +101,7 @@
             };
 
             return textItem;
-        }
+        };
 
         var createElement = function (options) {
             options = $.extend({}, optionsDefaults, options);
