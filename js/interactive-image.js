@@ -11,7 +11,7 @@
     $.interactiveImage = function (items, settings, $image) {
         var debug = function (message) {
             if (window.console && window.console.log && true === settings.debug) {
-                console.log(message);
+                window.console.log(message);
             }
         };
 
