@@ -1,15 +1,20 @@
 {
   "name": "jquery-interactive-image",
-  "version": "0.4.0",
   "homepage": "https://github.com/jpchateau/Interactive-Image",
   "authors": [
     "Jean-Philippe Chateau <contact@jpchateau.com>"
   ],
   "description": "A jQuery plugin to embed interactive images on your website",
-  "main": "interactive-image.js",
+  "main": [
+    "js/interactive-image.js",
+    "css/interactive-image.css"
+  ],
   "moduleType": [
     "globals"
   ],
+  "dependencies": {
+    "jquery": ">=2.1.4"
+  },
   "keywords": [
     "jquery",
     "interactive",
@@ -21,7 +26,6 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "Tests"
   ]
 }
