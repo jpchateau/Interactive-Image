@@ -189,7 +189,7 @@
             buildElements();
             bindEvents();
         } catch (exception) {
-            $image.html(exception);
+            debug(exception);
         }
     };
 
