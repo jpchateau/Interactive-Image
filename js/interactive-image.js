@@ -147,7 +147,7 @@
         };
 
         var bindEvents = function () {
-            $image.on('mouseover', '.icon-button', function () {
+            $image.on('mouseover.interactiveImage', '.icon-button', function () {
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 if ($container.css('display') !== 'block') {
                     $container.fadeIn('fast');
@@ -155,7 +155,7 @@
             });
             debug('Event mouseover on icon created');
 
-            $image.on('mouseleave', '.icon-button', function () {
+            $image.on('mouseleave.interactiveImage', '.icon-button', function () {
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 if ($container.css('display') === 'block') {
                     $container.hide();
@@ -163,7 +163,7 @@
             });
             debug('Event mouseleave on icon created');
 
-            $image.on('mouseover', function () {
+            $image.on('mouseover.interactiveImage', function () {
                 var $icons = $(this).find('.icon-button');
                 $.each($icons, function () {
                     if ($(this).css('display') !== 'block') {
@@ -173,7 +173,7 @@
             });
             debug('Event mouseover on image created');
 
-            $image.on('mouseleave', function () {
+            $image.on('mouseleave.interactiveImage', function () {
                 var $icons = $(this).find('.icon-button');
                 $.each($icons, function () {
                     if ($(this).css('display') === 'block') {
