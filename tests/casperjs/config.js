@@ -1,4 +1,4 @@
-var config = require('Config/parameters.json'),
+var config = require('config/parameters.json'),
     xPathHelper = require('casper').selectXPath,
     mouse = require("mouse").create(casper);
 
