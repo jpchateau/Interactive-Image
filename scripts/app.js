@@ -1,4 +1,4 @@
-define(['jquery', 'helper/log', 'event/hover', 'element/text'], function($, logHelper, hover, text) {
+define(['helper/log', 'event/hover', 'element/text'], function(logHelper, hover, text) {
     'use strict';
 
     $.interactiveImage = function (items, settings, $image) {
@@ -48,6 +48,6 @@ define(['jquery', 'helper/log', 'event/hover', 'element/text'], function($, logH
     };
 
     return function(items, options, element) {
-        (new $.interactiveImage(items, options, element));
+        $.interactiveImage(items, options, element);
     };
 });
