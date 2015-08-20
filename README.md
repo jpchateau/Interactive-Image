@@ -20,25 +20,22 @@ View the [demo page](http://www.jpchateau.com/demo/interactive-image)
 # Getting started
 
 1. Download [requirejs](http://requirejs.org/docs/download.html) and include it to your source code.
-
 2. Include the required files in your page
-
 ```html
-<link rel="stylesheet" href="/path/to/css/jquery.interactive-image.min.css" />
-
+<link rel="stylesheet" href="/path/to/css/interactive-image.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script data-main="main" src="/path/to/js/require.js"></script>
 <script src="/path/to/js/jquery.interactive-image.min.js"></script>
 ```
-
 3. Edit your source code
 
-HTML
+**HTML**
 
 ```html
 <div class="interactive-image"></div>
 ```
 
-CSS
+**CSS**
 
 ```css
 .interactive-image {
@@ -48,7 +45,7 @@ CSS
 }
 ```
 
-JS
+**JS**
 
 ```javascript
 var items = [
@@ -93,6 +90,7 @@ $('.interactive-image').interactiveImage(items, options);
 # Configuration
 
 ```javascript
+// Item configuration
 var item = {
     title: "Title",                      // Required
     description: "Description",          // Required
@@ -107,6 +105,7 @@ var item = {
     }
 };
 
+// Options configuration
 var options = {
     debug: true // Enables logs in the console
 };
@@ -126,7 +125,7 @@ The plugin can be installed via bower
 $ bower install jquery-interactive-image
 ```
 
-# Testing
+# Tests
 
 Make sure phantomsjs and casperjs are installed on your environment.
 
@@ -135,9 +134,9 @@ $ cd tests/casperjs
 $ casperjs test text-element.js --includes=config.js
 ```
 
-# Contributing
+# Contribute
 
-Feel free to contribute to this project and make some pull requests.
+Feel free to contribute to this project and open some pull requests.
 The project uses NPM, Grunt, RequireJS, CasperJS and JSHint.
 
 Here is a list of useful commands:
@@ -146,7 +145,14 @@ Here is a list of useful commands:
 $ cp tests/casperjs/config/parameters.json.dist tests/casperjs/config/parameters.json # Creates a local parameters file for casperjs
 $ grunt jshint:build # Checks the code quality
 $ grunt requirejs # Builds an optimized javascript file named jquery.interactive-image.min.js
+$ grunt cssmin # Concatenate and minify the css files
 ```
+
+# Alternatives
+
+http://ipicture-square.justmybit.com/documentation.html
+https://www.thinglink.com/scene/670318413595279361
+
 
 # License
 
