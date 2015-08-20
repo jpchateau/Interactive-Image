@@ -32,7 +32,8 @@ module.exports = function(grunt) {
           baseUrl: "scripts",
           mainConfigFile: "scripts/config.js",
           name: "main",
-          out: "js/jquery.interactive-image.min.js"
+          out: "js/jquery.interactive-image.min.js",
+          useStrict: true
         }
       }
     }
