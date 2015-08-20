@@ -1,6 +1,7 @@
 # Interactive Image
 
 [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs)
+[![Bower version](https://badge.fury.io/bo/jquery-interactive-image.svg)](http://badge.fury.io/bo/jquery-interactive-image)
 [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
 ![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
 
@@ -9,21 +10,35 @@
 # Features
 
 - Insert interactive texts and images over large pictures
-- Easily configurable (JSON style)
+- Flexible configuration
 - Easily customizable with CSS
 - Installable via npm and bower
+- Fully tested with casperjs
 
 View the [demo page](http://www.jpchateau.com/demo/interactive-image)
 
-#  Getting started
+# Getting started
 
-Edit your html file
+1. Download [requirejs](http://requirejs.org/docs/download.html) and include it to your source code.
+
+2. Include the required files in your page
+
+```html
+<link rel="stylesheet" href="/path/to/css/jquery.interactive-image.min.css" />
+
+<script data-main="main" src="/path/to/js/require.js"></script>
+<script src="/path/to/js/jquery.interactive-image.min.js"></script>
+```
+
+3. Edit your source code
+
+HTML
 
 ```html
 <div class="interactive-image"></div>
 ```
 
-Edit your css file
+CSS
 
 ```css
 .interactive-image {
@@ -33,7 +48,7 @@ Edit your css file
 }
 ```
 
-Edit your javascript file
+JS
 
 ```javascript
 var items = [
@@ -103,6 +118,34 @@ The plugin can be installed via npm
 
 ```bash
 $ npm i interactiveimagejs
+```
+
+The plugin can be installed via bower
+
+```bash
+$ bower install jquery-interactive-image
+```
+
+# Testing
+
+Make sure phantomsjs and casperjs are installed on your environment.
+
+```bash
+$ cd tests/casperjs
+$ casperjs test text-element.js --includes=config.js
+```
+
+# Contributing
+
+Feel free to contribute to this project and make some pull requests.
+The project uses NPM, Grunt, RequireJS, CasperJS and JSHint.
+
+Here is a list of useful commands:
+
+```bash
+$ cp tests/casperjs/config/parameters.json.dist tests/casperjs/config/parameters.json # Creates a local parameters file for casperjs
+$ grunt jshint:build # Checks the code quality
+$ grunt requirejs # Builds an optimized javascript file named jquery.interactive-image.min.js
 ```
 
 # License
