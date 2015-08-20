@@ -19,14 +19,25 @@ View the [demo page](http://www.jpchateau.com/demo/interactive-image)
 
 # Getting started
 
-1. Download [requirejs](http://requirejs.org/docs/download.html) and include it to your source code.
-```html<script data-main="main" src="path/to/js/require.js"></script>```
-2. Repeat the trick for [jQuery](https://jquery.com/download/).
-3. Include the required files in your page
+## Include the required files
+
+Download [RequireJS](http://requirejs.org/docs/download.html) and include it to your source code
+```html
+<script data-main="main" src="path/to/js/require.js"></script>
+```
+
+Repeat the trick for [jQuery](https://jquery.com/download/)
+```html
+<script src="path/to/js/jquery-2.1.4.min.js"></script>
+```
+
+Include the plugin files in your page
 ```html
 <link rel="stylesheet" href="/path/to/css/interactive-image.min.css" />
-<script src="/path/to/js/jquery.interactive-image.min.js"></script>```
-4. Edit your source code
+<script src="/path/to/js/jquery.interactive-image.min.js"></script>
+```
+
+## Edit your source code
 
 **HTML**
 
@@ -40,7 +51,7 @@ View the [demo page](http://www.jpchateau.com/demo/interactive-image)
 .interactive-image {
     width: 900px;
     height: 598px;
-    background: url('../images/demo/interactive-image/clouded-leopard.jpg');
+    background: url('/path/to/images/image.jpg');
 }
 ```
 
@@ -63,7 +74,7 @@ var items = [
             left: 305,
             top: 345
         },
-        picture: "/path/to/image.jpg"
+        picture: "/path/to/images/picture.jpg"
     },
     {
         title: "Threats",
@@ -100,11 +111,11 @@ var item = {
     picture: "/path/to/your/picture.png" // Optional
     link: {                              // Optional
         href: "http://www.website.com/", // Required
-        label: "Link label"              // Optional (if ommitted, the label is the href value)
+        label: "Link label"              // Optional
     }
 };
 
-// Options configuration
+// Plugin configuration
 var options = {
     debug: true // Enables logs in the console
 };
@@ -141,17 +152,17 @@ The project uses NPM, Grunt, RequireJ and CasperJS.
 Here is a list of useful commands:
 
 ```bash
-$ cp tests/casperjs/config/parameters.json.dist tests/casperjs/config/parameters.json # Creates a local parameters file for casperjs
+$ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Creates a local parameters file
 $ grunt jshint:build # Checks the code quality
-$ grunt requirejs # Builds an optimized javascript file named jquery.interactive-image.min.js
+$ grunt requirejs # Builds an optimized javascript file
 $ grunt cssmin # Concatenate and minify the css files
 ```
 
 # Alternatives
 
 For business: [ThingLink](https://www.thinglink.com/)
-Free: [iPicture](http://ipicture-square.justmybit.com/)
 
+Free: [iPicture](http://ipicture-square.justmybit.com/)
 
 # License
 
