@@ -20,14 +20,13 @@ View the [demo page](http://www.jpchateau.com/demo/interactive-image)
 # Getting started
 
 1. Download [requirejs](http://requirejs.org/docs/download.html) and include it to your source code.
-2. Include the required files in your page
+```html<script data-main="main" src="path/to/js/require.js"></script>```
+2. Repeat the trick for [jQuery](https://jquery.com/download/).
+3. Include the required files in your page
 ```html
 <link rel="stylesheet" href="/path/to/css/interactive-image.min.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script data-main="main" src="/path/to/js/require.js"></script>
-<script src="/path/to/js/jquery.interactive-image.min.js"></script>
-```
-3. Edit your source code
+<script src="/path/to/js/jquery.interactive-image.min.js"></script>```
+4. Edit your source code
 
 **HTML**
 
@@ -51,7 +50,7 @@ View the [demo page](http://www.jpchateau.com/demo/interactive-image)
 var items = [
     {
         title: "Fur",
-        description: "The fur of clouded leopards is of a dark grey or ochreous ground-colour, often largely obliterated by black and dark dusky-grey blotched pattern.",
+        description: "The fur of clouded leopards is of a dark grey or ochreous...",
         position: {
             left: 710,
             top: 290
@@ -59,16 +58,16 @@ var items = [
     },
     {
         title: "Canines",
-        description: "They are often referred to as a \"modern-day saber tooth\" because they have the largest canines in proportion to their body size.",
+        description: "They are often referred to as a \"modern-day saber tooth\"...",
         position: {
             left: 305,
             top: 345
         },
-        picture: "/images/demo/interactive-image/clouded-leopard-head.jpg"
+        picture: "/path/to/image.jpg"
     },
     {
         title: "Threats",
-        description: "Many of the remaining forest areas are too small to ensure the long-term persistence of clouded leopard populations. They are threatened by habitat loss following large–scale deforestation and commercial poaching for the wildlife trade.",
+        description: "Many of the remaining forest areas are too small to ensure...",
         position: {
             left: 660,
             top: 70
@@ -137,7 +136,7 @@ $ casperjs test text-element.js --includes=config.js
 # Contribute
 
 Feel free to contribute to this project and open some pull requests.
-The project uses NPM, Grunt, RequireJS, CasperJS and JSHint.
+The project uses NPM, Grunt, RequireJ and CasperJS.
 
 Here is a list of useful commands:
 
@@ -150,8 +149,8 @@ $ grunt cssmin # Concatenate and minify the css files
 
 # Alternatives
 
-http://ipicture-square.justmybit.com/documentation.html
-https://www.thinglink.com/scene/670318413595279361
+For business: [ThingLink](https://www.thinglink.com/)
+Free: [iPicture](http://ipicture-square.justmybit.com/)
 
 
 # License

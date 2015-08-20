@@ -11,17 +11,27 @@ define(['helper/log', 'event/hover', 'element/text'], function(logHelper, hover,
             logger.debug('Settings checked');
         };
 
-        var optionsDefaults = {
+        var defaults = {
             fontColor: "#000",
             backgroundColor: "#fff"
         };
 
         var createElement = function (options) {
-            options = $.extend({}, optionsDefaults, options);
+            options = $.extend({}, defaults, options);
             logger.debug('Options:');
             logger.debug(options);
 
-            var element = text(options.top, options.left, options.backgroundColor, options.fontColor, options.title, options.description, options.picture, options.link);
+            var parameters = {
+                position: options.position,
+                backgroundColor: options.backgroundColor,
+                fontColor: options.fontColor,
+                title: options.title,
+                description: options.description,
+                picture: options.picture,
+                link: options.link
+            };
+
+            var element = text(parameters);
             logger.debug('Item ' + element.title + ' created');
 
             $image.append(element.createIcon());

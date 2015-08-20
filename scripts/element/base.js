@@ -1,19 +1,18 @@
 define(['helper/dom'], function(domHelper) {
     'use strict';
 
-    var AbstractItem = function (top, left, backgroundColor, fontColor, title) {
-        this.top = top;
-        this.left = left;
-        this.backgroundColor = backgroundColor;
-        this.fontColor = fontColor;
-        this.title = title;
+    var AbstractItem = function (parameters) {
+        this.position = parameters.position;
+        this.backgroundColor = parameters.backgroundColor;
+        this.fontColor = parameters.fontColor;
+        this.title = parameters.title;
     };
 
     AbstractItem.prototype.createIcon = function () {
         var iconElement = domHelper.createDomElement('div', 'icon-button icon-radio-checked');
         iconElement.setAttribute('data-for', this.title);
-        iconElement.style.top = this.top + 'px';
-        iconElement.style.left = this.left + 'px';
+        iconElement.style.top = this.position.top + 'px';
+        iconElement.style.left = this.position.left + 'px';
 
         return iconElement;
     };
@@ -29,7 +28,14 @@ define(['helper/dom'], function(domHelper) {
         throw 'Error: render method not implemented';
     };
 
-    return function (top, left, backgroundColor, fontColor, title) {
-        return new AbstractItem(top, left, backgroundColor, fontColor, title);
+    return function (parameters) {
+        var i, requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title'];
+        for (i in requiredParameters) {
+            if (typeof parameters[requiredParameters[i]] === "undefined" || parameters[requiredParameters[i]] === '') {
+                throw 'Error: missing required parameter (' + requiredParameters[i] + ') for Base element';
+            }
+        }
+
+        return new AbstractItem(parameters);
     };
 });

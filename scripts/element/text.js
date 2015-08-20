@@ -1,11 +1,11 @@
 define(['element/base', 'helper/dom'], function(base, domHelper) {
     'use strict';
 
-    var TextItem = function (top, left, backgroundColor, frontColor, title, description, picture, link) {
-        var textItem = base(top, left, backgroundColor, frontColor, title);
-        textItem.description = description;
-        textItem.picture = picture;
-        textItem.link = link;
+    var TextItem = function (parameters) {
+        var textItem = base(parameters);
+        textItem.description = parameters.description;
+        textItem.picture = parameters.picture;
+        textItem.link = parameters.link;
 
         textItem.createDescription = function () {
             var descriptionElement = domHelper.createDomElement('p', 'description');
@@ -42,8 +42,8 @@ define(['element/base', 'helper/dom'], function(base, domHelper) {
             containerElement.setAttribute('data-id', this.title);
             containerElement.style.color = this.fontColor;
             containerElement.style.backgroundColor = this.backgroundColor;
-            containerElement.style.left = (this.left - 50) + 'px';
-            containerElement.style.top = (this.top + 30) + 'px';
+            containerElement.style.left = (this.position.left - 50) + 'px';
+            containerElement.style.top = (this.position.top + 30) + 'px';
 
             containerElement.appendChild(this.createTitle());
             containerElement.appendChild(this.createDescription());
@@ -62,7 +62,15 @@ define(['element/base', 'helper/dom'], function(base, domHelper) {
         return textItem;
     };
 
-    return function(top, left, backgroundColor, frontColor, title, description, picture, link) {
-        return new TextItem(top, left, backgroundColor, frontColor, title, description, picture, link);
+    return function(parameters) {
+        // optional parameters: 'description', 'picture', 'link'
+        var i, requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title'];
+        for (i in requiredParameters) {
+            if (typeof parameters[requiredParameters[i]] === "undefined" || parameters[requiredParameters[i]] === '') {
+                throw 'Error: missing required parameter (' + requiredParameters[i] + ') for Text element';
+            }
+        }
+
+        return new TextItem(parameters);
     };
 });
