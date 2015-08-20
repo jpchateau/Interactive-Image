@@ -19,12 +19,25 @@ module.exports = function(grunt) {
         browser: true,
         jquery: true,
         globals: {
-          jQuery: true
+          jQuery: true,
+          define: true,
+          requirejs: true
         }
       },
-      build: ['js/*.js']
+      build: ['scripts/*.js', 'scripts/*/*.js']
+    },
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: "scripts",
+          mainConfigFile: "scripts/config.js",
+          name: "main",
+          out: "js/jquery.interactive-image.min.js"
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 };
