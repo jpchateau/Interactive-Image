@@ -63,11 +63,10 @@ define(['element/base', 'helper/dom'], function(base, domHelper) {
     };
 
     return function(parameters) {
-        // optional parameters: 'description', 'picture', 'link'
-        var i, requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title'];
+        var i, requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
         for (i in requiredParameters) {
-            if (typeof parameters[requiredParameters[i]] === "undefined" || parameters[requiredParameters[i]] === '') {
-                throw 'Error: missing required parameter (' + requiredParameters[i] + ') for Text element';
+            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
             }
         }
 
