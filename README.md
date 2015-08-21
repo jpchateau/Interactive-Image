@@ -55,7 +55,7 @@ Include the plugin files in your page
 }
 ```
 
-**JS**
+**JS example**
 
 ```javascript
 var items = [
@@ -112,12 +112,17 @@ var item = {
     link: {                              // Optional
         href: "http://www.website.com/", // Required
         label: "Link label"              // Optional
-    }
+    },
+    fontColor: "#FF0000",                // Optional
+    backgroundColor: "#AABBCC"           // Optional
 };
+
 
 // Plugin configuration
 var options = {
-    debug: true // Enables logs in the console
+    debug: true,               // Logs enabled in console (defaults: false)
+    fontColor: "#337733",      // Font color (defaults: "#000000")
+    backgroundColor: "#EEEEEE" // Background color (defaults: "#FFFFFF")
 };
 ```
 
@@ -147,7 +152,8 @@ $ casperjs test text-element.js --includes=config.js
 # Contribute
 
 Feel free to contribute to this project and open some pull requests.
-The project uses NPM, Grunt, RequireJ and CasperJS.
+
+The project uses Grunt, RequireJS and CasperJS.
 
 Here is a list of useful commands:
 
@@ -155,7 +161,7 @@ Here is a list of useful commands:
 $ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Creates a local parameters file
 $ grunt jshint:build # Checks the code quality
 $ grunt requirejs # Builds an optimized javascript file
-$ grunt cssmin # Concatenate and minify the css files
+$ grunt cssmin # Concatenates and minifies the css files
 ```
 
 # Alternatives

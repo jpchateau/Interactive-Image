@@ -4,20 +4,28 @@ define(['helper/log', 'event/hover', 'element/text'], function(logHelper, hover,
     $.interactiveImage = function (items, settings, $image) {
         var logger = logHelper(settings);
 
-        var checkSettings = function (settings) {
-            if ('undefined' !== typeof settings.debug && (false !== settings.debug && true !== settings.debug)) {
-                throw 'Error: check debug option';
+        var checkSettings = function () {
+            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
+                settings.debug = true;
+                throw 'Error: check "debug" plugin option';
+            }
+            if ('undefined' === typeof settings.fontColor || 'string' !== typeof settings.fontColor) {
+                throw 'Error: check "fontColor" plugin option';
+            }
+            if ('undefined' === typeof settings.backgroundColor || 'string' !== typeof settings.backgroundColor) {
+                throw 'Error: check "backgroundColor" plugin option';
             }
             logger.debug('Settings checked');
         };
 
         var defaults = {
-            fontColor: "#000",
-            backgroundColor: "#fff"
+            fontColor: settings.fontColor,
+            backgroundColor: settings.backgroundColor
         };
 
         var createElement = function (options) {
             options = $.extend({}, defaults, options);
+
             logger.debug('Options:');
             logger.debug(options);
 
@@ -39,7 +47,7 @@ define(['helper/log', 'event/hover', 'element/text'], function(logHelper, hover,
             return $(element.renderHtml());
         };
 
-        var buildElements = function (items, $image) {
+        var buildElements = function () {
             var i;
             for (i in items) {
                 if (items.hasOwnProperty(i)) {
@@ -49,8 +57,8 @@ define(['helper/log', 'event/hover', 'element/text'], function(logHelper, hover,
         };
 
         try {
-            checkSettings(settings);
-            buildElements(items, $image);
+            checkSettings();
+            buildElements();
             hover.bindEvents($image);
         } catch (exception) {
             logger.debug(exception);

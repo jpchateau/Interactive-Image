@@ -6,8 +6,8 @@
   ],
   "description": "A jQuery plugin to embed interactive images on your website",
   "main": [
-    "js/interactive-image.js",
-    "css/interactive-image.css"
+    "js/jquery.interactive-image.min.js",
+    "css/interactive-image.min.css"
   ],
   "moduleType": [
     "globals"
@@ -18,14 +18,13 @@
   "keywords": [
     "jquery",
     "interactive",
-    "image",
-    "images"
+    "images",
+    "pictures"
   ],
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "Tests"
+    "bower_components"
   ]
 }
