@@ -13,9 +13,9 @@
 - Flexible configuration
 - Easily customizable with CSS
 - Installable via npm and bower
-- Fully tested with casperjs
+- Fully tested with CasperJS
 
-View the [demo page](http://www.jpchateau.com/demo/interactive-image)
+## [See the demo](http://www.jpchateau.com/demo/interactive-image)
 
 # Getting started
 
@@ -142,7 +142,7 @@ $ bower install jquery-interactive-image
 
 # Tests
 
-Make sure phantomsjs and casperjs are installed on your environment.
+Make sure PhantomsJS and CasperJS are installed on your environment.
 
 ```bash
 $ cd tests/casperjs
@@ -153,16 +153,25 @@ $ casperjs test text-element.js --includes=config.js
 
 Feel free to contribute to this project and open some pull requests.
 
-The project uses Grunt, RequireJS and CasperJS.
-
-Here is a list of useful commands:
+Interactive Image uses npm, Grunt, RequireJS and CasperJS.
 
 ```bash
 $ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Creates a local parameters file
+$ npm test # Runs the functional tests
 $ grunt jshint:build # Checks the code quality
 $ grunt requirejs # Builds an optimized javascript file
 $ grunt cssmin # Concatenates and minifies the css files
+$ grunt # Default. Launches requirejs and cssmin tasks
+$ grunt watch # Launches grunt default task when .js files or .css are modified
 ```
+
+Please follow the typical GitHub workflow:
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 # Alternatives
 
@@ -172,4 +181,5 @@ Free: [iPicture](http://ipicture-square.justmybit.com/)
 
 # License
 
-This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE)
+Copyright (c) 2015 Jean-Philippe Chateau.
+This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
