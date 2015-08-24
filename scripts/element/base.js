@@ -1,4 +1,4 @@
-define(['helper/dom'], function(domHelper) {
+define(['helper/dom', 'helper/uniquid'], function(domHelper, uniquid) {
     'use strict';
 
     var BaseItem = function (parameters) {
@@ -6,11 +6,12 @@ define(['helper/dom'], function(domHelper) {
         this.backgroundColor = parameters.backgroundColor;
         this.fontColor = parameters.fontColor;
         this.title = parameters.title;
+        this.identifier = uniquid();
     };
 
     BaseItem.prototype.createIcon = function () {
         var iconElement = domHelper.createDomElement('div', 'icon-button icon-radio-checked');
-        iconElement.setAttribute('data-for', this.title);
+        iconElement.setAttribute('data-for', this.identifier);
         iconElement.style.top = this.position.top + 'px';
         iconElement.style.left = this.position.left + 'px';
 

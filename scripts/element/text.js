@@ -39,7 +39,7 @@ define(['element/base', 'helper/dom'], function(base, domHelper) {
 
         textItem.renderHtml = function () {
             var containerElement = domHelper.createDomElement('div', 'container');
-            containerElement.setAttribute('data-id', this.title);
+            containerElement.setAttribute('data-id', this.identifier);
             containerElement.style.color = this.fontColor;
             containerElement.style.backgroundColor = this.backgroundColor;
             containerElement.style.left = (this.position.left - 50) + 'px';
