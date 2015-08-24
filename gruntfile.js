@@ -47,12 +47,22 @@ module.exports = function(grunt) {
           ext: '.min.css'
         }]
       }
+    },
+    watch: {
+      scripts: {
+        files: ['scripts/*.js', 'scripts/*/*.js', '!*.min.js', 'css/*.css', '!*.min.css'],
+        tasks: ['default'],
+        options: {
+          spawn: false
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['requirejs', 'cssmin']);
 };
