@@ -22,9 +22,11 @@ module.exports = function(grunt) {
           jQuery: true,
           define: true,
           requirejs: true
-        }
+        },
+        reporter: require('jshint-stylish')
       },
-      build: ['scripts/*.js', 'scripts/*/*.js']
+      build: ['scripts/*.js', 'scripts/*/*.js'],
+      target: ['file.js']
     },
     requirejs: {
       compile: {
@@ -64,5 +66,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['requirejs', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'requirejs', 'cssmin']);
 };
