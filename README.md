@@ -12,10 +12,11 @@
 - Insert interactive texts and images over large pictures
 - Flexible configuration
 - Easily customizable with CSS
-- Installable via npm and bower
 - Fully tested with CasperJS
+- Installable via package managers
 
-## [See the demo](http://www.jpchateau.com/demo/interactive-image)
+
+### [See the demo](http://www.jpchateau.com/demo/interactive-image)
 
 # Getting started
 
@@ -33,31 +34,23 @@ Repeat the trick for [jQuery](https://jquery.com/download/)
 
 Include the plugin files in your page
 ```html
-<link rel="stylesheet" href="/path/to/css/interactive-image.min.css" />
-<script src="/path/to/js/jquery.interactive-image.min.js"></script>
+<link rel="stylesheet" href="/dist/jquery.interactive-image.min.css" />
+<script src="/dist/jquery.interactive-image.min.js"></script>
 ```
 
-## Edit your source code
+## Edit the source code
 
 **HTML**
 
 ```html
-<div class="interactive-image"></div>
+<div class="interactive-image" class="interactive-image"
+style="width: 900px; height: 598px; background: url('/path/to/images/image.jpg');"></div>
 ```
 
-**CSS**
-
-```css
-.interactive-image {
-    width: 900px;
-    height: 598px;
-    background: url('/path/to/images/image.jpg');
-}
-```
-
-**JS example**
+**JavaScript example**
 
 ```javascript
+// Items
 var items = [
     {
         title: "Fur",
@@ -84,60 +77,65 @@ var items = [
             top: 70
         },
         link: {
-            href: "http://www.cloudedleopard.org/",
-            label: "Clouded Leopard Project"
+            href: "http://www.website.org/",
+            label: "Website"
         }
     }
 ];
 
+// Plugin configuration
 var options = {
     debug: true
 };
 
+// Activate the plugin
 $('.interactive-image').interactiveImage(items, options);
 ```
 
 # Configuration
 
-```javascript
-// Item configuration
-var item = {
-    title: "Title",                      // Required
-    description: "Description",          // Required
-    position: {                          // Required
-        left: 660,                       // Required
-        top: 70                          // Required
-    },
-    picture: "/path/to/your/picture.png" // Optional
-    link: {                              // Optional
-        href: "http://www.website.com/", // Required
-        label: "Link label"              // Optional
-    },
-    fontColor: "#FF0000",                // Optional
-    backgroundColor: "#AABBCC"           // Optional
-};
+**Item**
 
+| Option name     | Type    | Example                     | Required | Default   | Purpose          |
+| --------------- | ------- | --------------------------- | -------- | --------- | ---------------- |
+| title           | string  | "Threats"                   | Yes      |           | Title            |
+| description     | string  | "Many of the..."            | Yes      |           | Descriptive text |
+| position        | object  |                             | Yes      |           | Marker position  |
+| picture         | string  | "/path/to/your/picture.png" | No       |           | Illustration     |
+| link            | object  |                             | No       |           | Link             |
+| fontColor       | string  | "#337733"                   | No       | "#000000" | Text color       |
+| backgroundColor | string  | "#EEEEEE"                   | No       | "#FFFFFF" | Background color |
 
-// Plugin configuration
-var options = {
-    debug: true,               // Logs enabled in console (defaults: false)
-    fontColor: "#337733",      // Font color (defaults: "#000000")
-    backgroundColor: "#EEEEEE" // Background color (defaults: "#FFFFFF")
-};
-```
+**Position**
+
+| Option name     | Type    | Example | Required | Default | Purpose          |
+| --------------- | ------- | ------- | -------- | ------- | ---------------- |
+| left            | integer | 200     | Yes      |         | X absolute value |
+| top             | integer | 50      | Yes      |         | Y absolute value |
+
+**Link**
+
+| Option name     | Type    | Example                   | Required | Default    | Purpose        |
+| --------------- | ------- | ------------------------- | -------- | ---------- | -------------- |
+| href            | string  | "http://www.website.com/" | Yes      |            | href attribute |
+| label           | string  | "Website"                 | No       | href value | Label          |
+
+**Plugin options**
+
+| Option name     | Type    | Example   | Required | Default   | Purpose                 |
+| --------------- | ------- | --------- | -------- | --------- | ----------------------- |
+| debug           | boolean | true      | No       | false     | Logs enabled in console |
+| fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
+| backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
+
 
 # Package managers
 
-The plugin can be installed via npm
-
-```bash
-$ npm i interactiveimagejs
-```
-
-The plugin can be installed via bower
+The plugin can be installed via bower and npm
 
 ```bash
 $ bower install jquery-interactive-image
+$ npm i interactiveimagejs
 ```
 
 # Tests
@@ -156,28 +154,29 @@ Feel free to contribute to this project and open some pull requests.
 Interactive Image uses npm, Grunt, RequireJS and CasperJS.
 
 ```bash
-$ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Creates a local parameters file
-$ npm test # Runs the functional tests
-$ grunt jshint:build # Checks the code quality
-$ grunt requirejs # Builds an optimized javascript file
-$ grunt cssmin # Concatenates and minifies the css files
-$ grunt # Default. Launches requirejs and cssmin tasks
-$ grunt watch # Launches grunt default task when .js files or .css are modified
+$ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Create a local parameters file
+$ npm test # Run the functional tests
+$ grunt jshint:build # Check the code quality
+$ grunt requirejs # Build an optimized javascript file
+$ grunt cssmin # Concatenate and minify the css files
+$ grunt # Default. Launch requirejs and cssmin tasks
+$ grunt watch # Launch grunt default task when .js files or .css are modified
 ```
 
 Please follow the typical GitHub workflow:
 
-1. Fork it
+1. Fork it (`git clone git@github.com:jpchateau/Interactive-Image.git`)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+
 # Alternatives
 
-For business: [ThingLink](https://www.thinglink.com/)
+* Free: [iPicture](http://ipicture-square.justmybit.com/)
+* For business: [ThingLink](https://www.thinglink.com/)
 
-Free: [iPicture](http://ipicture-square.justmybit.com/)
 
 # License
 
