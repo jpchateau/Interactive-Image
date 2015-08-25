@@ -42,8 +42,8 @@ define(['element/base', 'helper/dom'], function(base, domHelper) {
             containerElement.setAttribute('data-id', this.identifier);
             containerElement.style.color = this.fontColor;
             containerElement.style.backgroundColor = this.backgroundColor;
-            containerElement.style.left = (this.position.left - 50) + 'px';
-            containerElement.style.top = (this.position.top + 30) + 'px';
+            containerElement.style.left = (this.position.left - 60) + 'px';
+            containerElement.style.top = (this.position.top + 43) + 'px';
 
             containerElement.appendChild(this.createTitle());
             containerElement.appendChild(this.createDescription());

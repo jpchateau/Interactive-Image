@@ -7,10 +7,13 @@
 .interactive-image .icon-button {
     position: absolute;
     z-index: 16;
+    width: 50px;
+    height: 50px;
+    padding: 15px 14px;
     color: #fff;
     display: none;
     cursor: pointer;
-    font-size: 1.6em;
+    font-size: 1.7em;
 }
 .interactive-image .icon-button:hover {
     text-shadow: 0 0 3px #fff;
@@ -21,7 +24,7 @@
     max-width: 280px;
     min-height: 50px;
     height: auto;
-    z-index: 16;
+    z-index: 32;
     display: none;
     padding: 10px 12px 15px;
     text-align: center;
