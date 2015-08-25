@@ -4,7 +4,7 @@
   "description": "A jQuery plugin to embed interactive images",
   "main": "jquery.interactive-image.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd tests/casperjs && casperjs test text-element.js --includes=config.js"
   },
   "repository": {
     "type": "git",
