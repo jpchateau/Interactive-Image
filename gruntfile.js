@@ -6,34 +6,46 @@ module.exports = function(grunt) {
         "reporter": require('jshint-stylish'),
         jshintrc: true
       },
-      build: ['scripts/*.js', 'scripts/*/*.js'],
+      build: ['src/js/*.js', '!src/js/wrapper*.js'],
       target: ['file.js']
     },
     requirejs: {
       compile: {
         options: {
-          baseUrl: "scripts",
-          mainConfigFile: "scripts/config.js",
-          name: "main",
-          out: "js/jquery.interactive-image.min.js",
-          useStrict: true
+          baseUrl: "src/js",
+          mainConfigFile: "src/js/require-config.js",
+          out: "dist/js/jquery.interactive-image.min.js",
+          include: ["main"],
+          optimize: 'uglify',
+          useStrict: true,
+          preserveLicenseComments: false,
+          paths: {
+            'jquery': '../../bower_components/jquery/dist/jquery',
+            'almond': '../../bower_components/almond/almond'
+          },
+          name: 'almond',
+          wrap: true,
+          insertRequire: ['main']
         }
       }
     },
     cssmin: {
-      target: {
-        files: [{
-          expand: true,
-          cwd: 'css',
-          src: ['*.css', '!*.min.css'],
-          dest: 'css',
-          ext: '.min.css'
-        }]
+      build: {
+        files: {
+          'dist/css/interactive-image.min.css': ['src/css/*.css']
+        }
+      }
+    },
+    copy: {
+      main: {
+        files: [
+          {expand: true, cwd: 'src/fonts/', src: ['**'], dest: 'dist/fonts/'}
+        ]
       }
     },
     watch: {
       scripts: {
-        files: ['scripts/*.js', 'scripts/*/*.js', '!*.min.js', 'css/*.css', '!*.min.css'],
+        files: ['src/js', 'src/css'],
         tasks: ['default'],
         options: {
           spawn: false
@@ -45,7 +57,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['jshint', 'requirejs', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'requirejs', 'cssmin', 'copy']);
 };

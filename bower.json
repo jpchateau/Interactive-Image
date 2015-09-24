@@ -5,10 +5,6 @@
     "Jean-Philippe Chateau <contact@jpchateau.com>"
   ],
   "description": "A jQuery plugin to embed interactive images on your website",
-  "main": [
-    "js/jquery.interactive-image.min.js",
-    "css/interactive-image.min.css"
-  ],
   "moduleType": [
     "globals"
   ],
@@ -26,5 +22,8 @@
     "**/.*",
     "node_modules",
     "bower_components"
-  ]
+  ],
+  "devDependencies": {
+    "almond": "~0.3.1"
+  }
 }

@@ -23,7 +23,12 @@
 
 ## Include the required files
 
-Download [RequireJS](http://requirejs.org/docs/download.html) and include it to your source code
+Install RequireJS via bower
+```bash
+bower install requirejs --save
+```
+
+Or download [RequireJS](http://requirejs.org/docs/download.html) and include it to your source code
 ```html
 <script data-main="main" src="path/to/js/require.js"></script>
 ```

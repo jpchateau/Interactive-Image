@@ -2,10 +2,10 @@
  * Interactive Image jQuery plugin BETA
  *
  * @author Jean-Philippe Chateau <contact@jpchateau.com>
- * @version 0.5.0
+ * @version 0.6.0
  * @license MIT https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE
  */
-requirejs(['app'], function(app) {
+define(['jquery', 'app'], function($, app) {
     'use strict';
 
     $.fn.interactiveImage = function (items, options) {

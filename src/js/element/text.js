@@ -1,5 +1,5 @@
 define(['element/base', 'helper/dom'], function(base, domHelper) {
-    'use strict';
+    "use strict";
 
     var TextItem = function (parameters) {
         var textItem = base(parameters);
@@ -55,6 +55,7 @@ define(['element/base', 'helper/dom'], function(base, domHelper) {
             if ('undefined' !== typeof this.link) {
                 containerElement.appendChild(this.createLink());
             }
+
 
             return containerElement;
         };
