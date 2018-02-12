@@ -3,9 +3,7 @@
   "version": "0.5.0",
   "description": "A jQuery plugin to embed interactive images",
   "main": "jquery.interactive-image.min.js",
-  "scripts": {
-    "test": "cd tests/casperjs && casperjs test text-element.js --includes=config.js"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jpchateau/Interactive-Image.git"

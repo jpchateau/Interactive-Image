@@ -13,7 +13,7 @@
 - Insert interactive texts and images over large pictures
 - Flexible configuration
 - Easily customizable with CSS
-- Fully tested with CasperJS
+- Fully tested
 - Installable via package managers
 
 
@@ -146,12 +146,6 @@ $ npm i interactiveimagejs
 
 # Tests
 
-Make sure PhantomsJS and CasperJS are installed on your environment.
-
-```bash
-$ cd tests/casperjs
-$ casperjs test text-element.js --includes=config.js
-```
 
 # Contribute
 
@@ -160,8 +154,6 @@ Feel free to contribute to this project and open some pull requests.
 Interactive Image uses npm, Grunt, RequireJS and CasperJS.
 
 ```bash
-$ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Create a local parameters file
-$ npm test # Run the functional tests
 $ grunt jshint:build # Check the code quality
 $ grunt requirejs # Build an optimized javascript file
 $ grunt cssmin # Concatenate and minify the css files
