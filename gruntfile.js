@@ -19,10 +19,6 @@ module.exports = function(grunt) {
           optimize: 'uglify',
           useStrict: true,
           preserveLicenseComments: false,
-          paths: {
-            'jquery': '../../bower_components/jquery/dist/jquery',
-            'almond': '../../bower_components/almond/almond'
-          },
           name: 'almond',
           wrap: true,
           insertRequire: ['main']
