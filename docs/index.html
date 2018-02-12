@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Image</title>
+    <link rel="stylesheet" href="assets/css/interactive-image.css" />
+</head>
+<body>
+    <div class="interactive-image" class="interactive-image"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="assets/js/interactive-image.js"></script>
+    <script>
+        var items = [
+            {
+                title: "Fur",
+                description: "The fur of clouded leopards is of a dark grey or ochreous...",
+                position: {
+                    left: 710,
+                    top: 290
+                }
+            }
+        ];
+
+        // Plugin configuration
+        var options = {
+            debug: true
+        };
+
+        // Activate the plugin
+        $(document).ready(function () {
+            $('.interactive-image').interactiveImage(items, options);
+        });
+    </script>
+</body>
+</html>

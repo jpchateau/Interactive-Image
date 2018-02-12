@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         options: {
           baseUrl: "src/js",
           mainConfigFile: "src/js/require-config.js",
-          out: "dist/js/jquery.interactive-image.min.js",
+          out: "assets/js/jquery.interactive-image.min.js",
           include: ["main"],
           optimize: 'uglify',
           useStrict: true,
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {expand: true, cwd: 'src/fonts/', src: ['**'], dest: 'dist/fonts/'}
+          {expand: true, cwd: 'src/fonts/', src: ['**'], dest: 'assets/fonts/'}
         ]
       }
     },
