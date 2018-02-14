@@ -27,20 +27,16 @@ Install RequireJS via npm
 npm install interactiveimagejs
 ```
 
-Or download [RequireJS](http://requirejs.org/docs/download.html) and include it to your source code
-```html
-<script data-main="main" src="path/to/js/require.js"></script>
-```
 
-Repeat the trick for [jQuery](https://jquery.com/download/)
+[jQuery](https://jquery.com/download/)
 ```html
 <script src="path/to/js/jquery-2.1.4.min.js"></script>
 ```
 
 Include the plugin files in your page
 ```html
-<link rel="stylesheet" href="/dist/jquery.interactive-image.min.css" />
-<script src="/dist/jquery.interactive-image.min.js"></script>
+<link rel="stylesheet" href="/lib/interactive-image.min.css" />
+<script src="/lib/interactive-image.min.js"></script>
 ```
 
 ## Edit the source code
@@ -48,8 +44,7 @@ Include the plugin files in your page
 **HTML**
 
 ```html
-<div class="interactive-image" class="interactive-image"
-style="width: 900px; height: 598px; background: url('/path/to/images/image.jpg');"></div>
+<div class="interactive-image" style="width: 900px; height: 598px; background: url('/path/to/images/image.jpg');"></div>
 ```
 
 **JavaScript example**
@@ -94,7 +89,9 @@ var options = {
 };
 
 // Activate the plugin
-$('.interactive-image').interactiveImage(items, options);
+$(document).ready(function () {
+    $('.interactive-image').interactiveImage(items, options);
+});
 ```
 
 # Configuration
@@ -137,19 +134,18 @@ $('.interactive-image').interactiveImage(items, options);
 
 # Tests
 
+```bash
+$ npm run test
+```
 
 # Contribute
 
 Feel free to contribute to this project and open some pull requests.
 
-Interactive Image uses npm, Grunt, RequireJS and CasperJS.
+Interactive Image uses npm and webpack.
 
 ```bash
-$ grunt jshint:build # Check the code quality
-$ grunt requirejs # Build an optimized javascript file
-$ grunt cssmin # Concatenate and minify the css files
-$ grunt # Default. Launch requirejs and cssmin tasks
-$ grunt watch # Launch grunt default task when .js files or .css are modified
+$ npm run dev
 ```
 
 Please follow the typical GitHub workflow:
@@ -169,5 +165,5 @@ Please follow the typical GitHub workflow:
 
 # License
 
-Copyright (c) 2015 Jean-Philippe Chateau.
+Copyright (c) 2015-2018 Jean-Philippe Chateau.
 This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
