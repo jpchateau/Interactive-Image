@@ -61,5 +61,9 @@ module.exports = {
     plugins: plugins,
     externals: {
         jquery: 'jQuery'
+    },
+    watchOptions: {
+        aggregateTimeout: 300,
+        ignored: /node_modules/
     }
 };
