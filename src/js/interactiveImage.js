@@ -54,7 +54,7 @@ export default class InteractiveImage {
         this.$image.append(element.createIcon());
 
         return $(element.renderHtml());
-    };
+    }
 
     buildElements(items) {
         let i;

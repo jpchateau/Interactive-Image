@@ -33,5 +33,5 @@ export default class BaseItem {
 
     renderHtml() {
         throw 'Error: render method not implemented';
-    };
+    }
 }

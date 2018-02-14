@@ -138,6 +138,13 @@ $(document).ready(function () {
 $ npm run test
 ```
 
+# Code quality
+
+```bash
+$ npm run eslint
+```
+https://eslint.org/docs/rules/
+
 # Contribute
 
 Feel free to contribute to this project and open some pull requests.
