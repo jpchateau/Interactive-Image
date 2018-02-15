@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -19,7 +20,7 @@ let plugins = [
 ];
 
 if (env === 'build') {
-    plugins.push(new UglifyJsPlugin({ minimize: true }));
+    plugins.push(new UglifyJsPlugin({ comments: false, minimize: true }));
     plugins.push(new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.min\.css$/g,
         cssProcessor: require('cssnano'),
@@ -48,8 +49,15 @@ module.exports = {
             {
                 test:/\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader']
+                    use: [
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: { plugins: function() { return [autoprefixer]; }}
+                        }
+                    ]
                 })
             },
             {
