@@ -11,6 +11,7 @@ Please follow the typical GitHub workflow:
 ## Tests
 
 ```sh
+npm install -g qunit
 $ npm run test
 ```
 
