@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image)
 [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs)
-[![Bower version](https://badge.fury.io/bo/jquery-interactive-image.svg)](http://badge.fury.io/bo/jquery-interactive-image)
 [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
 ![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
 
@@ -13,50 +12,39 @@
 - Insert interactive texts and images over large pictures
 - Flexible configuration
 - Easily customizable with CSS
-- Fully tested with CasperJS
+- Fully tested
 - Installable via package managers
 
-
-### [See the demo](http://www.jpchateau.com/demo/interactive-image)
+[See it in action](http://www.jpchateau.com/demo/interactive-image)
 
 # Getting started
 
-## Include the required files
+**Important note:** [jQuery](https://jquery.com/download/) is required.
 
-Install RequireJS via bower
-```bash
-bower install requirejs --save
+First, install `interactive-image`.
+
+```sh
+npm install interactiveimagejs --save
 ```
 
-Or download [RequireJS](http://requirejs.org/docs/download.html) and include it to your source code
+Then, include the plugin files that were generated in the `lib` directory of this project in your page. Do not forget the fonts.
 ```html
-<script data-main="main" src="path/to/js/require.js"></script>
+<link rel="stylesheet" href="interactive-image.css" />
+<script src="interactive-image.js"></script>
 ```
 
-Repeat the trick for [jQuery](https://jquery.com/download/)
-```html
-<script src="path/to/js/jquery-2.1.4.min.js"></script>
-```
-
-Include the plugin files in your page
-```html
-<link rel="stylesheet" href="/dist/jquery.interactive-image.min.css" />
-<script src="/dist/jquery.interactive-image.min.js"></script>
-```
-
-## Edit the source code
+Finally, edit the source code of your web pages.
 
 **HTML**
 
 ```html
-<div class="interactive-image" class="interactive-image"
-style="width: 900px; height: 598px; background: url('/path/to/images/image.jpg');"></div>
+<div class="interactive-image" style="width: 900px; height: 600px; background: url('/path/to/images/image.jpg');"></div>
 ```
 
-**JavaScript example**
+**JavaScript**
 
 ```javascript
-// Items
+// Items collection
 var items = [
     {
         title: "Fur",
@@ -89,13 +77,10 @@ var items = [
     }
 ];
 
-// Plugin configuration
-var options = {
-    debug: true
-};
-
 // Activate the plugin
-$('.interactive-image').interactiveImage(items, options);
+$(document).ready(function() {
+    $('.interactive-image').interactiveImage(items, options);
+});
 ```
 
 # Configuration
@@ -135,56 +120,22 @@ $('.interactive-image').interactiveImage(items, options);
 | backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
 
-# Package managers
-
-The plugin can be installed via bower and npm
-
-```bash
-$ bower install jquery-interactive-image
-$ npm i interactiveimagejs
-```
-
-# Tests
-
-Make sure PhantomsJS and CasperJS are installed on your environment.
-
-```bash
-$ cd tests/casperjs
-$ casperjs test text-element.js --includes=config.js
-```
-
 # Contribute
 
 Feel free to contribute to this project and open some pull requests.
 
-Interactive Image uses npm, Grunt, RequireJS and CasperJS.
+Interactive Image plugin uses npm and webpack. QUnit is required to execute the tests.
 
-```bash
-$ cd tests/casperjs/config && cp parameters.json.dist parameters.json # Create a local parameters file
-$ npm test # Run the functional tests
-$ grunt jshint:build # Check the code quality
-$ grunt requirejs # Build an optimized javascript file
-$ grunt cssmin # Concatenate and minify the css files
-$ grunt # Default. Launch requirejs and cssmin tasks
-$ grunt watch # Launch grunt default task when .js files or .css are modified
-```
-
-Please follow the typical GitHub workflow:
-
-1. Fork it (`git clone git@github.com:jpchateau/Interactive-Image.git`)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 
 # Alternatives
 
-* Free: [iPicture](http://ipicture-square.justmybit.com/)
+* Free: [iPicture](https://github.com/vincicat/jQuery-iPicture)
 * For business: [ThingLink](https://www.thinglink.com/)
 
 
 # License
 
-Copyright (c) 2015 Jean-Philippe Chateau.
+Copyright (c) 2015-2018 Jean-Philippe Chateau.
 This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).

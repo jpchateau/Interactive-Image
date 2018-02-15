@@ -1,10 +1,15 @@
 {
   "name": "interactiveimagejs",
-  "version": "0.5.0",
-  "description": "A jQuery plugin to embed interactive images",
-  "main": "jquery.interactive-image.min.js",
+  "version": "0.6.0",
+  "description": "A jQuery plugin to create interactive images",
+  "author": "Jean-Philippe Chateau",
+  "main": "lib/interactive-image.js",
   "scripts": {
-    "test": "cd tests/casperjs && casperjs test text-element.js --includes=config.js"
+    "build": "webpack --progress --colors --env build",
+    "dev": "webpack --progress --colors --env dev",
+    "watch": "webpack --watch --colors --env dev",
+    "test": "echo 'No test specified' && exit 0",
+    "eslint": "./node_modules/.bin/eslint ./src/js/"
   },
   "repository": {
     "type": "git",
@@ -14,21 +19,38 @@
     "jquery-plugin",
     "interactive",
     "images",
-    "pictures"
+    "pictures",
+    "storytelling"
   ],
-  "author": "Jean-Philippe Chateau",
-  "license": "MIT",
+  "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
     "url": "https://github.com/jpchateau/Interactive-Image/issues"
   },
-  "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
+  "browserslist": [
+    "> 5%"
+  ],
+  "dependencies": {
+    "uniqid": "^4.1.1"
+  },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-copy": "^0.8.1",
-    "grunt-contrib-cssmin": "^0.13.0",
-    "grunt-contrib-jshint": "^0.11.2",
-    "grunt-contrib-requirejs": "^0.4.4",
-    "grunt-contrib-watch": "^0.6.1",
-    "jshint-stylish": "^2.0.1"
-  }
+    "autoprefixer": "^8.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
+    "eslint": "^4.17.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "postcss-loader": "^2.1.0",
+    "style-loader": "^0.20.1",
+    "webpack": "^3.11.0",
+    "yargs": "^11.0.0"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "license": "MIT"
 }

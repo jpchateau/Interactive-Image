@@ -1,23 +1,22 @@
 .interactive-image {
     position: relative;
-    font-family: 'avantGardeDemiBT', Arial;
     cursor: default;
     z-index: 8;
 }
+
 .interactive-image .icon-button {
     position: absolute;
     z-index: 16;
-    width: 50px;
-    height: 50px;
-    padding: 15px 14px;
     color: #fff;
     display: none;
     cursor: pointer;
     font-size: 1.7em;
 }
+
 .interactive-image .icon-button:hover {
     text-shadow: 0 0 3px #fff;
 }
+
 .interactive-image .container {
     position: absolute;
     min-width: 100px;
@@ -31,6 +30,7 @@
     border-radius: 1px !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
 }
+
 .interactive-image .container .title {
     font-size: 1.1em;
     width: 100%;
@@ -38,16 +38,19 @@
     font-weight: bold;
     display: inline-block;
 }
+
 .interactive-image .container .description {
     text-align: left;
     font-size: 0.8em;
     font-weight: normal;
     margin-top: 10px;
 }
+
 .interactive-image .container .picture {
     max-width: 200px;
     max-height: 200px;
 }
+
 .interactive-image .container a {
     text-decoration: underline;
 }

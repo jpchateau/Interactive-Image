@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Interactive Image</title>
+    <link rel="stylesheet" href="interactive-image.css" />
+
+    <!-- Specific styles of a scene -->
+    <style>
+        .interactive-image {
+            width: 1280px;
+            height: 768px;
+            margin: 20px auto;
+            background: url('snow-leopard.jpg');
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container of a scene -->
+    <div class="interactive-image"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="interactive-image.js"></script>
+
+    <script>
+        // Items collection
+        var items = [
+            {
+                title: "Fur",
+                description: "The fur of snow leopards is...",
+                position: {
+                    left: 710,
+                    top: 290
+                }
+            }
+        ];
+
+        // Plugin configuration (all parameters are optional)
+        var options = {
+            debug: true,
+            fontColor: "#333333",
+            backgroundColor: "#EFEFEF"
+        };
+
+        // Activate the plugin
+        $(document).ready(function() {
+            $('.interactive-image').interactiveImage(items, options);
+        });
+    </script>
+</body>
+</html>

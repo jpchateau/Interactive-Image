@@ -1,13 +1,10 @@
 language: node_js
-
 node_js:
-  - "0.10"
+  - "8"
+
+cache:
+  directories:
+    - "node_modules"
 
 before_install:
-  - npm install -g grunt-cli
-  - npm install -g casperjs
-
-before_script:
-  - phantomjs --version
-  - casperjs --version
-  - cp tests/casperjs/config/parameters.json.dist tests/casperjs/config/parameters.json
+  - npm install -g webpack
