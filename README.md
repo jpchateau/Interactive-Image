@@ -15,31 +15,25 @@
 - Fully tested
 - Installable via package managers
 
-
-### [See the demo](http://www.jpchateau.com/demo/interactive-image)
+[See it in action](http://www.jpchateau.com/demo/interactive-image)
 
 # Getting started
 
-## Include the required files
+**Important note:** [jQuery](https://jquery.com/download/) is required.
 
-Install RequireJS via npm
-```bash
-npm install interactiveimagejs
+First, install `interactive-image`:
+
+```sh
+npm install interactiveimagejs --save
 ```
 
-
-[jQuery](https://jquery.com/download/)
-```html
-<script src="path/to/js/jquery-2.1.4.min.js"></script>
-```
-
-Include the plugin files in your page
+Then, include the plugin files in your page:
 ```html
 <link rel="stylesheet" href="/lib/interactive-image.min.css" />
 <script src="/lib/interactive-image.min.js"></script>
 ```
 
-## Edit the source code
+Finally, edit the source code of your web pages:
 
 **HTML**
 
@@ -47,10 +41,10 @@ Include the plugin files in your page
 <div class="interactive-image" style="width: 900px; height: 598px; background: url('/path/to/images/image.jpg');"></div>
 ```
 
-**JavaScript example**
+**JavaScript**
 
 ```javascript
-// Items
+// Items collection
 var items = [
     {
         title: "Fur",
@@ -83,9 +77,11 @@ var items = [
     }
 ];
 
-// Plugin configuration
+// Plugin configuration (all parameters are optional)
 var options = {
-    debug: true
+    debug: true,
+    fontColor: "#333333",
+    backgroundColor: "#EFEFEF"
 };
 
 // Activate the plugin
@@ -131,42 +127,18 @@ $(document).ready(function () {
 | backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
 
-
-# Tests
-
-```bash
-$ npm run test
-```
-
-# Code quality
-
-```bash
-$ npm run eslint
-```
-https://eslint.org/docs/rules/
-
 # Contribute
 
 Feel free to contribute to this project and open some pull requests.
 
-Interactive Image uses npm and webpack.
+Interactive Image plugin uses npm and webpack. QUnit is required to execute the tests.
 
-```bash
-$ npm run dev
-```
-
-Please follow the typical GitHub workflow:
-
-1. Fork it (`git clone git@github.com:jpchateau/Interactive-Image.git`)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 
 # Alternatives
 
-* Free: [iPicture](http://ipicture-square.justmybit.com/)
+* Free: [iPicture](https://github.com/vincicat/jQuery-iPicture)
 * For business: [ThingLink](https://www.thinglink.com/)
 
 

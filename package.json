@@ -1,7 +1,8 @@
 {
   "name": "interactiveimagejs",
   "version": "0.6.0",
-  "description": "A jQuery plugin to embed interactive images",
+  "description": "A jQuery plugin to create interactive images",
+  "author": "Jean-Philippe Chateau",
   "main": "lib/interactive-image.js",
   "scripts": {
     "build": "webpack --env build",
@@ -18,14 +19,13 @@
     "jquery-plugin",
     "interactive",
     "images",
-    "pictures"
+    "pictures",
+    "storytelling"
   ],
-  "author": "Jean-Philippe Chateau",
-  "license": "MIT",
+  "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
     "url": "https://github.com/jpchateau/Interactive-Image/issues"
   },
-  "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -34,7 +34,6 @@
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.9",
     "eslint": "^4.17.0",
-    "eslint-config-google": "^0.9.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
@@ -45,5 +44,6 @@
   },
   "directories": {
     "doc": "docs"
-  }
+  },
+  "license": "MIT"
 }

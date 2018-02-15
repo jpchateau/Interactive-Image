@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Interactive Image</title>
     <link rel="stylesheet" href="interactive-image.css" />
+
+    <!-- Specific styles of a scene -->
     <style>
         .interactive-image {
             width: 1280px;
@@ -15,15 +17,18 @@
     </style>
 </head>
 <body>
+    <!-- Main container of a scene -->
     <div class="interactive-image"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="interactive-image.js"></script>
+
     <script>
+        // Items collection
         var items = [
             {
                 title: "Fur",
-                description: "The fur of clouded leopards is of a dark grey or ochreous...",
+                description: "The fur of snow leopards is...",
                 position: {
                     left: 710,
                     top: 290
@@ -31,9 +36,11 @@
             }
         ];
 
-        // Plugin configuration
+        // Plugin configuration (all parameters are optional)
         var options = {
-            debug: true
+            debug: true,
+            fontColor: "#333333",
+            backgroundColor: "#EFEFEF"
         };
 
         // Activate the plugin

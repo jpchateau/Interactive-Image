@@ -43,13 +43,13 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                loader: "babel-loader"
+                loader: 'babel-loader'
             },
             {
                 test:/\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
+                    fallback: 'style-loader',
+                    use: ['css-loader']
                 })
             },
             {

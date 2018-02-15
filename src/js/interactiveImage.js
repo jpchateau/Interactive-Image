@@ -17,10 +17,10 @@ export default class InteractiveImage {
             this.settings.debug = true;
             throw 'Error: check "debug" plugin option';
         }
-        if ('undefined' === typeof  settings.fontColor || 'string' !== typeof  settings.fontColor) {
+        if ('undefined' === typeof settings.fontColor || 'string' !== typeof settings.fontColor) {
             throw 'Error: check "fontColor" plugin option';
         }
-        if ('undefined' === typeof  settings.backgroundColor || 'string' !== typeof  settings.backgroundColor) {
+        if ('undefined' === typeof settings.backgroundColor || 'string' !== typeof settings.backgroundColor) {
             throw 'Error: check "backgroundColor" plugin option';
         }
 

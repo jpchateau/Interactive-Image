@@ -7,9 +7,6 @@
 .interactive-image .icon-button {
     position: absolute;
     z-index: 16;
-    width: 50px;
-    height: 50px;
-    padding: 15px 14px;
     color: #fff;
     display: none;
     cursor: pointer;
