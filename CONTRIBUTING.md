@@ -11,7 +11,7 @@ Please follow the typical GitHub workflow:
 ## Tests
 
 ```sh
-npm install -g qunit
+$ npm install -g qunit
 $ npm run test
 ```
 
@@ -22,6 +22,8 @@ $ npm run eslint
 ```
 
 Recommended rules to follow: https://eslint.org/docs/rules/
+
+An overview of the code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
 
 ## Install
 
