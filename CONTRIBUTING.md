@@ -40,3 +40,9 @@ $ npm run dev
 ```
 
 Open `./lib/index.html` in your browser to see the result.
+
+In order to build the minimized files:
+
+```sh
+$ npm run build
+```

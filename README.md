@@ -29,8 +29,8 @@ npm install interactiveimagejs --save
 
 Then, include the plugin files that were generated in the `lib` directory of this project in your page. Do not forget the fonts.
 ```html
-<link rel="stylesheet" href="interactive-image.css" />
-<script src="interactive-image.js"></script>
+<link rel="stylesheet" href="interactive-image.min.css" />
+<script src="interactive-image.min.js"></script>
 ```
 
 Finally, edit the source code of your web pages.
