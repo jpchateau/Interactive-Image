@@ -1,3 +1,5 @@
+import uniqid from 'uniqid';
+
 export default class BaseItem {
     constructor(DomHelper, parameters) {
         let i, requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title'];
@@ -12,7 +14,7 @@ export default class BaseItem {
         this.backgroundColor = parameters.backgroundColor;
         this.fontColor = parameters.fontColor;
         this.title = parameters.title;
-        this.identifier = parameters.title;
+        this.identifier = uniqid(parameters.title + '-');
     }
 
     createIcon() {
