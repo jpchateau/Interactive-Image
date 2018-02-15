@@ -21,24 +21,24 @@
 
 **Important note:** [jQuery](https://jquery.com/download/) is required.
 
-First, install `interactive-image`:
+First, install `interactive-image`.
 
 ```sh
 npm install interactiveimagejs --save
 ```
 
-Then, include the plugin files in your page:
+Then, include the plugin files that were generated in the `lib` directory of this project in your page. Do not forget the fonts.
 ```html
-<link rel="stylesheet" href="/lib/interactive-image.min.css" />
-<script src="/lib/interactive-image.min.js"></script>
+<link rel="stylesheet" href="interactive-image.css" />
+<script src="interactive-image.js"></script>
 ```
 
-Finally, edit the source code of your web pages:
+Finally, edit the source code of your web pages.
 
 **HTML**
 
 ```html
-<div class="interactive-image" style="width: 900px; height: 598px; background: url('/path/to/images/image.jpg');"></div>
+<div class="interactive-image" style="width: 900px; height: 600px; background: url('/path/to/images/image.jpg');"></div>
 ```
 
 **JavaScript**
@@ -77,15 +77,8 @@ var items = [
     }
 ];
 
-// Plugin configuration (all parameters are optional)
-var options = {
-    debug: true,
-    fontColor: "#333333",
-    backgroundColor: "#EFEFEF"
-};
-
 // Activate the plugin
-$(document).ready(function () {
+$(document).ready(function() {
     $('.interactive-image').interactiveImage(items, options);
 });
 ```

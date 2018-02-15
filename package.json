@@ -5,7 +5,7 @@
   "author": "Jean-Philippe Chateau",
   "main": "lib/interactive-image.js",
   "scripts": {
-    "build": "webpack --env build",
+    "build": "webpack --progress --colors --env build",
     "dev": "webpack --progress --colors --env dev",
     "watch": "webpack --watch --colors --env dev",
     "test": "echo 'No test specified' && exit 0",
