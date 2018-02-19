@@ -1,13 +1,8 @@
-# Interactive Image
+# Interactive Image [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
 
-[![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image)
-[![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs)
-[![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
-![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
+> A jQuery plugin to embed interactive images on your website.
 
-*A jQuery plugin to embed interactive images on your website*
-
-# Features
+## Features
 
 - Insert interactive texts and images over large pictures
 - Flexible configuration
@@ -17,27 +12,28 @@
 
 [See it in action](http://www.jpchateau.com/demo/interactive-image)
 
-# Getting started
+## Installation
+
+**NPM**
+
+```sh
+npm install --save interactiveimagejs
+```
+or 
+
+Install it by downloading the files located in the `lib` directory of this project.
+
+## Usage
 
 **Important note:** [jQuery](https://jquery.com/download/) is required.
 
-First, install `interactive-image`.
-
-```sh
-npm install interactiveimagejs --save
-```
-
-Then, include the plugin files that were generated in the `lib` directory of this project in your page. Do not forget the fonts.
-```html
-<link rel="stylesheet" href="interactive-image.css" />
-<script src="interactive-image.js"></script>
-```
-
-Finally, edit the source code of your web pages.
+Edit the source code of your web pages:
 
 **HTML**
 
 ```html
+<link rel="stylesheet" href="interactive-image.min.css" />
+<script src="interactive-image.min.js"></script>
 <div class="interactive-image" style="width: 900px; height: 600px; background: url('/path/to/images/image.jpg');"></div>
 ```
 
@@ -83,19 +79,19 @@ $(document).ready(function() {
 });
 ```
 
-# Configuration
+## Configuration
 
 **Item**
 
-| Option name     | Type    | Example                     | Required | Default   | Purpose          |
-| --------------- | ------- | --------------------------- | -------- | --------- | ---------------- |
-| title           | string  | "Threats"                   | Yes      |           | Title            |
-| description     | string  | "Many of the..."            | Yes      |           | Descriptive text |
-| position        | object  |                             | Yes      |           | Marker position  |
-| picture         | string  | "/path/to/your/picture.png" | No       |           | Illustration     |
-| link            | object  |                             | No       |           | Link             |
-| fontColor       | string  | "#337733"                   | No       | "#000000" | Text color       |
-| backgroundColor | string  | "#EEEEEE"                   | No       | "#FFFFFF" | Background color |
+| Option name     | Type    | Example                      | Required | Default   | Purpose          |
+| --------------- | ------- | ---------------------------- | -------- | --------- | ---------------- |
+| title           | string  | "Lorem ipsum"                | Yes      |           | Title            |
+| description     | string  | "Lorem ipsum dolor sit amet" | Yes      |           | Descriptive text |
+| position        | object  |                              | Yes      |           | Marker position  |
+| picture         | string  | "/path/to/your/picture.png"  | No       |           | Illustration     |
+| link            | object  |                              | No       |           | HTTP Link        |
+| fontColor       | string  | "#337733"                    | No       | "#000000" | Text color       |
+| backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color |
 
 **Position**
 
@@ -106,12 +102,12 @@ $(document).ready(function() {
 
 **Link**
 
-| Option name     | Type    | Example                   | Required | Default    | Purpose        |
-| --------------- | ------- | ------------------------- | -------- | ---------- | -------------- |
-| href            | string  | "http://www.website.com/" | Yes      |            | href attribute |
-| label           | string  | "Website"                 | No       | href value | Label          |
+| Option name     | Type    | Example                         | Required | Default    | Purpose             |
+| --------------- | ------- | ------------------------------- | -------- | ---------- | ------------------- |
+| href            | string  | "https://www.your-website.com/" | Yes      |            | href attribute      |
+| label           | string  | "Your webpage name"             | No       | href value | Name of the webpage |
 
-**Plugin options**
+**Plugin configuration options**
 
 | Option name     | Type    | Example   | Required | Default   | Purpose                 |
 | --------------- | ------- | --------- | -------- | --------- | ----------------------- |
@@ -120,7 +116,7 @@ $(document).ready(function() {
 | backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
 
-# Contribute
+## Contribute
 
 Feel free to contribute to this project and open some pull requests.
 
@@ -129,13 +125,14 @@ Interactive Image plugin uses npm and webpack. QUnit is required to execute the 
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 
-# Alternatives
+## Alternatives
 
 * Free: [iPicture](https://github.com/vincicat/jQuery-iPicture)
+* Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
 * For business: [ThingLink](https://www.thinglink.com/)
 
 
-# License
+## License
 
 Copyright (c) 2015-2018 Jean-Philippe Chateau.
 This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).

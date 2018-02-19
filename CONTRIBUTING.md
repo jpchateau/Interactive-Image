@@ -8,33 +8,33 @@ Please follow the typical GitHub workflow:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Tests
+## Building and testing
+
+Building and testing is done through npm scripts.
 
 ```sh
-npm install -g qunit
+$ npm install
+$ npm install -g qunit
+$ npm run build
 $ npm run test
 ```
 
 ## Code Quality
 
 ```sh
-$ npm run eslint
+$ npm run lint
 ```
 
 Recommended rules to follow: https://eslint.org/docs/rules/
 
-## Install
+An overview of the code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
 
-Install the dependencies:
+## npm script reference
 
-```sh
-$ npm install
-```
-
-Build the files locally:
-
-```sh
-$ npm run dev
-```
-
-Open `./lib/index.html` in your browser to see the result.
+| Command          | Function                                                |
+|------------------|---------------------------------------------------------|
+| `npm run dev`    | Build all the distributable files for local development |
+| `npm run build`  | Build all the optimized distributable files             |
+| `npm run test`   | Run the test suite                                      |
+| `npm run lint`   | Run the ES linter                                       |
+| `npm run watch`  | Run the watcher for local development                   |

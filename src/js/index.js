@@ -1,6 +1,4 @@
 import InteractiveImage from './interactiveImage.js';
-import Styles from '../css/styles.css';
-import Icomoon from '../css/icomoon.css';
 
 (function ($) {
     $.fn.interactiveImage = function(items, options) {

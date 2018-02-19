@@ -13,7 +13,7 @@ let plugins = [
         jQuery: 'jquery'
     }),
     new ExtractTextPlugin({
-        filename: '[name].css',
+        filename: (env === 'build' ? '[name].min.css' : '[name].css'),
         allChunks: true,
         disable: false
     })
@@ -22,7 +22,7 @@ let plugins = [
 if (env === 'build') {
     plugins.push(new UglifyJsPlugin({ comments: false, minimize: true }));
     plugins.push(new OptimizeCssAssetsPlugin({
-        assetNameRegExp: /\.min\.css$/g,
+        assetNameRegExp: /.min.css$/g,
         cssProcessor: require('cssnano'),
         cssProcessorOptions: { discardComments: { removeAll: true } },
         canPrint: true
@@ -34,7 +34,7 @@ if (env === 'build') {
 
 module.exports = {
     entry: {
-        "interactive-image": "./src/js",
+        "interactive-image": ["./src/js/index.js", "./src/js/styles.js"]
     },
     output: {
         filename: outputFile,

@@ -1,6 +1,6 @@
 {
   "name": "interactiveimagejs",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A jQuery plugin to create interactive images",
   "author": "Jean-Philippe Chateau",
   "main": "lib/interactive-image.js",
@@ -9,18 +9,32 @@
     "dev": "webpack --progress --colors --env dev",
     "watch": "webpack --watch --colors --env dev",
     "test": "echo 'No test specified' && exit 0",
-    "eslint": "./node_modules/.bin/eslint ./src/js/"
+    "lint": "./node_modules/.bin/eslint ./src/js/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jpchateau/Interactive-Image.git"
   },
   "keywords": [
-    "jquery-plugin",
+    "jquery",
+    "plugin",
     "interactive",
     "images",
     "pictures",
-    "storytelling"
+    "photos",
+    "tooltip",
+    "image note",
+    "image marker",
+    "image effects",
+    "storytelling",
+    "media experience",
+    "interactive image",
+    "interactive popover",
+    "interactive tooltip",
+    "interactive presentation",
+    "media links",
+    "multimedia content",
+    "rich content"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
