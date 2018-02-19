@@ -1,6 +1,6 @@
 {
   "name": "interactiveimagejs",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A jQuery plugin to create interactive images",
   "author": "Jean-Philippe Chateau",
   "main": "lib/interactive-image.js",
