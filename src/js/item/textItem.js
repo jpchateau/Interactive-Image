@@ -50,7 +50,7 @@ export default class TextItem extends BaseItem {
         containerElement.setAttribute('data-id', this.identifier);
         containerElement.style.color = this.fontColor;
         containerElement.style.backgroundColor = this.backgroundColor;
-        containerElement.style.left = (this.position.left - 40) + 'px';
+        containerElement.style.left = (this.position.left - 65) + 'px';
         containerElement.style.top = (this.position.top + 40) + 'px';
 
         containerElement.appendChild(this.createTitle());
