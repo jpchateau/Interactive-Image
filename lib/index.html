@@ -2,36 +2,47 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Interactive Image</title>
-    <link rel="stylesheet" href="interactive-image.min.css" />
+    <link rel="stylesheet" href="interactive-image.css" />
 
     <!-- Specific styles of a scene -->
     <style>
         .interactive-image {
-            width: 1280px;
-            height: 768px;
+            width: 1100px;
+            height: 600px;
             margin: 20px auto;
-            background: url('snow-leopard.jpg');
+            background-color: #777777;
         }
     </style>
 </head>
+
 <body>
     <!-- Main container of a scene -->
     <div class="interactive-image"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="interactive-image.min.js"></script>
+    <script src="interactive-image.js"></script>
 
     <script>
         // Items collection
         var items = [
             {
-                title: "Fur",
-                description: "The fur of snow leopards is...",
+                title: "Title",
+                description: "Lorem ipsum dolor sit amet",
                 position: {
                     left: 710,
                     top: 290
+                }
+            },
+            {
+                title: "Title",
+                description: "Lorem ipsum dolor sit amet",
+                position: {
+                    left: 160,
+                    top: 50
+                },
+                link: {
+                    href: "http://www.jpchateau.com/demo/interactive-image",
+                    label: "Demo"
                 }
             }
         ];

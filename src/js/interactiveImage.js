@@ -57,8 +57,7 @@ export default class InteractiveImage {
     }
 
     buildElements(items) {
-        let i;
-        for (i in items) {
+        for (let i in items) {
             if (items.hasOwnProperty(i)) {
                 this.$image.append(this.createElement(items[i]));
             }
@@ -69,7 +68,7 @@ export default class InteractiveImage {
         try {
             this.checkSettings(this.settings);
             this.buildElements(this.items);
-            (new Hover().bindEvents(this.$image));
+            (new Hover().bindAll(this.$image));
         } catch (exception) {
             this.logHelper.log(exception);
         }

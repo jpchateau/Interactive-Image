@@ -2,13 +2,6 @@ import uniqid from 'uniqid';
 
 export default class BaseItem {
     constructor(DomHelper, parameters) {
-        let i, requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title'];
-        for (i in requiredParameters) {
-            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in BaseItem';
-            }
-        }
-
         this.domHelper = DomHelper;
         this.position = parameters.position;
         this.backgroundColor = parameters.backgroundColor;
@@ -18,7 +11,7 @@ export default class BaseItem {
     }
 
     createIcon() {
-        let iconElement = this.domHelper.createDomElement('div', 'icon-button icon-radio-checked');
+        let iconElement = this.domHelper.createElement('div', 'icon-button icon-radio-checked');
         iconElement.setAttribute('data-for', this.identifier);
         iconElement.style.left = this.position.left + 'px';
         iconElement.style.top = this.position.top + 'px';
@@ -27,10 +20,7 @@ export default class BaseItem {
     }
 
     createTitle() {
-        let titleElement = this.domHelper.createDomElement('span', 'title');
-        titleElement.appendChild(document.createTextNode(this.title));
-
-        return titleElement;
+        return this.domHelper.createElement('span', 'title', this.title);
     }
 
     renderHtml() {
