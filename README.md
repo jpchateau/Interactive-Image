@@ -107,7 +107,7 @@ That's it!
 **Item**
 
 | Option name     | Type    | Example                      | Required | Default   | Purpose          |
-| --------------- | ------- | ---------------------------- | -------- | --------- | ---------------- |
+| --------------- | ------- | ---------------------------- |:--------:| --------- | ---------------- |
 | title           | string  | "Lorem ipsum"                | Yes      |           | Title            |
 | description     | string  | "Lorem ipsum dolor sit amet" | Yes      |           | Descriptive text |
 | position        | object  |                              | Yes      |           | Marker position  |
@@ -119,21 +119,21 @@ That's it!
 **Position**
 
 | Option name     | Type    | Example | Required | Default | Purpose          |
-| --------------- | ------- | ------- | -------- | ------- | ---------------- |
+| --------------- | ------- | ------- |:--------:| ------- | ---------------- |
 | left            | integer | 200     | Yes      |         | X absolute value |
 | top             | integer | 50      | Yes      |         | Y absolute value |
 
 **Link**
 
 | Option name     | Type    | Example                         | Required | Default    | Purpose             |
-| --------------- | ------- | ------------------------------- | -------- | ---------- | ------------------- |
+| --------------- | ------- | ------------------------------- |:--------:| ---------- | ------------------- |
 | href            | string  | "https://www.website.net"       | Yes      |            | href attribute      |
 | label           | string  | "Webpage name"                  | No       | href value | Name of the webpage |
 
 ### Plugin configuration options
 
 | Option name     | Type    | Example   | Required | Default   | Purpose                 |
-| --------------- | ------- | --------- | -------- | --------- | ----------------------- |
+| --------------- | ------- | --------- |:--------:| --------- | ----------------------- |
 | debug           | boolean | true      | No       | false     | Logs enabled in console |
 | fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
 | backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
@@ -151,7 +151,7 @@ That's it!
 Feel free to contribute to this project and open some pull requests.
 
 This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.
-QUnit is required to execute the tests.
+[CasperJS](http://casperjs.org/) is required to execute the tests.
 
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 

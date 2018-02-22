@@ -8,3 +8,8 @@ cache:
 
 before_install:
   - npm install -g webpack
+  - npm install -g casperjs
+
+before_script:
+  - casperjs --version; phantomjs --version;
+  - npm run test
