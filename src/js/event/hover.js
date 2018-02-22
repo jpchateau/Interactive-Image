@@ -16,7 +16,7 @@ export default class Hover {
         $image.on('mouseenter.interactiveImage', function() {
             let $icons = $(this).find('.icon-button');
             $.each($icons, function() {
-                Hover.showElement($(this));
+                $(this).fadeIn();
             });
         });
 

@@ -1,6 +1,6 @@
 import InteractiveImage from './interactiveImage.js';
 
-(function ($) {
+(function($) {
     $.fn.interactiveImage = function(items, options) {
         let defaults = {
             debug: false,

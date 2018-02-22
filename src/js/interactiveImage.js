@@ -24,7 +24,7 @@ export default class InteractiveImage {
             throw 'Error: check "backgroundColor" plugin option';
         }
 
-        this.logHelper.log('Settings checked');
+        this.logHelper.log('Options successfully checked');
     }
 
     createElement(options) {
@@ -35,7 +35,6 @@ export default class InteractiveImage {
 
         options = $.extend(defaults, options);
 
-        this.logHelper.log('Options:');
         this.logHelper.log(options);
 
         let parameters = {
@@ -49,7 +48,7 @@ export default class InteractiveImage {
         };
 
         let element = new TextItem(this.domHelper, parameters);
-        this.logHelper.log('Item ' + element.title + ' created');
+        this.logHelper.log('TextItem ' + element.title + ' created');
 
         this.$image.append(element.createIcon());
 
