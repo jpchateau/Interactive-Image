@@ -12,4 +12,4 @@ before_install:
 
 before_script:
   - casperjs --version; phantomjs --version;
-  - npm run test
+  - cp test/casperjs/config/parameters.json.dist test/casperjs/config/parameters.json
