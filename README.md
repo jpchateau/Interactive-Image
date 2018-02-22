@@ -4,13 +4,14 @@
 
 ## Features
 
-- Insert interactive texts and images over large pictures
+- Interactive texts and images over large pictures
 - Flexible configuration
 - Easily customizable with CSS
 - Fully tested
+- Lightweight: 11,5 Ko
 - Installable via package managers
 
-[See it in action](http://www.jpchateau.com/demo/interactive-image)
+[See it in action](https://www.jpchateau.com/demo/interactive-image)
 
 ## Installation
 
@@ -67,7 +68,7 @@ var items = [
             top: 70
         },
         link: {
-            href: "http://www.website.org/",
+            href: "https://www.website.org/",
             label: "Website"
         }
     }
@@ -75,7 +76,7 @@ var items = [
 
 // Activate the plugin
 $(document).ready(function() {
-    $('.interactive-image').interactiveImage(items, options);
+    $('.interactive-image').interactiveImage(items, {});
 });
 ```
 
@@ -115,12 +116,19 @@ $(document).ready(function() {
 | fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
 | backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
+## TODO
+
+- Make the plugin adaptive to all screens
+- Audio items
+- Video items
+
 
 ## Contribute
 
 Feel free to contribute to this project and open some pull requests.
 
-Interactive Image plugin uses npm and webpack. QUnit is required to execute the tests.
+This jQuery plugin uses npm to manage dependencies and webpack as a bundler.
+QUnit is required to execute the tests.
 
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 
