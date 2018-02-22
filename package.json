@@ -1,7 +1,7 @@
 {
   "name": "interactiveimagejs",
-  "version": "0.7.0",
-  "description": "A jQuery plugin to create interactive images",
+  "version": "0.8.0",
+  "description": "A jQuery plugin to embed interactive images on your website",
   "author": "Jean-Philippe Chateau",
   "main": "lib/interactive-image.js",
   "scripts": {
@@ -62,9 +62,6 @@
     "style-loader": "^0.20.1",
     "webpack": "^3.11.0",
     "yargs": "^11.0.0"
-  },
-  "directories": {
-    "doc": "docs"
   },
   "license": "MIT"
 }
