@@ -10,14 +10,12 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 
 ## Building and testing
 
-Building and testing is done through npm scripts.
-You need to install [CasperJS](http://casperjs.org/) to run the tests.
+Building is done through npm scripts.
 
 ```sh
 $ npm install
 $ npm install -g casperjs
 $ npm run build
-$ npm run test
 ```
 
 ## Code Quality
@@ -36,6 +34,5 @@ An overview of the code quality can be found at [code climate](https://codeclima
 |------------------|---------------------------------------------------------|
 | `npm run dev`    | Build all the distributable files for local development |
 | `npm run build`  | Build all the optimized distributable files             |
-| `npm run test`   | Run the test suite with CasperJS and PhantomJS          |
 | `npm run lint`   | Run the ES linter                                       |
 | `npm run watch`  | Run the watcher for local development                   |

@@ -8,8 +8,3 @@ cache:
 
 before_install:
   - npm install -g webpack
-  - npm install -g casperjs
-
-before_script:
-  - casperjs --version; phantomjs --version;
-  - cp test/casperjs/config/parameters.json.dist test/casperjs/config/parameters.json
