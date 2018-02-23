@@ -2,8 +2,8 @@ import BaseItem from "./baseItem";
 
 export default class TextItem extends BaseItem {
     constructor(DomHelper, parameters) {
-        let i, requiredParameters = ['description'];
-        for (i in requiredParameters) {
+        let requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
+        for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
             }
@@ -16,14 +16,11 @@ export default class TextItem extends BaseItem {
     }
 
     createDescription() {
-        let descriptionElement = this.domHelper.createDomElement('p', 'description');
-        descriptionElement.appendChild(document.createTextNode(this.description));
-
-        return descriptionElement;
+        return this.domHelper.createElement('p', 'description', this.description);
     }
 
     createPicture() {
-        let pictureElement = this.domHelper.createDomElement('img', 'picture');
+        let pictureElement = this.domHelper.createElement('img', 'picture');
         pictureElement.src = this.picture;
 
         return pictureElement;
@@ -34,7 +31,7 @@ export default class TextItem extends BaseItem {
         linkElement.href = this.link.href;
         linkElement.style.color = this.fontColor;
 
-        if ("undefined" !== this.link.label) {
+        if ('undefined' !== typeof this.link.label) {
             label = this.link.label;
         } else {
             label = this.link.href;
@@ -46,7 +43,7 @@ export default class TextItem extends BaseItem {
     }
 
     renderHtml() {
-        let containerElement = this.domHelper.createDomElement('div', 'container');
+        let containerElement = this.domHelper.createElement('div', 'container');
         containerElement.setAttribute('data-id', this.identifier);
         containerElement.style.color = this.fontColor;
         containerElement.style.backgroundColor = this.backgroundColor;

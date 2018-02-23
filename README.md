@@ -1,16 +1,16 @@
-# Interactive Image [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
+# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
 
 > A jQuery plugin to embed interactive images on your website.
 
 ## Features
 
-- Insert interactive texts and images over large pictures
+- Interactive texts and images over large pictures
 - Flexible configuration
 - Easily customizable with CSS
-- Fully tested
+- Lightweight
 - Installable via package managers
 
-[See it in action](http://www.jpchateau.com/demo/interactive-image)
+[See it in action](https://www.jpchateau.com/demo/interactive-image)
 
 ## Installation
 
@@ -21,20 +21,33 @@ npm install --save interactiveimagejs
 ```
 or 
 
-Install it by downloading the files located in the `lib` directory of this project.
+**Download**
+
+You can also download the production version or the development version from GitHub.
+All these files (js, css and fonts) are located in the `lib` directory.
+
+```html
+<head>
+    <link rel="stylesheet" href="interactive-image.min.css" />
+</head>
+<body>
+    <script src="interactive-image.min.js"></script>
+</body>
+```
 
 ## Usage
 
-**Important note:** [jQuery](https://jquery.com/download/) is required.
+**Important:** [jQuery](https://jquery.com/download/) is required.
+Install it via your package manager, a CDN or simply download it. It has been tested with jQuery 2.2.4.
 
-Edit the source code of your web pages:
+Edit the source code of your web page:
 
 **HTML**
 
 ```html
-<link rel="stylesheet" href="interactive-image.min.css" />
-<script src="interactive-image.min.js"></script>
-<div class="interactive-image" style="width: 900px; height: 600px; background: url('/path/to/images/image.jpg');"></div>
+<!-- Main container of a scene -->
+<div class="interactive-image" style="width:900px;height:600px;background:url('/path/to/main-image.png');">
+</div>
 ```
 
 **JavaScript**
@@ -57,7 +70,7 @@ var items = [
             left: 305,
             top: 345
         },
-        picture: "/path/to/images/picture.jpg"
+        picture: "/path/to/picture.jpg"
     },
     {
         title: "Threats",
@@ -67,11 +80,17 @@ var items = [
             top: 70
         },
         link: {
-            href: "http://www.website.org/",
+            href: "https://www.website.net/",
             label: "Website"
         }
     }
 ];
+
+// Plugin configuration (all parameters are optional)
+var options = {
+      fontColor: "#333333",
+      backgroundColor: "#EFEFEF"
+  };
 
 // Activate the plugin
 $(document).ready(function() {
@@ -79,16 +98,20 @@ $(document).ready(function() {
 });
 ```
 
+That's it!
+
 ## Configuration
+
+### Item
 
 **Item**
 
 | Option name     | Type    | Example                      | Required | Default   | Purpose          |
-| --------------- | ------- | ---------------------------- | -------- | --------- | ---------------- |
+| --------------- | ------- | ---------------------------- |:--------:| --------- | ---------------- |
 | title           | string  | "Lorem ipsum"                | Yes      |           | Title            |
 | description     | string  | "Lorem ipsum dolor sit amet" | Yes      |           | Descriptive text |
 | position        | object  |                              | Yes      |           | Marker position  |
-| picture         | string  | "/path/to/your/picture.png"  | No       |           | Illustration     |
+| picture         | string  | "/path/to/picture.png"       | No       |           | Illustration     |
 | link            | object  |                              | No       |           | HTTP Link        |
 | fontColor       | string  | "#337733"                    | No       | "#000000" | Text color       |
 | backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color |
@@ -96,31 +119,38 @@ $(document).ready(function() {
 **Position**
 
 | Option name     | Type    | Example | Required | Default | Purpose          |
-| --------------- | ------- | ------- | -------- | ------- | ---------------- |
+| --------------- | ------- | ------- |:--------:| ------- | ---------------- |
 | left            | integer | 200     | Yes      |         | X absolute value |
 | top             | integer | 50      | Yes      |         | Y absolute value |
 
 **Link**
 
 | Option name     | Type    | Example                         | Required | Default    | Purpose             |
-| --------------- | ------- | ------------------------------- | -------- | ---------- | ------------------- |
-| href            | string  | "https://www.your-website.com/" | Yes      |            | href attribute      |
-| label           | string  | "Your webpage name"             | No       | href value | Name of the webpage |
+| --------------- | ------- | ------------------------------- |:--------:| ---------- | ------------------- |
+| href            | string  | "https://www.website.net"       | Yes      |            | href attribute      |
+| label           | string  | "Webpage name"                  | No       | href value | Name of the webpage |
 
-**Plugin configuration options**
+### Plugin configuration options
 
 | Option name     | Type    | Example   | Required | Default   | Purpose                 |
-| --------------- | ------- | --------- | -------- | --------- | ----------------------- |
+| --------------- | ------- | --------- |:--------:| --------- | ----------------------- |
 | debug           | boolean | true      | No       | false     | Logs enabled in console |
 | fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
 | backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
+
+## TODO
+
+- Make the plugin adaptive to all screens
+- Picture items
+- Audio items
+- Video items
 
 
 ## Contribute
 
 Feel free to contribute to this project and open some pull requests.
 
-Interactive Image plugin uses npm and webpack. QUnit is required to execute the tests.
+This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.
 
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 

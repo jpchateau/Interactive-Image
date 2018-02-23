@@ -1,50 +1,61 @@
 export default class Hover {
-    bindEvents($image) {
-        $image.on('mouseenter.interactiveImage', function () {
+    static hideElement($element) {
+        if ($element.css('display') === 'block') {
+            $element.hide();
+        }
+    }
+
+    static showElement($element) {
+        if ($element.css('display') !== 'block') {
+            $element.show();
+        }
+    }
+
+    bindMainImageEvents($image) {
+        // Mouse enters main image to show all icons
+        $image.on('mouseenter.interactiveImage', function() {
             let $icons = $(this).find('.icon-button');
-            $.each($icons, function () {
-                if ($(this).css('display') !== 'block') {
-                    $(this).show();
-                }
+            $.each($icons, function() {
+                $(this).fadeIn();
             });
         });
 
-        $image.on('mouseleave.interactiveImage', function () {
-            let $icons = $(this).find('.icon-button');
-            $.each($icons, function () {
-                if ($(this).css('display') === 'block') {
-                    $(this).hide();
-                }
+        // Mouse leaves main image to hide all icons and containers
+        $image.on('mouseleave.interactiveImage', function() {
+            let $elements = $(this).find('.icon-button, .container');
+            $.each($elements, function() {
+                Hover.hideElement($(this));
             });
         });
+    }
 
-        let bindIconMouseLeaveEvent = function() {
-            $image.on('mouseleave.interactiveImage', '.icon-button', function () {
+    bindSpecificEvents($image) {
+        // Bind Mouse leaves container to hide it
+        let bindContainerMouseLeaveEvent = function() {
+            $image.on('mouseleave.interactiveImage', '.container', function() {
                 let $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
-                if ($container.css('display') === 'block') {
-                    $container.hide();
-                }
+                Hover.hideElement($container);
             });
         };
 
-        let unbindIconMouseLeaveEvent = function () {
-            $image.off('mouseleave.interactiveImage', '.icon-button');
-        };
+        // Mouse enters icon to show its container and close all others
+        $image.on('mouseenter.interactiveImage', '.icon-button', function() {
+            let $containers = $image.find('.container');
+            $.each($containers, function() {
+                Hover.hideElement($(this));
+            });
 
-        $image.on('mouseenter.interactiveImage', '.icon-button', function () {
             let $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
-            if ($container.css('display') !== 'block') {
-                $container.show();
-                $container.on('mouseenter.interactiveImage', function () {
-                    unbindIconMouseLeaveEvent();
-                });
-                $container.on('mouseleave.interactiveImage', function () {
-                    $(this).hide();
-                    bindIconMouseLeaveEvent();
-                });
-            }
+            Hover.showElement($container);
+            $container.on('mouseleave.interactiveImage', function() {
+                Hover.hideElement($(this));
+                bindContainerMouseLeaveEvent();
+            });
         });
+    }
 
-        bindIconMouseLeaveEvent();
+    bindAll($image) {
+        this.bindMainImageEvents($image);
+        this.bindSpecificEvents($image);
     }
 }
