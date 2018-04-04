@@ -8,13 +8,12 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 4. Push your branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Building and testing
+## Building
 
 Building is done through npm scripts.
 
 ```sh
 $ npm install
-$ npm install -g casperjs
 $ npm run build
 ```
 
