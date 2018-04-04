@@ -38,7 +38,7 @@ All these files (js, css and fonts) are located in the `lib` directory.
 ## Usage
 
 **Important:** [jQuery](https://jquery.com/download/) is required.
-Install it via your package manager, a CDN or simply download it. It has been tested with jQuery 2.2.4.
+Install it via your package manager, a CDN or simply download it.
 
 Edit the source code of your web page:
 
@@ -80,20 +80,21 @@ var items = [
             top: 70
         },
         link: {
-            href: "https://www.website.net/",
-            label: "Website"
+            href: "https://www.mydomain.com/",
+            label: "Website title"
         }
     }
 ];
 
-// Plugin configuration (all parameters are optional)
+// Plugin configuration example (all parameters are optional)
 var options = {
       fontColor: "#333333",
-      backgroundColor: "#EFEFEF"
+      backgroundColor: "#EFEFEF",
+      debug: true
   };
 
 // Activate the plugin
-$(document).ready(function() {
+$(document).ready(function () {
     $('.interactive-image').interactiveImage(items, options);
 });
 ```
