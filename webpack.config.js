@@ -9,7 +9,6 @@ const env = require('yargs').argv.env;
 let outputFile;
 let plugins = [
     new webpack.ProvidePlugin({
-        $: 'jquery',
         jQuery: 'jquery'
     }),
     new ExtractTextPlugin({
