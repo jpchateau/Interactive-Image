@@ -14,12 +14,20 @@
 
 ## Installation
 
+**Important:** [jQuery](https://jquery.com/download/) is required.
+Install it via your package manager, a CDN or simply download it.
+
 **NPM**
 
 ```sh
-npm install --save interactiveimagejs
+$ npm install --save interactiveimagejs
 ```
-or 
+
+**Yarn**
+
+```sh
+$ yarn add interactiveimagejs
+```
 
 **Download**
 
@@ -36,9 +44,6 @@ All these files (js, css and fonts) are located in the `lib` directory.
 ```
 
 ## Usage
-
-**Important:** [jQuery](https://jquery.com/download/) is required.
-Install it via your package manager, a CDN or simply download it.
 
 Edit the source code of your web page:
 
