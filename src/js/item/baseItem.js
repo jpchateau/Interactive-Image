@@ -10,13 +10,13 @@ export default class BaseItem {
         this.identifier = uniqid(parameters.title + '-');
     }
 
-    createIcon() {
-        let iconElement = this.domHelper.createElement('div', 'icon-button icon-radio-checked');
-        iconElement.setAttribute('data-for', this.identifier);
-        iconElement.style.left = this.position.left + 'px';
-        iconElement.style.top = this.position.top + 'px';
+    createHotspot() {
+        let hotspotElement = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+        hotspotElement.setAttribute('data-for', this.identifier);
+        hotspotElement.style.left = this.position.left + 'px';
+        hotspotElement.style.top = this.position.top + 'px';
 
-        return iconElement;
+        return hotspotElement;
     }
 
     createTitle() {

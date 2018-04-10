@@ -43,7 +43,7 @@ export default class TextItem extends BaseItem {
     }
 
     renderHtml() {
-        let containerElement = this.domHelper.createElement('div', 'container');
+        let containerElement = this.domHelper.createElement('div', 'item');
         containerElement.setAttribute('data-id', this.identifier);
         containerElement.style.color = this.fontColor;
         containerElement.style.backgroundColor = this.backgroundColor;

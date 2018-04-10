@@ -400,7 +400,7 @@ var Hover = function () {
         value: function bindMainImageEvents($image) {
             // Mouse enters main image to show all icons
             $image.on('mouseenter.interactiveImage', function () {
-                var $icons = $(this).find('.icon-button');
+                var $icons = $(this).find('.hotspot');
                 $.each($icons, function () {
                     $(this).fadeIn();
                 });
@@ -408,7 +408,7 @@ var Hover = function () {
 
             // Mouse leaves main image to hide all icons and containers
             $image.on('mouseleave.interactiveImage', function () {
-                var $elements = $(this).find('.icon-button, .container');
+                var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
                     Hover.hideElement($(this));
                 });
@@ -419,15 +419,15 @@ var Hover = function () {
         value: function bindSpecificEvents($image) {
             // Bind Mouse leaves container to hide it
             var bindContainerMouseLeaveEvent = function bindContainerMouseLeaveEvent() {
-                $image.on('mouseleave.interactiveImage', '.container', function () {
+                $image.on('mouseleave.interactiveImage', '.item', function () {
                     var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                     Hover.hideElement($container);
                 });
             };
 
             // Mouse enters icon to show its container and close all others
-            $image.on('mouseenter.interactiveImage', '.icon-button', function () {
-                var $containers = $image.find('.container');
+            $image.on('mouseenter.interactiveImage', '.hotspot', function () {
+                var $containers = $image.find('.item');
                 $.each($containers, function () {
                     Hover.hideElement($(this));
                 });
@@ -689,7 +689,7 @@ var InteractiveImage = function () {
             var element = new _textItem2.default(this.domHelper, parameters);
             this.logHelper.log('TextItem ' + element.title + ' created');
 
-            this.$image.append(element.createIcon());
+            this.$image.append(element.createHotspot());
 
             return $(element.renderHtml());
         }
@@ -760,14 +760,14 @@ var BaseItem = function () {
     }
 
     _createClass(BaseItem, [{
-        key: 'createIcon',
-        value: function createIcon() {
-            var iconElement = this.domHelper.createElement('div', 'icon-button icon-radio-checked');
-            iconElement.setAttribute('data-for', this.identifier);
-            iconElement.style.left = this.position.left + 'px';
-            iconElement.style.top = this.position.top + 'px';
+        key: 'createHotspot',
+        value: function createHotspot() {
+            var hotspotElement = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+            hotspotElement.setAttribute('data-for', this.identifier);
+            hotspotElement.style.left = this.position.left + 'px';
+            hotspotElement.style.top = this.position.top + 'px';
 
-            return iconElement;
+            return hotspotElement;
         }
     }, {
         key: 'createTitle',
@@ -872,7 +872,7 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
-            var containerElement = this.domHelper.createElement('div', 'container');
+            var containerElement = this.domHelper.createElement('div', 'item');
             containerElement.setAttribute('data-id', this.identifier);
             containerElement.style.color = this.fontColor;
             containerElement.style.backgroundColor = this.backgroundColor;

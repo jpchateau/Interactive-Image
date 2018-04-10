@@ -50,7 +50,7 @@ export default class InteractiveImage {
         let element = new TextItem(this.domHelper, parameters);
         this.logHelper.log('TextItem ' + element.title + ' created');
 
-        this.$image.append(element.createIcon());
+        this.$image.append(element.createHotspot());
 
         return $(element.renderHtml());
     }

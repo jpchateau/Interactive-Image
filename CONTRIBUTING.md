@@ -22,7 +22,7 @@ $ npm run build
 ## Code Quality
 
 ```sh
-$ npm run lint
+$ npm run lint -s
 ```
 
 Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/)
