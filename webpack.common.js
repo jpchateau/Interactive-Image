@@ -21,6 +21,13 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -30,7 +37,8 @@ module.exports = {
                                 require('autoprefixer')()
                             ]
                         }
-                    }
+                    },
+                    'sass-loader'
                 ]
             },
             {

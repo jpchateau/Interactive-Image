@@ -8,7 +8,9 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 4. Push your branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Building
+## Installing and building the project
+
+You need Node, NPM and SASS installed on your computer.
 
 Building is done through npm scripts.
 

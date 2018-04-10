@@ -1,0 +1,59 @@
+.interactive-image {
+    position: relative;
+    cursor: default;
+    z-index: 8;
+    caret-color: transparent;
+
+    .icon-button {
+        position: absolute;
+        z-index: 16;
+        width: 30px;
+        height: 30px;
+        color: #fff;
+        display: none;
+        cursor: pointer;
+        font-size: 1.7em;
+
+        :hover {
+            text-shadow: 0 0 3px #fff;
+        }
+    }
+
+    .container {
+        position: absolute;
+        min-width: 100px;
+        max-width: 280px;
+        min-height: 50px;
+        height: auto;
+        z-index: 32;
+        display: none;
+        padding: 10px 12px 15px;
+        text-align: center;
+        border-radius: 1px !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
+
+        .title {
+            font-size: 1.1em;
+            width: 100%;
+            text-align: left;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .description {
+            text-align: left;
+            font-size: 0.8em;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+
+        .picture {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+}

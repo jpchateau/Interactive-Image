@@ -372,17 +372,6 @@ module.exports = function (module) {
 
 /***/ }),
 
-/***/ "./src/css/styles.css":
-/*!****************************!*\
-  !*** ./src/css/styles.css ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./src/js/event/hover.js":
 /*!*******************************!*\
   !*** ./src/js/event/hover.js ***!
@@ -923,7 +912,7 @@ module.exports = exports['default'];
 "use strict";
 
 
-var _styles = __webpack_require__(/*! ../css/styles.css */ "./src/css/styles.css");
+var _styles = __webpack_require__(/*! ../scss/styles.scss */ "./src/scss/styles.scss");
 
 var _styles2 = _interopRequireDefault(_styles);
 
@@ -932,6 +921,17 @@ var _icomoon = __webpack_require__(/*! ../css/icomoon.css */ "./src/css/icomoon.
 var _icomoon2 = _interopRequireDefault(_icomoon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./src/scss/styles.scss":
+/*!******************************!*\
+  !*** ./src/scss/styles.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
