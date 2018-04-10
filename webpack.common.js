@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -24,9 +25,10 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: function () {
-                                return [autoprefixer];
-                            }
+                            ident: 'postcss',
+                            plugins: (loader) => [
+                                require('autoprefixer')()
+                            ]
                         }
                     }
                 ]
@@ -34,12 +36,20 @@ module.exports = {
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: 'file-loader?name=fonts/[name].[ext]'
+            },
+            {
+                test: /\.html$/,
+                loader: 'html-loader'
             }
         ],
     },
     plugins: [
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
+        }),
+        new HtmlWebPackPlugin({
+            template: "./src/demo.html",
+            filename: "./demo.html"
         })
     ],
     externals: {

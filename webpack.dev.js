@@ -11,5 +11,6 @@ module.exports = merge(common, {
             filename: '[name].css'
         })
     ],
+    devtool: 'source-map',
     mode: 'development'
 });
