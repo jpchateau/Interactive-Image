@@ -57,6 +57,7 @@
 .interactive-image .container a {
     text-decoration: underline;
 }
+
 @font-face {
     font-family: 'icomoon';
     src:url(fonts/interactive-image-icomoon.eot);

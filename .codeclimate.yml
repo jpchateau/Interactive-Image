@@ -2,4 +2,4 @@ version: "2"
 exclude_patterns:
   - "test/"
   - "lib/"
-  - "webpack.config.js"
+  - "webpack.*"

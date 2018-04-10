@@ -32,7 +32,7 @@ $ yarn add interactiveimagejs
 **Download**
 
 You can also download the production version or the development version from GitHub.
-All these files (js, css and fonts) are located in the `lib` directory.
+All these files (js, css and fonts) are located in the `dist` directory.
 
 ```html
 <head>
