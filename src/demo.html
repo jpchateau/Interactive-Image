@@ -2,15 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Interactive Image Examples</title>
+    <title>Interactive Image - Examples</title>
 
     <!-- Specific styles of a scene -->
     <style>
         .interactive-image {
-            width: 1100px;
-            height: 600px;
+            width: 1600px;
+            height: 700px;
             margin: 20px auto;
-            background-color: #777777;
+            background-color: #51684B;
         }
     </style>
 </head>
@@ -26,31 +26,84 @@
         // Items collection
         var items = [
             {
-                title: "Title",
-                description: "Lorem ipsum dolor sit amet",
+                type: "text",
+                title: "Text",
+                description: "Text item",
                 position: {
-                    left: 710,
-                    top: 290
+                    left: 100,
+                    top: 50
                 }
             },
             {
-                title: "Title",
-                description: "Lorem ipsum dolor sit amet",
+                type: "text",
+                title: "Text",
+                description: "Text item with HTTP link",
                 position: {
-                    left: 160,
+                    left: 300,
                     top: 50
                 },
                 link: {
                     href: "http://www.jpchateau.com/demo/interactive-image",
-                    label: "Demo"
+                    label: "Interactive Image Demo"
                 }
-            }
+            },
+            {
+                type: "text",
+                title: "Text",
+                description: "Text item with picture",
+                position: {
+                    left: 500,
+                    top: 50
+                },
+                picture: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg"
+            },
+            {
+                type: "text",
+                title: "Text",
+                description: "Text item with picture and HTTP link",
+                position: {
+                    left: 700,
+                    top: 50
+                },
+                picture: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg",
+                link: {
+                    href: "http://www.jpchateau.com/demo/interactive-image",
+                    label: "Interactive Image Demo"
+                }
+            },
+            {
+                type: "picture",
+                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                position: {
+                    left: 100,
+                    top: 200
+                }
+            },
+            {
+                type: "picture",
+                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                caption: "Baby Clouded Leopard",
+                position: {
+                    left: 300,
+                    top: 200
+                }
+            },
+            {
+                type: "picture",
+                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                caption: "Baby Clouded Leopard",
+                link: "https://www.nationalgeographic.com",
+                position: {
+                    left: 500,
+                    top: 200
+                }
+            },
         ];
 
         // Plugin configuration example (all parameters are optional)
         var options = {
-            fontColor: "#333333",
-            backgroundColor: "#EFEFEF",
+            fontColor: "#111111",
+            backgroundColor: "#EEEEEE",
             debug: true
         };
 

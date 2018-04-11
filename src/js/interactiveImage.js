@@ -1,7 +1,6 @@
 import Hover from "./event/hover";
-import DomHelper from "./helper/domHelper";
 import LogHelper from "./helper/logHelper";
-import TextItem from "./item/textItem";
+import Factory from "./item/factory";
 
 export default class InteractiveImage {
     constructor(items, settings, $image) {
@@ -9,7 +8,7 @@ export default class InteractiveImage {
         this.settings = settings;
         this.$image = $image;
         this.logHelper = new LogHelper(settings.debug);
-        this.domHelper = new DomHelper();
+        this.itemFactory = new Factory();
     }
 
     checkSettings(settings) {
@@ -28,29 +27,20 @@ export default class InteractiveImage {
     }
 
     createElement(options) {
+        let type = options.type;
+        delete options.type;
+
         let defaults = {
             fontColor: this.settings.fontColor,
             backgroundColor: this.settings.backgroundColor
         };
-
         options = $.extend(defaults, options);
-
         this.logHelper.log(options);
 
-        let parameters = {
-            position: options.position,
-            backgroundColor: options.backgroundColor,
-            fontColor: options.fontColor,
-            title: options.title,
-            description: options.description,
-            picture: options.picture,
-            link: options.link
-        };
+        let element = this.itemFactory.createItem(type, options);
+        this.logHelper.log(element.constructor.name + ' created');
 
-        let element = new TextItem(this.domHelper, parameters);
-        this.logHelper.log('TextItem ' + element.title + ' created');
-
-        this.$image.append(element.createHotspot());
+        this.$image.append(element.createHotspotElement());
 
         return $(element.renderHtml());
     }

@@ -1,7 +1,7 @@
 import BaseItem from "./baseItem";
 
 export default class TextItem extends BaseItem {
-    constructor(DomHelper, parameters) {
+    constructor(parameters) {
         let requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
@@ -9,10 +9,15 @@ export default class TextItem extends BaseItem {
             }
         }
 
-        super(DomHelper, parameters);
+        super(parameters);
+        this.title = parameters.title;
         this.description = parameters.description;
         this.picture = parameters.picture;
         this.link = parameters.link;
+    }
+
+    createTitle() {
+        return this.domHelper.createElement('span', 'title', this.title);
     }
 
     createDescription() {
@@ -20,16 +25,16 @@ export default class TextItem extends BaseItem {
     }
 
     createPicture() {
-        let pictureElement = this.domHelper.createElement('img', 'picture');
-        pictureElement.src = this.picture;
+        let element = this.domHelper.createElement('img', 'picture');
+        element.src = this.picture;
 
-        return pictureElement;
+        return element;
     }
 
     createLink() {
-        let label, linkElement = document.createElement('a');
-        linkElement.href = this.link.href;
-        linkElement.style.color = this.fontColor;
+        let label, element = document.createElement('a');
+        element.href = this.link.href;
+        element.style.color = this.fontColor;
 
         if ('undefined' !== typeof this.link.label) {
             label = this.link.label;
@@ -37,30 +42,29 @@ export default class TextItem extends BaseItem {
             label = this.link.href;
         }
 
-        linkElement.appendChild(document.createTextNode(label));
+        element.appendChild(document.createTextNode(label));
 
-        return linkElement;
+        return element;
     }
 
     renderHtml() {
-        let containerElement = this.domHelper.createElement('div', 'item');
-        containerElement.setAttribute('data-id', this.identifier);
-        containerElement.style.color = this.fontColor;
-        containerElement.style.backgroundColor = this.backgroundColor;
-        containerElement.style.left = (this.position.left - 65) + 'px';
-        containerElement.style.top = (this.position.top + 40) + 'px';
+        let element = this.createItemElement();
 
-        containerElement.appendChild(this.createTitle());
-        containerElement.appendChild(this.createDescription());
+        let textElement = this.domHelper.createElement('div', 'text-item');
+
+        textElement.appendChild(this.createTitle());
+        textElement.appendChild(this.createDescription());
 
         if ('undefined' !== typeof this.picture) {
-            containerElement.appendChild(this.createPicture());
+            textElement.appendChild(this.createPicture());
         }
 
         if ('undefined' !== typeof this.link) {
-            containerElement.appendChild(this.createLink());
+            textElement.appendChild(this.createLink());
         }
 
-        return containerElement;
+        element.appendChild(textElement);
+
+        return element;
     }
 }

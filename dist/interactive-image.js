@@ -504,7 +504,10 @@ var DomHelper = function () {
          * @param text
          * @returns HTMLElement
          */
-        value: function createElement(tag, cssClass, text) {
+        value: function createElement(tag) {
+            var cssClass = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+            var text = arguments[2];
+
             var domElement = document.createElement(tag);
             domElement.setAttribute('class', cssClass);
 
@@ -621,17 +624,13 @@ var _hover = __webpack_require__(/*! ./event/hover */ "./src/js/event/hover.js")
 
 var _hover2 = _interopRequireDefault(_hover);
 
-var _domHelper = __webpack_require__(/*! ./helper/domHelper */ "./src/js/helper/domHelper.js");
-
-var _domHelper2 = _interopRequireDefault(_domHelper);
-
 var _logHelper = __webpack_require__(/*! ./helper/logHelper */ "./src/js/helper/logHelper.js");
 
 var _logHelper2 = _interopRequireDefault(_logHelper);
 
-var _textItem = __webpack_require__(/*! ./item/textItem */ "./src/js/item/textItem.js");
+var _factory = __webpack_require__(/*! ./item/factory */ "./src/js/item/factory.js");
 
-var _textItem2 = _interopRequireDefault(_textItem);
+var _factory2 = _interopRequireDefault(_factory);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -645,7 +644,7 @@ var InteractiveImage = function () {
         this.settings = settings;
         this.$image = $image;
         this.logHelper = new _logHelper2.default(settings.debug);
-        this.domHelper = new _domHelper2.default();
+        this.itemFactory = new _factory2.default();
     }
 
     _createClass(InteractiveImage, [{
@@ -667,29 +666,20 @@ var InteractiveImage = function () {
     }, {
         key: "createElement",
         value: function createElement(options) {
+            var type = options.type;
+            delete options.type;
+
             var defaults = {
                 fontColor: this.settings.fontColor,
                 backgroundColor: this.settings.backgroundColor
             };
-
             options = $.extend(defaults, options);
-
             this.logHelper.log(options);
 
-            var parameters = {
-                position: options.position,
-                backgroundColor: options.backgroundColor,
-                fontColor: options.fontColor,
-                title: options.title,
-                description: options.description,
-                picture: options.picture,
-                link: options.link
-            };
+            var element = this.itemFactory.createItem(type, options);
+            this.logHelper.log(element.constructor.name + ' created');
 
-            var element = new _textItem2.default(this.domHelper, parameters);
-            this.logHelper.log('TextItem ' + element.title + ' created');
-
-            this.$image.append(element.createHotspot());
+            this.$image.append(element.createHotspotElement());
 
             return $(element.renderHtml());
         }
@@ -743,36 +733,46 @@ var _uniqid = __webpack_require__(/*! uniqid */ "./node_modules/uniqid/index.js"
 
 var _uniqid2 = _interopRequireDefault(_uniqid);
 
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BaseItem = function () {
-    function BaseItem(DomHelper, parameters) {
+    function BaseItem(parameters) {
         _classCallCheck(this, BaseItem);
 
-        this.domHelper = DomHelper;
+        this.domHelper = new _domHelper2.default();
+        this.identifier = (0, _uniqid2.default)();
         this.position = parameters.position;
         this.backgroundColor = parameters.backgroundColor;
         this.fontColor = parameters.fontColor;
-        this.title = parameters.title;
-        this.identifier = (0, _uniqid2.default)(parameters.title + '-');
     }
 
     _createClass(BaseItem, [{
-        key: 'createHotspot',
-        value: function createHotspot() {
-            var hotspotElement = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
-            hotspotElement.setAttribute('data-for', this.identifier);
-            hotspotElement.style.left = this.position.left + 'px';
-            hotspotElement.style.top = this.position.top + 'px';
+        key: 'createHotspotElement',
+        value: function createHotspotElement() {
+            var element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+            element.setAttribute('data-for', this.identifier);
+            element.style.left = this.position.left + 'px';
+            element.style.top = this.position.top + 'px';
 
-            return hotspotElement;
+            return element;
         }
     }, {
-        key: 'createTitle',
-        value: function createTitle() {
-            return this.domHelper.createElement('span', 'title', this.title);
+        key: 'createItemElement',
+        value: function createItemElement() {
+            var element = this.domHelper.createElement('div', 'item');
+            element.setAttribute('data-id', this.identifier);
+            element.style.color = this.fontColor;
+            element.style.backgroundColor = this.backgroundColor;
+            element.style.left = this.position.left - 65 + 'px';
+            element.style.top = this.position.top + 40 + 'px';
+
+            return element;
         }
     }, {
         key: 'renderHtml',
@@ -785,6 +785,157 @@ var BaseItem = function () {
 }();
 
 exports.default = BaseItem;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/item/factory.js":
+/*!********************************!*\
+  !*** ./src/js/item/factory.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _textItem = __webpack_require__(/*! ./textItem */ "./src/js/item/textItem.js");
+
+var _textItem2 = _interopRequireDefault(_textItem);
+
+var _pictureItem = __webpack_require__(/*! ./pictureItem */ "./src/js/item/pictureItem.js");
+
+var _pictureItem2 = _interopRequireDefault(_pictureItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Factory = function () {
+    function Factory() {
+        _classCallCheck(this, Factory);
+    }
+
+    _createClass(Factory, [{
+        key: "createItem",
+        value: function createItem(type, parameters) {
+            var item = void 0;
+            switch (type.toLowerCase()) {
+                case 'text':
+                    item = new _textItem2.default(parameters);
+                    break;
+                case 'picture':
+                    item = new _pictureItem2.default(parameters);
+                    break;
+                default:
+                    throw 'Error: item type property not allowed. Saw "' + type + '" instead of "text", "picture".';
+            }
+
+            return item;
+        }
+    }]);
+
+    return Factory;
+}();
+
+exports.default = Factory;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./src/js/item/pictureItem.js":
+/*!************************************!*\
+  !*** ./src/js/item/pictureItem.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+
+var _baseItem2 = _interopRequireDefault(_baseItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PictureItem = function (_BaseItem) {
+    _inherits(PictureItem, _BaseItem);
+
+    function PictureItem(parameters) {
+        _classCallCheck(this, PictureItem);
+
+        var requiredParameters = ['position', 'backgroundColor', 'fontColor', 'path'];
+        for (var i in requiredParameters) {
+            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in PictureItem';
+            }
+        }
+
+        var _this = _possibleConstructorReturn(this, (PictureItem.__proto__ || Object.getPrototypeOf(PictureItem)).call(this, parameters));
+
+        _this.path = parameters.path;
+        _this.caption = parameters.caption;
+        _this.link = parameters.link;
+        return _this;
+    }
+
+    _createClass(PictureItem, [{
+        key: 'createPicture',
+        value: function createPicture() {
+            var element = this.domHelper.createElement('img', 'picture');
+            element.src = this.path;
+
+            return element;
+        }
+    }, {
+        key: 'renderHtml',
+        value: function renderHtml() {
+            var element = this.createItemElement();
+
+            var pictureItem = this.domHelper.createElement('div', 'picture-item');
+
+            if ('undefined' !== typeof this.caption) {
+                pictureItem.setAttribute('data-caption', this.caption);
+            }
+
+            if ('undefined' !== typeof this.link) {
+                var link = this.domHelper.createElement('a');
+                link.href = this.link;
+                link.appendChild(this.createPicture());
+                pictureItem.appendChild(link);
+            } else {
+                pictureItem.appendChild(this.createPicture());
+            }
+
+            element.appendChild(pictureItem);
+
+            return element;
+        }
+    }]);
+
+    return PictureItem;
+}(_baseItem2.default);
+
+exports.default = PictureItem;
 module.exports = exports['default'];
 
 /***/ }),
@@ -820,7 +971,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TextItem = function (_BaseItem) {
     _inherits(TextItem, _BaseItem);
 
-    function TextItem(DomHelper, parameters) {
+    function TextItem(parameters) {
         _classCallCheck(this, TextItem);
 
         var requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
@@ -830,8 +981,9 @@ var TextItem = function (_BaseItem) {
             }
         }
 
-        var _this = _possibleConstructorReturn(this, (TextItem.__proto__ || Object.getPrototypeOf(TextItem)).call(this, DomHelper, parameters));
+        var _this = _possibleConstructorReturn(this, (TextItem.__proto__ || Object.getPrototypeOf(TextItem)).call(this, parameters));
 
+        _this.title = parameters.title;
         _this.description = parameters.description;
         _this.picture = parameters.picture;
         _this.link = parameters.link;
@@ -839,6 +991,11 @@ var TextItem = function (_BaseItem) {
     }
 
     _createClass(TextItem, [{
+        key: 'createTitle',
+        value: function createTitle() {
+            return this.domHelper.createElement('span', 'title', this.title);
+        }
+    }, {
         key: 'createDescription',
         value: function createDescription() {
             return this.domHelper.createElement('p', 'description', this.description);
@@ -846,18 +1003,18 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'createPicture',
         value: function createPicture() {
-            var pictureElement = this.domHelper.createElement('img', 'picture');
-            pictureElement.src = this.picture;
+            var element = this.domHelper.createElement('img', 'picture');
+            element.src = this.picture;
 
-            return pictureElement;
+            return element;
         }
     }, {
         key: 'createLink',
         value: function createLink() {
             var label = void 0,
-                linkElement = document.createElement('a');
-            linkElement.href = this.link.href;
-            linkElement.style.color = this.fontColor;
+                element = document.createElement('a');
+            element.href = this.link.href;
+            element.style.color = this.fontColor;
 
             if ('undefined' !== typeof this.link.label) {
                 label = this.link.label;
@@ -865,32 +1022,31 @@ var TextItem = function (_BaseItem) {
                 label = this.link.href;
             }
 
-            linkElement.appendChild(document.createTextNode(label));
+            element.appendChild(document.createTextNode(label));
 
-            return linkElement;
+            return element;
         }
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
-            var containerElement = this.domHelper.createElement('div', 'item');
-            containerElement.setAttribute('data-id', this.identifier);
-            containerElement.style.color = this.fontColor;
-            containerElement.style.backgroundColor = this.backgroundColor;
-            containerElement.style.left = this.position.left - 65 + 'px';
-            containerElement.style.top = this.position.top + 40 + 'px';
+            var element = this.createItemElement();
 
-            containerElement.appendChild(this.createTitle());
-            containerElement.appendChild(this.createDescription());
+            var textElement = this.domHelper.createElement('div', 'text-item');
+
+            textElement.appendChild(this.createTitle());
+            textElement.appendChild(this.createDescription());
 
             if ('undefined' !== typeof this.picture) {
-                containerElement.appendChild(this.createPicture());
+                textElement.appendChild(this.createPicture());
             }
 
             if ('undefined' !== typeof this.link) {
-                containerElement.appendChild(this.createLink());
+                textElement.appendChild(this.createLink());
             }
 
-            return containerElement;
+            element.appendChild(textElement);
+
+            return element;
         }
     }]);
 

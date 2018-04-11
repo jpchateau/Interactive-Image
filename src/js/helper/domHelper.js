@@ -7,7 +7,7 @@ export default class DomHelper {
      * @param text
      * @returns HTMLElement
      */
-    createElement(tag, cssClass, text) {
+    createElement(tag, cssClass = '', text) {
         let domElement = document.createElement(tag);
         domElement.setAttribute('class', cssClass);
 

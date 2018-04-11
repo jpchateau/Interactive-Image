@@ -1,26 +1,33 @@
 import uniqid from 'uniqid';
+import DomHelper from "../helper/domHelper";
 
 export default class BaseItem {
-    constructor(DomHelper, parameters) {
-        this.domHelper = DomHelper;
+    constructor(parameters) {
+        this.domHelper = new DomHelper();
+        this.identifier = uniqid();
         this.position = parameters.position;
         this.backgroundColor = parameters.backgroundColor;
         this.fontColor = parameters.fontColor;
-        this.title = parameters.title;
-        this.identifier = uniqid(parameters.title + '-');
     }
 
-    createHotspot() {
-        let hotspotElement = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
-        hotspotElement.setAttribute('data-for', this.identifier);
-        hotspotElement.style.left = this.position.left + 'px';
-        hotspotElement.style.top = this.position.top + 'px';
+    createHotspotElement() {
+        let element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+        element.setAttribute('data-for', this.identifier);
+        element.style.left = this.position.left + 'px';
+        element.style.top = this.position.top + 'px';
 
-        return hotspotElement;
+        return element;
     }
 
-    createTitle() {
-        return this.domHelper.createElement('span', 'title', this.title);
+    createItemElement() {
+        let element = this.domHelper.createElement('div', 'item');
+        element.setAttribute('data-id', this.identifier);
+        element.style.color = this.fontColor;
+        element.style.backgroundColor = this.backgroundColor;
+        element.style.left = (this.position.left - 65) + 'px';
+        element.style.top = (this.position.top + 40) + 'px';
+
+        return element;
     }
 
     renderHtml() {
