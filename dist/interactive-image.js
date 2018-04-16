@@ -903,6 +903,11 @@ var PictureItem = function (_BaseItem) {
         value: function createPicture() {
             var element = this.domHelper.createElement('img', 'picture');
             element.src = this.path;
+            if ('undefined' !== typeof this.caption) {
+                element.alt = this.caption;
+            } else {
+                element.alt = "Picture #" + this.identifier;
+            }
 
             return element;
         }
@@ -1005,6 +1010,7 @@ var TextItem = function (_BaseItem) {
         value: function createPicture() {
             var element = this.domHelper.createElement('img', 'picture');
             element.src = this.picturePath;
+            element.alt = this.title;
 
             return element;
         }

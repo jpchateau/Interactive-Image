@@ -27,6 +27,7 @@ export default class TextItem extends BaseItem {
     createPicture() {
         let element = this.domHelper.createElement('img', 'picture');
         element.src = this.picturePath;
+        element.alt = this.title;
 
         return element;
     }

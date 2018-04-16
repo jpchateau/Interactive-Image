@@ -18,6 +18,11 @@ export default class PictureItem extends BaseItem {
     createPicture() {
         let element = this.domHelper.createElement('img', 'picture');
         element.src = this.path;
+        if ('undefined' !== typeof this.caption) {
+            element.alt = this.caption;
+        } else {
+            element.alt = "Picture #" + this.identifier;
+        }
 
         return element;
     }
