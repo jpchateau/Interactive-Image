@@ -894,7 +894,7 @@ var PictureItem = function (_BaseItem) {
 
         _this.path = parameters.path;
         _this.caption = parameters.caption;
-        _this.link = parameters.link;
+        _this.linkUrl = parameters.linkUrl;
         return _this;
     }
 
@@ -917,9 +917,9 @@ var PictureItem = function (_BaseItem) {
                 pictureItem.setAttribute('data-caption', this.caption);
             }
 
-            if ('undefined' !== typeof this.link) {
+            if ('undefined' !== typeof this.linkUrl) {
                 var link = this.domHelper.createElement('a');
-                link.href = this.link;
+                link.href = this.linkUrl;
                 link.appendChild(this.createPicture());
                 pictureItem.appendChild(link);
             } else {
@@ -985,7 +985,7 @@ var TextItem = function (_BaseItem) {
 
         _this.title = parameters.title;
         _this.description = parameters.description;
-        _this.picture = parameters.picture;
+        _this.picturePath = parameters.picturePath;
         _this.link = parameters.link;
         return _this;
     }
@@ -1004,7 +1004,7 @@ var TextItem = function (_BaseItem) {
         key: 'createPicture',
         value: function createPicture() {
             var element = this.domHelper.createElement('img', 'picture');
-            element.src = this.picture;
+            element.src = this.picturePath;
 
             return element;
         }
@@ -1013,7 +1013,7 @@ var TextItem = function (_BaseItem) {
         value: function createLink() {
             var label = void 0,
                 element = document.createElement('a');
-            element.href = this.link.href;
+            element.href = this.link.url;
             element.style.color = this.fontColor;
 
             if ('undefined' !== typeof this.link.label) {
@@ -1036,7 +1036,7 @@ var TextItem = function (_BaseItem) {
             textElement.appendChild(this.createTitle());
             textElement.appendChild(this.createDescription());
 
-            if ('undefined' !== typeof this.picture) {
+            if ('undefined' !== typeof this.picturePath) {
                 textElement.appendChild(this.createPicture());
             }
 

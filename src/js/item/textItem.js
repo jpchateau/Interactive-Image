@@ -12,7 +12,7 @@ export default class TextItem extends BaseItem {
         super(parameters);
         this.title = parameters.title;
         this.description = parameters.description;
-        this.picture = parameters.picture;
+        this.picturePath = parameters.picturePath;
         this.link = parameters.link;
     }
 
@@ -26,14 +26,14 @@ export default class TextItem extends BaseItem {
 
     createPicture() {
         let element = this.domHelper.createElement('img', 'picture');
-        element.src = this.picture;
+        element.src = this.picturePath;
 
         return element;
     }
 
     createLink() {
         let label, element = document.createElement('a');
-        element.href = this.link.href;
+        element.href = this.link.url;
         element.style.color = this.fontColor;
 
         if ('undefined' !== typeof this.link.label) {
@@ -55,7 +55,7 @@ export default class TextItem extends BaseItem {
         textElement.appendChild(this.createTitle());
         textElement.appendChild(this.createDescription());
 
-        if ('undefined' !== typeof this.picture) {
+        if ('undefined' !== typeof this.picturePath) {
             textElement.appendChild(this.createPicture());
         }
 

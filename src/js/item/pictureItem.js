@@ -12,7 +12,7 @@ export default class PictureItem extends BaseItem {
         super(parameters);
         this.path = parameters.path;
         this.caption = parameters.caption;
-        this.link = parameters.link;
+        this.linkUrl = parameters.linkUrl;
     }
 
     createPicture() {
@@ -31,9 +31,9 @@ export default class PictureItem extends BaseItem {
             pictureItem.setAttribute('data-caption', this.caption);
         }
 
-        if ('undefined' !== typeof this.link) {
+        if ('undefined' !== typeof this.linkUrl) {
             let link = this.domHelper.createElement('a');
-            link.href = this.link;
+            link.href = this.linkUrl;
             link.appendChild(this.createPicture());
             pictureItem.appendChild(link);
         } else {
