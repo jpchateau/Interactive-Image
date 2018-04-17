@@ -10,7 +10,7 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 
 ## Installing and building the project
 
-You need Node, NPM and SASS installed on your computer.
+You need Node.js, NPM and SASS installed on your computer.
 
 Building is done through npm scripts.
 
@@ -25,7 +25,9 @@ $ npm run build
 $ npm run lint -s
 ```
 
-Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/)
+Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).
+
+Please follow the [Sass guidelines](https://sass-guidelin.es/) when modifying styles.
 
 An overview of the code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
 

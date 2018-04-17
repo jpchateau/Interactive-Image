@@ -80,20 +80,19 @@ var items = [
     }
 ];
 
-// Plugin configuration example (all parameters are optional)
+// Plugin configuration
 var options = {
-      fontColor: "#333333",
-      backgroundColor: "#EFEFEF",
       debug: true
   };
 
-// Activate the plugin
+// Plugin activation
 $(document).ready(function () {
     $('.interactive-image').interactiveImage(items, options);
 });
 ```
 
 That's it!
+
 
 ## Configuration
 
@@ -102,8 +101,6 @@ That's it!
 | Option name     | Type    | Example   | Required | Default   | Purpose                 |
 | --------------- | ------- | --------- |:--------:| --------- | ----------------------- |
 | debug           | boolean | true      | No       | false     | Logs enabled in console |
-| fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
-| backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
 ### Items
 
@@ -117,19 +114,15 @@ That's it!
 | position        | object  |                              | Yes      |           | Marker position          |
 | picturePath     | string  | "/path/to/picture.png"       | No       |           | Illustration             |
 | link            | object  |                              | No       |           | HTTP Link                |
-| fontColor       | string  | "#337733"                    | No       | "#000000" | Text color               |
-| backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color         |
 
 **Picture Item**
 
-| Option name     | Type    | Example                      | Required | Default   | Purpose                        |
-| --------------- | ------- | ---------------------------- |:--------:| --------- | ------------------------------ |
-| type            | string  | "picture"                    | Yes      |           | Item type (text/picture)       |
-| path            | string  | "/path/to/picture.png"       | Yes      |           | Illustration                   |
-| caption         | string  |                              | No       |           | Illustration small description |
-| position        | object  |                              | Yes      |           | Marker position                |
-| fontColor       | string  | "#337733"                    | No       | "#000000" | Text color                     |
-| backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color               |
+| Option name     | Type    | Example                               | Required | Default   | Purpose                        |
+| --------------- | ------- | ------------------------------------- |:--------:| --------- | ------------------------------ |
+| type            | string  | "picture"                             | Yes      |           | Item type (text/picture)       |
+| path            | string  | "https://www.website.net/picture.png" | Yes      |           | Illustration                   |
+| caption         | string  |                                       | No       |           | Illustration small description |
+| position        | object  |                                       | Yes      |           | Marker position                |
 
 **Position**
 
@@ -140,11 +133,10 @@ That's it!
 
 **Link**
 
-| Option name     | Type    | Example                         | Required | Default    | Purpose             |
-| --------------- | ------- | ------------------------------- |:--------:| ---------- | ------------------- |
-| url             | string  | "https://www.website.net"       | Yes      |            | href attribute      |
-| label           | string  | "Webpage name"                  | No       | href value | Name of the webpage |
-
+| Option name     | Type    | Example                         | Required | Default   | Purpose             |
+| --------------- | ------- | ------------------------------- |:--------:| --------- | ------------------- |
+| url             | string  | "https://www.website.net"       | Yes      |           | href attribute      |
+| label           | string  | "Webpage name"                  | No       | url value | Name of the webpage |
 
 
 ## TODO
@@ -156,7 +148,8 @@ That's it!
 
 ## Contribute
 
-Feel free to contribute to this project and open some pull requests.
+This project uses [SemVer](https://semver.org/).
+Feel free to contribute and open some pull requests.
 
 This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.
 
