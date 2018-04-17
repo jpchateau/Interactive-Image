@@ -1,67 +1,84 @@
 .interactive-image {
+  font-family: Lato, sans-serif;
   position: relative;
-  cursor: default;
   z-index: 8;
-  caret-color: transparent; }
+  caret-color: transparent;
+  cursor: default; }
   .interactive-image .hotspot {
     position: absolute;
     z-index: 16;
     width: 30px;
     height: 30px;
-    color: #FFFFFF;
+    color: white;
     display: none;
     cursor: pointer;
     font-size: 1.7em; }
     .interactive-image .hotspot:hover {
-      text-shadow: 0 0 3px #FFFFFF; }
+      text-shadow: 0 0 3px white; }
   .interactive-image .picture {
     max-width: 200px;
     max-height: 200px; }
   .interactive-image .item {
     position: absolute;
-    background-color: #FFFFFF;
-    color: #000000;
+    z-index: 32;
+    background-color: white;
+    color: black;
     min-width: 100px;
     max-width: 280px;
-    min-height: 50px;
+    min-height: 60px;
     height: auto;
-    z-index: 32;
     display: none;
     text-align: center;
     border-radius: 1px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); }
-    .interactive-image .item .text-item {
-      padding: 10px 12px 15px; }
-      .interactive-image .item .text-item .title {
-        font-size: 1.1em;
-        width: 100%;
-        text-align: left;
-        font-weight: bold;
-        display: inline-block; }
-      .interactive-image .item .text-item .description {
-        text-align: left;
-        font-size: 0.9em;
-        font-weight: normal;
-        margin-top: 10px; }
-      .interactive-image .item .text-item a {
-        text-decoration: underline; }
-    .interactive-image .item .picture-item {
-      max-width: 200px;
-      max-height: 200px;
-      margin: 10px;
-      position: relative; }
-      .interactive-image .item .picture-item::before {
-        content: attr(data-caption);
-        position: absolute;
-        background: #999999;
-        background: rgba(0, 0, 0, 0.4);
-        color: #FFFFFF;
-        padding: 5px;
-        right: 0;
-        bottom: 5px;
-        left: 0;
-        text-align: center;
-        font-size: 0.8em; }
+
+.interactive-image .text-item {
+  padding: 10px; }
+  .interactive-image .text-item .title {
+    font-size: 1.1em;
+    width: 100%;
+    text-align: left;
+    font-variant: small-caps;
+    font-weight: bold;
+    display: inline-block; }
+  .interactive-image .text-item .description {
+    text-align: left;
+    font-size: 0.9em;
+    font-weight: normal;
+    margin: 10px 0 0; }
+  .interactive-image .text-item .picture {
+    margin-top: 15px; }
+  .interactive-image .text-item a {
+    text-decoration: underline;
+    color: black;
+    display: block;
+    margin-top: 10px; }
+    .interactive-image .text-item a:visited {
+      color: black; }
+    .interactive-image .text-item a:hover {
+      color: black; }
+    .interactive-image .text-item a:active {
+      color: black; }
+
+.interactive-image .picture-item {
+  position: relative;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 10px; }
+  .interactive-image .picture-item::before {
+    content: attr(data-caption);
+    position: absolute;
+    background: grey;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 5px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 0.8em; }
+  .interactive-image .picture-item .picture {
+    margin-bottom: -6px; }
 
 @font-face {
     font-family: 'icomoon';
