@@ -895,6 +895,7 @@ var PictureItem = function (_BaseItem) {
         _this.path = parameters.path;
         _this.caption = parameters.caption;
         _this.linkUrl = parameters.linkUrl;
+        delete _this.fontColor; // Deactivated as it does not have to produce an effect on the picture caption
         return _this;
     }
 

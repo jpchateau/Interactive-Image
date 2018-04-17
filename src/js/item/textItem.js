@@ -2,7 +2,7 @@ import BaseItem from "./baseItem";
 
 export default class TextItem extends BaseItem {
     constructor(parameters) {
-        let requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
+        let requiredParameters = ['type', 'position', 'backgroundColor', 'fontColor', 'title', 'description'];
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';

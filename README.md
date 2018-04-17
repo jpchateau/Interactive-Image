@@ -61,32 +61,21 @@ Edit the source code of your web page:
 // Items collection
 var items = [
     {
+        type: "text",
         title: "Fur",
-        description: "The fur of clouded leopards is of a dark grey or ochreous...",
+        description: "The fur of clouded leopards is...",
         position: {
-            left: 710,
-            top: 290
+            left: 100,
+            top: 50
         }
     },
     {
-        title: "Canines",
-        description: "They are often referred to as a \"modern-day saber tooth\"...",
+        type: "picture",
+        path: "path/to/picture.png",
+        caption: "A baby clouded leopard"
         position: {
-            left: 305,
-            top: 345
-        },
-        picture: "/path/to/picture.jpg"
-    },
-    {
-        title: "Threats",
-        description: "Many of the remaining forest areas are too small to ensure...",
-        position: {
-            left: 660,
-            top: 70
-        },
-        link: {
-            href: "https://www.mydomain.com/",
-            label: "Website title"
+            left: 200,
+            top: 300
         }
     }
 ];
@@ -108,19 +97,39 @@ That's it!
 
 ## Configuration
 
-### Item
+### Plugin configuration options
 
-**Item**
+| Option name     | Type    | Example   | Required | Default   | Purpose                 |
+| --------------- | ------- | --------- |:--------:| --------- | ----------------------- |
+| debug           | boolean | true      | No       | false     | Logs enabled in console |
+| fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
+| backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
-| Option name     | Type    | Example                      | Required | Default   | Purpose          |
-| --------------- | ------- | ---------------------------- |:--------:| --------- | ---------------- |
-| title           | string  | "Lorem ipsum"                | Yes      |           | Title            |
-| description     | string  | "Lorem ipsum dolor sit amet" | Yes      |           | Descriptive text |
-| position        | object  |                              | Yes      |           | Marker position  |
-| picture         | string  | "/path/to/picture.png"       | No       |           | Illustration     |
-| link            | object  |                              | No       |           | HTTP Link        |
-| fontColor       | string  | "#337733"                    | No       | "#000000" | Text color       |
-| backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color |
+### Items
+
+**Text Item**
+
+| Option name     | Type    | Example                      | Required | Default   | Purpose                  |
+| --------------- | ------- | ---------------------------- |:--------:| --------- | ------------------------ |
+| type            | string  | "text"                       | Yes      |           | Item type (text/picture) |
+| title           | string  | "Lorem ipsum"                | Yes      |           | Title                    |
+| description     | string  | "Lorem ipsum dolor sit amet" | Yes      |           | Descriptive text         |
+| position        | object  |                              | Yes      |           | Marker position          |
+| picturePath     | string  | "/path/to/picture.png"       | No       |           | Illustration             |
+| link            | object  |                              | No       |           | HTTP Link                |
+| fontColor       | string  | "#337733"                    | No       | "#000000" | Text color               |
+| backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color         |
+
+**Picture Item**
+
+| Option name     | Type    | Example                      | Required | Default   | Purpose                        |
+| --------------- | ------- | ---------------------------- |:--------:| --------- | ------------------------------ |
+| type            | string  | "picture"                    | Yes      |           | Item type (text/picture)       |
+| path            | string  | "/path/to/picture.png"       | Yes      |           | Illustration                   |
+| caption         | string  |                              | No       |           | Illustration small description |
+| position        | object  |                              | Yes      |           | Marker position                |
+| fontColor       | string  | "#337733"                    | No       | "#000000" | Text color                     |
+| backgroundColor | string  | "#EEEEEE"                    | No       | "#FFFFFF" | Background color               |
 
 **Position**
 
@@ -133,21 +142,14 @@ That's it!
 
 | Option name     | Type    | Example                         | Required | Default    | Purpose             |
 | --------------- | ------- | ------------------------------- |:--------:| ---------- | ------------------- |
-| href            | string  | "https://www.website.net"       | Yes      |            | href attribute      |
+| url             | string  | "https://www.website.net"       | Yes      |            | href attribute      |
 | label           | string  | "Webpage name"                  | No       | href value | Name of the webpage |
 
-### Plugin configuration options
 
-| Option name     | Type    | Example   | Required | Default   | Purpose                 |
-| --------------- | ------- | --------- |:--------:| --------- | ----------------------- |
-| debug           | boolean | true      | No       | false     | Logs enabled in console |
-| fontColor       | string  | "#337733" | No       | "#000000" | Text color              |
-| backgroundColor | string  | "#EEEEEE" | No       | "#FFFFFF" | Background color        |
 
 ## TODO
 
 - Make the plugin adaptive to all screens
-- Picture items
 - Audio items
 - Video items
 
