@@ -588,9 +588,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (function ($, window, document, undefined) {
     $.fn.interactiveImage = function (items, options) {
         var defaults = {
-            debug: false,
-            fontColor: "#000000",
-            backgroundColor: "#FFFFFF"
+            debug: false
         };
 
         options = $.extend(defaults, options);
@@ -654,12 +652,6 @@ var InteractiveImage = function () {
                 this.settings.debug = true;
                 throw 'Error: check "debug" plugin option';
             }
-            if ('undefined' === typeof settings.fontColor || 'string' !== typeof settings.fontColor) {
-                throw 'Error: check "fontColor" plugin option';
-            }
-            if ('undefined' === typeof settings.backgroundColor || 'string' !== typeof settings.backgroundColor) {
-                throw 'Error: check "backgroundColor" plugin option';
-            }
 
             this.logHelper.log('Options successfully checked');
         }
@@ -669,11 +661,6 @@ var InteractiveImage = function () {
             var type = options.type;
             delete options.type;
 
-            var defaults = {
-                fontColor: this.settings.fontColor,
-                backgroundColor: this.settings.backgroundColor
-            };
-            options = $.extend(defaults, options);
             this.logHelper.log(options);
 
             var element = this.itemFactory.createItem(type, options);
@@ -748,8 +735,6 @@ var BaseItem = function () {
         this.domHelper = new _domHelper2.default();
         this.identifier = (0, _uniqid2.default)();
         this.position = parameters.position;
-        this.backgroundColor = parameters.backgroundColor;
-        this.fontColor = parameters.fontColor;
     }
 
     _createClass(BaseItem, [{
@@ -767,8 +752,6 @@ var BaseItem = function () {
         value: function createItemElement() {
             var element = this.domHelper.createElement('div', 'item');
             element.setAttribute('data-id', this.identifier);
-            element.style.color = this.fontColor;
-            element.style.backgroundColor = this.backgroundColor;
             element.style.left = this.position.left - 65 + 'px';
             element.style.top = this.position.top + 40 + 'px';
 
@@ -883,7 +866,7 @@ var PictureItem = function (_BaseItem) {
     function PictureItem(parameters) {
         _classCallCheck(this, PictureItem);
 
-        var requiredParameters = ['position', 'backgroundColor', 'fontColor', 'path'];
+        var requiredParameters = ['position', 'path'];
         for (var i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in PictureItem';
@@ -895,7 +878,6 @@ var PictureItem = function (_BaseItem) {
         _this.path = parameters.path;
         _this.caption = parameters.caption;
         _this.linkUrl = parameters.linkUrl;
-        delete _this.fontColor; // Deactivated as it does not have to produce an effect on the picture caption
         return _this;
     }
 
@@ -980,7 +962,7 @@ var TextItem = function (_BaseItem) {
     function TextItem(parameters) {
         _classCallCheck(this, TextItem);
 
-        var requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
+        var requiredParameters = ['position', 'title', 'description'];
         for (var i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
@@ -1021,7 +1003,6 @@ var TextItem = function (_BaseItem) {
             var label = void 0,
                 element = document.createElement('a');
             element.href = this.link.url;
-            element.style.color = this.fontColor;
 
             if ('undefined' !== typeof this.link.label) {
                 label = this.link.label;

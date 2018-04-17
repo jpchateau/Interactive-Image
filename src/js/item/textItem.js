@@ -2,7 +2,7 @@ import BaseItem from "./baseItem";
 
 export default class TextItem extends BaseItem {
     constructor(parameters) {
-        let requiredParameters = ['type', 'position', 'backgroundColor', 'fontColor', 'title', 'description'];
+        let requiredParameters = ['position', 'title', 'description'];
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
@@ -35,7 +35,6 @@ export default class TextItem extends BaseItem {
     createLink() {
         let label, element = document.createElement('a');
         element.href = this.link.url;
-        element.style.color = this.fontColor;
 
         if ('undefined' !== typeof this.link.label) {
             label = this.link.label;

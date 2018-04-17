@@ -2,7 +2,7 @@ import BaseItem from "./baseItem";
 
 export default class PictureItem extends BaseItem {
     constructor(parameters) {
-        let requiredParameters = ['type', 'position', 'backgroundColor', 'fontColor', 'path'];
+        let requiredParameters = ['position', 'path'];
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in PictureItem';
@@ -13,7 +13,6 @@ export default class PictureItem extends BaseItem {
         this.path = parameters.path;
         this.caption = parameters.caption;
         this.linkUrl = parameters.linkUrl;
-        delete this.fontColor; // Deactivated as it does not have to produce an effect on the picture caption
     }
 
     createPicture() {

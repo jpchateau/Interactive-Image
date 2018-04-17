@@ -6,8 +6,6 @@ export default class BaseItem {
         this.domHelper = new DomHelper();
         this.identifier = uniqid();
         this.position = parameters.position;
-        this.backgroundColor = parameters.backgroundColor;
-        this.fontColor = parameters.fontColor;
     }
 
     createHotspotElement() {
@@ -22,8 +20,6 @@ export default class BaseItem {
     createItemElement() {
         let element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);
-        element.style.color = this.fontColor;
-        element.style.backgroundColor = this.backgroundColor;
         element.style.left = (this.position.left - 65) + 'px';
         element.style.top = (this.position.top + 40) + 'px';
 

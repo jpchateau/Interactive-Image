@@ -16,12 +16,6 @@ export default class InteractiveImage {
             this.settings.debug = true;
             throw 'Error: check "debug" plugin option';
         }
-        if ('undefined' === typeof settings.fontColor || 'string' !== typeof settings.fontColor) {
-            throw 'Error: check "fontColor" plugin option';
-        }
-        if ('undefined' === typeof settings.backgroundColor || 'string' !== typeof settings.backgroundColor) {
-            throw 'Error: check "backgroundColor" plugin option';
-        }
 
         this.logHelper.log('Options successfully checked');
     }
@@ -30,11 +24,6 @@ export default class InteractiveImage {
         let type = options.type;
         delete options.type;
 
-        let defaults = {
-            fontColor: this.settings.fontColor,
-            backgroundColor: this.settings.backgroundColor
-        };
-        options = $.extend(defaults, options);
         this.logHelper.log(options);
 
         let element = this.itemFactory.createItem(type, options);
