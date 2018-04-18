@@ -14,7 +14,6 @@
         }
     </style>
 <link href="interactive-image.css" rel="stylesheet"></head>
-
 <body>
     <!-- Main container of a scene -->
     <div class="interactive-image"></div>
@@ -43,7 +42,7 @@
                     top: 50
                 },
                 link: {
-                    url: "http://www.jpchateau.com/demo/interactive-image",
+                    url: "https://www.jpchateau.com/demo/interactive-image",
                     label: "Interactive Image Demo"
                 }
             },
@@ -100,12 +99,12 @@
             }
         ];
 
-        // Plugin configuration options
+        // Plugin configuration
         var options = {
             debug: true
         };
 
-        // Activate the plugin
+        // Plugin activation
         $(document).ready(function () {
             $('.interactive-image').interactiveImage(items, options);
         });

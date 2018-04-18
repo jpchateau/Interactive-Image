@@ -4,11 +4,11 @@
 
 ## Features
 
-- Interactive texts and images over large pictures
-- Flexible configuration
-- Easily customizable with CSS
-- Lightweight
-- Installable via package managers
+* Interactive texts and images over large pictures
+* Flexible configuration
+* Easily customizable with CSS
+* Lightweight
+* Installable via package managers
 
 [See it in action](https://www.jpchateau.com/demo/interactive-image)
 
@@ -50,9 +50,15 @@ Edit the source code of your web page:
 **HTML**
 
 ```html
-<!-- Main container of a scene -->
-<div class="interactive-image" style="width:900px;height:600px;background:url('/path/to/main-image.png');">
-</div>
+<style>
+.interactive-image {
+    width: 900px;
+    height: 600px;
+    background: url('/path/to/main-image.png');
+}
+</style>
+
+<div class="interactive-image"></div>
 ```
 
 **JavaScript**
@@ -71,8 +77,8 @@ var items = [
     },
     {
         type: "picture",
-        path: "path/to/picture.png",
-        caption: "A baby clouded leopard"
+        path: "/path/to/picture.png",
+        caption: "A baby clouded leopard",
         position: {
             left: 200,
             top: 300
@@ -92,6 +98,19 @@ $(document).ready(function () {
 ```
 
 That's it!
+
+
+## Style customization
+
+If you want to change the rendering of an item, as for example the background color and the front color of text items, adapt
+this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
+
+```css
+.interactive-image .text-item {
+    background-color: blue;
+    color: yellow;
+}
+```
 
 
 ## Configuration
@@ -141,14 +160,14 @@ That's it!
 
 ## TODO
 
-- Make the plugin adaptive to all screens
-- Audio items
-- Video items
+* Make the plugin adaptive to all screens
+* Add audio items
+* Add video items
+* GUI to make hotspots positioning simpler 
 
 
 ## Contribute
 
-This project uses [SemVer](https://semver.org/).
 Feel free to contribute and open some pull requests.
 
 This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.

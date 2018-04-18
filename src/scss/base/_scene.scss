@@ -1,5 +1,7 @@
+@import url(//fonts.googleapis.com/css?family=Lato);
+
 .interactive-image {
-    font-family: Lato, sans-serif;
+    font-family: Lato, Arial, sans-serif;
     position: relative;
     z-index: 8;
     caret-color: transparent;
@@ -13,7 +15,7 @@
         color: white;
         display: none;
         cursor: pointer;
-        font-size: 1.7em;
+        font-size: 28px;
 
         &:hover {
             text-shadow: 0 0 3px white;
