@@ -16,6 +16,14 @@
     font-size: 28px; }
     .interactive-image .hotspot:hover {
       text-shadow: 0 0 3px white; }
+  .interactive-image .arrow-up {
+    position: absolute;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white; }
   .interactive-image .picture {
     max-width: 200px;
     max-height: 200px; }

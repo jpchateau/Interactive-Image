@@ -398,15 +398,15 @@ var Hover = function () {
     _createClass(Hover, [{
         key: 'bindMainImageEvents',
         value: function bindMainImageEvents($image) {
-            // Mouse enters main image to show all icons
+            // Mouse enters main image to show all hotspots
             $image.on('mouseenter.interactiveImage', function () {
-                var $icons = $(this).find('.hotspot');
-                $.each($icons, function () {
+                var $hotspots = $(this).find('.hotspot');
+                $.each($hotspots, function () {
                     $(this).fadeIn();
                 });
             });
 
-            // Mouse leaves main image to hide all icons and containers
+            // Mouse leaves main image to hide all hotspots and containers
             $image.on('mouseleave.interactiveImage', function () {
                 var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
@@ -587,6 +587,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (function ($, window, document, undefined) {
     $.fn.interactiveImage = function (items, options) {
+        var _this = this;
+
         var defaults = {
             debug: false
         };
@@ -594,7 +596,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         options = $.extend(defaults, options);
 
         return this.each(function () {
-            new _interactiveImage2.default(items, options, $(this)).execute();
+            new _interactiveImage2.default(items, options, $(_this)).execute();
         });
     };
 })(jQuery, window, document);
@@ -615,6 +617,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -680,11 +684,42 @@ var InteractiveImage = function () {
             }
         }
     }, {
+        key: "positionItems",
+        value: function positionItems() {
+            var calculatePosition = function calculatePosition(hotspotLeft, hotspotTop, width) {
+                return [hotspotLeft - width / 2 + 15, hotspotTop + 40];
+            };
+
+            var $items = this.$image.find('.item');
+            $.each($items, function () {
+                var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
+                var left = 0,
+                    top = 0,
+                    arrowLeft = 0;
+
+                var _calculatePosition = calculatePosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), $(this).width());
+
+                var _calculatePosition2 = _slicedToArray(_calculatePosition, 2);
+
+                left = _calculatePosition2[0];
+                top = _calculatePosition2[1];
+
+                arrowLeft = $(this).width() / 2 - 7;
+
+                $(this).css('left', left);
+                $(this).css('top', top);
+                $(this).find('.arrow-up').css('left', arrowLeft);
+            });
+
+            this.logHelper.log('Items are all positioned');
+        }
+    }, {
         key: "execute",
         value: function execute() {
             try {
                 this.checkSettings(this.settings);
                 this.buildElements(this.items);
+                this.positionItems();
                 new _hover2.default().bindAll(this.$image);
             } catch (exception) {
                 this.logHelper.log(exception);
@@ -748,12 +783,18 @@ var BaseItem = function () {
             return element;
         }
     }, {
+        key: 'createArrowElement',
+        value: function createArrowElement() {
+            var element = this.domHelper.createElement('div', 'arrow-up');
+
+            return element;
+        }
+    }, {
         key: 'createItemElement',
         value: function createItemElement() {
             var element = this.domHelper.createElement('div', 'item');
             element.setAttribute('data-id', this.identifier);
-            element.style.left = this.position.left - 65 + 'px';
-            element.style.top = this.position.top + 40 + 'px';
+            element.append(this.createArrowElement());
 
             return element;
         }

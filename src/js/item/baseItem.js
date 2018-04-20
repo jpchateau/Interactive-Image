@@ -17,11 +17,16 @@ export default class BaseItem {
         return element;
     }
 
+    createArrowElement() {
+        let element = this.domHelper.createElement('div', 'arrow-up');
+
+        return element;
+    }
+
     createItemElement() {
         let element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);
-        element.style.left = (this.position.left - 65) + 'px';
-        element.style.top = (this.position.top + 40) + 'px';
+        element.append(this.createArrowElement());
 
         return element;
     }
