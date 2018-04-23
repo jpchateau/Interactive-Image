@@ -45,18 +45,21 @@ export default class InteractiveImage {
     positionItems() {
         let calculatePosition = (hotspotLeft, hotspotTop, width) => {
             return [
-                hotspotLeft - (width / 2) + 15,
+                hotspotLeft + 15 - width / 2,
                 hotspotTop + 40
             ];
         };
 
         let $items = this.$image.find('.item');
         $.each($items, function() {
-            let $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
-            let left = 0, top = 0, arrowLeft = 0;
+            let $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
+                width = parseInt($(this).css('width'), 10),
+                left = 0,
+                top = 0,
+                arrowLeft = 0;
 
-            [left, top] = calculatePosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), $(this).width());
-            arrowLeft = $(this).width() / 2 - 7;
+            [left, top] = calculatePosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+            arrowLeft = width / 2 - 7;
 
             $(this).css('left', left);
             $(this).css('top', top);
