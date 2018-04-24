@@ -1,6 +1,5 @@
-@import url(//fonts.googleapis.com/css?family=Lato);
 .interactive-image {
-  font-family: Lato, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   position: relative;
   z-index: 8;
   caret-color: transparent;
@@ -38,11 +37,11 @@
     height: auto;
     display: none;
     text-align: center;
-    border-radius: 1px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); }
+    border-radius: 2px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5); }
 
 .interactive-image .text-item {
-  padding: 10px; }
+  padding: 15px; }
   .interactive-image .text-item .title {
     font-size: 20px;
     width: 100%;
@@ -54,9 +53,11 @@
     text-align: left;
     font-size: 14px;
     font-weight: normal;
-    margin: 10px 0 0; }
+    margin-top: 10px;
+    margin-bottom: 0; }
   .interactive-image .text-item .picture {
-    margin-top: 15px; }
+    margin-top: 15px;
+    margin-bottom: -2px; }
   .interactive-image .text-item a {
     text-decoration: underline;
     color: black;
@@ -73,7 +74,7 @@
   position: relative;
   max-width: 200px;
   max-height: 200px;
-  margin: 10px; }
+  margin: 15px; }
   .interactive-image .picture-item::before {
     content: attr(data-caption);
     position: absolute;
@@ -87,7 +88,7 @@
     text-align: center;
     font-size: 12px; }
   .interactive-image .picture-item .picture {
-    margin-bottom: -6px; }
+    margin-bottom: -4px; }
 
 @font-face {
     font-family: 'icomoon';

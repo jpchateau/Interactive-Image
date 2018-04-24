@@ -7,7 +7,6 @@
 * Interactive texts and images over large pictures
 * Flexible configuration
 * Easily customizable with CSS
-* Lightweight
 * Installable via package managers
 
 [See it in action](https://www.jpchateau.com/demo/interactive-image)
@@ -34,31 +33,32 @@ $ yarn add interactiveimagejs
 You can also download the production version or the development version from GitHub.
 All these files (js, css and fonts) are located in the `dist` directory.
 
-```html
-<head>
-    <link rel="stylesheet" href="interactive-image.min.css" />
-</head>
-<body>
-    <script src="interactive-image.min.js"></script>
-</body>
-```
-
 ## Usage
+
+### Get started
 
 Edit the source code of your web page:
 
 **HTML**
 
 ```html
-<style>
-.interactive-image {
+<head>
+  <link rel="stylesheet" href="interactive-image.min.css" />
+  <style>
+  .interactive-image {
     width: 900px;
     height: 600px;
     background: url('/path/to/main-image.png');
-}
-</style>
+  }
+  </style>
+</head>
+<body>
+  <div class="interactive-image"></div>  
+  
+  <!-- Do not forget to include jQuery here -->
 
-<div class="interactive-image"></div>
+  <script src="interactive-image.min.js"></script>
+</body>
 ```
 
 **JavaScript**
@@ -66,96 +66,106 @@ Edit the source code of your web page:
 ```javascript
 // Items collection
 var items = [
-    {
-        type: "text",
-        title: "Fur",
-        description: "The fur of clouded leopards is...",
-        position: {
-            left: 100,
-            top: 50
-        }
-    },
-    {
-        type: "picture",
-        path: "/path/to/picture.png",
-        caption: "A baby clouded leopard",
-        position: {
-            left: 200,
-            top: 300
-        }
+  {
+    type: "text",
+    title: "Fur",
+    description: "The fur of clouded leopards is...",
+    position: {
+        left: 100,
+        top: 50
+  }
+  },
+  {
+    type: "picture",
+    path: "/path/to/picture.png",
+    caption: "A baby clouded leopard",
+    position: {
+      left: 200,
+      top: 300
     }
+  }
 ];
-
-// Plugin configuration
-var options = {
-      debug: true
-  };
 
 // Plugin activation
 $(document).ready(function () {
-    $('.interactive-image').interactiveImage(items, options);
+  $('.interactive-image').interactiveImage(items);
 });
 ```
 
-That's it!
+### Style customization
 
-
-## Style customization
-
-If you want to change the rendering of an item, as for example the background color and the front color of text items, adapt
+You may want to change the rendering of an item, as for example the background and the front color of text items. Adapt
 this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
 
 ```css
 .interactive-image .text-item {
-    background-color: blue;
-    color: yellow;
+  background-color: blue;
+  color: yellow;
 }
 ```
 
+### Debugging
+
+In order to display some console messages to see the different steps of the processing, add an `options` object to the app initialization:
+
+```javascript
+var options = {
+  debug: true
+};
+
+$(document).ready(function () {
+  $('.interactive-image').interactiveImage(items, options);
+}); 
+```
 
 ## Configuration
 
 ### Plugin configuration options
 
-| Option name     | Type    | Example   | Required | Default   | Purpose                 |
-| --------------- | ------- | --------- |:--------:| --------- | ----------------------- |
-| debug           | boolean | true      | No       | false     | Logs enabled in console |
+**Options**
+
+| Property | Type    | Example | Required | Default | Purpose                 |
+| ---------| ------- | ------- |:--------:| ------- | ----------------------- |
+| debug    | boolean | true    | No       | false   | Logs enabled in console |
 
 ### Items
 
 **Text Item**
 
-| Option name     | Type    | Example                      | Required | Default   | Purpose                  |
-| --------------- | ------- | ---------------------------- |:--------:| --------- | ------------------------ |
-| type            | string  | "text"                       | Yes      |           | Item type (text/picture) |
-| title           | string  | "Lorem ipsum"                | Yes      |           | Title                    |
-| description     | string  | "Lorem ipsum dolor sit amet" | Yes      |           | Descriptive text         |
-| position        | object  |                              | Yes      |           | Marker position          |
-| picturePath     | string  | "/path/to/picture.png"       | No       |           | Illustration             |
-| link            | object  |                              | No       |           | HTTP Link                |
+| Property    | Type   | Example                | Required | Default | Purpose                       |
+| ----------- | ------ | ---------------------- |:--------:| ------- | ----------------------------- |
+| type        | string | "text"                 | Yes      |         | Item type (text/picture)      |
+| position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene |
+| title       | string | "My title"             | Yes      |         | Title                         |
+| description | string | "My description"       | Yes      |         | Descriptive text              |
+| picturePath | string | "/path/to/picture.png" | No       |         | Illustration                  |
+| link        | object | See `Link` object      | No       |         | HTTP Link                     |
 
 **Picture Item**
 
-| Option name     | Type    | Example                               | Required | Default   | Purpose                        |
-| --------------- | ------- | ------------------------------------- |:--------:| --------- | ------------------------------ |
-| type            | string  | "picture"                             | Yes      |           | Item type (text/picture)       |
-| path            | string  | "https://www.website.net/picture.png" | Yes      |           | Illustration                   |
-| caption         | string  |                                       | No       |           | Illustration small description |
-| position        | object  |                                       | Yes      |           | Marker position                |
+| Property    | Type   | Example                | Required | Default | Purpose                        |
+| ----------- | ------ | ---------------------- |:--------:| ------- | ------------------------------ |
+| type        | string | "picture"              | Yes      |         | Item type (text/picture)       |
+| position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene  |
+| path        | string | "/path/to/picture.png" | Yes      |         | Illustration                   |
+| caption     | string | "My caption"           | No       |         | Illustration small description |
+
+
+### Other objects
 
 **Position**
 
-| Option name     | Type    | Example | Required | Default | Purpose          |
-| --------------- | ------- | ------- |:--------:| ------- | ---------------- |
-| left            | integer | 200     | Yes      |         | X absolute value |
-| top             | integer | 50      | Yes      |         | Y absolute value |
+| Property    | Type    | Example | Required | Default | Purpose          |
+| ----------- | ------- | ------- |:--------:| ------- | ---------------- |
+| left        | integer | 200     | Yes      |         | X absolute value |
+| top         | integer | 50      | Yes      |         | Y absolute value |
 
 **Link**
 
-| Option name     | Type    | Example                         | Required | Default   | Purpose             |
-| --------------- | ------- | ------------------------------- |:--------:| --------- | ------------------- |
-| url             | string  | "https://www.website.net"       | Yes      |           | href attribute      |
-| label           | string  | "Webpage name"                  | No       | url value | Name of the webpage |
+| Property    | Type    | Example                  | Required | Default     | Purpose             |
+| ----------- | ------- | ------------------------ |:--------:| ----------- | ------------------- |
+| url         | string  | "https://www.github.com" | Yes      |             | href attribute      |
+| label       | string  | "My webpage"             | No       | `url` value | Name of the webpage |
 
 
 ## TODO

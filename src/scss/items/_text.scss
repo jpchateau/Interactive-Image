@@ -1,6 +1,6 @@
 .interactive-image {
   .text-item {
-    padding: 10px;
+    padding: 15px;
 
     .title {
       font-size: 20px;
@@ -15,11 +15,13 @@
       text-align: left;
       font-size: 14px;
       font-weight: normal;
-      margin: 10px 0 0;
+      margin-top: 10px;
+      margin-bottom: 0;
     }
 
     .picture {
       margin-top: 15px;
+      margin-bottom: -2px;
     }
 
     a {

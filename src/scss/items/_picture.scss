@@ -3,7 +3,7 @@
     position: relative;
     max-width: 200px;
     max-height: 200px;
-    margin: 10px;
+    margin: 15px;
 
     &::before {
       content: attr(data-caption);
@@ -20,7 +20,7 @@
     }
 
     .picture {
-      margin-bottom: -6px;
+      margin-bottom: -4px;
     }
   }
 }
