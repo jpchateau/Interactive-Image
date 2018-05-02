@@ -10,7 +10,7 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 
 ## Installing and building the project
 
-You need Node.js, NPM and SASS installed on your computer.
+You need Node.js, npm and Sass installed on your computer.
 
 Building is done through npm scripts.
 
@@ -18,6 +18,13 @@ Building is done through npm scripts.
 $ npm install
 $ npm run build
 ```
+
+### Icons
+
+Use [IcoMoon](https://icomoon.io/) icon library to export icons from IcoMoon app and include them in this project.
+
+Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon app.
+
 
 ## Code Quality
 
