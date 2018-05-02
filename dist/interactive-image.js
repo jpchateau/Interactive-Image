@@ -397,6 +397,11 @@ var Hover = function () {
 
     _createClass(Hover, [{
         key: 'bindMainImageEvents',
+
+
+        /**
+         * @param $image
+         */
         value: function bindMainImageEvents($image) {
             // Mouse enters main image to show all hotspots
             $image.on('mouseenter.interactiveImage', function () {
@@ -414,6 +419,11 @@ var Hover = function () {
                 });
             });
         }
+
+        /**
+         * @param $image
+         */
+
     }, {
         key: 'bindSpecificEvents',
         value: function bindSpecificEvents($image) {
@@ -440,6 +450,11 @@ var Hover = function () {
                 });
             });
         }
+
+        /**
+         * @param $image
+         */
+
     }, {
         key: 'bindAll',
         value: function bindAll($image) {
@@ -448,11 +463,20 @@ var Hover = function () {
         }
     }], [{
         key: 'hideElement',
+
+        /**
+         * @param $element
+         */
         value: function hideElement($element) {
             if ($element.css('display') === 'block') {
                 $element.hide();
             }
         }
+
+        /**
+         * @param $element
+         */
+
     }, {
         key: 'showElement',
         value: function showElement($element) {
@@ -499,10 +523,10 @@ var DomHelper = function () {
         /**
          * Create a DOM element
          *
-         * @param tag
-         * @param cssClass
-         * @param text
-         * @returns HTMLElement
+         * @param {string} tag
+         * @param {string=''} cssClass
+         * @param {string} [text]
+         * @returns {HTMLElement}
          */
         value: function createElement(tag) {
             var cssClass = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -546,11 +570,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var LogHelper = function () {
+    /**
+     * @param {boolean} debug
+     */
     function LogHelper(debug) {
         _classCallCheck(this, LogHelper);
 
         this.debug = debug;
     }
+
+    /**
+     * @param {string} message
+     */
+
 
     _createClass(LogHelper, [{
         key: "log",
@@ -639,6 +671,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var InteractiveImage = function () {
+    /**
+     * @param items
+     * @param {object} settings
+     * @param $image
+     */
     function InteractiveImage(items, settings, $image) {
         _classCallCheck(this, InteractiveImage);
 
@@ -648,6 +685,11 @@ var InteractiveImage = function () {
         this.logHelper = new _logHelper2.default(settings.debug);
         this.itemFactory = new _factory2.default();
     }
+
+    /**
+     * @param {object} settings
+     */
+
 
     _createClass(InteractiveImage, [{
         key: "checkSettings",
@@ -659,6 +701,12 @@ var InteractiveImage = function () {
 
             this.logHelper.log('Options successfully checked');
         }
+
+        /**
+         * @param {object} options
+         * @returns {jQuery|HTMLElement}
+         */
+
     }, {
         key: "createElement",
         value: function createElement(options) {
@@ -674,6 +722,11 @@ var InteractiveImage = function () {
 
             return $(element.renderHtml());
         }
+
+        /**
+         * @param items
+         */
+
     }, {
         key: "buildElements",
         value: function buildElements(items) {
@@ -686,6 +739,11 @@ var InteractiveImage = function () {
     }, {
         key: "positionItems",
         value: function positionItems() {
+            /**
+             * @param {number} hotspotLeft
+             * @param {number} hotspotTop
+             * @param {number} width
+             */
             var calculatePosition = function calculatePosition(hotspotLeft, hotspotTop, width) {
                 return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
             };
@@ -765,6 +823,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BaseItem = function () {
+    /**
+     * @param {object} parameters
+     */
     function BaseItem(parameters) {
         _classCallCheck(this, BaseItem);
 
@@ -772,6 +833,11 @@ var BaseItem = function () {
         this.identifier = (0, _uniqid2.default)();
         this.position = parameters.position;
     }
+
+    /**
+     * @returns {HTMLElement}
+     */
+
 
     _createClass(BaseItem, [{
         key: 'createHotspotElement',
@@ -783,6 +849,11 @@ var BaseItem = function () {
 
             return element;
         }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
     }, {
         key: 'createArrowElement',
         value: function createArrowElement() {
@@ -790,6 +861,11 @@ var BaseItem = function () {
 
             return element;
         }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
     }, {
         key: 'createItemElement',
         value: function createItemElement() {
@@ -849,6 +925,12 @@ var Factory = function () {
 
     _createClass(Factory, [{
         key: "createItem",
+
+        /**
+         * @param {string} type
+         * @param {object} parameters
+         * @returns {TextItem|PictureItem}
+         */
         value: function createItem(type, parameters) {
             var item = void 0;
             switch (type.toLowerCase()) {
@@ -902,9 +984,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * @extends BaseItem
+ */
 var PictureItem = function (_BaseItem) {
     _inherits(PictureItem, _BaseItem);
 
+    /**
+     * @param {object} parameters
+     */
     function PictureItem(parameters) {
         _classCallCheck(this, PictureItem);
 
@@ -923,6 +1011,11 @@ var PictureItem = function (_BaseItem) {
         return _this;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
+
+
     _createClass(PictureItem, [{
         key: 'createPicture',
         value: function createPicture() {
@@ -936,6 +1029,11 @@ var PictureItem = function (_BaseItem) {
 
             return element;
         }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
@@ -998,9 +1096,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * @extends BaseItem
+ */
 var TextItem = function (_BaseItem) {
     _inherits(TextItem, _BaseItem);
 
+    /**
+     * @param {object} parameters
+     */
     function TextItem(parameters) {
         _classCallCheck(this, TextItem);
 
@@ -1020,16 +1124,31 @@ var TextItem = function (_BaseItem) {
         return _this;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
+
+
     _createClass(TextItem, [{
         key: 'createTitle',
         value: function createTitle() {
             return this.domHelper.createElement('span', 'title', this.title);
         }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
     }, {
         key: 'createDescription',
         value: function createDescription() {
             return this.domHelper.createElement('p', 'description', this.description);
         }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
     }, {
         key: 'createPicture',
         value: function createPicture() {
@@ -1039,6 +1158,11 @@ var TextItem = function (_BaseItem) {
 
             return element;
         }
+
+        /**
+         * @returns {HTMLAnchorElement}
+         */
+
     }, {
         key: 'createLink',
         value: function createLink() {
@@ -1056,6 +1180,11 @@ var TextItem = function (_BaseItem) {
 
             return element;
         }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
     }, {
         key: 'renderHtml',
         value: function renderHtml() {

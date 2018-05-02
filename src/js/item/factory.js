@@ -2,6 +2,11 @@ import TextItem from "./textItem";
 import PictureItem from "./pictureItem";
 
 export default class Factory {
+    /**
+     * @param {string} type
+     * @param {object} parameters
+     * @returns {TextItem|PictureItem}
+     */
     createItem(type, parameters) {
         let item;
         switch (type.toLowerCase()) {

@@ -1,16 +1,25 @@
 export default class Hover {
+    /**
+     * @param $element
+     */
     static hideElement($element) {
         if ($element.css('display') === 'block') {
             $element.hide();
         }
     }
 
+    /**
+     * @param $element
+     */
     static showElement($element) {
         if ($element.css('display') !== 'block') {
             $element.show();
         }
     }
 
+    /**
+     * @param $image
+     */
     bindMainImageEvents($image) {
         // Mouse enters main image to show all hotspots
         $image.on('mouseenter.interactiveImage', function() {
@@ -29,6 +38,9 @@ export default class Hover {
         });
     }
 
+    /**
+     * @param $image
+     */
     bindSpecificEvents($image) {
         // Bind Mouse leaves container to hide it
         let bindContainerMouseLeaveEvent = () => {
@@ -54,6 +66,9 @@ export default class Hover {
         });
     }
 
+    /**
+     * @param $image
+     */
     bindAll($image) {
         this.bindMainImageEvents($image);
         this.bindSpecificEvents($image);

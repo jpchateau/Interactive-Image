@@ -3,6 +3,11 @@ import LogHelper from "./helper/logHelper";
 import Factory from "./item/factory";
 
 export default class InteractiveImage {
+    /**
+     * @param items
+     * @param {object} settings
+     * @param $image
+     */
     constructor(items, settings, $image) {
         this.items = items;
         this.settings = settings;
@@ -11,6 +16,9 @@ export default class InteractiveImage {
         this.itemFactory = new Factory();
     }
 
+    /**
+     * @param {object} settings
+     */
     checkSettings(settings) {
         if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
             this.settings.debug = true;
@@ -20,6 +28,10 @@ export default class InteractiveImage {
         this.logHelper.log('Options successfully checked');
     }
 
+    /**
+     * @param {object} options
+     * @returns {jQuery|HTMLElement}
+     */
     createElement(options) {
         let type = options.type;
         delete options.type;
@@ -34,6 +46,9 @@ export default class InteractiveImage {
         return $(element.renderHtml());
     }
 
+    /**
+     * @param items
+     */
     buildElements(items) {
         for (let i in items) {
             if (items.hasOwnProperty(i)) {
@@ -43,6 +58,11 @@ export default class InteractiveImage {
     }
 
     positionItems() {
+        /**
+         * @param {number} hotspotLeft
+         * @param {number} hotspotTop
+         * @param {number} width
+         */
         let calculatePosition = (hotspotLeft, hotspotTop, width) => {
             return [
                 hotspotLeft + 15 - width / 2,

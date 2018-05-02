@@ -1,6 +1,12 @@
 import BaseItem from "./baseItem";
 
+/**
+ * @extends BaseItem
+ */
 export default class PictureItem extends BaseItem {
+    /**
+     * @param {object} parameters
+     */
     constructor(parameters) {
         let requiredParameters = ['position', 'path'];
         for (let i in requiredParameters) {
@@ -15,6 +21,9 @@ export default class PictureItem extends BaseItem {
         this.linkUrl = parameters.linkUrl;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createPicture() {
         let element = this.domHelper.createElement('img', 'picture');
         element.src = this.path;
@@ -27,6 +36,9 @@ export default class PictureItem extends BaseItem {
         return element;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     renderHtml() {
         let element = this.createItemElement();
 

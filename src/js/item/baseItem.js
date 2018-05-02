@@ -2,12 +2,18 @@ import uniqid from 'uniqid';
 import DomHelper from "../helper/domHelper";
 
 export default class BaseItem {
+    /**
+     * @param {object} parameters
+     */
     constructor(parameters) {
         this.domHelper = new DomHelper();
         this.identifier = uniqid();
         this.position = parameters.position;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createHotspotElement() {
         let element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
         element.setAttribute('data-for', this.identifier);
@@ -17,12 +23,18 @@ export default class BaseItem {
         return element;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createArrowElement() {
         let element = this.domHelper.createElement('div', 'arrow-up');
 
         return element;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createItemElement() {
         let element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);

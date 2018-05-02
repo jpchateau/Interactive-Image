@@ -1,6 +1,12 @@
 import BaseItem from "./baseItem";
 
+/**
+ * @extends BaseItem
+ */
 export default class TextItem extends BaseItem {
+    /**
+     * @param {object} parameters
+     */
     constructor(parameters) {
         let requiredParameters = ['position', 'title', 'description'];
         for (let i in requiredParameters) {
@@ -16,14 +22,23 @@ export default class TextItem extends BaseItem {
         this.link = parameters.link;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createTitle() {
         return this.domHelper.createElement('span', 'title', this.title);
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createDescription() {
         return this.domHelper.createElement('p', 'description', this.description);
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createPicture() {
         let element = this.domHelper.createElement('img', 'picture');
         element.src = this.picturePath;
@@ -32,6 +47,9 @@ export default class TextItem extends BaseItem {
         return element;
     }
 
+    /**
+     * @returns {HTMLAnchorElement}
+     */
     createLink() {
         let label, element = document.createElement('a');
         element.href = this.link.url;
@@ -47,6 +65,9 @@ export default class TextItem extends BaseItem {
         return element;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     renderHtml() {
         let element = this.createItemElement();
 
