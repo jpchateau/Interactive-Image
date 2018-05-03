@@ -48,7 +48,7 @@ Edit the source code of your web page:
   .interactive-image {
     width: 900px;
     height: 600px;
-    background: url('/path/to/main-image.png');
+    background: url("/path/to/main-image.png");
   }
   </style>
 </head>
@@ -73,7 +73,7 @@ var items = [
     position: {
         left: 100,
         top: 50
-  }
+    }
   },
   {
     type: "picture",
@@ -88,7 +88,7 @@ var items = [
 
 // Plugin activation
 $(document).ready(function () {
-  $('.interactive-image').interactiveImage(items);
+  $(".interactive-image").interactiveImage(items);
 });
 ```
 
@@ -98,10 +98,10 @@ You may want to change the rendering of an item, as for example the background a
 this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
 
 ```css
-.interactive-image .text-item {
-  background-color: blue;
-  color: yellow;
-}
+  .interactive-image .text-item {
+    background-color: blue;
+    color: yellow;
+  }
 ```
 
 ### Debugging
@@ -114,7 +114,7 @@ var options = {
 };
 
 $(document).ready(function () {
-  $('.interactive-image').interactiveImage(items, options);
+  $(".interactive-image").interactiveImage(items, options);
 }); 
 ```
 
