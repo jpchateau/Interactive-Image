@@ -29,7 +29,8 @@ Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon
 ## Code Quality
 
 ```sh
-$ npm run lint -s
+$ npm run eslint -s
+$ npm run sass-lint
 ```
 
 Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).
@@ -40,9 +41,10 @@ An overview of the code quality can be found at [code climate](https://codeclima
 
 ## npm script reference
 
-| Command          | Function                                                |
-|------------------|---------------------------------------------------------|
-| `npm run dev`    | Build all the distributable files for local development |
-| `npm run build`  | Build all the optimized distributable files             |
-| `npm run lint`   | Run the ES linter                                       |
-| `npm run watch`  | Run the watcher for local development                   |
+| Command             | Function                                                |
+|---------------------|---------------------------------------------------------|
+| `npm run build`     | Build all the optimized distributable files             |
+| `npm run dev`       | Build all the distributable files for local development |
+| `npm run eslint`    | Run the ES linter                                       |
+| `npm run sass-lint` | Run the Sass linter                                     |
+| `npm run watch`     | Run the watcher for local development                   |

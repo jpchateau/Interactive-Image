@@ -8,8 +8,7 @@
     &::before {
       content: attr(data-caption);
       position: absolute;
-      background: grey;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, .4);
       color: white;
       padding: 5px;
       right: 0;

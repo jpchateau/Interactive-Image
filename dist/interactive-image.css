@@ -78,7 +78,6 @@
   .interactive-image .picture-item::before {
     content: attr(data-caption);
     position: absolute;
-    background: grey;
     background: rgba(0, 0, 0, 0.4);
     color: white;
     padding: 5px;
