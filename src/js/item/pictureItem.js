@@ -30,7 +30,7 @@ export default class PictureItem extends BaseItem {
         if ('undefined' !== typeof this.caption) {
             element.alt = this.caption;
         } else {
-            element.alt = "Picture #" + this.identifier;
+            element.alt = 'Picture #' + this.identifier;
         }
 
         return element;

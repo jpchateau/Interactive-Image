@@ -1,5 +1,5 @@
-import uniqid from 'uniqid';
 import DomHelper from "../helper/domHelper";
+import Uniqid from "uniqid";
 
 export default class BaseItem {
     /**
@@ -7,7 +7,7 @@ export default class BaseItem {
      */
     constructor(parameters) {
         this.domHelper = new DomHelper();
-        this.identifier = uniqid();
+        this.identifier = Uniqid();
         this.position = parameters.position;
     }
 

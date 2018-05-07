@@ -1,9 +1,9 @@
-import Hover from "./event/hover";
-import LogHelper from "./helper/logHelper";
 import Factory from "./item/factory";
-import imagesLoaded from "imagesloaded";
+import Hover from "./event/hover";
+import ImagesLoaded from "imagesloaded";
+import LogHelper from "./helper/logHelper";
 
-export default class InteractiveImage {
+export default class App {
     /**
      * @param items
      * @param {object} settings
@@ -64,7 +64,7 @@ export default class InteractiveImage {
          * @param {number} hotspotTop
          * @param {number} width
          */
-        let calculatePosition = (hotspotLeft, hotspotTop, width) => {
+        let calculateItemPosition = (hotspotLeft, hotspotTop, width) => {
             return [
                 hotspotLeft + 15 - width / 2,
                 hotspotTop + 40
@@ -74,22 +74,18 @@ export default class InteractiveImage {
         let $items = this.$image.find('.item');
         $.each($items, function() {
             let $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                width = 0,
+                width = $(this).width(),
                 left = 0,
-                top = 0,
-                arrowLeft = 0;
+                top = 0;
 
-            width = $(this).width();
-
-            [left, top] = calculatePosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
-            arrowLeft = width / 2 - 7;
+            [left, top] = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
             $(this).css('left', left);
             $(this).css('top', top);
-            $(this).find('.arrow-up').css('left', arrowLeft);
+            $(this).find('.arrow-up').css('left', width / 2 - 7);
         });
 
-        this.logHelper.log('Items are all positioned');
+        this.logHelper.log('Items positioned');
     }
 
     execute() {
@@ -97,10 +93,9 @@ export default class InteractiveImage {
             this.checkSettings(this.settings);
             this.buildElements(this.items);
 
-            imagesLoaded.makeJQueryPlugin($);
-            let that = this;
-            this.$image.imagesLoaded(() => {
-                that.positionItems();
+            ImagesLoaded(this.$image, () => {
+                this.logHelper.log('Images loaded');
+                this.positionItems();
             });
 
             (new Hover().bindAll(this.$image));

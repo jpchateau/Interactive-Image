@@ -1,7 +1,7 @@
-import InteractiveImage from './interactiveImage.js';
+import App from "./app";
 
 (($, window, document, undefined) => {
-    $.fn.interactiveImage = function(items, options) {
+    $.fn.interactiveImage = function (items, options) {
         let defaults = {
             debug: false
         };
@@ -9,7 +9,7 @@ import InteractiveImage from './interactiveImage.js';
         options = $.extend(defaults, options);
 
         return this.each(() => {
-            (new InteractiveImage(items, options, $(this)).execute());
+            (new App(items, options, $(this)).execute());
         });
     };
 })(jQuery, window, document);

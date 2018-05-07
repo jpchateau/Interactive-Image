@@ -873,6 +873,173 @@ module.exports = function (module) {
 
 /***/ }),
 
+/***/ "./src/js/app.js":
+/*!***********************!*\
+  !*** ./src/js/app.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _factory = __webpack_require__(/*! ./item/factory */ "./src/js/item/factory.js");
+
+var _factory2 = _interopRequireDefault(_factory);
+
+var _hover = __webpack_require__(/*! ./event/hover */ "./src/js/event/hover.js");
+
+var _hover2 = _interopRequireDefault(_hover);
+
+var _imagesloaded = __webpack_require__(/*! imagesloaded */ "./node_modules/imagesloaded/imagesloaded.js");
+
+var _imagesloaded2 = _interopRequireDefault(_imagesloaded);
+
+var _logHelper = __webpack_require__(/*! ./helper/logHelper */ "./src/js/helper/logHelper.js");
+
+var _logHelper2 = _interopRequireDefault(_logHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var App = function () {
+    /**
+     * @param items
+     * @param {object} settings
+     * @param $image
+     */
+    function App(items, settings, $image) {
+        _classCallCheck(this, App);
+
+        this.items = items;
+        this.settings = settings;
+        this.$image = $image;
+        this.logHelper = new _logHelper2.default(settings.debug);
+        this.itemFactory = new _factory2.default();
+    }
+
+    /**
+     * @param {object} settings
+     */
+
+
+    _createClass(App, [{
+        key: "checkSettings",
+        value: function checkSettings(settings) {
+            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
+                this.settings.debug = true;
+                throw 'Error: check "debug" plugin option';
+            }
+
+            this.logHelper.log('Options successfully checked');
+        }
+
+        /**
+         * @param {object} options
+         * @returns {jQuery|HTMLElement}
+         */
+
+    }, {
+        key: "createElement",
+        value: function createElement(options) {
+            var type = options.type;
+            delete options.type;
+
+            this.logHelper.log(options);
+
+            var element = this.itemFactory.createItem(type, options);
+            this.logHelper.log(element.constructor.name + ' created');
+
+            this.$image.append(element.createHotspotElement());
+
+            return $(element.renderHtml());
+        }
+
+        /**
+         * @param items
+         */
+
+    }, {
+        key: "buildElements",
+        value: function buildElements(items) {
+            for (var i in items) {
+                if (items.hasOwnProperty(i)) {
+                    this.$image.append(this.createElement(items[i]));
+                }
+            }
+        }
+    }, {
+        key: "positionItems",
+        value: function positionItems() {
+            /**
+             * @param {number} hotspotLeft
+             * @param {number} hotspotTop
+             * @param {number} width
+             */
+            var calculateItemPosition = function calculateItemPosition(hotspotLeft, hotspotTop, width) {
+                return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
+            };
+
+            var $items = this.$image.find('.item');
+            $.each($items, function () {
+                var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
+                    width = $(this).width(),
+                    left = 0,
+                    top = 0;
+
+                var _calculateItemPositio = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+
+                var _calculateItemPositio2 = _slicedToArray(_calculateItemPositio, 2);
+
+                left = _calculateItemPositio2[0];
+                top = _calculateItemPositio2[1];
+
+
+                $(this).css('left', left);
+                $(this).css('top', top);
+                $(this).find('.arrow-up').css('left', width / 2 - 7);
+            });
+
+            this.logHelper.log('Items positioned');
+        }
+    }, {
+        key: "execute",
+        value: function execute() {
+            var _this = this;
+
+            try {
+                this.checkSettings(this.settings);
+                this.buildElements(this.items);
+
+                (0, _imagesloaded2.default)(this.$image, function () {
+                    _this.logHelper.log('Images loaded');
+                    _this.positionItems();
+                });
+
+                new _hover2.default().bindAll(this.$image);
+            } catch (exception) {
+                this.logHelper.log(exception);
+            }
+        }
+    }]);
+
+    return App;
+}();
+
+exports.default = App;
+module.exports = exports["default"];
+
+/***/ }),
+
 /***/ "./src/js/event/hover.js":
 /*!*******************************!*\
   !*** ./src/js/event/hover.js ***!
@@ -1112,9 +1279,9 @@ module.exports = exports["default"];
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jQuery) {
 
-var _interactiveImage = __webpack_require__(/*! ./interactiveImage.js */ "./src/js/interactiveImage.js");
+var _app = __webpack_require__(/*! ./app */ "./src/js/app.js");
 
-var _interactiveImage2 = _interopRequireDefault(_interactiveImage);
+var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1129,181 +1296,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         options = $.extend(defaults, options);
 
         return this.each(function () {
-            new _interactiveImage2.default(items, options, $(_this)).execute();
+            new _app2.default(items, options, $(_this)).execute();
         });
     };
 })(jQuery, window, document);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "jquery")))
-
-/***/ }),
-
-/***/ "./src/js/interactiveImage.js":
-/*!************************************!*\
-  !*** ./src/js/interactiveImage.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _hover = __webpack_require__(/*! ./event/hover */ "./src/js/event/hover.js");
-
-var _hover2 = _interopRequireDefault(_hover);
-
-var _logHelper = __webpack_require__(/*! ./helper/logHelper */ "./src/js/helper/logHelper.js");
-
-var _logHelper2 = _interopRequireDefault(_logHelper);
-
-var _factory = __webpack_require__(/*! ./item/factory */ "./src/js/item/factory.js");
-
-var _factory2 = _interopRequireDefault(_factory);
-
-var _imagesloaded = __webpack_require__(/*! imagesloaded */ "./node_modules/imagesloaded/imagesloaded.js");
-
-var _imagesloaded2 = _interopRequireDefault(_imagesloaded);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var InteractiveImage = function () {
-    /**
-     * @param items
-     * @param {object} settings
-     * @param $image
-     */
-    function InteractiveImage(items, settings, $image) {
-        _classCallCheck(this, InteractiveImage);
-
-        this.items = items;
-        this.settings = settings;
-        this.$image = $image;
-        this.logHelper = new _logHelper2.default(settings.debug);
-        this.itemFactory = new _factory2.default();
-    }
-
-    /**
-     * @param {object} settings
-     */
-
-
-    _createClass(InteractiveImage, [{
-        key: "checkSettings",
-        value: function checkSettings(settings) {
-            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
-                this.settings.debug = true;
-                throw 'Error: check "debug" plugin option';
-            }
-
-            this.logHelper.log('Options successfully checked');
-        }
-
-        /**
-         * @param {object} options
-         * @returns {jQuery|HTMLElement}
-         */
-
-    }, {
-        key: "createElement",
-        value: function createElement(options) {
-            var type = options.type;
-            delete options.type;
-
-            this.logHelper.log(options);
-
-            var element = this.itemFactory.createItem(type, options);
-            this.logHelper.log(element.constructor.name + ' created');
-
-            this.$image.append(element.createHotspotElement());
-
-            return $(element.renderHtml());
-        }
-
-        /**
-         * @param items
-         */
-
-    }, {
-        key: "buildElements",
-        value: function buildElements(items) {
-            for (var i in items) {
-                if (items.hasOwnProperty(i)) {
-                    this.$image.append(this.createElement(items[i]));
-                }
-            }
-        }
-    }, {
-        key: "positionItems",
-        value: function positionItems() {
-            /**
-             * @param {number} hotspotLeft
-             * @param {number} hotspotTop
-             * @param {number} width
-             */
-            var calculatePosition = function calculatePosition(hotspotLeft, hotspotTop, width) {
-                return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
-            };
-
-            var $items = this.$image.find('.item');
-            $.each($items, function () {
-                var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                    width = 0,
-                    left = 0,
-                    top = 0,
-                    arrowLeft = 0;
-
-                width = $(this).width();
-
-                var _calculatePosition = calculatePosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
-
-                var _calculatePosition2 = _slicedToArray(_calculatePosition, 2);
-
-                left = _calculatePosition2[0];
-                top = _calculatePosition2[1];
-
-                arrowLeft = width / 2 - 7;
-
-                $(this).css('left', left);
-                $(this).css('top', top);
-                $(this).find('.arrow-up').css('left', arrowLeft);
-            });
-
-            this.logHelper.log('Items are all positioned');
-        }
-    }, {
-        key: "execute",
-        value: function execute() {
-            try {
-                this.checkSettings(this.settings);
-                this.buildElements(this.items);
-
-                _imagesloaded2.default.makeJQueryPlugin($);
-                var that = this;
-                this.$image.imagesLoaded(function () {
-                    that.positionItems();
-                });
-
-                new _hover2.default().bindAll(this.$image);
-            } catch (exception) {
-                this.logHelper.log(exception);
-            }
-        }
-    }]);
-
-    return InteractiveImage;
-}();
-
-exports.default = InteractiveImage;
-module.exports = exports["default"];
 
 /***/ }),
 
@@ -1323,13 +1320,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _uniqid = __webpack_require__(/*! uniqid */ "./node_modules/uniqid/index.js");
-
-var _uniqid2 = _interopRequireDefault(_uniqid);
-
 var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
+
+var _uniqid = __webpack_require__(/*! uniqid */ "./node_modules/uniqid/index.js");
+
+var _uniqid2 = _interopRequireDefault(_uniqid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1353,7 +1350,7 @@ var BaseItem = function () {
 
 
     _createClass(BaseItem, [{
-        key: 'createHotspotElement',
+        key: "createHotspotElement",
         value: function createHotspotElement() {
             var element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
             element.setAttribute('data-for', this.identifier);
@@ -1368,7 +1365,7 @@ var BaseItem = function () {
          */
 
     }, {
-        key: 'createArrowElement',
+        key: "createArrowElement",
         value: function createArrowElement() {
             var element = this.domHelper.createElement('div', 'arrow-up');
 
@@ -1380,7 +1377,7 @@ var BaseItem = function () {
          */
 
     }, {
-        key: 'createItemElement',
+        key: "createItemElement",
         value: function createItemElement() {
             var element = this.domHelper.createElement('div', 'item');
             element.setAttribute('data-id', this.identifier);
@@ -1389,7 +1386,7 @@ var BaseItem = function () {
             return element;
         }
     }, {
-        key: 'renderHtml',
+        key: "renderHtml",
         value: function renderHtml() {
             throw 'Error: render method not implemented';
         }
@@ -1399,7 +1396,7 @@ var BaseItem = function () {
 }();
 
 exports.default = BaseItem;
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 
@@ -1419,13 +1416,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _textItem = __webpack_require__(/*! ./textItem */ "./src/js/item/textItem.js");
-
-var _textItem2 = _interopRequireDefault(_textItem);
-
 var _pictureItem = __webpack_require__(/*! ./pictureItem */ "./src/js/item/pictureItem.js");
 
 var _pictureItem2 = _interopRequireDefault(_pictureItem);
+
+var _textItem = __webpack_require__(/*! ./textItem */ "./src/js/item/textItem.js");
+
+var _textItem2 = _interopRequireDefault(_textItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1537,7 +1534,7 @@ var PictureItem = function (_BaseItem) {
             if ('undefined' !== typeof this.caption) {
                 element.alt = this.caption;
             } else {
-                element.alt = "Picture #" + this.identifier;
+                element.alt = 'Picture #' + this.identifier;
             }
 
             return element;

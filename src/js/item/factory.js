@@ -1,5 +1,5 @@
-import TextItem from "./textItem";
 import PictureItem from "./pictureItem";
+import TextItem from "./textItem";
 
 export default class Factory {
     /**
