@@ -1,6 +1,7 @@
 import Hover from "./event/hover";
 import LogHelper from "./helper/logHelper";
 import Factory from "./item/factory";
+import imagesLoaded from "imagesloaded";
 
 export default class InteractiveImage {
     /**
@@ -73,10 +74,12 @@ export default class InteractiveImage {
         let $items = this.$image.find('.item');
         $.each($items, function() {
             let $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                width = parseInt($(this).css('width'), 10),
+                width = 0,
                 left = 0,
                 top = 0,
                 arrowLeft = 0;
+
+            width = $(this).width();
 
             [left, top] = calculatePosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
             arrowLeft = width / 2 - 7;
@@ -93,7 +96,13 @@ export default class InteractiveImage {
         try {
             this.checkSettings(this.settings);
             this.buildElements(this.items);
-            this.positionItems();
+
+            imagesLoaded.makeJQueryPlugin($);
+            let that = this;
+            this.$image.imagesLoaded(() => {
+                that.positionItems();
+            });
+
             (new Hover().bindAll(this.$image));
         } catch (exception) {
             this.logHelper.log(exception);

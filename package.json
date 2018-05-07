@@ -45,6 +45,7 @@
     "> 5%"
   ],
   "dependencies": {
+    "imagesloaded": "^4.1.4",
     "uniqid": "^4.1.1"
   },
   "devDependencies": {
