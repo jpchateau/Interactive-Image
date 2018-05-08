@@ -8,7 +8,7 @@
     &::before {
       content: attr(data-caption);
       position: absolute;
-      background: rgba(0, 0, 0, .4);
+      background: rgba(0, 0, 0, .6);
       color: white;
       padding: 5px;
       right: 0;
@@ -19,7 +19,7 @@
     }
 
     .picture {
-      margin-bottom: -4px;
+      margin-bottom: 0;
     }
   }
 }

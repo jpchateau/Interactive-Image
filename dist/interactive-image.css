@@ -38,7 +38,7 @@
     display: none;
     text-align: center;
     border-radius: 2px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5); }
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6); }
 
 .interactive-image .text-item {
   padding: 15px; }
@@ -78,7 +78,7 @@
   .interactive-image .picture-item::before {
     content: attr(data-caption);
     position: absolute;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.6);
     color: white;
     padding: 5px;
     right: 0;
@@ -87,7 +87,7 @@
     text-align: center;
     font-size: 12px; }
   .interactive-image .picture-item .picture {
-    margin-bottom: -4px; }
+    margin-bottom: 0; }
 
 @font-face {
     font-family: 'icomoon';
