@@ -87,7 +87,7 @@
     text-align: center;
     font-size: 12px; }
   .interactive-image .picture-item .picture {
-    margin-bottom: 0; }
+    margin-bottom: -4px; }
 
 @font-face {
     font-family: 'icomoon';
