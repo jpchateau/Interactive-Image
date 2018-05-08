@@ -2,6 +2,7 @@
 
 > A jQuery plugin to embed interactive images on your website.
 
+
 ## Features
 
 * Interactive texts and images over large pictures
@@ -9,7 +10,10 @@
 * Easily customizable with CSS
 * Installable via package managers
 
-[See it in action](https://www.jpchateau.com/demo/interactive-image)
+![Demo](./docs/demo.png)
+
+See it in action: [here](https://www.jpchateau.com/demo/interactive-image)
+
 
 ## Installation
 
@@ -32,6 +36,7 @@ $ yarn add interactiveimagejs
 
 You can also download the production version or the development version from GitHub.
 All these files (js, css and fonts) are located in the `dist` directory.
+
 
 ## Usage
 
@@ -60,6 +65,8 @@ Edit the source code of your web page:
   <script src="interactive-image.min.js"></script>
 </body>
 ```
+
+**Note regarding the css file:** You may have to rewrite the relative paths of the fonts.
 
 **JavaScript**
 
@@ -98,10 +105,10 @@ You may want to change the rendering of an item, as for example the background a
 this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
 
 ```css
-  .interactive-image .text-item {
-    background-color: blue;
-    color: yellow;
-  }
+.interactive-image .text-item {
+  background-color: blue;
+  color: yellow;
+}
 ```
 
 ### Debugging
@@ -117,6 +124,7 @@ $(document).ready(function () {
   $(".interactive-image").interactiveImage(items, options);
 }); 
 ```
+
 
 ## Configuration
 
@@ -149,7 +157,6 @@ $(document).ready(function () {
 | position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene  |
 | path        | string | "/path/to/picture.png" | Yes      |         | Illustration                   |
 | caption     | string | "My caption"           | No       |         | Illustration small description |
-
 
 ### Other objects
 
@@ -187,7 +194,7 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 ## Alternatives
 
-* Free: [iPicture](https://github.com/vincicat/jQuery-iPicture)
+* Free: [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
 * Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
 * For business: [ThingLink](https://www.thinglink.com/)
 

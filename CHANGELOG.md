@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Added Picture items
 * Improved overall rendering
 * All images tags now have an alt attribute
-* Possibility to customize items styles in JS has been removed
+* The possibility to customize items styles in JS has been removed
 * Upgraded to Webpack 4
 * Now uses Sass as CSS preprocessor
 
