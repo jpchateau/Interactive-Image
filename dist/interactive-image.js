@@ -1020,10 +1020,14 @@ var App = function () {
                 this.checkSettings(this.settings);
                 this.buildElements(this.items);
 
-                (0, _imagesloaded2.default)(this.$image, function () {
-                    _this.logHelper.log('Images loaded');
-                    _this.positionItems();
-                });
+                if (this.$image.find('img').length) {
+                    (0, _imagesloaded2.default)(this.$image, function () {
+                        _this.logHelper.log('Images loaded');
+                        _this.positionItems();
+                    });
+                } else {
+                    this.positionItems();
+                }
 
                 new _hover2.default().bindAll(this.$image);
             } catch (exception) {

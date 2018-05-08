@@ -93,10 +93,14 @@ export default class App {
             this.checkSettings(this.settings);
             this.buildElements(this.items);
 
-            ImagesLoaded(this.$image, () => {
-                this.logHelper.log('Images loaded');
+            if (this.$image.find('img').length) {
+                ImagesLoaded(this.$image, () => {
+                    this.logHelper.log('Images loaded');
+                    this.positionItems();
+                });
+            } else {
                 this.positionItems();
-            });
+            }
 
             (new Hover().bindAll(this.$image));
         } catch (exception) {
