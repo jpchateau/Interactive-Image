@@ -2,22 +2,20 @@
 
 > A jQuery plugin to embed interactive images on your website.
 
-
-## Features
-
-* Interactive texts and images over large pictures
-* Flexible configuration
-* Easily customizable with CSS
-* Installable via package managers
-
 ![Demo](./docs/demo.png)
 
 See it in action: [here](https://www.jpchateau.com/demo/interactive-image)
 
+## Features
+
+* Interactive texts and images over large pictures
+* Flexible configuration of markers and items
+* Easily customizable with CSS
+* Installable via package managers
 
 ## Installation
 
-**Important:** [jQuery](https://jquery.com/download/) is required.
+**Important:** [jQuery](https://jquery.com/download/) is required.  
 Install it via your package manager, a CDN or simply download it.
 
 **NPM**
@@ -34,9 +32,8 @@ $ yarn add interactiveimagejs
 
 **Download**
 
-You can also download the production version or the development version from GitHub.
+You can also download the production version or the development version from GitHub.  
 All these files (js, css and fonts) are located in the `dist` directory.
-
 
 ## Usage
 
@@ -101,8 +98,8 @@ $(document).ready(function () {
 
 ### Style customization
 
-You may want to change the rendering of an item, as for example the background and the front color of text items. Adapt
-this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
+You may want to change the rendering of an item, as for example the background and the front color of text items.  
+Adapt this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
 
 ```css
 .interactive-image .text-item {
@@ -120,11 +117,10 @@ var options = {
   debug: true
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
   $(".interactive-image").interactiveImage(items, options);
 }); 
 ```
-
 
 ## Configuration
 
@@ -137,6 +133,9 @@ $(document).ready(function () {
 | debug    | boolean | true    | No       | false   | Logs enabled in console |
 
 ### Items
+
+Each item has several possibilities of configuration.  
+You can add a link and/or a picture to your `text` items, or a caption to your `picture` items.
 
 **Text Item**
 
@@ -174,23 +173,17 @@ $(document).ready(function () {
 | url         | string  | "https://www.github.com" | Yes      |             | href attribute      |
 | label       | string  | "My webpage"             | No       | `url` value | Name of the webpage |
 
-
 ## TODO
 
 * Make the plugin adaptive to all screens
 * Add audio items
 * Add video items
-* GUI to make hotspots positioning simpler 
-
 
 ## Contribute
 
-Feel free to contribute and open some pull requests.
-
-This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.
-
+Feel free to contribute and open some pull requests.  
+This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
 See the complete contributing guidelines [here](CONTRIBUTING.md).
-
 
 ## Alternatives
 
@@ -198,8 +191,7 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 * Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
 * For business: [ThingLink](https://www.thinglink.com/)
 
-
 ## License
 
-Copyright (c) 2015-2018 Jean-Philippe Chateau.
+Copyright (c) 2015-2018 Jean-Philippe Chateau.  
 This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).

@@ -10,8 +10,7 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 
 ## Installing and building the project
 
-You need Node.js, npm and Sass installed on your computer.
-
+You need [Node.js](https://nodejs.org/), [npm](https://www.npmjs.com/) and [Sass](https://sass-lang.com/) installed on your computer.  
 Building is done through npm scripts.
 
 ```sh
@@ -21,28 +20,25 @@ $ npm run build
 
 ### Icons
 
-Use [IcoMoon](https://icomoon.io/) icon library to export icons from IcoMoon app and include them in this project.
-
+Use [IcoMoon](https://icomoon.io/) icon library to export icons from IcoMoon app and include them in the project.  
 Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon app.
-
 
 ## Code Quality
 
 ```sh
-$ npm run eslint -s
+$ npm run eslint
 $ npm run sass-lint
 ```
 
-Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).
-
+Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).  
 Please follow the [Sass guidelines](https://sass-guidelin.es/) when modifying styles.
 
-An overview of the code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
+An overview of the JavaScript code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
 
 ## npm script reference
 
 | Command             | Function                                                |
-|---------------------|---------------------------------------------------------|
+| ------------------- | ------------------------------------------------------- |
 | `npm run build`     | Build all the optimized distributable files             |
 | `npm run dev`       | Build all the distributable files for local development |
 | `npm run eslint`    | Run the ES linter                                       |
