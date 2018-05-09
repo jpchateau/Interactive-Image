@@ -1385,7 +1385,7 @@ var BaseItem = function () {
         value: function createItemElement() {
             var element = this.domHelper.createElement('div', 'item');
             element.setAttribute('data-id', this.identifier);
-            element.append(this.createArrowElement());
+            element.appendChild(this.createArrowElement());
 
             return element;
         }
