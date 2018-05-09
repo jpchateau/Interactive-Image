@@ -18,7 +18,7 @@ See it in action: [here](https://www.jpchateau.com/demo/interactive-image)
 **Important:** [jQuery](https://jquery.com/download/) is required.  
 Install it via your package manager, a CDN or simply download it.
 
-**NPM**
+**npm**
 
 ```sh
 $ npm install --save interactiveimagejs
@@ -178,6 +178,11 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 * Make the plugin adaptive to all screens
 * Add audio items
 * Add video items
+
+## Dependencies
+
+* [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
+* [uniqid](https://www.npmjs.com/package/uniqid) to create unique id's 
 
 ## Contribute
 
