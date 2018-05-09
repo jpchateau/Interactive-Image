@@ -38,7 +38,7 @@ export default class BaseItem {
     createItemElement() {
         let element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);
-        element.append(this.createArrowElement());
+        element.appendChild(this.createArrowElement());
 
         return element;
     }
