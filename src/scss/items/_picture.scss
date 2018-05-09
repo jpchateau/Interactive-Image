@@ -1,0 +1,25 @@
+.interactive-image {
+  .picture-item {
+    position: relative;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 15px;
+
+    &::before {
+      content: attr(data-caption);
+      position: absolute;
+      background: rgba(0, 0, 0, .6);
+      color: white;
+      padding: 5px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .picture {
+      margin-bottom: -4px;
+    }
+  }
+}

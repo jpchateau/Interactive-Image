@@ -1,0 +1,46 @@
+.interactive-image {
+  .text-item {
+    padding: 15px;
+
+    .title {
+      font-size: 20px;
+      width: 100%;
+      text-align: left;
+      font-variant: small-caps;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .description {
+      text-align: left;
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .picture {
+      margin-top: 15px;
+      margin-bottom: -2px;
+    }
+
+    a {
+      text-decoration: underline;
+      color: black;
+      display: block;
+      margin-top: 10px;
+
+      &:visited {
+        color: black;
+      }
+
+      &:hover {
+        color: black;
+      }
+
+      &:active {
+        color: black;
+      }
+    }
+  }
+}

@@ -2,12 +2,12 @@ export default class DomHelper {
     /**
      * Create a DOM element
      *
-     * @param tag
-     * @param cssClass
-     * @param text
-     * @returns HTMLElement
+     * @param {string} tag
+     * @param {string=''} cssClass
+     * @param {string} [text]
+     * @returns {HTMLElement}
      */
-    createElement(tag, cssClass, text) {
+    createElement(tag, cssClass = '', text) {
         let domElement = document.createElement(tag);
         domElement.setAttribute('class', cssClass);
 

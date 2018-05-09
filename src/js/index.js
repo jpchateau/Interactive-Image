@@ -1,17 +1,15 @@
-import InteractiveImage from './interactiveImage.js';
+import App from "./app";
 
-(function($) {
-    $.fn.interactiveImage = function(items, options) {
+(($, window, document, undefined) => {
+    $.fn.interactiveImage = function (items, options) {
         let defaults = {
-            debug: false,
-            fontColor: "#000000",
-            backgroundColor: "#FFFFFF"
+            debug: false
         };
 
         options = $.extend(defaults, options);
 
-        return this.each(function() {
-            (new InteractiveImage(items, options, $(this)).execute());
+        return this.each(() => {
+            (new App(items, options, $(this)).execute());
         });
     };
-}(jQuery));
+})(jQuery, window, document);

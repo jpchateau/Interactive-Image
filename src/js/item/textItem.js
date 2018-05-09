@@ -1,35 +1,58 @@
 import BaseItem from "./baseItem";
 
+/**
+ * @extends BaseItem
+ */
 export default class TextItem extends BaseItem {
-    constructor(DomHelper, parameters) {
-        let requiredParameters = ['position', 'backgroundColor', 'fontColor', 'title', 'description'];
+    /**
+     * @param {object} parameters
+     */
+    constructor(parameters) {
+        let requiredParameters = ['position', 'title', 'description'];
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
             }
         }
 
-        super(DomHelper, parameters);
+        super(parameters);
+        this.title = parameters.title;
         this.description = parameters.description;
-        this.picture = parameters.picture;
+        this.picturePath = parameters.picturePath;
         this.link = parameters.link;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
+    createTitle() {
+        return this.domHelper.createElement('span', 'title', this.title);
+    }
+
+    /**
+     * @returns {HTMLElement}
+     */
     createDescription() {
         return this.domHelper.createElement('p', 'description', this.description);
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     createPicture() {
-        let pictureElement = this.domHelper.createElement('img', 'picture');
-        pictureElement.src = this.picture;
+        let element = this.domHelper.createElement('img', 'picture');
+        element.src = this.picturePath;
+        element.alt = this.title;
 
-        return pictureElement;
+        return element;
     }
 
+    /**
+     * @returns {HTMLAnchorElement}
+     */
     createLink() {
-        let label, linkElement = document.createElement('a');
-        linkElement.href = this.link.href;
-        linkElement.style.color = this.fontColor;
+        let label, element = document.createElement('a');
+        element.href = this.link.url;
 
         if ('undefined' !== typeof this.link.label) {
             label = this.link.label;
@@ -37,30 +60,32 @@ export default class TextItem extends BaseItem {
             label = this.link.href;
         }
 
-        linkElement.appendChild(document.createTextNode(label));
+        element.appendChild(document.createTextNode(label));
 
-        return linkElement;
+        return element;
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     renderHtml() {
-        let containerElement = this.domHelper.createElement('div', 'container');
-        containerElement.setAttribute('data-id', this.identifier);
-        containerElement.style.color = this.fontColor;
-        containerElement.style.backgroundColor = this.backgroundColor;
-        containerElement.style.left = (this.position.left - 65) + 'px';
-        containerElement.style.top = (this.position.top + 40) + 'px';
+        let element = this.createItemElement();
 
-        containerElement.appendChild(this.createTitle());
-        containerElement.appendChild(this.createDescription());
+        let textElement = this.domHelper.createElement('div', 'text-item');
 
-        if ('undefined' !== typeof this.picture) {
-            containerElement.appendChild(this.createPicture());
+        textElement.appendChild(this.createTitle());
+        textElement.appendChild(this.createDescription());
+
+        if ('undefined' !== typeof this.picturePath) {
+            textElement.appendChild(this.createPicture());
         }
 
         if ('undefined' !== typeof this.link) {
-            containerElement.appendChild(this.createLink());
+            textElement.appendChild(this.createLink());
         }
 
-        return containerElement;
+        element.appendChild(textElement);
+
+        return element;
     }
 }

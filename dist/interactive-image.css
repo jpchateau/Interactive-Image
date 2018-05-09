@@ -1,0 +1,119 @@
+.interactive-image {
+  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 8;
+  caret-color: transparent;
+  cursor: default; }
+  .interactive-image .hotspot {
+    position: absolute;
+    z-index: 16;
+    width: 30px;
+    height: 30px;
+    color: white;
+    display: none;
+    cursor: pointer;
+    font-size: 28px; }
+    .interactive-image .hotspot:hover {
+      text-shadow: 0 0 3px white; }
+  .interactive-image .arrow-up {
+    position: absolute;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white; }
+  .interactive-image .picture {
+    max-width: 200px;
+    max-height: 200px; }
+  .interactive-image .item {
+    position: absolute;
+    z-index: 32;
+    background-color: white;
+    color: black;
+    min-width: 100px;
+    max-width: 280px;
+    min-height: 60px;
+    height: auto;
+    display: none;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6); }
+
+.interactive-image .text-item {
+  padding: 15px; }
+  .interactive-image .text-item .title {
+    font-size: 20px;
+    width: 100%;
+    text-align: left;
+    font-variant: small-caps;
+    font-weight: bold;
+    display: inline-block; }
+  .interactive-image .text-item .description {
+    text-align: left;
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 0; }
+  .interactive-image .text-item .picture {
+    margin-top: 15px;
+    margin-bottom: -2px; }
+  .interactive-image .text-item a {
+    text-decoration: underline;
+    color: black;
+    display: block;
+    margin-top: 10px; }
+    .interactive-image .text-item a:visited {
+      color: black; }
+    .interactive-image .text-item a:hover {
+      color: black; }
+    .interactive-image .text-item a:active {
+      color: black; }
+
+.interactive-image .picture-item {
+  position: relative;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 15px; }
+  .interactive-image .picture-item::before {
+    content: attr(data-caption);
+    position: absolute;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 12px; }
+  .interactive-image .picture-item .picture {
+    margin-bottom: -4px; }
+
+@font-face {
+    font-family: 'icomoon';
+    src:url(fonts/interactive-image-icomoon.eot);
+    src:url(fonts/interactive-image-icomoon.eot?#iefix1pmg9t) format('embedded-opentype'),
+    url(fonts/interactive-image-icomoon.ttf) format('truetype'),
+    url(fonts/interactive-image-icomoon.woff) format('woff'),
+    url(fonts/interactive-image-icomoon.svg#icomoon) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-radio-checked:before {
+    content: "\EA54";
+}
+
+/*# sourceMappingURL=interactive-image.css.map*/

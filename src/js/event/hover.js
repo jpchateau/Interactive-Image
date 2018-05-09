@@ -1,46 +1,58 @@
 export default class Hover {
+    /**
+     * @param $element
+     */
     static hideElement($element) {
         if ($element.css('display') === 'block') {
             $element.hide();
         }
     }
 
+    /**
+     * @param $element
+     */
     static showElement($element) {
         if ($element.css('display') !== 'block') {
             $element.show();
         }
     }
 
+    /**
+     * @param $image
+     */
     bindMainImageEvents($image) {
-        // Mouse enters main image to show all icons
+        // Mouse enters main image to show all hotspots
         $image.on('mouseenter.interactiveImage', function() {
-            let $icons = $(this).find('.icon-button');
-            $.each($icons, function() {
+            let $hotspots = $(this).find('.hotspot');
+            $.each($hotspots, function() {
                 $(this).fadeIn();
             });
         });
 
-        // Mouse leaves main image to hide all icons and containers
+        // Mouse leaves main image to hide all hotspots and containers
         $image.on('mouseleave.interactiveImage', function() {
-            let $elements = $(this).find('.icon-button, .container');
+            let $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
                 Hover.hideElement($(this));
             });
         });
     }
 
+    /**
+     * @param $image
+     */
     bindSpecificEvents($image) {
         // Bind Mouse leaves container to hide it
-        let bindContainerMouseLeaveEvent = function() {
-            $image.on('mouseleave.interactiveImage', '.container', function() {
+        let bindContainerMouseLeaveEvent = () => {
+            $image.on('mouseleave.interactiveImage', '.item', function() {
                 let $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 Hover.hideElement($container);
             });
         };
 
         // Mouse enters icon to show its container and close all others
-        $image.on('mouseenter.interactiveImage', '.icon-button', function() {
-            let $containers = $image.find('.container');
+        $image.on('mouseenter.interactiveImage', '.hotspot', function() {
+            let $containers = $image.find('.item');
             $.each($containers, function() {
                 Hover.hideElement($(this));
             });
@@ -54,6 +66,9 @@ export default class Hover {
         });
     }
 
+    /**
+     * @param $image
+     */
     bindAll($image) {
         this.bindMainImageEvents($image);
         this.bindSpecificEvents($image);
