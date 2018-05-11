@@ -16,7 +16,7 @@ export default class LogHelper {
         }
 
         if (null !== milliseconds) {
-            window.console.log(message + ' in ' + milliseconds.toFixed(3) + ' milliseconds');
+            window.console.log(message + ' in ' + milliseconds.toFixed(0) + ' ms');
         } else {
             window.console.log(message);
         }

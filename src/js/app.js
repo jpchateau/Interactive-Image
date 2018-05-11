@@ -37,15 +37,18 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        let type = options.type;
+        const start = Now();
+
+        const type = options.type;
         delete options.type;
 
         this.logHelper.log(options);
 
-        let element = this.itemFactory.createItem(type, options);
-        this.logHelper.log(element.constructor.name + ' created');
-
+        const element = this.itemFactory.createItem(type, options);
         this.$image.append(element.createHotspotElement());
+
+        const end = Now();
+        this.logHelper.log('item (' + type + ') created', end - start);
 
         return $(element.renderHtml());
     }
@@ -62,7 +65,7 @@ export default class App {
         }
 
         const end = Now();
-        this.logHelper.log('All elements built', end - start);
+        this.logHelper.log('Items built', end - start);
     }
 
     positionItems() {
@@ -80,11 +83,11 @@ export default class App {
             ];
         };
 
-        let $items = this.$image.find('.item');
+        const $items = this.$image.find('.item');
         $.each($items, function() {
-            let $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                width = $(this).width(),
-                left = 0,
+            const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
+                  width = $(this).width();
+            let left = 0,
                 top = 0;
 
             [left, top] = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
@@ -100,6 +103,8 @@ export default class App {
 
     execute() {
         try {
+            const start = Now();
+
             this.checkSettings(this.settings);
             this.buildElements(this.items);
 
@@ -113,6 +118,9 @@ export default class App {
             }
 
             (new Hover().bindAll(this.$image));
+
+            const end = Now();
+            this.logHelper.log('Execution completed', end - start);
         } catch (exception) {
             this.logHelper.log(exception);
         }

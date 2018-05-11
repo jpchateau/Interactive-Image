@@ -15,7 +15,7 @@ export default class BaseItem {
      * @returns {HTMLElement}
      */
     createHotspotElement() {
-        let element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+        const element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
         element.setAttribute('data-for', this.identifier);
         element.style.left = this.position.left + 'px';
         element.style.top = this.position.top + 'px';
@@ -27,16 +27,14 @@ export default class BaseItem {
      * @returns {HTMLElement}
      */
     createArrowElement() {
-        let element = this.domHelper.createElement('div', 'arrow-up');
-
-        return element;
+        return this.domHelper.createElement('div', 'arrow-up');
     }
 
     /**
      * @returns {HTMLElement}
      */
     createItemElement() {
-        let element = this.domHelper.createElement('div', 'item');
+        const element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);
         element.appendChild(this.createArrowElement());
 

@@ -8,7 +8,7 @@ export default class DomHelper {
      * @returns {HTMLElement}
      */
     createElement(tag, cssClass = '', text) {
-        let domElement = document.createElement(tag);
+        const domElement = document.createElement(tag);
         domElement.setAttribute('class', cssClass);
 
         if ('undefined' !== typeof text) {

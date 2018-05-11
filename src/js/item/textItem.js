@@ -8,7 +8,7 @@ export default class TextItem extends BaseItem {
      * @param {object} parameters
      */
     constructor(parameters) {
-        let requiredParameters = ['position', 'title', 'description'];
+        const requiredParameters = ['position', 'title', 'description'];
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
@@ -40,7 +40,7 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createPicture() {
-        let element = this.domHelper.createElement('img', 'picture');
+        const element = this.domHelper.createElement('img', 'picture');
         element.src = this.picturePath;
         element.alt = this.title;
 
@@ -51,9 +51,10 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLAnchorElement}
      */
     createLink() {
-        let label, element = document.createElement('a');
+        const element = document.createElement('a');
         element.href = this.link.url;
 
+        let label;
         if ('undefined' !== typeof this.link.label) {
             label = this.link.label;
         } else {
@@ -69,9 +70,8 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     renderHtml() {
-        let element = this.createItemElement();
-
-        let textElement = this.domHelper.createElement('div', 'text-item');
+        const element = this.createItemElement(),
+              textElement = this.domHelper.createElement('div', 'text-item');
 
         textElement.appendChild(this.createTitle());
         textElement.appendChild(this.createDescription());

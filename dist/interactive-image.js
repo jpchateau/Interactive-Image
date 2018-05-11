@@ -1006,15 +1006,18 @@ var App = function () {
     }, {
         key: "createElement",
         value: function createElement(options) {
+            var start = (0, _performanceNow2.default)();
+
             var type = options.type;
             delete options.type;
 
             this.logHelper.log(options);
 
             var element = this.itemFactory.createItem(type, options);
-            this.logHelper.log(element.constructor.name + ' created');
-
             this.$image.append(element.createHotspotElement());
+
+            var end = (0, _performanceNow2.default)();
+            this.logHelper.log('item (' + type + ') created', end - start);
 
             return $(element.renderHtml());
         }
@@ -1034,7 +1037,7 @@ var App = function () {
             }
 
             var end = (0, _performanceNow2.default)();
-            this.logHelper.log('All elements built', end - start);
+            this.logHelper.log('Items built', end - start);
         }
     }, {
         key: "positionItems",
@@ -1053,8 +1056,8 @@ var App = function () {
             var $items = this.$image.find('.item');
             $.each($items, function () {
                 var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                    width = $(this).width(),
-                    left = 0,
+                    width = $(this).width();
+                var left = 0,
                     top = 0;
 
                 var _calculateItemPositio = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
@@ -1079,6 +1082,8 @@ var App = function () {
             var _this = this;
 
             try {
+                var start = (0, _performanceNow2.default)();
+
                 this.checkSettings(this.settings);
                 this.buildElements(this.items);
 
@@ -1092,6 +1097,9 @@ var App = function () {
                 }
 
                 new _hover2.default().bindAll(this.$image);
+
+                var end = (0, _performanceNow2.default)();
+                this.logHelper.log('Execution completed', end - start);
             } catch (exception) {
                 this.logHelper.log(exception);
             }
@@ -1329,7 +1337,7 @@ var LogHelper = function () {
             }
 
             if (null !== milliseconds) {
-                window.console.log(message + ' in ' + milliseconds.toFixed(3) + ' milliseconds');
+                window.console.log(message + ' in ' + milliseconds.toFixed(0) + ' ms');
             } else {
                 window.console.log(message);
             }
@@ -1442,9 +1450,7 @@ var BaseItem = function () {
     }, {
         key: "createArrowElement",
         value: function createArrowElement() {
-            var element = this.domHelper.createElement('div', 'arrow-up');
-
-            return element;
+            return this.domHelper.createElement('div', 'arrow-up');
         }
 
         /**
@@ -1606,6 +1612,7 @@ var PictureItem = function (_BaseItem) {
         value: function createPicture() {
             var element = this.domHelper.createElement('img', 'picture');
             element.src = this.path;
+
             if ('undefined' !== typeof this.caption) {
                 element.alt = this.caption;
             } else {
@@ -1622,9 +1629,8 @@ var PictureItem = function (_BaseItem) {
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
-            var element = this.createItemElement();
-
-            var pictureItem = this.domHelper.createElement('div', 'picture-item');
+            var element = this.createItemElement(),
+                pictureItem = this.domHelper.createElement('div', 'picture-item');
 
             if ('undefined' !== typeof this.caption) {
                 pictureItem.setAttribute('data-caption', this.caption);
@@ -1751,10 +1757,10 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'createLink',
         value: function createLink() {
-            var label = void 0,
-                element = document.createElement('a');
+            var element = document.createElement('a');
             element.href = this.link.url;
 
+            var label = void 0;
             if ('undefined' !== typeof this.link.label) {
                 label = this.link.label;
             } else {
@@ -1773,9 +1779,8 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
-            var element = this.createItemElement();
-
-            var textElement = this.domHelper.createElement('div', 'text-item');
+            var element = this.createItemElement(),
+                textElement = this.domHelper.createElement('div', 'text-item');
 
             textElement.appendChild(this.createTitle());
             textElement.appendChild(this.createDescription());
