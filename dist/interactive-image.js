@@ -977,7 +977,6 @@ var App = function () {
         this.settings = settings;
         this.$image = $image;
         this.logHelper = new _logHelper2.default(settings.debug);
-        this.itemFactory = new _factory2.default();
     }
 
     /**
@@ -1011,9 +1010,9 @@ var App = function () {
             var type = options.type;
             delete options.type;
 
-            this.logHelper.log(options);
+            this.logHelper.log(JSON.stringify(options), null, 'blue');
 
-            var element = this.itemFactory.createItem(type, options);
+            var element = new _factory2.default(type, options);
             this.$image.append(element.createHotspotElement());
 
             var end = (0, _performanceNow2.default)();
@@ -1101,7 +1100,7 @@ var App = function () {
                 var end = (0, _performanceNow2.default)();
                 this.logHelper.log('Execution completed', end - start);
             } catch (exception) {
-                this.logHelper.log(exception);
+                this.logHelper.log(exception, null, 'red');
             }
         }
     }]);
@@ -1322,8 +1321,9 @@ var LogHelper = function () {
     }
 
     /**
-     * @param {string}      message
-     * @param {number=null} milliseconds
+     * @param {string}         message
+     * @param {number=null}    milliseconds
+     * @param {string='black'} color
      */
 
 
@@ -1331,16 +1331,17 @@ var LogHelper = function () {
         key: 'log',
         value: function log(message) {
             var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
 
             if (!window.console || !window.console.log || false === this.debug) {
                 return;
             }
 
             if (null !== milliseconds) {
-                window.console.log(message + ' in ' + milliseconds.toFixed(0) + ' ms');
-            } else {
-                window.console.log(message);
+                message += ' in ' + milliseconds.toFixed(0) + ' ms';
             }
+
+            window.console.log('%c' + message, 'color:' + color);
         }
     }]);
 
@@ -1495,8 +1496,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _pictureItem = __webpack_require__(/*! ./pictureItem */ "./src/js/item/pictureItem.js");
 
 var _pictureItem2 = _interopRequireDefault(_pictureItem);
@@ -1509,38 +1508,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Factory = function () {
-    function Factory() {
-        _classCallCheck(this, Factory);
+var classes = {
+    PictureItem: _pictureItem2.default,
+    TextItem: _textItem2.default
+};
+
+var Factory =
+/**
+ * @param {string} name
+ * @param {object} args
+ * @returns {TextItem|PictureItem}
+ */
+function Factory(name, args) {
+    _classCallCheck(this, Factory);
+
+    var className = name.toLowerCase() + 'Item';
+    className = className.charAt(0).toUpperCase() + className.slice(1);
+
+    try {
+        return new classes[className](args);
+    } catch (exception) {
+        throw Error('Invalid item type "' + name + '" (allowed values: "text", "picture")');
     }
-
-    _createClass(Factory, [{
-        key: "createItem",
-
-        /**
-         * @param {string} type
-         * @param {object} parameters
-         * @returns {TextItem|PictureItem}
-         */
-        value: function createItem(type, parameters) {
-            var item = void 0;
-            switch (type.toLowerCase()) {
-                case 'text':
-                    item = new _textItem2.default(parameters);
-                    break;
-                case 'picture':
-                    item = new _pictureItem2.default(parameters);
-                    break;
-                default:
-                    throw 'Error: item type property not allowed. Saw "' + type + '" instead of "text", "picture".';
-            }
-
-            return item;
-        }
-    }]);
-
-    return Factory;
-}();
+};
 
 exports.default = Factory;
 module.exports = exports["default"];

@@ -15,7 +15,6 @@ export default class App {
         this.settings = settings;
         this.$image = $image;
         this.logHelper = new LogHelper(settings.debug);
-        this.itemFactory = new Factory();
     }
 
     /**
@@ -42,9 +41,9 @@ export default class App {
         const type = options.type;
         delete options.type;
 
-        this.logHelper.log(options);
+        this.logHelper.log(JSON.stringify(options), null, 'blue');
 
-        const element = this.itemFactory.createItem(type, options);
+        const element = new Factory(type, options);
         this.$image.append(element.createHotspotElement());
 
         const end = Now();
@@ -122,7 +121,7 @@ export default class App {
             const end = Now();
             this.logHelper.log('Execution completed', end - start);
         } catch (exception) {
-            this.logHelper.log(exception);
+            this.logHelper.log(exception, null, 'red');
         }
     }
 }

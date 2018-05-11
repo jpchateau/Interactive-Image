@@ -1,25 +1,25 @@
 import PictureItem from "./pictureItem";
 import TextItem from "./textItem";
 
+const classes = {
+    PictureItem,
+    TextItem
+};
+
 export default class Factory {
     /**
-     * @param {string} type
-     * @param {object} parameters
+     * @param {string} name
+     * @param {object} args
      * @returns {TextItem|PictureItem}
      */
-    createItem(type, parameters) {
-        let item;
-        switch (type.toLowerCase()) {
-            case 'text':
-                item = new TextItem(parameters);
-                break;
-            case 'picture':
-                item = new PictureItem(parameters);
-                break;
-            default:
-                throw 'Error: item type property not allowed. Saw "' + type + '" instead of "text", "picture".';
-        }
+    constructor(name, args) {
+        let className = name.toLowerCase() + 'Item';
+        className = className.charAt(0).toUpperCase() + className.slice(1);
 
-        return item;
+        try {
+            return new classes[className](args);
+        } catch (exception) {
+            throw Error('Invalid item type "' + name + '" (allowed values: "text", "picture")');
+        }
     }
 }
