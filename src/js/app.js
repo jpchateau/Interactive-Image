@@ -2,6 +2,7 @@ import Factory from "./item/factory";
 import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
 import LogHelper from "./helper/logHelper";
+import Now from "performance-now";
 
 export default class App {
     /**
@@ -21,12 +22,14 @@ export default class App {
      * @param {object} settings
      */
     checkSettings(settings) {
+        const start = Now();
         if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
             this.settings.debug = true;
             throw 'Error: check "debug" plugin option';
         }
 
-        this.logHelper.log('Options successfully checked');
+        const end = Now();
+        this.logHelper.log('Options successfully checked', end - start);
     }
 
     /**
@@ -51,14 +54,20 @@ export default class App {
      * @param items
      */
     buildElements(items) {
+        const start = Now();
         for (let i in items) {
             if (items.hasOwnProperty(i)) {
                 this.$image.append(this.createElement(items[i]));
             }
         }
+
+        const end = Now();
+        this.logHelper.log('All elements built', end - start);
     }
 
     positionItems() {
+        const start = Now();
+
         /**
          * @param {number} hotspotLeft
          * @param {number} hotspotTop
@@ -85,7 +94,8 @@ export default class App {
             $(this).find('.arrow-up').css('left', width / 2 - 7);
         });
 
-        this.logHelper.log('Items positioned');
+        const end = Now();
+        this.logHelper.log('Items positioned', end - start);
     }
 
     execute() {
