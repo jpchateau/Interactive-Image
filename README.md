@@ -1,10 +1,10 @@
-# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
+# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
 
 > A jQuery plugin to embed interactive images on your website.
 
 ![Demo](./docs/demo.png)
 
-See it in action: [here](https://www.jpchateau.com/demo/interactive-image)
+[View demo](https://www.jpchateau.com/demo/interactive-image)
 
 ## Features
 
@@ -182,6 +182,7 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 ## Dependencies
 
 * [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
+* [performance-now](https://www.npmjs.com/package/performance-now) to monitor JavaScript performance
 * [uniqid](https://www.npmjs.com/package/uniqid) to create unique id's 
 
 ## Contribute

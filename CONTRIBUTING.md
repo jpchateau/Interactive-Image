@@ -39,6 +39,8 @@ An overview of the JavaScript code quality can be found at [code climate](https:
 Unit tests are done with [Mocha](https://mochajs.org/) test framework.
 The Node.js' built-in [assert](https://nodejs.org/api/assert.html) module is used.
 
+Check out for the results of the different builds on [Travis CI](https://travis-ci.org/jpchateau/Interactive-Image).
+
 ## npm script reference
 
 | Command             | Function                                                |
