@@ -1100,7 +1100,7 @@ var App = function () {
                 var end = (0, _performanceNow2.default)();
                 this.logHelper.log('Execution completed', end - start);
             } catch (exception) {
-                this.logHelper.log(exception, null, 'red');
+                this.logHelper.log(exception.message, null, 'red');
             }
         }
     }]);

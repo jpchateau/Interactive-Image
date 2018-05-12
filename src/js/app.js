@@ -121,7 +121,7 @@ export default class App {
             const end = Now();
             this.logHelper.log('Execution completed', end - start);
         } catch (exception) {
-            this.logHelper.log(exception, null, 'red');
+            this.logHelper.log(exception.message, null, 'red');
         }
     }
 }

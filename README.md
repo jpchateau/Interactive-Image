@@ -91,7 +91,7 @@ var items = [
 ];
 
 // Plugin activation
-$(document).ready(function () {
+$(document).ready(function() {
   $(".interactive-image").interactiveImage(items);
 });
 ```

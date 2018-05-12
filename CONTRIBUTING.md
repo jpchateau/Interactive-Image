@@ -28,12 +28,16 @@ Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon
 ```sh
 $ npm run eslint
 $ npm run sass-lint
+$ npm run test
 ```
 
 Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).  
 Please follow the [Sass guidelines](https://sass-guidelin.es/) when modifying styles.
 
 An overview of the JavaScript code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
+
+Unit tests are done with [Mocha](https://mochajs.org/) test framework.
+The Node.js' built-in [assert](https://nodejs.org/api/assert.html) module is used.
 
 ## npm script reference
 
@@ -43,4 +47,5 @@ An overview of the JavaScript code quality can be found at [code climate](https:
 | `npm run dev`       | Build all the distributable files for local development |
 | `npm run eslint`    | Run the ES linter                                       |
 | `npm run sass-lint` | Run the Sass linter                                     |
+| `npm run test`      | Run unit tests                                          |
 | `npm run watch`     | Run the watcher for local development                   |
