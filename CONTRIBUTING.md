@@ -28,7 +28,7 @@ Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon
 ```sh
 $ npm run eslint
 $ npm run sass-lint
-$ npm run test
+$ npm run test-with-coverage
 ```
 
 Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).  
@@ -43,11 +43,12 @@ Check out for the results of the different builds on [Travis CI](https://travis-
 
 ## npm script reference
 
-| Command             | Function                                                |
-| ------------------- | ------------------------------------------------------- |
-| `npm run build`     | Build all the optimized distributable files             |
-| `npm run dev`       | Build all the distributable files for local development |
-| `npm run eslint`    | Run the ES linter                                       |
-| `npm run sass-lint` | Run the Sass linter                                     |
-| `npm run test`      | Run unit tests                                          |
-| `npm run watch`     | Run the watcher for local development                   |
+| Command                      | Function                                                |
+| ---------------------------- | ------------------------------------------------------- |
+| `npm run build`              | Build all the optimized distributable files             |
+| `npm run dev`                | Build all the distributable files for local development |
+| `npm run eslint`             | Run the ES linter                                       |
+| `npm run sass-lint`          | Run the Sass linter                                     |
+| `npm run test`               | Run unit tests                                          |
+| `npm run test-with-coverage` | Run unit tests and display code coverage                |
+| `npm run watch`              | Run the watcher for local development                   |
