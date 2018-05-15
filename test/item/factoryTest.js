@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Factory = require('./../../src/js/item/factory');
+const FactoryTest = require('./../../src/js/item/factory');
 
 describe('Factory', function() {
     describe('.constructor', function() {
@@ -12,7 +12,7 @@ describe('Factory', function() {
                     "left": 100,
                 }
             };
-            assert.strictEqual('TextItem', (new Factory('text', parameters)).constructor.name);
+            assert.strictEqual('TextItem', (new FactoryTest('text', parameters)).constructor.name);
         });
 
         it('should return a valid PictureItem object when given valid type and parameters', function() {
@@ -23,7 +23,7 @@ describe('Factory', function() {
                     "left": 100,
                 }
             };
-            assert.strictEqual('PictureItem', (new Factory('picture', parameters)).constructor.name);
+            assert.strictEqual('PictureItem', (new FactoryTest('picture', parameters)).constructor.name);
         });
 
         it('should return a valid PictureItem object when given valid type (not well written) and valid parameters', function() {
@@ -34,7 +34,7 @@ describe('Factory', function() {
                     "left": 100,
                 }
             };
-            assert.strictEqual('PictureItem', (new Factory('piCturE', parameters)).constructor.name);
+            assert.strictEqual('PictureItem', (new FactoryTest('piCturE', parameters)).constructor.name);
         });
     });
 });

@@ -1,6 +1,7 @@
 import Factory from "./item/factory";
 import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
+import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
 import Now from "performance-now";
 
@@ -14,6 +15,7 @@ export default class App {
         this.items = items;
         this.settings = settings;
         this.$image = $image;
+        this.itemHelper = new ItemHelper();
         this.logHelper = new LogHelper(settings.debug);
     }
 
@@ -68,32 +70,21 @@ export default class App {
     }
 
     positionItems() {
-        const start = Now();
+        const start = Now(),
+              $items = this.$image.find('.item');
 
-        /**
-         * @param {number} hotspotLeft
-         * @param {number} hotspotTop
-         * @param {number} width
-         */
-        let calculateItemPosition = (hotspotLeft, hotspotTop, width) => {
-            return [
-                hotspotLeft + 15 - width / 2,
-                hotspotTop + 40
-            ];
-        };
-
-        const $items = this.$image.find('.item');
+        var _this = this;
         $.each($items, function() {
             const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
                   width = $(this).width();
             let left = 0,
                 top = 0;
 
-            [left, top] = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+            [left, top] = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
             $(this).css('left', left);
             $(this).css('top', top);
-            $(this).find('.arrow-up').css('left', width / 2 - 7);
+            $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
         });
 
         const end = Now();

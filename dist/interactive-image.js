@@ -952,6 +952,10 @@ var _imagesloaded = __webpack_require__(/*! imagesloaded */ "./node_modules/imag
 
 var _imagesloaded2 = _interopRequireDefault(_imagesloaded);
 
+var _itemHelper = __webpack_require__(/*! ./helper/itemHelper */ "./src/js/helper/itemHelper.js");
+
+var _itemHelper2 = _interopRequireDefault(_itemHelper);
+
 var _logHelper = __webpack_require__(/*! ./helper/logHelper */ "./src/js/helper/logHelper.js");
 
 var _logHelper2 = _interopRequireDefault(_logHelper);
@@ -976,6 +980,7 @@ var App = function () {
         this.items = items;
         this.settings = settings;
         this.$image = $image;
+        this.itemHelper = new _itemHelper2.default();
         this.logHelper = new _logHelper2.default(settings.debug);
     }
 
@@ -1041,35 +1046,27 @@ var App = function () {
     }, {
         key: "positionItems",
         value: function positionItems() {
-            var start = (0, _performanceNow2.default)();
+            var start = (0, _performanceNow2.default)(),
+                $items = this.$image.find('.item');
 
-            /**
-             * @param {number} hotspotLeft
-             * @param {number} hotspotTop
-             * @param {number} width
-             */
-            var calculateItemPosition = function calculateItemPosition(hotspotLeft, hotspotTop, width) {
-                return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
-            };
-
-            var $items = this.$image.find('.item');
+            var _this = this;
             $.each($items, function () {
                 var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
                     width = $(this).width();
                 var left = 0,
                     top = 0;
 
-                var _calculateItemPositio = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                var _this$itemHelper$calc = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
-                var _calculateItemPositio2 = _slicedToArray(_calculateItemPositio, 2);
+                var _this$itemHelper$calc2 = _slicedToArray(_this$itemHelper$calc, 2);
 
-                left = _calculateItemPositio2[0];
-                top = _calculateItemPositio2[1];
+                left = _this$itemHelper$calc2[0];
+                top = _this$itemHelper$calc2[1];
 
 
                 $(this).css('left', left);
                 $(this).css('top', top);
-                $(this).find('.arrow-up').css('left', width / 2 - 7);
+                $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
             });
 
             var end = (0, _performanceNow2.default)();
@@ -1078,7 +1075,7 @@ var App = function () {
     }, {
         key: "execute",
         value: function execute() {
-            var _this = this;
+            var _this2 = this;
 
             try {
                 var start = (0, _performanceNow2.default)();
@@ -1088,8 +1085,8 @@ var App = function () {
 
                 if (this.$image.find('img').length) {
                     (0, _imagesloaded2.default)(this.$image, function () {
-                        _this.logHelper.log('Images loaded');
-                        _this.positionItems();
+                        _this2.logHelper.log('Images loaded');
+                        _this2.positionItems();
                     });
                 } else {
                     this.positionItems();
@@ -1289,6 +1286,62 @@ var DomHelper = function () {
 
 exports.default = DomHelper;
 module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/helper/itemHelper.js":
+/*!*************************************!*\
+  !*** ./src/js/helper/itemHelper.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ItemHelper = function () {
+    function ItemHelper() {
+        _classCallCheck(this, ItemHelper);
+    }
+
+    _createClass(ItemHelper, [{
+        key: "calculateInitialContainerPosition",
+
+        /**
+         * @param {number} hotspotLeft
+         * @param {number} hotspotTop
+         * @param {number} width
+         * @returns {*[]}
+         */
+        value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
+            return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
+        }
+
+        /**
+         * @param {number} width
+         * @returns {number}
+         */
+
+    }, {
+        key: "calculateInitialArrowPosition",
+        value: function calculateInitialArrowPosition(width) {
+            return width / 2 - 7;
+        }
+    }]);
+
+    return ItemHelper;
+}();
+
+exports.default = ItemHelper;
+module.exports = exports["default"];
 
 /***/ }),
 
