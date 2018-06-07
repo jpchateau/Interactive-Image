@@ -145,23 +145,23 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Text Item**
 
-| Property    | Type   | Example                | Required | Default | Purpose                       |
-| ----------- | ------ | ---------------------- |:--------:| ------- | ----------------------------- |
-| type        | string | "text"                 | Yes      |         | Item type (text/picture)      |
-| position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene |
-| title       | string | "My title"             | Yes      |         | Title                         |
-| description | string | "My description"       | Yes      |         | Descriptive text              |
-| picturePath | string | "/path/to/picture.png" | No       |         | Illustration                  |
-| link        | object | See `Link` object      | No       |         | HTTP Link                     |
+| Property    | Type   | Example                | Required | Default         | Purpose                       |
+| ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "text"                 | Yes      |                 | Item type (text/picture)      |
+| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
+| title       | string | "My title"             | Yes      |                 | Title                         |
+| description | string | "My description"       | Yes      |                 | Descriptive text              |
+| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration                  |
+| link        | object | See `Link` object      | No       |                 | HTTP Link                     |
 
 **Picture Item**
 
-| Property    | Type   | Example                | Required | Default | Purpose                        |
-| ----------- | ------ | ---------------------- |:--------:| ------- | ------------------------------ |
-| type        | string | "picture"              | Yes      |         | Item type (text/picture)       |
-| position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene  |
-| path        | string | "/path/to/picture.png" | Yes      |         | Illustration                   |
-| caption     | string | "My caption"           | No       |         | Illustration small description |
+| Property    | Type   | Example                | Required | Default         | Purpose                        |
+| ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
+| type        | string | "picture"              | Yes      |                 | Item type (text/picture)       |
+| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
+| path        | string | "/path/to/picture.png" | Yes      |                 | Illustration                   |
+| caption     | string | "My caption"           | No       |                 | Illustration small description |
 
 ### Other objects
 

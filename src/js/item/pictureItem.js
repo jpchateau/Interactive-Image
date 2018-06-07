@@ -8,14 +8,10 @@ export default class PictureItem extends BaseItem {
      * @param {object} parameters
      */
     constructor(parameters) {
-        const requiredParameters = ['position', 'path'];
-        for (let i in requiredParameters) {
-            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in PictureItem';
-            }
-        }
-
         super(parameters);
+
+        this.checkRequiredParameters(parameters, ['path']);
+
         this.path = parameters.path;
         this.caption = parameters.caption;
         this.linkUrl = parameters.linkUrl;

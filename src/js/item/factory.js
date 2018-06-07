@@ -19,7 +19,14 @@ export default class Factory {
         try {
             return new classes[className](args);
         } catch (exception) {
-            throw Error('Invalid item type "' + name + '" (allowed values: "text", "picture")');
+            let message;
+            if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
+                message = 'Error: invalid item type "' + name + '" (allowed values: "text", "picture")';
+            } else {
+                message = exception.message;
+            }
+
+            throw Error(message);
         }
     }
 }

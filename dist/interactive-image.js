@@ -36,17 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -1478,15 +1493,24 @@ var BaseItem = function () {
 
         this.domHelper = new _domHelper2.default();
         this.identifier = (0, _uniqid2.default)();
-        this.position = parameters.position;
+        this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
     }
 
-    /**
-     * @returns {HTMLElement}
-     */
-
-
     _createClass(BaseItem, [{
+        key: "checkRequiredParameters",
+        value: function checkRequiredParameters(parameters, requiredParameters) {
+            for (var i in requiredParameters) {
+                if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                    throw Error('Error: missing required parameter named "' + requiredParameters[i] + '"');
+                }
+            }
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
         key: "createHotspotElement",
         value: function createHotspotElement() {
             var element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
@@ -1523,7 +1547,7 @@ var BaseItem = function () {
     }, {
         key: "renderHtml",
         value: function renderHtml() {
-            throw 'Error: render method not implemented';
+            throw Error('Error: render method not implemented');
         }
     }]);
 
@@ -1581,7 +1605,14 @@ function Factory(name, args) {
     try {
         return new classes[className](args);
     } catch (exception) {
-        throw Error('Invalid item type "' + name + '" (allowed values: "text", "picture")');
+        var message = void 0;
+        if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
+            message = 'Error: invalid item type "' + name + '" (allowed values: "text", "picture")';
+        } else {
+            message = exception.message;
+        }
+
+        throw Error(message);
     }
 };
 
@@ -1630,14 +1661,9 @@ var PictureItem = function (_BaseItem) {
     function PictureItem(parameters) {
         _classCallCheck(this, PictureItem);
 
-        var requiredParameters = ['position', 'path'];
-        for (var i in requiredParameters) {
-            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in PictureItem';
-            }
-        }
-
         var _this = _possibleConstructorReturn(this, (PictureItem.__proto__ || Object.getPrototypeOf(PictureItem)).call(this, parameters));
+
+        _this.checkRequiredParameters(parameters, ['path']);
 
         _this.path = parameters.path;
         _this.caption = parameters.caption;
@@ -1742,14 +1768,9 @@ var TextItem = function (_BaseItem) {
     function TextItem(parameters) {
         _classCallCheck(this, TextItem);
 
-        var requiredParameters = ['position', 'title', 'description'];
-        for (var i in requiredParameters) {
-            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
-            }
-        }
-
         var _this = _possibleConstructorReturn(this, (TextItem.__proto__ || Object.getPrototypeOf(TextItem)).call(this, parameters));
+
+        _this.checkRequiredParameters(parameters, ['title', 'description']);
 
         _this.title = parameters.title;
         _this.description = parameters.description;

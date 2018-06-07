@@ -8,14 +8,10 @@ export default class TextItem extends BaseItem {
      * @param {object} parameters
      */
     constructor(parameters) {
-        const requiredParameters = ['position', 'title', 'description'];
-        for (let i in requiredParameters) {
-            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw 'Error: missing required parameter "' + requiredParameters[i] + '" in TextItem';
-            }
-        }
-
         super(parameters);
+
+        this.checkRequiredParameters(parameters, ['title', 'description']);
+
         this.title = parameters.title;
         this.description = parameters.description;
         this.picturePath = parameters.picturePath;

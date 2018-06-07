@@ -8,7 +8,15 @@ export default class BaseItem {
     constructor(parameters) {
         this.domHelper = new DomHelper();
         this.identifier = Uniqid();
-        this.position = parameters.position;
+        this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
+    }
+
+    checkRequiredParameters(parameters, requiredParameters) {
+        for (let i in requiredParameters) {
+            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                throw Error('Error: missing required parameter named "' + requiredParameters[i] + '"');
+            }
+        }
     }
 
     /**
@@ -42,6 +50,6 @@ export default class BaseItem {
     }
 
     renderHtml() {
-        throw 'Error: render method not implemented';
+        throw Error('Error: render method not implemented');
     }
 }
