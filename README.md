@@ -4,7 +4,7 @@
 
 ![Demo](./docs/demo.png)
 
-[View demo](https://www.jpchateau.com/demo/interactive-image)
+View [demo page](https://www.jpchateau.com/demo/interactive-image).
 
 ## Features
 
@@ -13,9 +13,15 @@
 * Easily customizable with CSS
 * Installable via package managers
 
+## Browser Support
+
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
+| --- | --- | --- | --- | --- | --- |
+Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 8+ ✔ |
+
 ## Installation
 
-**Important:** [jQuery](https://jquery.com/download/) is required.  
+**Important:** [jQuery](https://jquery.com/download/) 1.7.2+ is required.  
 Install it via your package manager, a CDN or simply download it.
 
 **npm**
