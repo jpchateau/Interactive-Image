@@ -46,6 +46,11 @@ export default class App {
         this.logHelper.log(JSON.stringify(options), null, 'blue');
 
         const element = new Factory(type, options);
+
+        if (!this.$image.hasClass('interactive-image')) {
+            this.$image.addClass('interactive-image');
+        }
+
         this.$image.append(element.createHotspotElement());
 
         const end = Now();

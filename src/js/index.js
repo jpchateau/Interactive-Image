@@ -2,7 +2,7 @@ import App from "./app";
 
 (($, window, document, undefined) => {
     $.fn.interactiveImage = function (items, options) {
-        let defaults = {
+        const defaults = {
             debug: false
         };
 
