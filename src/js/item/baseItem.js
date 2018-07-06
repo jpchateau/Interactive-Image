@@ -1,5 +1,5 @@
 import DomHelper from "../helper/domHelper";
-import Uniqid from "uniqid";
+import ItemHelper from "../helper/itemHelper";
 
 export default class BaseItem {
     /**
@@ -7,7 +7,7 @@ export default class BaseItem {
      */
     constructor(parameters) {
         this.domHelper = new DomHelper();
-        this.identifier = Uniqid();
+        this.identifier = ItemHelper.uniqid('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
     }
 

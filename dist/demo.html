@@ -16,7 +16,7 @@
 <link href="interactive-image.css" rel="stylesheet"></head>
 <body>
     <!-- Main container of a scene -->
-    <div class="interactive-image"></div>
+    <div id="my-interactive-image"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="interactive-image.js"></script>
@@ -110,7 +110,7 @@
 
         // Plugin activation
         $(document).ready(function() {
-            $(".interactive-image").interactiveImage(items, options);
+            $("#my-interactive-image").interactiveImage(items, options);
         });
     </script>
 <script type="text/javascript" src="interactive-image.js"></script></body>

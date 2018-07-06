@@ -834,98 +834,6 @@ process.umask = function () {
 
 /***/ }),
 
-/***/ "./node_modules/uniqid/index.js":
-/*!**************************************!*\
-  !*** ./node_modules/uniqid/index.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process, module) {
-
-/* 
-(The MIT License)
-Copyright (c) 2014 Halász Ádám <mail@adamhalasz.com>
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-//  Unique Hexatridecimal ID Generator
-// ================================================
-
-//  Dependencies
-// ================================================
-var pid = process && process.pid ? process.pid.toString(36) : '';
-var mac =  false ? undefined : null;
-var address = mac ? parseInt(mac.replace(/\:|\D+/gi, '')).toString(36) : '';
-
-//  Exports
-// ================================================
-module.exports = function (prefix) {
-    return (prefix || '') + address + pid + now().toString(36);
-};
-module.exports.process = function (prefix) {
-    return (prefix || '') + pid + now().toString(36);
-};
-module.exports.time = function (prefix) {
-    return (prefix || '') + now().toString(36);
-};
-
-//  Helpers
-// ================================================
-function now() {
-    var time = Date.now();
-    var last = now.last || time;
-    return now.last = time > last ? time : last + 1;
-}
-
-function macHandler(error) {
-    if (module.parent && module.parent.uniqid_debug) {
-        if (error) console.error('Info: No mac address - uniqid() falls back to uniqid.process().', error);
-        if (pid == '') console.error('Info: No process.pid - uniqid.process() falls back to uniqid.time().');
-    }
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js"), __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/module.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/module.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function () {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function get() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function get() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-/***/ }),
-
 /***/ "./src/css/icomoon.css":
 /*!*****************************!*\
   !*** ./src/css/icomoon.css ***!
@@ -1033,6 +941,11 @@ var App = function () {
             this.logHelper.log(JSON.stringify(options), null, 'blue');
 
             var element = new _factory2.default(type, options);
+
+            if (!this.$image.hasClass('interactive-image')) {
+                this.$image.addClass('interactive-image');
+            }
+
             this.$image.append(element.createHotspotElement());
 
             var end = (0, _performanceNow2.default)();
@@ -1328,7 +1241,7 @@ var ItemHelper = function () {
     }
 
     _createClass(ItemHelper, [{
-        key: "calculateInitialContainerPosition",
+        key: 'calculateInitialContainerPosition',
 
         /**
          * @param {number} hotspotLeft
@@ -1346,9 +1259,29 @@ var ItemHelper = function () {
          */
 
     }, {
-        key: "calculateInitialArrowPosition",
+        key: 'calculateInitialArrowPosition',
         value: function calculateInitialArrowPosition(width) {
             return width / 2 - 7;
+        }
+
+        /**
+         * Generate an unique id
+         *
+         * @param {string=''} prefix
+         * @returns {string}
+         */
+
+    }], [{
+        key: 'uniqid',
+        value: function uniqid() {
+            var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+            var time = Date.now();
+            var last = this.last || time;
+
+            last = time > last ? time : last + 1;
+
+            return prefix + '_' + last.toString(36);
         }
     }]);
 
@@ -1356,7 +1289,7 @@ var ItemHelper = function () {
 }();
 
 exports.default = ItemHelper;
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 
@@ -1476,9 +1409,9 @@ var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
 
-var _uniqid = __webpack_require__(/*! uniqid */ "./node_modules/uniqid/index.js");
+var _itemHelper = __webpack_require__(/*! ../helper/itemHelper */ "./src/js/helper/itemHelper.js");
 
-var _uniqid2 = _interopRequireDefault(_uniqid);
+var _itemHelper2 = _interopRequireDefault(_itemHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1492,7 +1425,7 @@ var BaseItem = function () {
         _classCallCheck(this, BaseItem);
 
         this.domHelper = new _domHelper2.default();
-        this.identifier = (0, _uniqid2.default)();
+        this.identifier = _itemHelper2.default.uniqid('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
     }
 
