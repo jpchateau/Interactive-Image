@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1364,6 +1364,14 @@ module.exports = exports['default'];
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jQuery) {
 
+var _main = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
+
+var _main2 = _interopRequireDefault(_main);
+
+var _icomoon = __webpack_require__(/*! ../css/icomoon.css */ "./src/css/icomoon.css");
+
+var _icomoon2 = _interopRequireDefault(_icomoon);
+
 var _app = __webpack_require__(/*! ./app */ "./src/js/app.js");
 
 var _app2 = _interopRequireDefault(_app);
@@ -1804,28 +1812,6 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ "./src/js/styles.js":
-/*!**************************!*\
-  !*** ./src/js/styles.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _main = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
-
-var _main2 = _interopRequireDefault(_main);
-
-var _icomoon = __webpack_require__(/*! ../css/icomoon.css */ "./src/css/icomoon.css");
-
-var _icomoon2 = _interopRequireDefault(_icomoon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
 /***/ "./src/scss/main.scss":
 /*!****************************!*\
   !*** ./src/scss/main.scss ***!
@@ -1834,19 +1820,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!**************************************************!*\
-  !*** multi ./src/js/index.js ./src/js/styles.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./src/js/index.js */"./src/js/index.js");
-module.exports = __webpack_require__(/*! ./src/js/styles.js */"./src/js/styles.js");
-
 
 /***/ }),
 

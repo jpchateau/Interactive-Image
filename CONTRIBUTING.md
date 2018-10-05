@@ -18,6 +18,14 @@ $ npm install
 $ npm run build
 ```
 
+When working on local files, you can build the project in development mode, start a local server, and view the result in
+your web browser here: `http://localhost:8080/dist/demo.html`.
+
+```sh
+$ npm run dev
+$ npm run start:dev
+```
+
 ### Icons
 
 Use [IcoMoon](https://icomoon.io/) icon library to export icons from IcoMoon app and include them in the project.  
@@ -49,6 +57,7 @@ Check out for the results of the different builds on [Travis CI](https://travis-
 | `npm run dev`                | Build all the distributable files for local development |
 | `npm run eslint`             | Run the ES linter                                       |
 | `npm run sass-lint`          | Run the Sass linter                                     |
+| `npm run start:dev`          | Start a local server                                    |
 | `npm run test`               | Run unit tests                                          |
 | `npm run test-with-coverage` | Run unit tests and display code coverage                |
 | `npm run watch`              | Run the watcher for local development                   |

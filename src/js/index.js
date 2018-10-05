@@ -1,3 +1,6 @@
+import Main from '../scss/main.scss';
+import Icomoon from '../css/icomoon.css';
+
 import App from "./app";
 
 (($, window, document, undefined) => {
