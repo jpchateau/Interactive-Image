@@ -47,8 +47,7 @@
     "> 5%"
   ],
   "dependencies": {
-    "imagesloaded": "^4.1.4",
-    "performance-now": "^2.1.0"
+    "imagesloaded": "^4.1.4"
   },
   "devDependencies": {
     "autoprefixer": "^8.4.1",

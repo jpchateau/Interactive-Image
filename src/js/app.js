@@ -3,7 +3,6 @@ import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
-import Now from "performance-now";
 
 export default class App {
     /**
@@ -23,13 +22,13 @@ export default class App {
      * @param {object} settings
      */
     checkSettings(settings) {
-        const start = Now();
+        const start = Date.now();
         if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
             this.settings.debug = true;
             throw 'Error: check "debug" plugin option';
         }
 
-        const end = Now();
+        const end = Date.now();
         this.logHelper.log('Options successfully checked', end - start);
     }
 
@@ -38,7 +37,7 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        const start = Now();
+        const start = Date.now();
 
         const type = options.type;
         delete options.type;
@@ -53,7 +52,7 @@ export default class App {
 
         this.$image.append(element.createHotspotElement());
 
-        const end = Now();
+        const end = Date.now();
         this.logHelper.log('item (' + type + ') created', end - start);
 
         return $(element.renderHtml());
@@ -63,19 +62,19 @@ export default class App {
      * @param items
      */
     buildElements(items) {
-        const start = Now();
+        const start = Date.now();
         for (let i in items) {
             if (items.hasOwnProperty(i)) {
                 this.$image.append(this.createElement(items[i]));
             }
         }
 
-        const end = Now();
+        const end = Date.now();
         this.logHelper.log('Items built', end - start);
     }
 
     positionItems() {
-        const start = Now(),
+        const start = Date.now(),
               $items = this.$image.find('.item');
 
         var _this = this;
@@ -92,13 +91,13 @@ export default class App {
             $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
         });
 
-        const end = Now();
+        const end = Date.now();
         this.logHelper.log('Items positioned', end - start);
     }
 
     execute() {
         try {
-            const start = Now();
+            const start = Date.now();
 
             this.checkSettings(this.settings);
             this.buildElements(this.items);
@@ -114,7 +113,7 @@ export default class App {
 
             (new Hover().bindAll(this.$image));
 
-            const end = Now();
+            const end = Date.now();
             this.logHelper.log('Execution completed', end - start);
         } catch (exception) {
             this.logHelper.log(exception.message, null, 'red');

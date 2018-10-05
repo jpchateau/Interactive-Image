@@ -188,8 +188,6 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 ## Dependencies
 
 * [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
-* [performance-now](https://www.npmjs.com/package/performance-now) to monitor JavaScript performance
-* [uniqid](https://www.npmjs.com/package/uniqid) to create unique id's 
 
 ## Contribute
 
