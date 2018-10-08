@@ -19,10 +19,11 @@ View [demo page](https://www.jpchateau.com/demo/interactive-image).
 | --- | --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 8+ ✔ |
 
-## Installation
+## Requirements
 
-**Important:** [jQuery](https://jquery.com/download/) 1.7.2+ is required.  
-Install it via your package manager, a CDN or simply download it.
+[jQuery](https://jquery.com/download/) 1.7.2+ is required.
+
+## Installation
 
 **npm**
 
@@ -43,7 +44,7 @@ All these files (js, css and fonts) are located in the `dist` directory.
 
 ## Usage
 
-### Get started
+### How to use it
 
 Edit the source code of your web page:
 

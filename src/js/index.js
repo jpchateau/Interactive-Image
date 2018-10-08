@@ -1,5 +1,5 @@
-import Main from '../scss/main.scss';
-import Icomoon from '../css/icomoon.css';
+import '../scss/main.scss';
+import '../css/icomoon.css';
 
 import App from "./app";
 

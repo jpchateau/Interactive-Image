@@ -8,7 +8,7 @@
     "build": "webpack --progress --colors --config webpack.prod.js",
     "dev": "webpack --progress --colors --config webpack.dev.js",
     "eslint": "./node_modules/.bin/eslint ./src/js/",
-    "sass-lint": "./node_modules/.bin/sass-lint -v -q",
+    "sass-lint": "./node_modules/.bin/sass-lint --verbose --no-exit",
     "start:dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.js",
     "test": "./node_modules/.bin/mocha --recursive --require babel-core/register",
     "test-with-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/_mocha --recursive",
