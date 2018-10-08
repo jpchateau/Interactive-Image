@@ -21,7 +21,7 @@ export default class Factory {
         } catch (exception) {
             let message;
             if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
-                message = 'Error: invalid item type "' + name + '" (allowed values: "text", "picture")';
+                message = 'Invalid item type "' + name + '" (allowed values: "text", "picture")';
             } else {
                 message = exception.message;
             }

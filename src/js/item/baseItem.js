@@ -14,7 +14,7 @@ export default class BaseItem {
     checkRequiredParameters(parameters, requiredParameters) {
         for (let i in requiredParameters) {
             if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw Error('Error: missing required parameter named "' + requiredParameters[i] + '"');
+                throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
             }
         }
     }
@@ -50,6 +50,6 @@ export default class BaseItem {
     }
 
     renderHtml() {
-        throw Error('Error: render method not implemented');
+        throw Error('Render method not implemented');
     }
 }

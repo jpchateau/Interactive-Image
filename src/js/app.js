@@ -25,7 +25,7 @@ export default class App {
         const start = Date.now();
         if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
             this.settings.debug = true;
-            throw 'Error: check "debug" plugin option';
+            throw Error('Check "debug" plugin option');
         }
 
         const end = Date.now();

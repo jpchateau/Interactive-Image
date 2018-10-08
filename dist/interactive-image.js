@@ -667,7 +667,7 @@ var App = function () {
             var start = Date.now();
             if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
                 this.settings.debug = true;
-                throw 'Error: check "debug" plugin option';
+                throw Error('Check "debug" plugin option');
             }
 
             var end = Date.now();
@@ -1113,13 +1113,9 @@ module.exports = exports['default'];
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jQuery) {
 
-var _main = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
+__webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
 
-var _main2 = _interopRequireDefault(_main);
-
-var _icomoon = __webpack_require__(/*! ../css/icomoon.css */ "./src/css/icomoon.css");
-
-var _icomoon2 = _interopRequireDefault(_icomoon);
+__webpack_require__(/*! ../css/icomoon.css */ "./src/css/icomoon.css");
 
 var _app = __webpack_require__(/*! ./app */ "./src/js/app.js");
 
@@ -1191,7 +1187,7 @@ var BaseItem = function () {
         value: function checkRequiredParameters(parameters, requiredParameters) {
             for (var i in requiredParameters) {
                 if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                    throw Error('Error: missing required parameter named "' + requiredParameters[i] + '"');
+                    throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
                 }
             }
         }
@@ -1237,7 +1233,7 @@ var BaseItem = function () {
     }, {
         key: "renderHtml",
         value: function renderHtml() {
-            throw Error('Error: render method not implemented');
+            throw Error('Render method not implemented');
         }
     }]);
 
@@ -1297,7 +1293,7 @@ function Factory(name, args) {
     } catch (exception) {
         var message = void 0;
         if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
-            message = 'Error: invalid item type "' + name + '" (allowed values: "text", "picture")';
+            message = 'Invalid item type "' + name + '" (allowed values: "text", "picture")';
         } else {
             message = exception.message;
         }

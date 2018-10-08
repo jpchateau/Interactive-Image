@@ -11,6 +11,7 @@ View [demo page](https://www.jpchateau.com/demo/interactive-image).
 * Interactive texts and images over large pictures
 * Flexible configuration of markers and items
 * Easily customizable with CSS
+* Unit tested with [Mocha](https://mochajs.org/)
 * Installable via package managers
 
 ## Browser Support
@@ -39,8 +40,8 @@ $ yarn add interactiveimagejs
 
 **Download**
 
-You can also download the production version or the development version from GitHub.  
-All these files (js, css and fonts) are located in the `dist` directory.
+Download the production or the development version from GitHub.  
+All the files (.js, .css and fonts) are located in the `dist` directory.
 
 ## Usage
 

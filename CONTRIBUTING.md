@@ -10,7 +10,7 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 
 ## Installing and building the project
 
-You need [Node.js](https://nodejs.org/), [npm](https://www.npmjs.com/) and [Sass](https://sass-lang.com/) installed on your computer.  
+You need [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed on your computer.
 Building is done through npm scripts.
 
 ```sh
@@ -19,7 +19,7 @@ $ npm run build
 ```
 
 When working on local files, you can build the project in development mode, start a local server, and view the result in
-your web browser here: `http://localhost:8080/dist/demo.html`.
+your web browser at this URL: `http://localhost:8080/dist/demo.html`.
 
 ```sh
 $ npm run dev
@@ -36,7 +36,7 @@ Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon
 ```sh
 $ npm run eslint
 $ npm run sass-lint
-$ npm run test-with-coverage
+$ npm run test
 ```
 
 Recommended rules to follow: [ESLint: Recommended](https://eslint.org/docs/rules/).  
@@ -45,7 +45,7 @@ Please follow the [Sass guidelines](https://sass-guidelin.es/) when modifying st
 An overview of the JavaScript code quality can be found at [code climate](https://codeclimate.com/github/jpchateau/Interactive-Image).
 
 Unit tests are done with [Mocha](https://mochajs.org/) test framework.
-The Node.js' built-in [assert](https://nodejs.org/api/assert.html) module is used.
+The assertion library [Chai](https://www.chaijs.com/) is used.
 
 Check out for the results of the different builds on [Travis CI](https://travis-ci.org/jpchateau/Interactive-Image).
 
