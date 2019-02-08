@@ -1,6 +1,6 @@
-import Factory from "./item/factory";
 import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
+import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
 
@@ -14,6 +14,7 @@ export default class App {
         this.items = items;
         this.settings = settings;
         this.$image = $image;
+        this.itemFactory = new ItemFactory();
         this.itemHelper = new ItemHelper();
         this.logHelper = new LogHelper(settings.debug);
     }
@@ -44,7 +45,7 @@ export default class App {
 
         this.logHelper.log(JSON.stringify(options), null, 'blue');
 
-        const element = new Factory(type, options);
+        const element = this.itemFactory.create(type, options);
 
         if (!this.$image.hasClass('interactive-image')) {
             this.$image.addClass('interactive-image');

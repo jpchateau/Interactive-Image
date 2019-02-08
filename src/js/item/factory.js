@@ -12,7 +12,7 @@ export default class Factory {
      * @param {object} args
      * @returns {TextItem|PictureItem}
      */
-    constructor(name, args) {
+    create(name, args) {
         let className = name.toLowerCase() + 'Item';
         className = className.charAt(0).toUpperCase() + className.slice(1);
 

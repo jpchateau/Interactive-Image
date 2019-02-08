@@ -616,10 +616,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _factory = __webpack_require__(/*! ./item/factory */ "./src/js/item/factory.js");
-
-var _factory2 = _interopRequireDefault(_factory);
-
 var _hover = __webpack_require__(/*! ./event/hover */ "./src/js/event/hover.js");
 
 var _hover2 = _interopRequireDefault(_hover);
@@ -627,6 +623,10 @@ var _hover2 = _interopRequireDefault(_hover);
 var _imagesloaded = __webpack_require__(/*! imagesloaded */ "./node_modules/imagesloaded/imagesloaded.js");
 
 var _imagesloaded2 = _interopRequireDefault(_imagesloaded);
+
+var _factory = __webpack_require__(/*! ./item/factory */ "./src/js/item/factory.js");
+
+var _factory2 = _interopRequireDefault(_factory);
 
 var _itemHelper = __webpack_require__(/*! ./helper/itemHelper */ "./src/js/helper/itemHelper.js");
 
@@ -652,6 +652,7 @@ var App = function () {
         this.items = items;
         this.settings = settings;
         this.$image = $image;
+        this.itemFactory = new _factory2.default();
         this.itemHelper = new _itemHelper2.default();
         this.logHelper = new _logHelper2.default(settings.debug);
     }
@@ -689,7 +690,7 @@ var App = function () {
 
             this.logHelper.log(JSON.stringify(options), null, 'blue');
 
-            var element = new _factory2.default(type, options);
+            var element = this.itemFactory.create(type, options);
 
             if (!this.$image.hasClass('interactive-image')) {
                 this.$image.addClass('interactive-image');
@@ -1241,6 +1242,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _pictureItem = __webpack_require__(/*! ./pictureItem */ "./src/js/item/pictureItem.js");
 
 var _pictureItem2 = _interopRequireDefault(_pictureItem);
@@ -1258,31 +1261,40 @@ var classes = {
     TextItem: _textItem2.default
 };
 
-var Factory =
-/**
- * @param {string} name
- * @param {object} args
- * @returns {TextItem|PictureItem}
- */
-function Factory(name, args) {
-    _classCallCheck(this, Factory);
-
-    var className = name.toLowerCase() + 'Item';
-    className = className.charAt(0).toUpperCase() + className.slice(1);
-
-    try {
-        return new classes[className](args);
-    } catch (exception) {
-        var message = void 0;
-        if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
-            message = 'Invalid item type "' + name + '" (allowed values: "text", "picture")';
-        } else {
-            message = exception.message;
-        }
-
-        throw Error(message);
+var Factory = function () {
+    function Factory() {
+        _classCallCheck(this, Factory);
     }
-};
+
+    _createClass(Factory, [{
+        key: "create",
+
+        /**
+         * @param {string} name
+         * @param {object} args
+         * @returns {TextItem|PictureItem}
+         */
+        value: function create(name, args) {
+            var className = name.toLowerCase() + 'Item';
+            className = className.charAt(0).toUpperCase() + className.slice(1);
+
+            try {
+                return new classes[className](args);
+            } catch (exception) {
+                var message = void 0;
+                if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
+                    message = 'Invalid item type "' + name + '" (allowed values: "text", "picture")';
+                } else {
+                    message = exception.message;
+                }
+
+                throw Error(message);
+            }
+        }
+    }]);
+
+    return Factory;
+}();
 
 exports.default = Factory;
 module.exports = exports["default"];
