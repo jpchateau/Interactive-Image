@@ -990,7 +990,7 @@ var ItemHelper = function () {
     }
 
     _createClass(ItemHelper, [{
-        key: 'calculateInitialContainerPosition',
+        key: "calculateInitialContainerPosition",
 
         /**
          * @param {number} hotspotLeft
@@ -1008,29 +1008,9 @@ var ItemHelper = function () {
          */
 
     }, {
-        key: 'calculateInitialArrowPosition',
+        key: "calculateInitialArrowPosition",
         value: function calculateInitialArrowPosition(width) {
             return width / 2 - 7;
-        }
-
-        /**
-         * Generate an unique id
-         *
-         * @param {string=''} prefix
-         * @returns {string}
-         */
-
-    }], [{
-        key: 'uniqid',
-        value: function uniqid() {
-            var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-            var time = Date.now();
-            var last = this.last || time;
-
-            last = time > last ? time : last + 1;
-
-            return prefix + '_' + last.toString(36);
         }
     }]);
 
@@ -1038,7 +1018,7 @@ var ItemHelper = function () {
 }();
 
 exports.default = ItemHelper;
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 
@@ -1162,9 +1142,9 @@ var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
 
-var _itemHelper = __webpack_require__(/*! ../helper/itemHelper */ "./src/js/helper/itemHelper.js");
+var _uniqueId = __webpack_require__(/*! ../service/uniqueId */ "./src/js/service/uniqueId.js");
 
-var _itemHelper2 = _interopRequireDefault(_itemHelper);
+var _uniqueId2 = _interopRequireDefault(_uniqueId);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1178,7 +1158,9 @@ var BaseItem = function () {
         _classCallCheck(this, BaseItem);
 
         this.domHelper = new _domHelper2.default();
-        this.identifier = _itemHelper2.default.uniqid('item');
+        this.uniqueId = new _uniqueId2.default();
+
+        this.identifier = this.uniqueId.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
     }
 
@@ -1553,6 +1535,68 @@ var TextItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = TextItem;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/service/uniqueId.js":
+/*!************************************!*\
+  !*** ./src/js/service/uniqueId.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var UniqueId = function () {
+    function UniqueId() {
+        _classCallCheck(this, UniqueId);
+    }
+
+    _createClass(UniqueId, [{
+        key: 'now',
+
+        /**
+         * Generate a unique id
+         *
+         * @returns {number}
+         */
+        value: function now() {
+            var time = Date.now();
+            var last = this.last || time;
+
+            return this.last = time > last ? time : last + 1;
+        }
+
+        /**
+         * Get a unique string from a unique id and a prefix
+         *
+         * @param {string=''} prefix
+         * @returns {string}
+         */
+
+    }, {
+        key: 'generate',
+        value: function generate() {
+            var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+            return prefix + '_' + this.now().toString(36);
+        }
+    }]);
+
+    return UniqueId;
+}();
+
+exports.default = UniqueId;
 module.exports = exports['default'];
 
 /***/ }),
