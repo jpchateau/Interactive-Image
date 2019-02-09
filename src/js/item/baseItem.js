@@ -7,9 +7,8 @@ export default class BaseItem {
      */
     constructor(parameters) {
         this.domHelper = new DomHelper();
-        this.uniqueId = new UniqueId();
 
-        this.identifier = this.uniqueId.generate('item');
+        this.identifier = UniqueId.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
     }
 

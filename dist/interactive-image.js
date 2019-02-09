@@ -665,14 +665,22 @@ var App = function () {
     _createClass(App, [{
         key: "checkSettings",
         value: function checkSettings(settings) {
-            var start = Date.now();
-            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
-                this.settings.debug = true;
-                throw Error('Check "debug" plugin option');
-            }
+            var _this2 = this;
 
-            var end = Date.now();
-            this.logHelper.log('Options successfully checked', end - start);
+            return new Promise(function (resolve, reject) {
+                _this2.logHelper.log('Starting settings check...');
+                var start = Date.now();
+
+                if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
+                    _this2.settings.debug = true;
+                    throw Error('Check "debug" plugin option');
+                }
+
+                var end = Date.now();
+                _this2.logHelper.log('Options successfully checked', end - start, 'green');
+
+                resolve();
+            });
         }
 
         /**
@@ -683,23 +691,14 @@ var App = function () {
     }, {
         key: "createElement",
         value: function createElement(options) {
-            var start = Date.now();
+            this.logHelper.log(JSON.stringify(options), null, 'blue');
 
             var type = options.type;
             delete options.type;
-
-            this.logHelper.log(JSON.stringify(options), null, 'blue');
-
             var element = this.itemFactory.create(type, options);
-
-            if (!this.$image.hasClass('interactive-image')) {
-                this.$image.addClass('interactive-image');
-            }
-
             this.$image.append(element.createHotspotElement());
 
-            var end = Date.now();
-            this.logHelper.log('item (' + type + ') created', end - start);
+            this.logHelper.log('Item (' + type + ') created');
 
             return $(element.renderHtml());
         }
@@ -709,74 +708,129 @@ var App = function () {
          */
 
     }, {
-        key: "buildElements",
-        value: function buildElements(items) {
-            var start = Date.now();
-            for (var i in items) {
-                if (items.hasOwnProperty(i)) {
-                    this.$image.append(this.createElement(items[i]));
-                }
-            }
+        key: "createElements",
+        value: function createElements(items) {
+            var _this3 = this;
 
-            var end = Date.now();
-            this.logHelper.log('Items built', end - start);
+            return new Promise(function (resolve, reject) {
+                _this3.logHelper.log('Starting elements creation...');
+                var start = Date.now();
+
+                for (var i in items) {
+                    if (items.hasOwnProperty(i)) {
+                        _this3.$image.append(_this3.createElement(items[i]));
+                    }
+                }
+
+                var end = Date.now();
+                _this3.logHelper.log('All items have been created', end - start, 'green');
+
+                resolve();
+            });
         }
     }, {
         key: "positionItems",
         value: function positionItems() {
-            var start = Date.now(),
-                $items = this.$image.find('.item');
+            var _this4 = this;
 
-            var _this = this;
-            $.each($items, function () {
-                var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                    width = $(this).width();
-                var left = 0,
-                    top = 0;
+            return new Promise(function (resolve, reject) {
+                _this4.logHelper.log('Starting items positioning...');
+                var start = Date.now();
 
-                var _this$itemHelper$calc = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                var $items = _this4.$image.find('.item');
+                var _this = _this4;
+                $.each($items, function () {
+                    var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
+                        width = $(this).width();
+                    var left = 0,
+                        top = 0;
 
-                var _this$itemHelper$calc2 = _slicedToArray(_this$itemHelper$calc, 2);
+                    var _this$itemHelper$calc = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
-                left = _this$itemHelper$calc2[0];
-                top = _this$itemHelper$calc2[1];
+                    var _this$itemHelper$calc2 = _slicedToArray(_this$itemHelper$calc, 2);
+
+                    left = _this$itemHelper$calc2[0];
+                    top = _this$itemHelper$calc2[1];
 
 
-                $(this).css('left', left);
-                $(this).css('top', top);
-                $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
+                    $(this).css('left', left);
+                    $(this).css('top', top);
+                    $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
+                });
+
+                var end = Date.now();
+                _this4.logHelper.log('All items have been positioned', end - start, 'green');
+
+                resolve();
             });
+        }
+    }, {
+        key: "bindEvents",
+        value: function bindEvents() {
+            var _this5 = this;
 
-            var end = Date.now();
-            this.logHelper.log('Items positioned', end - start);
+            return new Promise(function (resolve, reject) {
+                _this5.logHelper.log('Starting events binding...');
+                var start = Date.now();
+
+                new _hover2.default().bindAll(_this5.$image);
+
+                var end = Date.now();
+                _this5.logHelper.log('All events have been bound', end - start, 'green');
+
+                resolve();
+            });
+        }
+    }, {
+        key: "loadImages",
+        value: function loadImages() {
+            var _this6 = this;
+
+            return new Promise(function (resolve, reject) {
+                _this6.logHelper.log('Starting images loading...');
+                var start = Date.now();
+
+                if (_this6.$image.find('img').length) {
+                    (0, _imagesloaded2.default)(_this6.$image, function () {
+                        var end = Date.now();
+                        _this6.logHelper.log('All images have been detected and loaded', end - start, 'green');
+
+                        resolve();
+                    });
+                } else {
+                    var end = Date.now();
+                    _this6.logHelper.log('No image detected', end - start, 'green');
+
+                    resolve();
+                }
+            });
         }
     }, {
         key: "execute",
         value: function execute() {
-            var _this2 = this;
+            var _this7 = this;
 
-            try {
-                var start = Date.now();
+            var start = Date.now();
 
-                this.checkSettings(this.settings);
-                this.buildElements(this.items);
-
-                if (this.$image.find('img').length) {
-                    (0, _imagesloaded2.default)(this.$image, function () {
-                        _this2.logHelper.log('Images loaded');
-                        _this2.positionItems();
-                    });
-                } else {
-                    this.positionItems();
-                }
-
-                new _hover2.default().bindAll(this.$image);
-
-                var end = Date.now();
-                this.logHelper.log('Execution completed', end - start);
-            } catch (exception) {
-                this.logHelper.log(exception.message, null, 'red');
+            // Add the interactive-image class on the main scene
+            if (!this.$image.hasClass('interactive-image')) {
+                this.$image.addClass('interactive-image');
             }
+
+            this.checkSettings(this.settings).then(function () {
+                return _this7.createElements(_this7.items);
+            }).then(function () {
+                return _this7.loadImages();
+            }).then(function () {
+                return _this7.positionItems();
+            }).then(function () {
+                return _this7.bindEvents();
+            }).then(function () {
+                var end = Date.now();
+                _this7.logHelper.log('Execution completed', end - start);
+            }).catch(function (exception) {
+                _this7.logHelper.log(exception.message, null, 'red');
+            });
         }
     }]);
 
@@ -1159,9 +1213,8 @@ var BaseItem = function () {
         _classCallCheck(this, BaseItem);
 
         this.domHelper = new _domHelper2.default();
-        this.uniqueId = new _uniqueId2.default();
 
-        this.identifier = this.uniqueId.generate('item');
+        this.identifier = _uniqueId2.default.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
     }
 
@@ -1574,23 +1627,22 @@ var UniqueId = function () {
         _classCallCheck(this, UniqueId);
     }
 
-    _createClass(UniqueId, [{
+    _createClass(UniqueId, null, [{
         key: 'now',
 
         /**
-         * Generate a unique id
-         *
          * @returns {number}
          */
         value: function now() {
             var time = Date.now();
-            var last = this.last || time;
+            this.last = this.last || time;
+            this.last = time > this.last ? time : this.last + 1;
 
-            return this.last = time > last ? time : last + 1;
+            return this.last;
         }
 
         /**
-         * Get a unique string from a unique id and a prefix
+         * Get a unique identifier from date and a prefix
          *
          * @param {string=''} prefix
          * @returns {string}
@@ -1601,7 +1653,7 @@ var UniqueId = function () {
         value: function generate() {
             var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
-            return prefix + '_' + this.now().toString(36);
+            return prefix + '_' + UniqueId.now().toString(36);
         }
     }]);
 

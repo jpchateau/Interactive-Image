@@ -1,23 +1,22 @@
 export default class UniqueId {
     /**
-     * Generate a unique id
-     *
      * @returns {number}
      */
-    now() {
+    static now() {
         let time = Date.now();
-        let last = this.last || time;
+        this.last = this.last || time;
+        this.last = time > this.last ? time : this.last + 1;
 
-        return this.last = time > last ? time : last + 1;
+        return this.last;
     }
 
     /**
-     * Get a unique string from a unique id and a prefix
+     * Get a unique identifier from date and a prefix
      *
      * @param {string=''} prefix
      * @returns {string}
      */
-    generate(prefix = '') {
-        return prefix + '_' + this.now().toString(36);
+    static generate(prefix = '') {
+        return prefix + '_' + UniqueId.now().toString(36);
     }
 }
