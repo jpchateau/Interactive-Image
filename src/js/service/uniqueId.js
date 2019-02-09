@@ -13,10 +13,10 @@ export default class UniqueId {
     /**
      * Get a unique identifier from date and a prefix
      *
-     * @param {string=''} prefix
+     * @param {string} prefix
      * @returns {string}
      */
-    static generate(prefix = '') {
-        return prefix + '_' + UniqueId.now().toString(36);
+    static generate(prefix) {
+        return (typeof prefix !== 'undefined' ? prefix + '_' : '') + UniqueId.now().toString(36);
     }
 }

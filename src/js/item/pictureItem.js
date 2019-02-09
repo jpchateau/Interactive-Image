@@ -37,8 +37,8 @@ export default class PictureItem extends BaseItem {
      * @returns {HTMLElement}
      */
     renderHtml() {
-        const element = this.createItemElement(),
-              pictureItem =  this.domHelper.createElement('div', 'picture-item');
+        const element = this.createItemElement();
+        const pictureItem =  this.domHelper.createElement('div', 'picture-item');
 
         if ('undefined' !== typeof this.caption) {
             pictureItem.setAttribute('data-caption', this.caption);

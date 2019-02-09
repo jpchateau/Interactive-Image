@@ -66,8 +66,8 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     renderHtml() {
-        const element = this.createItemElement(),
-              textElement = this.domHelper.createElement('div', 'text-item');
+        const element = this.createItemElement();
+        const textElement = this.domHelper.createElement('div', 'text-item');
 
         textElement.appendChild(this.createTitle());
         textElement.appendChild(this.createDescription());

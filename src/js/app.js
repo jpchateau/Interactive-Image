@@ -48,6 +48,7 @@ export default class App {
 
         const type = options.type;
         delete options.type;
+
         const element = this.itemFactory.create(type, options);
         this.$image.append(element.createHotspotElement());
 
@@ -85,10 +86,10 @@ export default class App {
             const $items = this.$image.find('.item');
             var _this = this;
             $.each($items, function() {
-                const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                    width = $(this).width();
-                let left = 0,
-                    top = 0;
+                const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
+                const width = $(this).width();
+                let left;
+                let top;
 
                 [left, top] = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
@@ -109,7 +110,7 @@ export default class App {
             this.logHelper.log('Starting events binding...');
             const start = Date.now();
 
-            (new Hover().bindAll(this.$image));
+            new Hover().bindAll(this.$image);
 
             const end = Date.now();
             this.logHelper.log('All events have been bound', end - start, 'green');
@@ -163,7 +164,7 @@ export default class App {
             })
             .then(() => {
                 const end = Date.now();
-                this.logHelper.log('Execution completed', end - start);
+                this.logHelper.log('Execution completed', end - start, 'green');
             })
             .catch((exception) => {
                 this.logHelper.log(exception.message, null, 'red');

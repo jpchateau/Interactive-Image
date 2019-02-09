@@ -695,6 +695,7 @@ var App = function () {
 
             var type = options.type;
             delete options.type;
+
             var element = this.itemFactory.create(type, options);
             this.$image.append(element.createHotspotElement());
 
@@ -740,10 +741,10 @@ var App = function () {
                 var $items = _this4.$image.find('.item');
                 var _this = _this4;
                 $.each($items, function () {
-                    var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                        width = $(this).width();
-                    var left = 0,
-                        top = 0;
+                    var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
+                    var width = $(this).width();
+                    var left = void 0;
+                    var top = void 0;
 
                     var _this$itemHelper$calc = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
@@ -827,7 +828,7 @@ var App = function () {
                 return _this7.bindEvents();
             }).then(function () {
                 var end = Date.now();
-                _this7.logHelper.log('Execution completed', end - start);
+                _this7.logHelper.log('Execution completed', end - start, 'green');
             }).catch(function (exception) {
                 _this7.logHelper.log(exception.message, null, 'red');
             });
@@ -1431,8 +1432,8 @@ var PictureItem = function (_BaseItem) {
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
-            var element = this.createItemElement(),
-                pictureItem = this.domHelper.createElement('div', 'picture-item');
+            var element = this.createItemElement();
+            var pictureItem = this.domHelper.createElement('div', 'picture-item');
 
             if ('undefined' !== typeof this.caption) {
                 pictureItem.setAttribute('data-caption', this.caption);
@@ -1576,8 +1577,8 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'renderHtml',
         value: function renderHtml() {
-            var element = this.createItemElement(),
-                textElement = this.domHelper.createElement('div', 'text-item');
+            var element = this.createItemElement();
+            var textElement = this.domHelper.createElement('div', 'text-item');
 
             textElement.appendChild(this.createTitle());
             textElement.appendChild(this.createDescription());
@@ -1644,16 +1645,14 @@ var UniqueId = function () {
         /**
          * Get a unique identifier from date and a prefix
          *
-         * @param {string=''} prefix
+         * @param {string} prefix
          * @returns {string}
          */
 
     }, {
         key: 'generate',
-        value: function generate() {
-            var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-            return prefix + '_' + UniqueId.now().toString(36);
+        value: function generate(prefix) {
+            return (typeof prefix !== 'undefined' ? prefix + '_' : '') + UniqueId.now().toString(36);
         }
     }]);
 

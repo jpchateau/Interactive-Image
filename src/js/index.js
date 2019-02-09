@@ -12,7 +12,7 @@ import App from "./app";
         options = $.extend(defaults, options);
 
         return this.each(() => {
-            (new App(items, options, $(this)).execute());
+            new App(items, options, $(this)).execute();
         });
     };
 })(jQuery, window, document);
