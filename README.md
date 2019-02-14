@@ -2,9 +2,9 @@
 
 > A jQuery plugin to embed interactive images on your website.
 
-![Demo](./docs/demo.png)
+[![Demo](./docs/demo.png)](https://www.jpchateau.com/demo/interactive-image)
 
-View [demo page](https://www.jpchateau.com/demo/interactive-image).
+See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-image).
 
 ## Features
 
@@ -13,6 +13,7 @@ View [demo page](https://www.jpchateau.com/demo/interactive-image).
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
 * Installable via package managers
+* Free - No ads - No restriction on commercial use
 
 ## Browser Support
 
@@ -201,9 +202,9 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 * Free: [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
 * Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
-* For business: [ThingLink](https://www.thinglink.com/)
+* For business: [genially](https://www.genial.ly/) - [Interactive-Img](https://interactive-img.com/) - [ThingLink](https://www.thinglink.com/)
 
 ## License
 
-Copyright (c) 2015-2018 Jean-Philippe Chateau.  
+Copyright (c) 2015-2019 Jean-Philippe Chateau.  
 This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
