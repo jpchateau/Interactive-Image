@@ -30,7 +30,7 @@
     position: absolute;
     z-index: 32;
     background-color: white;
-    color: black;
+    color: #1d2129;
     min-width: 100px;
     max-width: 280px;
     min-height: 60px;
@@ -46,9 +46,10 @@
     font-size: 20px;
     width: 100%;
     text-align: left;
+    font-family: Verdana, sans-serif;
     font-variant: small-caps;
-    font-weight: bold;
-    display: inline-block; }
+    display: inline-block;
+    color: #333333; }
   .interactive-image .text-item .description {
     text-align: left;
     font-size: 14px;
@@ -64,11 +65,11 @@
     display: block;
     margin-top: 10px; }
     .interactive-image .text-item a:visited {
-      color: black; }
+      color: #1d2129; }
     .interactive-image .text-item a:hover {
-      color: black; }
+      color: #1d2129; }
     .interactive-image .text-item a:active {
-      color: black; }
+      color: #1d2129; }
 
 .interactive-image .picture-item {
   position: relative;

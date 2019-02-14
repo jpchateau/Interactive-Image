@@ -12,7 +12,7 @@ export default class TextItem extends BaseItem {
 
         this.checkRequiredParameters(parameters, ['title', 'description']);
 
-        this.title = parameters.title;
+        this.title = parameters.title.toLowerCase();
         this.description = parameters.description;
         this.picturePath = parameters.picturePath;
         this.link = parameters.link;

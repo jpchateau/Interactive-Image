@@ -1506,7 +1506,7 @@ var TextItem = function (_BaseItem) {
 
         _this.checkRequiredParameters(parameters, ['title', 'description']);
 
-        _this.title = parameters.title;
+        _this.title = parameters.title.toLowerCase();
         _this.description = parameters.description;
         _this.picturePath = parameters.picturePath;
         _this.link = parameters.link;
