@@ -35,17 +35,9 @@ export default class BaseItem {
     /**
      * @returns {HTMLElement}
      */
-    createArrowElement() {
-        return this.domHelper.createElement('div', 'arrow-up');
-    }
-
-    /**
-     * @returns {HTMLElement}
-     */
     createItemElement() {
         const element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);
-        element.appendChild(this.createArrowElement());
 
         return element;
     }

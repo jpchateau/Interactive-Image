@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Interactive Image - Examples</title>
@@ -18,7 +18,10 @@
     <!-- Main container of a scene -->
     <div id="my-interactive-image"></div>
 
+    <!-- jQuery is required -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Interactive Image plugin -->
     <script src="interactive-image.js"></script>
 
     <script>
@@ -26,7 +29,7 @@
         var items = [
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
                 "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
@@ -39,7 +42,7 @@
             },
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Text item with HTTP link",
                 position: {
                     left: 300,
@@ -52,7 +55,7 @@
             },
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Text item with picture",
                 position: {
                     left: 500,
@@ -62,7 +65,7 @@
             },
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Text item with picture and HTTP link",
                 position: {
                     left: 700,
@@ -85,7 +88,7 @@
             {
                 type: "picture",
                 path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
-                caption: "Picture type",
+                caption: "Picture legend",
                 position: {
                     left: 300,
                     top: 200
@@ -94,7 +97,7 @@
             {
                 type: "picture",
                 path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
-                caption: "Picture type with link",
+                caption: "Picture with link",
                 linkUrl: "https://www.nationalgeographic.com",
                 position: {
                     left: 500,
@@ -105,7 +108,7 @@
 
         // Plugin configuration
         var options = {
-            debug: true
+            debug: true // debug messages are visible in console
         };
 
         // Plugin activation

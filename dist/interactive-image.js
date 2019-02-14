@@ -756,7 +756,6 @@ var App = function () {
 
                     $(this).css('left', left);
                     $(this).css('top', top);
-                    $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
                 });
 
                 var end = Date.now();
@@ -1057,17 +1056,6 @@ var ItemHelper = function () {
         value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
             return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
         }
-
-        /**
-         * @param {number} width
-         * @returns {number}
-         */
-
-    }, {
-        key: "calculateInitialArrowPosition",
-        value: function calculateInitialArrowPosition(width) {
-            return width / 2 - 7;
-        }
     }]);
 
     return ItemHelper;
@@ -1249,21 +1237,10 @@ var BaseItem = function () {
          */
 
     }, {
-        key: "createArrowElement",
-        value: function createArrowElement() {
-            return this.domHelper.createElement('div', 'arrow-up');
-        }
-
-        /**
-         * @returns {HTMLElement}
-         */
-
-    }, {
         key: "createItemElement",
         value: function createItemElement() {
             var element = this.domHelper.createElement('div', 'item');
             element.setAttribute('data-id', this.identifier);
-            element.appendChild(this.createArrowElement());
 
             return element;
         }

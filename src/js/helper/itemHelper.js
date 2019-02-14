@@ -11,12 +11,4 @@ export default class ItemHelper {
             hotspotTop + 40
         ];
     }
-
-    /**
-     * @param {number} width
-     * @returns {number}
-     */
-    calculateInitialArrowPosition(width) {
-        return width / 2 - 7;
-    }
 }

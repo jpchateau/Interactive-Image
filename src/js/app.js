@@ -95,7 +95,6 @@ export default class App {
 
                 $(this).css('left', left);
                 $(this).css('top', top);
-                $(this).find('.arrow-up').css('left', _this.itemHelper.calculateInitialArrowPosition(width));
             });
 
             const end = Date.now();
