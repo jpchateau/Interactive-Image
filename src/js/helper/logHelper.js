@@ -7,11 +7,19 @@ export default class LogHelper {
     }
 
     /**
-     * @param {string} message
+     * @param {string}         message
+     * @param {number=null}    milliseconds
+     * @param {string='black'} color
      */
-    log(message) {
-        if (window.console && window.console.log && true === this.debug) {
-            window.console.log(message);
+    log(message, milliseconds = null, color = 'black') {
+        if (!window.console || !window.console.log || false === this.debug) {
+            return;
         }
+
+        if (null !== milliseconds) {
+            message += ' in ' + milliseconds.toFixed(0) + ' ms';
+        }
+
+        window.console.log('%c' + message, 'color:' + color);
     }
 }

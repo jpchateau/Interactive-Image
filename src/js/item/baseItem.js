@@ -1,5 +1,5 @@
 import DomHelper from "../helper/domHelper";
-import Uniqid from "uniqid";
+import UniqueId from "../service/uniqueId";
 
 export default class BaseItem {
     /**
@@ -7,15 +7,24 @@ export default class BaseItem {
      */
     constructor(parameters) {
         this.domHelper = new DomHelper();
-        this.identifier = Uniqid();
-        this.position = parameters.position;
+
+        this.identifier = UniqueId.generate('item');
+        this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
+    }
+
+    checkRequiredParameters(parameters, requiredParameters) {
+        for (let i in requiredParameters) {
+            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
+            }
+        }
     }
 
     /**
      * @returns {HTMLElement}
      */
     createHotspotElement() {
-        let element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+        const element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
         element.setAttribute('data-for', this.identifier);
         element.style.left = this.position.left + 'px';
         element.style.top = this.position.top + 'px';
@@ -26,24 +35,14 @@ export default class BaseItem {
     /**
      * @returns {HTMLElement}
      */
-    createArrowElement() {
-        let element = this.domHelper.createElement('div', 'arrow-up');
-
-        return element;
-    }
-
-    /**
-     * @returns {HTMLElement}
-     */
     createItemElement() {
-        let element = this.domHelper.createElement('div', 'item');
+        const element = this.domHelper.createElement('div', 'item');
         element.setAttribute('data-id', this.identifier);
-        element.appendChild(this.createArrowElement());
 
         return element;
     }
 
     renderHtml() {
-        throw 'Error: render method not implemented';
+        throw Error('Render method not implemented');
     }
 }

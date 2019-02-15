@@ -6,9 +6,11 @@
       font-size: 20px;
       width: 100%;
       text-align: left;
-      font-variant: small-caps;
+      font-family: Lato, Arial, sans-serif;
       font-weight: bold;
+      font-variant: small-caps;
       display: inline-block;
+      color: $black-heading-text;
     }
 
     .description {
@@ -31,15 +33,15 @@
       margin-top: 10px;
 
       &:visited {
-        color: black;
+        color: $black-small-text;
       }
 
       &:hover {
-        color: black;
+        color: $black-small-text;
       }
 
       &:active {
-        color: black;
+        color: $black-small-text;
       }
     }
   }

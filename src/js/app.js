@@ -1,6 +1,7 @@
-import Factory from "./item/factory";
 import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
+import ItemFactory from "./item/factory";
+import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
 
 export default class App {
@@ -13,20 +14,29 @@ export default class App {
         this.items = items;
         this.settings = settings;
         this.$image = $image;
+        this.itemFactory = new ItemFactory();
+        this.itemHelper = new ItemHelper();
         this.logHelper = new LogHelper(settings.debug);
-        this.itemFactory = new Factory();
     }
 
     /**
      * @param {object} settings
      */
     checkSettings(settings) {
-        if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
-            this.settings.debug = true;
-            throw 'Error: check "debug" plugin option';
-        }
+        return new Promise((resolve, reject) => {
+            this.logHelper.log('Starting settings check...');
+            const start = Date.now();
 
-        this.logHelper.log('Options successfully checked');
+            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
+                this.settings.debug = true;
+                throw Error('Check "debug" plugin option');
+            }
+
+            const end = Date.now();
+            this.logHelper.log('Options successfully checked', end - start, 'green');
+
+            resolve();
+        });
     }
 
     /**
@@ -34,15 +44,15 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        let type = options.type;
+        this.logHelper.log(JSON.stringify(options), null, 'blue');
+
+        const type = options.type;
         delete options.type;
 
-        this.logHelper.log(options);
-
-        let element = this.itemFactory.createItem(type, options);
-        this.logHelper.log(element.constructor.name + ' created');
-
+        const element = this.itemFactory.create(type, options);
         this.$image.append(element.createHotspotElement());
+
+        this.logHelper.log('Item (' + type + ') created');
 
         return $(element.renderHtml());
     }
@@ -50,61 +60,113 @@ export default class App {
     /**
      * @param items
      */
-    buildElements(items) {
-        for (let i in items) {
-            if (items.hasOwnProperty(i)) {
-                this.$image.append(this.createElement(items[i]));
+    createElements(items) {
+        return new Promise((resolve, reject) => {
+            this.logHelper.log('Starting elements creation...');
+            const start = Date.now();
+
+            for (let i in items) {
+                if (items.hasOwnProperty(i)) {
+                    this.$image.append(this.createElement(items[i]));
+                }
             }
-        }
+
+            const end = Date.now();
+            this.logHelper.log('All items have been created', end - start, 'green');
+
+            resolve();
+        });
     }
 
     positionItems() {
-        /**
-         * @param {number} hotspotLeft
-         * @param {number} hotspotTop
-         * @param {number} width
-         */
-        let calculateItemPosition = (hotspotLeft, hotspotTop, width) => {
-            return [
-                hotspotLeft + 15 - width / 2,
-                hotspotTop + 40
-            ];
-        };
+        return new Promise((resolve, reject) => {
+            this.logHelper.log('Starting items positioning...');
+            const start = Date.now();
 
-        let $items = this.$image.find('.item');
-        $.each($items, function() {
-            let $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]'),
-                width = $(this).width(),
-                left = 0,
-                top = 0;
+            const $items = this.$image.find('.item');
+            var _this = this;
+            $.each($items, function() {
+                const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
+                const width = $(this).width();
+                let left;
+                let top;
 
-            [left, top] = calculateItemPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                [left, top] = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
-            $(this).css('left', left);
-            $(this).css('top', top);
-            $(this).find('.arrow-up').css('left', width / 2 - 7);
+                $(this).css('left', left);
+                $(this).css('top', top);
+            });
+
+            const end = Date.now();
+            this.logHelper.log('All items have been positioned', end - start, 'green');
+
+            resolve();
         });
-
-        this.logHelper.log('Items positioned');
     }
 
-    execute() {
-        try {
-            this.checkSettings(this.settings);
-            this.buildElements(this.items);
+    bindEvents() {
+        return new Promise((resolve, reject) => {
+            this.logHelper.log('Starting events binding...');
+            const start = Date.now();
+
+            new Hover().bindAll(this.$image);
+
+            const end = Date.now();
+            this.logHelper.log('All events have been bound', end - start, 'green');
+
+            resolve();
+        });
+    }
+
+    loadImages() {
+        return new Promise((resolve, reject) => {
+            this.logHelper.log('Starting images loading...');
+            const start = Date.now();
 
             if (this.$image.find('img').length) {
                 ImagesLoaded(this.$image, () => {
-                    this.logHelper.log('Images loaded');
-                    this.positionItems();
+                    const end = Date.now();
+                    this.logHelper.log('All images have been detected and loaded', end - start, 'green');
+
+                    resolve();
                 });
             } else {
-                this.positionItems();
-            }
+                const end = Date.now();
+                this.logHelper.log('No image detected', end - start, 'green');
 
-            (new Hover().bindAll(this.$image));
-        } catch (exception) {
-            this.logHelper.log(exception);
+                resolve();
+            }
+        });
+    }
+
+    execute() {
+        const start = Date.now();
+
+        // Add the interactive-image class on the main scene
+        if (!this.$image.hasClass('interactive-image')) {
+            this.$image.addClass('interactive-image');
         }
+
+        this
+            .checkSettings(this.settings)
+            .then(() => {
+                return this.createElements(this.items);
+            })
+            .then(() => {
+                return this.loadImages();
+            })
+            .then(() => {
+                return this.positionItems();
+            })
+            .then(() => {
+                return this.bindEvents();
+            })
+            .then(() => {
+                const end = Date.now();
+                this.logHelper.log('Execution completed', end - start, 'green');
+            })
+            .catch((exception) => {
+                this.logHelper.log(exception.message, null, 'red');
+            });
     }
 }

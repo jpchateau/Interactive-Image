@@ -6,7 +6,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
-        'interactive-image': ['./src/js/index.js', './src/js/styles.js']
+        'interactive-image': './src/js/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist')
@@ -34,7 +34,7 @@ module.exports = {
                         options: {
                             ident: 'postcss',
                             plugins: (loader) => [
-                                require('autoprefixer')()
+                                autoprefixer
                             ]
                         }
                     },
@@ -56,8 +56,8 @@ module.exports = {
             jQuery: 'jquery'
         }),
         new HtmlWebPackPlugin({
-            template: "./src/demo.html",
-            filename: "./demo.html"
+            template: './src/demo.html',
+            filename: './demo.html'
         })
     ],
     externals: {

@@ -1,15 +1,17 @@
 {
   "name": "interactiveimagejs",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A jQuery plugin to embed interactive images on your website",
   "author": "Jean-Philippe Chateau",
-  "main": "dist/interactive-image.js",
+  "main": "./src/js/index.js",
   "scripts": {
     "build": "webpack --progress --colors --config webpack.prod.js",
     "dev": "webpack --progress --colors --config webpack.dev.js",
     "eslint": "./node_modules/.bin/eslint ./src/js/",
-    "sass-lint": "./node_modules/.bin/sass-lint -v -q",
-    "test": "echo 'No test specified' && exit 0",
+    "sass-lint": "./node_modules/.bin/sass-lint --verbose --no-exit",
+    "start:dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.js",
+    "test": "./node_modules/.bin/mocha --recursive --require babel-core/register",
+    "test-with-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/_mocha --recursive",
     "watch": "webpack --watch --colors --config webpack.dev.js"
   },
   "repository": {
@@ -45,32 +47,44 @@
     "> 5%"
   ],
   "dependencies": {
-    "imagesloaded": "^4.1.4",
-    "uniqid": "^4.1.1"
+    "imagesloaded": "^4.1.4"
   },
   "devDependencies": {
-    "autoprefixer": "^8.4.1",
+    "autoprefixer": "^8.6.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
+    "babel-loader": "^7.1.5",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-istanbul": "^4.1.6",
     "babel-preset-env": "^1.6.1",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "node-sass": "^4.9.0",
-    "optimize-css-assets-webpack-plugin": "^4.0.1",
-    "postcss-loader": "^2.1.5",
+    "mini-css-extract-plugin": "^0.4.5",
+    "mocha": "^5.1.1",
+    "node-sass": "^4.11.0",
+    "nyc": "^13.3.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.3",
+    "postcss-loader": "^2.1.6",
     "sass-lint": "^1.12.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.8.1",
-    "webpack-cli": "^2.1.3",
-    "webpack-merge": "^4.1.2"
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
   },
   "license": "MIT"
 }

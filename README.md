@@ -1,22 +1,31 @@
-# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
+# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
 
 > A jQuery plugin to embed interactive images on your website.
 
-![Demo](./docs/demo.png)
+[![Demo](./docs/demo.png)](https://www.jpchateau.com/demo/interactive-image)
 
-See it in action: [here](https://www.jpchateau.com/demo/interactive-image)
+See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-image).
 
 ## Features
 
 * Interactive texts and images over large pictures
 * Flexible configuration of markers and items
 * Easily customizable with CSS
+* Unit tested with [Mocha](https://mochajs.org/)
 * Installable via package managers
+* No restriction on commercial use
+
+## Browser Support
+
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
+| --- | --- | --- | --- | --- |
+| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
+
+## Requirements
+
+[jQuery](https://jquery.com/download/) 1.7.2+ is required.
 
 ## Installation
-
-**Important:** [jQuery](https://jquery.com/download/) is required.  
-Install it via your package manager, a CDN or simply download it.
 
 **npm**
 
@@ -32,12 +41,12 @@ $ yarn add interactiveimagejs
 
 **Download**
 
-You can also download the production version or the development version from GitHub.  
-All these files (js, css and fonts) are located in the `dist` directory.
+Download the production or the development version from GitHub.  
+All the files (.js, .css and fonts) are located in the `dist` directory.
 
 ## Usage
 
-### Get started
+### How to use it
 
 Edit the source code of your web page:
 
@@ -91,7 +100,7 @@ var items = [
 ];
 
 // Plugin activation
-$(document).ready(function () {
+$(document).ready(function() {
   $(".interactive-image").interactiveImage(items);
 });
 ```
@@ -139,23 +148,23 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Text Item**
 
-| Property    | Type   | Example                | Required | Default | Purpose                       |
-| ----------- | ------ | ---------------------- |:--------:| ------- | ----------------------------- |
-| type        | string | "text"                 | Yes      |         | Item type (text/picture)      |
-| position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene |
-| title       | string | "My title"             | Yes      |         | Title                         |
-| description | string | "My description"       | Yes      |         | Descriptive text              |
-| picturePath | string | "/path/to/picture.png" | No       |         | Illustration                  |
-| link        | object | See `Link` object      | No       |         | HTTP Link                     |
+| Property    | Type   | Example                | Required | Default         | Purpose                       |
+| ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "text"                 | Yes      |                 | Item type (text/picture)      |
+| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
+| title       | string | "My title"             | Yes      |                 | Title                         |
+| description | string | "My description"       | Yes      |                 | Descriptive text              |
+| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration                  |
+| link        | object | See `Link` object      | No       |                 | HTTP Link                     |
 
 **Picture Item**
 
-| Property    | Type   | Example                | Required | Default | Purpose                        |
-| ----------- | ------ | ---------------------- |:--------:| ------- | ------------------------------ |
-| type        | string | "picture"              | Yes      |         | Item type (text/picture)       |
-| position    | object | See `Position` object  | Yes      |         | Hotspot position on the scene  |
-| path        | string | "/path/to/picture.png" | Yes      |         | Illustration                   |
-| caption     | string | "My caption"           | No       |         | Illustration small description |
+| Property    | Type   | Example                | Required | Default         | Purpose                        |
+| ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
+| type        | string | "picture"              | Yes      |                 | Item type (text/picture)       |
+| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
+| path        | string | "/path/to/picture.png" | Yes      |                 | Illustration                   |
+| caption     | string | "My caption"           | No       |                 | Illustration small description |
 
 ### Other objects
 
@@ -182,7 +191,6 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 ## Dependencies
 
 * [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
-* [uniqid](https://www.npmjs.com/package/uniqid) to create unique id's 
 
 ## Contribute
 
@@ -194,9 +202,9 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 * Free: [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
 * Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
-* For business: [ThingLink](https://www.thinglink.com/)
+* For business: [genially](https://www.genial.ly/) - [Interactive-Img](https://interactive-img.com/) - [ThingLink](https://www.thinglink.com/)
 
 ## License
 
-Copyright (c) 2015-2018 Jean-Philippe Chateau.  
+Copyright (c) 2015-2019 Jean-Philippe Chateau.  
 This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).

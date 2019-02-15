@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Interactive Image - Examples</title>
@@ -7,18 +7,21 @@
     <!-- Specific styles of a scene -->
     <style>
         .interactive-image {
-            width: 1400px;
-            height: 700px;
+            width: 1024px;
+            height: 680px;
             margin: 20px auto;
-            background-color: #51684B;
+            background-image: url('https://c2.staticflickr.com/8/7369/27165702821_ece3549805_b.jpg');
         }
     </style>
 </head>
 <body>
     <!-- Main container of a scene -->
-    <div class="interactive-image"></div>
+    <div id="my-interactive-image"></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- jQuery is required -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Interactive Image plugin -->
     <script src="interactive-image.js"></script>
 
     <script>
@@ -26,7 +29,7 @@
         var items = [
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
                 "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
@@ -39,7 +42,7 @@
             },
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Text item with HTTP link",
                 position: {
                     left: 300,
@@ -52,7 +55,7 @@
             },
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Text item with picture",
                 position: {
                     left: 500,
@@ -62,7 +65,7 @@
             },
             {
                 type: "text",
-                title: "Text type",
+                title: "Text title",
                 description: "Text item with picture and HTTP link",
                 position: {
                     left: 700,
@@ -70,7 +73,7 @@
                 },
                 picturePath: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg",
                 link: {
-                    url: "http://www.jpchateau.com/demo/interactive-image",
+                    url: "https://www.jpchateau.com/demo/interactive-image",
                     label: "Interactive Image Demo"
                 }
             },
@@ -85,7 +88,7 @@
             {
                 type: "picture",
                 path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
-                caption: "Picture type",
+                caption: "Picture legend",
                 position: {
                     left: 300,
                     top: 200
@@ -94,7 +97,7 @@
             {
                 type: "picture",
                 path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
-                caption: "Picture type with link",
+                caption: "Picture with link",
                 linkUrl: "https://www.nationalgeographic.com",
                 position: {
                     left: 500,
@@ -105,12 +108,12 @@
 
         // Plugin configuration
         var options = {
-            debug: true
+            debug: true // debug messages are visible in console
         };
 
         // Plugin activation
-        $(document).ready(function () {
-            $(".interactive-image").interactiveImage(items, options);
+        $(document).ready(function() {
+            $("#my-interactive-image").interactiveImage(items, options);
         });
     </script>
 </body>

@@ -1,15 +1,18 @@
+import '../scss/main.scss';
+import '../css/icomoon.css';
+
 import App from "./app";
 
 (($, window, document, undefined) => {
     $.fn.interactiveImage = function (items, options) {
-        let defaults = {
+        const defaults = {
             debug: false
         };
 
         options = $.extend(defaults, options);
 
         return this.each(() => {
-            (new App(items, options, $(this)).execute());
+            new App(items, options, $(this)).execute();
         });
     };
 })(jQuery, window, document);
