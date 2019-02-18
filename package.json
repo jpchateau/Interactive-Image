@@ -19,12 +19,12 @@
     "url": "git+https://github.com/jpchateau/Interactive-Image.git"
   },
   "keywords": [
-    "jquery",
-    "plugin",
     "interactive",
-    "images",
-    "pictures",
-    "photos",
+    "image",
+    "picture",
+    "photo",
+    "audio",
+    "video",
     "tooltip",
     "image note",
     "image marker",
@@ -37,7 +37,9 @@
     "interactive presentation",
     "media links",
     "multimedia content",
-    "rich content"
+    "rich content",
+    "jquery-plugin",
+    "ecosystem:jquery"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
