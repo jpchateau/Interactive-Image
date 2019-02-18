@@ -994,16 +994,16 @@ var DomHelper = function () {
          * Create a DOM element
          *
          * @param {string} tag
-         * @param {string=''} cssClass
+         * @param {string} cssClass
          * @param {string} [text]
          * @returns {HTMLElement}
          */
-        value: function createElement(tag) {
-            var cssClass = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-            var text = arguments[2];
-
+        value: function createElement(tag, cssClass, text) {
             var domElement = document.createElement(tag);
-            domElement.setAttribute('class', cssClass);
+
+            if ('undefined' !== typeof cssClass) {
+                domElement.setAttribute('class', cssClass);
+            }
 
             if ('undefined' !== typeof text) {
                 domElement.appendChild(document.createTextNode(text));
@@ -1017,6 +1017,51 @@ var DomHelper = function () {
 }();
 
 exports.default = DomHelper;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/helper/fileHelper.js":
+/*!*************************************!*\
+  !*** ./src/js/helper/fileHelper.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FileHelper = function () {
+    function FileHelper() {
+        _classCallCheck(this, FileHelper);
+    }
+
+    _createClass(FileHelper, null, [{
+        key: 'guessExtension',
+
+        /**
+         * Guess extension of a filename
+         *
+         * @param {string} filename
+         * @returns {string}
+         */
+        value: function guessExtension(filename) {
+            return filename.split('.').pop();
+        }
+    }]);
+
+    return FileHelper;
+}();
+
+exports.default = FileHelper;
 module.exports = exports['default'];
 
 /***/ }),
@@ -1166,6 +1211,146 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
+/***/ "./src/js/item/audioItem.js":
+/*!**********************************!*\
+  !*** ./src/js/item/audioItem.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+
+var _baseItem2 = _interopRequireDefault(_baseItem);
+
+var _fileHelper = __webpack_require__(/*! ./../helper/fileHelper */ "./src/js/helper/fileHelper.js");
+
+var _fileHelper2 = _interopRequireDefault(_fileHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * @extends BaseItem
+ */
+var AudioItem = function (_BaseItem) {
+    _inherits(AudioItem, _BaseItem);
+
+    _createClass(AudioItem, null, [{
+        key: "fileFormats",
+
+        /**
+         * Allowed file extensions for audio tag
+         *
+         * @returns {{mp3: string, wav: string, ogg: string}}
+         */
+        value: function fileFormats() {
+            return {
+                'mp3': 'audio/mpeg',
+                'ogg': 'audio/ogg',
+                'wav': 'audio/wav'
+            };
+        }
+
+        /**
+         * @returns {string}
+         */
+
+    }, {
+        key: "unsupportedTagMessage",
+        value: function unsupportedTagMessage() {
+            return 'Your browser does not support the audio tag.';
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
+    function AudioItem(parameters) {
+        _classCallCheck(this, AudioItem);
+
+        var _this = _possibleConstructorReturn(this, (AudioItem.__proto__ || Object.getPrototypeOf(AudioItem)).call(this, parameters));
+
+        _this.checkRequiredParameters(parameters, ['path']);
+
+        _this.path = parameters.path;
+        _this.caption = parameters.caption;
+
+        _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
+
+        if (!AudioItem.fileFormats().hasOwnProperty(_this.fileExtension)) {
+            throw Error('Unsupported file extension "' + _this.fileExtension + '"');
+        }
+        return _this;
+    }
+
+    /**
+     * @returns {HTMLElement}
+     */
+
+
+    _createClass(AudioItem, [{
+        key: "createAudio",
+        value: function createAudio() {
+            var audio = this.domHelper.createElement('audio', 'genuine-theme', AudioItem.unsupportedTagMessage());
+            audio.setAttribute('controls', '');
+            audio.setAttribute('preload', 'auto');
+
+            var source = this.domHelper.createElement('source');
+            source.setAttribute('src', this.path);
+            source.setAttribute('type', AudioItem.fileFormats()[this.fileExtension]);
+
+            audio.appendChild(source);
+
+            return audio;
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: "renderHtml",
+        value: function renderHtml() {
+            var element = this.createItemElement();
+            var audioItem = this.domHelper.createElement('div', 'audio-item');
+
+            if ('undefined' !== typeof this.caption) {
+                var caption = this.domHelper.createElement('span', 'caption', this.caption);
+                audioItem.appendChild(caption);
+            }
+
+            audioItem.appendChild(this.createAudio());
+
+            element.appendChild(audioItem);
+
+            return element;
+        }
+    }]);
+
+    return AudioItem;
+}(_baseItem2.default);
+
+exports.default = AudioItem;
+module.exports = exports["default"];
+
+/***/ }),
+
 /***/ "./src/js/item/baseItem.js":
 /*!*********************************!*\
   !*** ./src/js/item/baseItem.js ***!
@@ -1275,6 +1460,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _audioItem = __webpack_require__(/*! ./audioItem */ "./src/js/item/audioItem.js");
+
+var _audioItem2 = _interopRequireDefault(_audioItem);
+
 var _pictureItem = __webpack_require__(/*! ./pictureItem */ "./src/js/item/pictureItem.js");
 
 var _pictureItem2 = _interopRequireDefault(_pictureItem);
@@ -1288,6 +1477,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var classes = {
+    AudioItem: _audioItem2.default,
     PictureItem: _pictureItem2.default,
     TextItem: _textItem2.default
 };
@@ -1303,7 +1493,7 @@ var Factory = function () {
         /**
          * @param {string} name
          * @param {object} args
-         * @returns {TextItem|PictureItem}
+         * @returns {AudioItem|PictureItem|TextItem}
          */
         value: function create(name, args) {
             var className = name.toLowerCase() + 'Item';
@@ -1314,7 +1504,7 @@ var Factory = function () {
             } catch (exception) {
                 var message = void 0;
                 if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
-                    message = 'Invalid item type "' + name + '" (allowed values: "text", "picture")';
+                    message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text")';
                 } else {
                     message = exception.message;
                 }

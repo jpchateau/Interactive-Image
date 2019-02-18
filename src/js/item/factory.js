@@ -1,7 +1,9 @@
+import AudioItem from "./audioItem";
 import PictureItem from "./pictureItem";
 import TextItem from "./textItem";
 
 const classes = {
+    AudioItem,
     PictureItem,
     TextItem
 };
@@ -10,7 +12,7 @@ export default class Factory {
     /**
      * @param {string} name
      * @param {object} args
-     * @returns {TextItem|PictureItem}
+     * @returns {AudioItem|PictureItem|TextItem}
      */
     create(name, args) {
         let className = name.toLowerCase() + 'Item';
@@ -21,7 +23,7 @@ export default class Factory {
         } catch (exception) {
             let message;
             if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
-                message = 'Invalid item type "' + name + '" (allowed values: "text", "picture")';
+                message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text")';
             } else {
                 message = exception.message;
             }

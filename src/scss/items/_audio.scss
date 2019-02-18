@@ -1,0 +1,17 @@
+.interactive-image {
+  .audio-item {
+    padding: 15px;
+    max-width: 270px;
+    text-align: left;
+  }
+
+  .caption {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+
+  audio {
+    width: 270px;
+    margin-bottom: -4px;
+  }
+}

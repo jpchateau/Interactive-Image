@@ -8,7 +8,7 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 
 ## Features
 
-* Interactive texts and images over large pictures
+* Interactive audio, texts and images over large pictures
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -96,6 +96,15 @@ var items = [
       left: 200,
       top: 300
     }
+  },
+  {
+    type: "audio",
+    path: "/path/to/sound.mp3",
+    caption: "A clouded leopard growl",
+    position: {
+      left: 300,
+      top: 500
+    }
   }
 ];
 
@@ -137,34 +146,43 @@ $(document).ready(function() {
 
 **Options**
 
-| Property | Type    | Example | Required | Default | Purpose                 |
-| ---------| ------- | ------- |:--------:| ------- | ----------------------- |
-| debug    | boolean | true    | No       | false   | Logs enabled in console |
+| Property | Type    | Example | Required | Default | Purpose                |
+| ---------| ------- | ------- |:--------:| ------- | ---------------------- |
+| debug    | boolean | true    | No       | false   | Enable logs in console |
 
 ### Items
 
 Each item has several possibilities of configuration.  
-You can add a link and/or a picture to your `text` items, or a caption to your `picture` items.
+You can add a link and/or a picture to your `text` items, or a caption to your `picture` or `audio` items.
 
 **Text Item**
 
-| Property    | Type   | Example                | Required | Default         | Purpose                       |
-| ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
-| type        | string | "text"                 | Yes      |                 | Item type (text/picture)      |
-| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
-| title       | string | "My title"             | Yes      |                 | Title                         |
-| description | string | "My description"       | Yes      |                 | Descriptive text              |
-| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration                  |
-| link        | object | See `Link` object      | No       |                 | HTTP Link                     |
+| Property    | Type   | Example                | Required | Default         | Purpose                        |
+| ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
+| type        | string | "text"                 | Yes      |                 | Item type (audio/text/picture) |
+| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
+| title       | string | "My title"             | Yes      |                 | Title                          |
+| description | string | "My description"       | Yes      |                 | Descriptive text               |
+| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration                   |
+| link        | object | See `Link` object      | No       |                 | HTTP Link                      |
 
 **Picture Item**
 
 | Property    | Type   | Example                | Required | Default         | Purpose                        |
 | ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
-| type        | string | "picture"              | Yes      |                 | Item type (text/picture)       |
+| type        | string | "picture"              | Yes      |                 | Item type (audio/text/picture) |
 | position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
 | path        | string | "/path/to/picture.png" | Yes      |                 | Illustration                   |
-| caption     | string | "My caption"           | No       |                 | Illustration small description |
+| caption     | string | "My caption"           | No       |                 | Illustration short description |
+
+**Audio Item**
+
+| Property    | Type   | Example               | Required | Default         | Purpose                        |
+| ----------- | ------ | --------------------- |:--------:| --------------- | ------------------------------ |
+| type        | string | "audio"               | Yes      |                 | Item type (audio/text/picture) |
+| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene  |
+| path        | string | "/path/to/sound.mp3"  | Yes      |                 | Sound                          |
+| caption     | string | "My caption"          | No       |                 | Sound short description        |
 
 ### Other objects
 
@@ -181,12 +199,6 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | ----------- | ------- | ------------------------ |:--------:| ----------- | ------------------- |
 | url         | string  | "https://www.github.com" | Yes      |             | href attribute      |
 | label       | string  | "My webpage"             | No       | `url` value | Name of the webpage |
-
-## TODO
-
-* Make the plugin adaptive to all screens
-* Add audio items
-* Add video items
 
 ## Dependencies
 
