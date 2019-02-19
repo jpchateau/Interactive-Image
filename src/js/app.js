@@ -15,7 +15,6 @@ export default class App {
         this.settings = settings;
         this.$image = $image;
         this.itemFactory = new ItemFactory();
-        this.itemHelper = new ItemHelper();
         this.logHelper = new LogHelper(settings.debug);
     }
 
@@ -27,7 +26,7 @@ export default class App {
             this.logHelper.log('Starting settings check...');
             const start = Date.now();
 
-            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
+            if ('boolean' !== typeof settings.debug) {
                 this.settings.debug = true;
                 throw Error('Check "debug" plugin option');
             }
@@ -44,7 +43,7 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        this.logHelper.log(JSON.stringify(options), null, 'blue');
+        this.logHelper.log(JSON.stringify(options), undefined, 'blue');
 
         const type = options.type;
         delete options.type;
@@ -65,11 +64,9 @@ export default class App {
             this.logHelper.log('Starting elements creation...');
             const start = Date.now();
 
-            for (let i in items) {
-                if (items.hasOwnProperty(i)) {
-                    this.$image.append(this.createElement(items[i]));
-                }
-            }
+            items.forEach((item) => {
+                this.$image.append(this.createElement(item));
+            });
 
             const end = Date.now();
             this.logHelper.log('All items have been created', end - start, 'green');
@@ -84,14 +81,13 @@ export default class App {
             const start = Date.now();
 
             const $items = this.$image.find('.item');
-            var _this = this;
             $.each($items, function() {
                 const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
                 const width = $(this).width();
                 let left;
                 let top;
 
-                [left, top] = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                [left, top] = ItemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
                 $(this).css('left', left);
                 $(this).css('top', top);
@@ -166,7 +162,7 @@ export default class App {
                 this.logHelper.log('Execution completed', end - start, 'green');
             })
             .catch((exception) => {
-                this.logHelper.log(exception.message, null, 'red');
+                this.logHelper.log(exception.message, undefined, 'red');
             });
     }
 }

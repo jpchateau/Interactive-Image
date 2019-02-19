@@ -14,7 +14,7 @@ export default class BaseItem {
 
     checkRequiredParameters(parameters, requiredParameters) {
         for (let i in requiredParameters) {
-            if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+            if ('undefined' === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                 throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
             }
         }
@@ -24,7 +24,7 @@ export default class BaseItem {
      * @returns {HTMLElement}
      */
     createHotspotElement() {
-        const element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+        const element = this.domHelper.createElement('div', {'class': 'hotspot icon-radio-checked'});
         element.setAttribute('data-for', this.identifier);
         element.style.left = this.position.left + 'px';
         element.style.top = this.position.top + 'px';
@@ -36,7 +36,7 @@ export default class BaseItem {
      * @returns {HTMLElement}
      */
     createItemElement() {
-        const element = this.domHelper.createElement('div', 'item');
+        const element = this.domHelper.createElement('div', {'class': 'item'});
         element.setAttribute('data-id', this.identifier);
 
         return element;

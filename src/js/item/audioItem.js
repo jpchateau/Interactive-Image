@@ -47,9 +47,9 @@ export default class AudioItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createAudio() {
-        const audio = this.domHelper.createElement('audio', 'genuine-theme', AudioItem.unsupportedTagMessage());
+        const audio = this.domHelper.createElement('audio', {'class': 'genuine-theme'}, AudioItem.unsupportedTagMessage());
         audio.setAttribute('controls', '');
-        audio.setAttribute('preload', 'auto');
+        audio.setAttribute('preload', 'metadata');
 
         const source = this.domHelper.createElement('source');
         source.setAttribute('src', this.path);
@@ -65,10 +65,10 @@ export default class AudioItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const audioItem = this.domHelper.createElement('div', 'audio-item');
+        const audioItem = this.domHelper.createElement('div', {'class': 'audio-item'});
 
         if ('undefined' !== typeof this.caption) {
-            const caption = this.domHelper.createElement('span', 'caption', this.caption);
+            const caption = this.domHelper.createElement('span', {'class': 'caption'}, this.caption);
             audioItem.appendChild(caption);
         }
 

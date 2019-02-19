@@ -653,7 +653,6 @@ var App = function () {
         this.settings = settings;
         this.$image = $image;
         this.itemFactory = new _factory2.default();
-        this.itemHelper = new _itemHelper2.default();
         this.logHelper = new _logHelper2.default(settings.debug);
     }
 
@@ -665,19 +664,19 @@ var App = function () {
     _createClass(App, [{
         key: "checkSettings",
         value: function checkSettings(settings) {
-            var _this2 = this;
+            var _this = this;
 
             return new Promise(function (resolve, reject) {
-                _this2.logHelper.log('Starting settings check...');
+                _this.logHelper.log('Starting settings check...');
                 var start = Date.now();
 
-                if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
-                    _this2.settings.debug = true;
+                if ('boolean' !== typeof settings.debug) {
+                    _this.settings.debug = true;
                     throw Error('Check "debug" plugin option');
                 }
 
                 var end = Date.now();
-                _this2.logHelper.log('Options successfully checked', end - start, 'green');
+                _this.logHelper.log('Options successfully checked', end - start, 'green');
 
                 resolve();
             });
@@ -691,7 +690,7 @@ var App = function () {
     }, {
         key: "createElement",
         value: function createElement(options) {
-            this.logHelper.log(JSON.stringify(options), null, 'blue');
+            this.logHelper.log(JSON.stringify(options), undefined, 'blue');
 
             var type = options.type;
             delete options.type;
@@ -711,20 +710,18 @@ var App = function () {
     }, {
         key: "createElements",
         value: function createElements(items) {
-            var _this3 = this;
+            var _this2 = this;
 
             return new Promise(function (resolve, reject) {
-                _this3.logHelper.log('Starting elements creation...');
+                _this2.logHelper.log('Starting elements creation...');
                 var start = Date.now();
 
-                for (var i in items) {
-                    if (items.hasOwnProperty(i)) {
-                        _this3.$image.append(_this3.createElement(items[i]));
-                    }
-                }
+                items.forEach(function (item) {
+                    _this2.$image.append(_this2.createElement(item));
+                });
 
                 var end = Date.now();
-                _this3.logHelper.log('All items have been created', end - start, 'green');
+                _this2.logHelper.log('All items have been created', end - start, 'green');
 
                 resolve();
             });
@@ -732,26 +729,25 @@ var App = function () {
     }, {
         key: "positionItems",
         value: function positionItems() {
-            var _this4 = this;
+            var _this3 = this;
 
             return new Promise(function (resolve, reject) {
-                _this4.logHelper.log('Starting items positioning...');
+                _this3.logHelper.log('Starting items positioning...');
                 var start = Date.now();
 
-                var $items = _this4.$image.find('.item');
-                var _this = _this4;
+                var $items = _this3.$image.find('.item');
                 $.each($items, function () {
                     var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
                     var width = $(this).width();
                     var left = void 0;
                     var top = void 0;
 
-                    var _this$itemHelper$calc = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                    var _ItemHelper$calculate = _itemHelper2.default.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
-                    var _this$itemHelper$calc2 = _slicedToArray(_this$itemHelper$calc, 2);
+                    var _ItemHelper$calculate2 = _slicedToArray(_ItemHelper$calculate, 2);
 
-                    left = _this$itemHelper$calc2[0];
-                    top = _this$itemHelper$calc2[1];
+                    left = _ItemHelper$calculate2[0];
+                    top = _ItemHelper$calculate2[1];
 
 
                     $(this).css('left', left);
@@ -759,7 +755,7 @@ var App = function () {
                 });
 
                 var end = Date.now();
-                _this4.logHelper.log('All items have been positioned', end - start, 'green');
+                _this3.logHelper.log('All items have been positioned', end - start, 'green');
 
                 resolve();
             });
@@ -767,16 +763,16 @@ var App = function () {
     }, {
         key: "bindEvents",
         value: function bindEvents() {
-            var _this5 = this;
+            var _this4 = this;
 
             return new Promise(function (resolve, reject) {
-                _this5.logHelper.log('Starting events binding...');
+                _this4.logHelper.log('Starting events binding...');
                 var start = Date.now();
 
-                new _hover2.default().bindAll(_this5.$image);
+                new _hover2.default().bindAll(_this4.$image);
 
                 var end = Date.now();
-                _this5.logHelper.log('All events have been bound', end - start, 'green');
+                _this4.logHelper.log('All events have been bound', end - start, 'green');
 
                 resolve();
             });
@@ -784,22 +780,22 @@ var App = function () {
     }, {
         key: "loadImages",
         value: function loadImages() {
-            var _this6 = this;
+            var _this5 = this;
 
             return new Promise(function (resolve, reject) {
-                _this6.logHelper.log('Starting images loading...');
+                _this5.logHelper.log('Starting images loading...');
                 var start = Date.now();
 
-                if (_this6.$image.find('img').length) {
-                    (0, _imagesloaded2.default)(_this6.$image, function () {
+                if (_this5.$image.find('img').length) {
+                    (0, _imagesloaded2.default)(_this5.$image, function () {
                         var end = Date.now();
-                        _this6.logHelper.log('All images have been detected and loaded', end - start, 'green');
+                        _this5.logHelper.log('All images have been detected and loaded', end - start, 'green');
 
                         resolve();
                     });
                 } else {
                     var end = Date.now();
-                    _this6.logHelper.log('No image detected', end - start, 'green');
+                    _this5.logHelper.log('No image detected', end - start, 'green');
 
                     resolve();
                 }
@@ -808,7 +804,7 @@ var App = function () {
     }, {
         key: "execute",
         value: function execute() {
-            var _this7 = this;
+            var _this6 = this;
 
             var start = Date.now();
 
@@ -818,18 +814,18 @@ var App = function () {
             }
 
             this.checkSettings(this.settings).then(function () {
-                return _this7.createElements(_this7.items);
+                return _this6.createElements(_this6.items);
             }).then(function () {
-                return _this7.loadImages();
+                return _this6.loadImages();
             }).then(function () {
-                return _this7.positionItems();
+                return _this6.positionItems();
             }).then(function () {
-                return _this7.bindEvents();
+                return _this6.bindEvents();
             }).then(function () {
                 var end = Date.now();
-                _this7.logHelper.log('Execution completed', end - start, 'green');
+                _this6.logHelper.log('Execution completed', end - start, 'green');
             }).catch(function (exception) {
-                _this7.logHelper.log(exception.message, null, 'red');
+                _this6.logHelper.log(exception.message, undefined, 'red');
             });
         }
     }]);
@@ -993,23 +989,30 @@ var DomHelper = function () {
         /**
          * Create a DOM element
          *
-         * @param {string} tag
-         * @param {string} cssClass
-         * @param {string} [text]
+         * @param {string} name
+         * @param {object} attributes
          * @returns {HTMLElement}
          */
-        value: function createElement(tag, cssClass, text) {
-            var domElement = document.createElement(tag);
+        value: function createElement(name, attributes) {
+            var node = document.createElement(name);
 
-            if ('undefined' !== typeof cssClass) {
-                domElement.setAttribute('class', cssClass);
+            if ('undefined' !== typeof attributes) {
+                for (var attribute in attributes) {
+                    if (attributes.hasOwnProperty(attribute)) {
+                        node.setAttribute(attribute, attributes[attribute]);
+                    }
+                }
             }
 
-            if ('undefined' !== typeof text) {
-                domElement.appendChild(document.createTextNode(text));
+            for (var i = 2; i < arguments.length; i++) {
+                var child = arguments[i];
+                if ('string' === typeof child) {
+                    child = document.createTextNode(child);
+                    node.appendChild(child);
+                }
             }
 
-            return domElement;
+            return node;
         }
     }]);
 
@@ -1089,10 +1092,12 @@ var ItemHelper = function () {
         _classCallCheck(this, ItemHelper);
     }
 
-    _createClass(ItemHelper, [{
+    _createClass(ItemHelper, null, [{
         key: "calculateInitialContainerPosition",
 
         /**
+         * Determinate the position (left, top) of the item container after the hotspot position
+         *
          * @param {number} hotspotLeft
          * @param {number} hotspotTop
          * @param {number} width
@@ -1141,22 +1146,21 @@ var LogHelper = function () {
 
     /**
      * @param {string}         message
-     * @param {number=null}    milliseconds
+     * @param {number}         milliseconds
      * @param {string='black'} color
      */
 
 
     _createClass(LogHelper, [{
         key: 'log',
-        value: function log(message) {
-            var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+        value: function log(message, milliseconds) {
             var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
 
             if (!window.console || !window.console.log || false === this.debug) {
                 return;
             }
 
-            if (null !== milliseconds) {
+            if ('number' === typeof milliseconds) {
                 message += ' in ' + milliseconds.toFixed(0) + ' ms';
             }
 
@@ -1307,9 +1311,9 @@ var AudioItem = function (_BaseItem) {
     _createClass(AudioItem, [{
         key: "createAudio",
         value: function createAudio() {
-            var audio = this.domHelper.createElement('audio', 'genuine-theme', AudioItem.unsupportedTagMessage());
+            var audio = this.domHelper.createElement('audio', { 'class': 'genuine-theme' }, AudioItem.unsupportedTagMessage());
             audio.setAttribute('controls', '');
-            audio.setAttribute('preload', 'auto');
+            audio.setAttribute('preload', 'metadata');
 
             var source = this.domHelper.createElement('source');
             source.setAttribute('src', this.path);
@@ -1328,10 +1332,10 @@ var AudioItem = function (_BaseItem) {
         key: "renderHtml",
         value: function renderHtml() {
             var element = this.createItemElement();
-            var audioItem = this.domHelper.createElement('div', 'audio-item');
+            var audioItem = this.domHelper.createElement('div', { 'class': 'audio-item' });
 
             if ('undefined' !== typeof this.caption) {
-                var caption = this.domHelper.createElement('span', 'caption', this.caption);
+                var caption = this.domHelper.createElement('span', { 'class': 'caption' }, this.caption);
                 audioItem.appendChild(caption);
             }
 
@@ -1396,7 +1400,7 @@ var BaseItem = function () {
         key: "checkRequiredParameters",
         value: function checkRequiredParameters(parameters, requiredParameters) {
             for (var i in requiredParameters) {
-                if ("undefined" === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                if ('undefined' === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
                     throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
                 }
             }
@@ -1409,7 +1413,7 @@ var BaseItem = function () {
     }, {
         key: "createHotspotElement",
         value: function createHotspotElement() {
-            var element = this.domHelper.createElement('div', 'hotspot icon-radio-checked');
+            var element = this.domHelper.createElement('div', { 'class': 'hotspot icon-radio-checked' });
             element.setAttribute('data-for', this.identifier);
             element.style.left = this.position.left + 'px';
             element.style.top = this.position.top + 'px';
@@ -1424,7 +1428,7 @@ var BaseItem = function () {
     }, {
         key: "createItemElement",
         value: function createItemElement() {
-            var element = this.domHelper.createElement('div', 'item');
+            var element = this.domHelper.createElement('div', { 'class': 'item' });
             element.setAttribute('data-id', this.identifier);
 
             return element;
@@ -1503,7 +1507,7 @@ var Factory = function () {
                 return new classes[className](args);
             } catch (exception) {
                 var message = void 0;
-                if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
+                if ('undefined' !== typeof exception.name && exception.name === 'TypeError') {
                     message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text")';
                 } else {
                     message = exception.message;
@@ -1580,7 +1584,7 @@ var PictureItem = function (_BaseItem) {
     _createClass(PictureItem, [{
         key: 'createPicture',
         value: function createPicture() {
-            var element = this.domHelper.createElement('img', 'picture');
+            var element = this.domHelper.createElement('img', { 'class': 'picture' });
             element.src = this.path;
 
             if ('undefined' !== typeof this.caption) {
@@ -1600,7 +1604,7 @@ var PictureItem = function (_BaseItem) {
         key: 'renderHtml',
         value: function renderHtml() {
             var element = this.createItemElement();
-            var pictureItem = this.domHelper.createElement('div', 'picture-item');
+            var pictureItem = this.domHelper.createElement('div', { 'class': 'picture-item' });
 
             if ('undefined' !== typeof this.caption) {
                 pictureItem.setAttribute('data-caption', this.caption);
@@ -1688,7 +1692,7 @@ var TextItem = function (_BaseItem) {
     _createClass(TextItem, [{
         key: 'createTitle',
         value: function createTitle() {
-            return this.domHelper.createElement('span', 'title', this.title);
+            return this.domHelper.createElement('span', { 'class': 'title' }, this.title);
         }
 
         /**
@@ -1698,7 +1702,7 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'createDescription',
         value: function createDescription() {
-            return this.domHelper.createElement('p', 'description', this.description);
+            return this.domHelper.createElement('p', { 'class': 'description' }, this.description);
         }
 
         /**
@@ -1708,7 +1712,7 @@ var TextItem = function (_BaseItem) {
     }, {
         key: 'createPicture',
         value: function createPicture() {
-            var element = this.domHelper.createElement('img', 'picture');
+            var element = this.domHelper.createElement('img', { 'class': 'picture' });
             element.src = this.picturePath;
             element.alt = this.title;
 
@@ -1716,7 +1720,7 @@ var TextItem = function (_BaseItem) {
         }
 
         /**
-         * @returns {HTMLAnchorElement}
+         * @returns {HTMLElement}
          */
 
     }, {
@@ -1745,7 +1749,7 @@ var TextItem = function (_BaseItem) {
         key: 'renderHtml',
         value: function renderHtml() {
             var element = this.createItemElement();
-            var textElement = this.domHelper.createElement('div', 'text-item');
+            var textElement = this.domHelper.createElement('div', { 'class': 'text-item' });
 
             textElement.appendChild(this.createTitle());
             textElement.appendChild(this.createDescription());

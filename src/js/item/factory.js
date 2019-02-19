@@ -22,7 +22,7 @@ export default class Factory {
             return new classes[className](args);
         } catch (exception) {
             let message;
-            if ("undefined" !== typeof exception.name && exception.name === 'TypeError') {
+            if ('undefined' !== typeof exception.name && exception.name === 'TypeError') {
                 message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text")';
             } else {
                 message = exception.message;

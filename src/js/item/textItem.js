@@ -22,21 +22,21 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createTitle() {
-        return this.domHelper.createElement('span', 'title', this.title);
+        return this.domHelper.createElement('span', {'class': 'title'}, this.title);
     }
 
     /**
      * @returns {HTMLElement}
      */
     createDescription() {
-        return this.domHelper.createElement('p', 'description', this.description);
+        return this.domHelper.createElement('p', {'class': 'description'}, this.description);
     }
 
     /**
      * @returns {HTMLElement}
      */
     createPicture() {
-        const element = this.domHelper.createElement('img', 'picture');
+        const element = this.domHelper.createElement('img', {'class': 'picture'});
         element.src = this.picturePath;
         element.alt = this.title;
 
@@ -44,7 +44,7 @@ export default class TextItem extends BaseItem {
     }
 
     /**
-     * @returns {HTMLAnchorElement}
+     * @returns {HTMLElement}
      */
     createLink() {
         const element = document.createElement('a');
@@ -67,7 +67,7 @@ export default class TextItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const textElement = this.domHelper.createElement('div', 'text-item');
+        const textElement = this.domHelper.createElement('div', {'class': 'text-item'});
 
         textElement.appendChild(this.createTitle());
         textElement.appendChild(this.createDescription());
