@@ -8,7 +8,7 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 
 ## Features
 
-* Interactive audio, texts and images over large pictures
+* Interactive videos, sounds, images and texts over large pictures
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -105,6 +105,15 @@ var items = [
       left: 300,
       top: 500
     }
+  },
+  {
+    type: "video",
+    path: "/path/to/video.mp4",
+    caption: "A clouded leopard walking",
+    position: {
+      left: 400,
+      top: 550
+    }
   }
 ];
 
@@ -153,36 +162,45 @@ $(document).ready(function() {
 ### Items
 
 Each item has several possibilities of configuration.  
-You can add a link and/or a picture to your `text` items, or a caption to your `picture` or `audio` items.
+You can add a link and/or a picture to your `text` items, or a caption to your `picture`, `audio` or `video` items.
 
 **Text Item**
 
-| Property    | Type   | Example                | Required | Default         | Purpose                        |
-| ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
-| type        | string | "text"                 | Yes      |                 | Item type (audio/text/picture) |
-| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
-| title       | string | "My title"             | Yes      |                 | Title                          |
-| description | string | "My description"       | Yes      |                 | Descriptive text               |
-| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration                   |
-| link        | object | See `Link` object      | No       |                 | HTTP Link                      |
+| Property    | Type   | Example                | Required | Default         | Purpose                       |
+| ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "text"                 | Yes      |                 | Item type                     |
+| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
+| title       | string | "My title"             | Yes      |                 | Title                         |
+| description | string | "My description"       | Yes      |                 | Descriptive text              |
+| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration source path      |
+| link        | object | See `Link` object      | No       |                 | HTTP Link                     |
 
 **Picture Item**
 
 | Property    | Type   | Example                | Required | Default         | Purpose                        |
 | ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
-| type        | string | "picture"              | Yes      |                 | Item type (audio/text/picture) |
+| type        | string | "picture"              | Yes      |                 | Item type                      |
 | position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
-| path        | string | "/path/to/picture.png" | Yes      |                 | Illustration                   |
+| path        | string | "/path/to/picture.png" | Yes      |                 | Illustration source path       |
 | caption     | string | "My caption"           | No       |                 | Illustration short description |
 
 **Audio Item**
 
-| Property    | Type   | Example               | Required | Default         | Purpose                        |
-| ----------- | ------ | --------------------- |:--------:| --------------- | ------------------------------ |
-| type        | string | "audio"               | Yes      |                 | Item type (audio/text/picture) |
-| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene  |
-| path        | string | "/path/to/sound.mp3"  | Yes      |                 | Sound                          |
-| caption     | string | "My caption"          | No       |                 | Sound short description        |
+| Property    | Type   | Example               | Required | Default         | Purpose                       |
+| ----------- | ------ | --------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "audio"               | Yes      |                 | Item type                     |
+| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
+| path        | string | "/path/to/sound.mp3"  | Yes      |                 | Sound source path             |
+| caption     | string | "My caption"          | No       |                 | Sound short description       |
+
+**Video Item**
+
+| Property    | Type   | Example               | Required | Default         | Purpose                       |
+| ----------- | ------ | --------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "video"               | Yes      |                 | Item type                     |
+| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
+| path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path             |
+| caption     | string | "My caption"          | No       |                 | Video short description       |
 
 ### Other objects
 
@@ -212,9 +230,14 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 ## Alternatives
 
-* Free: [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
-* Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
-* For business: [genially](https://www.genial.ly/) - [Interactive-Img](https://interactive-img.com/) - [ThingLink](https://www.thinglink.com/)
+* Free:
+  * [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
+* Premium:
+  * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
+* For business:
+  * [genially](https://www.genial.ly/)
+  * [Interactive-Img](https://interactive-img.com/)
+  * [ThingLink](https://www.thinglink.com/)
 
 ## License
 

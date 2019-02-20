@@ -1,18 +1,20 @@
 import AudioItem from "./audioItem";
 import PictureItem from "./pictureItem";
 import TextItem from "./textItem";
+import VideoItem from "./videoItem";
 
 const classes = {
     AudioItem,
     PictureItem,
-    TextItem
+    TextItem,
+    VideoItem
 };
 
 export default class Factory {
     /**
      * @param {string} name
      * @param {object} args
-     * @returns {AudioItem|PictureItem|TextItem}
+     * @returns {AudioItem|PictureItem|TextItem|VideoItem}
      */
     create(name, args) {
         let className = name.toLowerCase() + 'Item';

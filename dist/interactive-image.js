@@ -1476,6 +1476,10 @@ var _textItem = __webpack_require__(/*! ./textItem */ "./src/js/item/textItem.js
 
 var _textItem2 = _interopRequireDefault(_textItem);
 
+var _videoItem = __webpack_require__(/*! ./videoItem */ "./src/js/item/videoItem.js");
+
+var _videoItem2 = _interopRequireDefault(_videoItem);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1483,7 +1487,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var classes = {
     AudioItem: _audioItem2.default,
     PictureItem: _pictureItem2.default,
-    TextItem: _textItem2.default
+    TextItem: _textItem2.default,
+    VideoItem: _videoItem2.default
 };
 
 var Factory = function () {
@@ -1497,7 +1502,7 @@ var Factory = function () {
         /**
          * @param {string} name
          * @param {object} args
-         * @returns {AudioItem|PictureItem|TextItem}
+         * @returns {AudioItem|PictureItem|TextItem|VideoItem}
          */
         value: function create(name, args) {
             var className = name.toLowerCase() + 'Item';
@@ -1773,6 +1778,145 @@ var TextItem = function (_BaseItem) {
 
 exports.default = TextItem;
 module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/item/videoItem.js":
+/*!**********************************!*\
+  !*** ./src/js/item/videoItem.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+
+var _baseItem2 = _interopRequireDefault(_baseItem);
+
+var _fileHelper = __webpack_require__(/*! ./../helper/fileHelper */ "./src/js/helper/fileHelper.js");
+
+var _fileHelper2 = _interopRequireDefault(_fileHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * @extends BaseItem
+ */
+var VideoItem = function (_BaseItem) {
+    _inherits(VideoItem, _BaseItem);
+
+    _createClass(VideoItem, null, [{
+        key: "fileFormats",
+
+        /**
+         * Allowed file extensions for video tag
+         *
+         * @returns {{mp4: string, webm: string}}
+         */
+        value: function fileFormats() {
+            return {
+                'mp4': 'video/mp4',
+                'webm': 'video/webm'
+            };
+        }
+
+        /**
+         * @returns {string}
+         */
+
+    }, {
+        key: "unsupportedTagMessage",
+        value: function unsupportedTagMessage() {
+            return 'Your browser does not support the video tag.';
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
+    function VideoItem(parameters) {
+        _classCallCheck(this, VideoItem);
+
+        var _this = _possibleConstructorReturn(this, (VideoItem.__proto__ || Object.getPrototypeOf(VideoItem)).call(this, parameters));
+
+        _this.checkRequiredParameters(parameters, ['path']);
+
+        _this.path = parameters.path;
+        _this.caption = parameters.caption;
+
+        _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
+
+        if (!VideoItem.fileFormats().hasOwnProperty(_this.fileExtension)) {
+            throw Error('Unsupported file extension "' + _this.fileExtension + '"');
+        }
+        return _this;
+    }
+
+    /**
+     * @returns {HTMLElement}
+     */
+
+
+    _createClass(VideoItem, [{
+        key: "createVideo",
+        value: function createVideo() {
+            var video = this.domHelper.createElement('video', { 'class': 'genuine-theme' }, VideoItem.unsupportedTagMessage());
+            video.setAttribute('controls', '');
+            video.setAttribute('preload', 'metadata');
+
+            var source = this.domHelper.createElement('source');
+            source.setAttribute('src', this.path);
+            source.setAttribute('type', VideoItem.fileFormats()[this.fileExtension]);
+
+            video.appendChild(source);
+
+            return video;
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: "renderHtml",
+        value: function renderHtml() {
+            var element = this.createItemElement();
+            var videoItem = this.domHelper.createElement('div', { 'class': 'video-item' });
+
+            if ('undefined' !== typeof this.caption) {
+                var caption = this.domHelper.createElement('span', { 'class': 'caption' }, this.caption);
+                videoItem.appendChild(caption);
+            }
+
+            videoItem.appendChild(this.createVideo());
+
+            element.appendChild(videoItem);
+
+            return element;
+        }
+    }]);
+
+    return VideoItem;
+}(_baseItem2.default);
+
+exports.default = VideoItem;
+module.exports = exports["default"];
 
 /***/ }),
 
