@@ -1501,19 +1501,19 @@ var Factory = function () {
 
         /**
          * @param {string} name
-         * @param {object} args
+         * @param {object} parameters
          * @returns {AudioItem|PictureItem|TextItem|VideoItem}
          */
-        value: function create(name, args) {
+        value: function create(name, parameters) {
             var className = name.toLowerCase() + 'Item';
             className = className.charAt(0).toUpperCase() + className.slice(1);
 
             try {
-                return new classes[className](args);
+                return new classes[className](parameters);
             } catch (exception) {
                 var message = void 0;
                 if ('undefined' !== typeof exception.name && exception.name === 'TypeError') {
-                    message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text")';
+                    message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text", "video")';
                 } else {
                     message = exception.message;
                 }

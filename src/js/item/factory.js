@@ -13,19 +13,19 @@ const classes = {
 export default class Factory {
     /**
      * @param {string} name
-     * @param {object} args
+     * @param {object} parameters
      * @returns {AudioItem|PictureItem|TextItem|VideoItem}
      */
-    create(name, args) {
+    create(name, parameters) {
         let className = name.toLowerCase() + 'Item';
         className = className.charAt(0).toUpperCase() + className.slice(1);
 
         try {
-            return new classes[className](args);
+            return new classes[className](parameters);
         } catch (exception) {
             let message;
             if ('undefined' !== typeof exception.name && exception.name === 'TypeError') {
-                message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text")';
+                message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text", "video")';
             } else {
                 message = exception.message;
             }

@@ -70,7 +70,7 @@ describe('Item objects construction', function() {
                     "left": 100,
                 }
             };
-            expect(() => new ItemFactory().create('tex', parameters).constructor.name).to.throw('Invalid item type "tex" (allowed values: "audio", "picture", "text")');
+            expect(() => new ItemFactory().create('tex', parameters).constructor.name).to.throw('Invalid item type "tex" (allowed values: "audio", "picture", "text", "video")');
         });
 
         it('should throw an exception when given parameters are not valid', function() {
