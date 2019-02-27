@@ -48,6 +48,7 @@ export default class VideoItem extends BaseItem {
     createVideo() {
         const video = this.domHelper.createElement('video', {'class': 'genuine-theme'}, VideoItem.unsupportedTagMessage());
         video.setAttribute('controls', '');
+        video.setAttribute('controlsList', 'nodownload');
         video.setAttribute('preload', 'metadata');
 
         const source = this.domHelper.createElement('source');

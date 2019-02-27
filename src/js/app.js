@@ -62,7 +62,7 @@ export default class App {
      * @param items
      */
     createElements(items) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting elements creation...');
             const start = Date.now();
 
@@ -78,7 +78,7 @@ export default class App {
     }
 
     positionItems() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting items positioning...');
             const start = Date.now();
 
@@ -103,7 +103,7 @@ export default class App {
     }
 
     bindEvents() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting events binding...');
             const start = Date.now();
 
@@ -117,7 +117,7 @@ export default class App {
     }
 
     loadImages() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting images loading...');
             const start = Date.now();
 
@@ -145,6 +145,7 @@ export default class App {
             this.$image.addClass('interactive-image');
         }
 
+        // Add message for unsupported screen sizes
         const unsupportedScreenElement = this.domHelper.createElement(
             'div',
             {id: 'unsupported-screen'},

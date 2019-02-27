@@ -22,7 +22,7 @@ export default class Hover {
      */
     bindMainImageEvents($image) {
         // Mouse enters main image to show all hotspots
-        $image.on('mouseenter.interactiveImage', function() {
+        $image.on('mouseenter', function() {
             const $hotspots = $(this).find('.hotspot');
             $.each($hotspots, function() {
                 $(this).fadeIn();
@@ -30,7 +30,7 @@ export default class Hover {
         });
 
         // Mouse leaves main image to hide all hotspots and containers
-        $image.on('mouseleave.interactiveImage', function() {
+        $image.on('mouseleave', function() {
             const $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
                 Hover.hideElement($(this));
@@ -44,14 +44,14 @@ export default class Hover {
     bindSpecificEvents($image) {
         // Bind Mouse leaves container to hide it
         const bindContainerMouseLeaveEvent = () => {
-            $image.on('mouseleave.interactiveImage', '.item', function() {
+            $image.on('mouseleave', '.item', function() {
                 const $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 Hover.hideElement($container);
             });
         };
 
         // Mouse enters icon to show its container and close all others
-        $image.on('mouseenter.interactiveImage', '.hotspot', function() {
+        $image.on('mouseenter', '.hotspot', function() {
             const $containers = $image.find('.item');
             $.each($containers, function() {
                 Hover.hideElement($(this));
@@ -59,7 +59,7 @@ export default class Hover {
 
             const $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
             Hover.showElement($container);
-            $container.on('mouseleave.interactiveImage', function() {
+            $container.on('mouseleave', function() {
                 Hover.hideElement($(this));
                 bindContainerMouseLeaveEvent();
             });
