@@ -1,3 +1,4 @@
+import DomHelper from "./helper/domHelper";
 import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
@@ -15,6 +16,7 @@ export default class App {
         this.settings = settings;
         this.$image = $image;
         this.itemFactory = new ItemFactory();
+        this.domHelper = new DomHelper();
         this.logHelper = new LogHelper(settings.debug);
     }
 
@@ -142,6 +144,13 @@ export default class App {
         if (!this.$image.hasClass('interactive-image')) {
             this.$image.addClass('interactive-image');
         }
+
+        const unsupportedScreenElement = this.domHelper.createElement(
+            'div',
+            {id: 'unsupported-screen'},
+            'Interacte with your device first ;-)'
+        );
+        this.$image.append(unsupportedScreenElement);
 
         this
             .checkSettings(this.settings)

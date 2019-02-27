@@ -13,4 +13,15 @@ export default class ItemHelper {
             hotspotTop + 40
         ];
     }
+
+    /**
+     * Convert a position in pixels into a percentage of a total size
+     *
+     * @param {number} pixels
+     * @param {number} size
+     * @returns {string}
+     */
+    static convertPixelsToPercentage(pixels, size) {
+        return (pixels * 100 / size).toFixed(2);
+    }
 }

@@ -5,6 +5,26 @@
   caret-color: transparent;
   cursor: default;
 
+  #unsupported-screen {
+    display: none;
+    width: 120px;
+    margin: 20px auto;
+    padding: 20px;
+    color: $black-small-text;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .6);
+    font-size: 13px;
+  }
+
+  @media screen and (max-width: $break-smartphone-portrait) {
+    background-image: none;
+    background-color: white;
+    max-width: 320px;
+
+    #unsupported-screen {
+      display: block;
+    }
+  }
+
   .hotspot {
     position: absolute;
     z-index: 16;
