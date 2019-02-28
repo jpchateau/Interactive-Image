@@ -4,6 +4,21 @@
   z-index: 8;
   caret-color: transparent;
   cursor: default; }
+  .interactive-image #unsupported-screen {
+    display: none;
+    width: 120px;
+    margin: 20px auto;
+    padding: 20px;
+    color: #1d2129;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
+    font-size: 13px; }
+  @media screen and (max-width: 320px) {
+    .interactive-image {
+      background-image: none;
+      background-color: white;
+      max-width: 320px; }
+      .interactive-image #unsupported-screen {
+        display: block; } }
   .interactive-image .hotspot {
     position: absolute;
     z-index: 16;
@@ -75,6 +90,14 @@
     font-size: 12px; }
   .interactive-image .picture-item .picture {
     margin-bottom: -4px; }
+
+.interactive-image .provider-item {
+  padding: 15px; }
+
+.interactive-image iframe {
+  width: 400px;
+  height: 225px;
+  margin-bottom: -4px; }
 
 .interactive-image .text-item {
   padding: 15px;

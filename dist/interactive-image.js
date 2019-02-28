@@ -616,6 +616,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _domHelper = __webpack_require__(/*! ./helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
 var _hover = __webpack_require__(/*! ./event/hover */ "./src/js/event/hover.js");
 
 var _hover2 = _interopRequireDefault(_hover);
@@ -653,6 +657,7 @@ var App = function () {
         this.settings = settings;
         this.$image = $image;
         this.itemFactory = new _factory2.default();
+        this.domHelper = new _domHelper2.default();
         this.logHelper = new _logHelper2.default(settings.debug);
     }
 
@@ -712,7 +717,7 @@ var App = function () {
         value: function createElements(items) {
             var _this2 = this;
 
-            return new Promise(function (resolve, reject) {
+            return new Promise(function (resolve) {
                 _this2.logHelper.log('Starting elements creation...');
                 var start = Date.now();
 
@@ -731,7 +736,7 @@ var App = function () {
         value: function positionItems() {
             var _this3 = this;
 
-            return new Promise(function (resolve, reject) {
+            return new Promise(function (resolve) {
                 _this3.logHelper.log('Starting items positioning...');
                 var start = Date.now();
 
@@ -765,7 +770,7 @@ var App = function () {
         value: function bindEvents() {
             var _this4 = this;
 
-            return new Promise(function (resolve, reject) {
+            return new Promise(function (resolve) {
                 _this4.logHelper.log('Starting events binding...');
                 var start = Date.now();
 
@@ -782,7 +787,7 @@ var App = function () {
         value: function loadImages() {
             var _this5 = this;
 
-            return new Promise(function (resolve, reject) {
+            return new Promise(function (resolve) {
                 _this5.logHelper.log('Starting images loading...');
                 var start = Date.now();
 
@@ -812,6 +817,10 @@ var App = function () {
             if (!this.$image.hasClass('interactive-image')) {
                 this.$image.addClass('interactive-image');
             }
+
+            // Add message for unsupported screen sizes
+            var unsupportedScreenElement = this.domHelper.createElement('div', { id: 'unsupported-screen' }, 'Interacte with your device first ;-)');
+            this.$image.append(unsupportedScreenElement);
 
             this.checkSettings(this.settings).then(function () {
                 return _this6.createElements(_this6.items);
@@ -870,7 +879,7 @@ var Hover = function () {
          */
         value: function bindMainImageEvents($image) {
             // Mouse enters main image to show all hotspots
-            $image.on('mouseenter.interactiveImage', function () {
+            $image.on('mouseenter', function () {
                 var $hotspots = $(this).find('.hotspot');
                 $.each($hotspots, function () {
                     $(this).fadeIn();
@@ -878,7 +887,7 @@ var Hover = function () {
             });
 
             // Mouse leaves main image to hide all hotspots and containers
-            $image.on('mouseleave.interactiveImage', function () {
+            $image.on('mouseleave', function () {
                 var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
                     Hover.hideElement($(this));
@@ -895,14 +904,14 @@ var Hover = function () {
         value: function bindSpecificEvents($image) {
             // Bind Mouse leaves container to hide it
             var bindContainerMouseLeaveEvent = function bindContainerMouseLeaveEvent() {
-                $image.on('mouseleave.interactiveImage', '.item', function () {
+                $image.on('mouseleave', '.item', function () {
                     var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                     Hover.hideElement($container);
                 });
             };
 
             // Mouse enters icon to show its container and close all others
-            $image.on('mouseenter.interactiveImage', '.hotspot', function () {
+            $image.on('mouseenter', '.hotspot', function () {
                 var $containers = $image.find('.item');
                 $.each($containers, function () {
                     Hover.hideElement($(this));
@@ -910,7 +919,7 @@ var Hover = function () {
 
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 Hover.showElement($container);
-                $container.on('mouseleave.interactiveImage', function () {
+                $container.on('mouseleave', function () {
                     Hover.hideElement($(this));
                     bindContainerMouseLeaveEvent();
                 });
@@ -1106,6 +1115,20 @@ var ItemHelper = function () {
         value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
             return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
         }
+
+        /**
+         * Convert a position in pixels into a percentage of a total size
+         *
+         * @param {number} pixels
+         * @param {number} size
+         * @returns {string}
+         */
+
+    }, {
+        key: "convertPixelsToPercentage",
+        value: function convertPixelsToPercentage(pixels, size) {
+            return (pixels * 100 / size).toFixed(2);
+        }
     }]);
 
     return ItemHelper;
@@ -1196,6 +1219,12 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * @license
+ * interactiveimagejs v2.1.0
+ * A jQuery plugin to embed interactive images on your website
+ * MIT License
+ */
 (function ($, window, document, undefined) {
     $.fn.interactiveImage = function (items, options) {
         var _this = this;
@@ -1472,6 +1501,10 @@ var _pictureItem = __webpack_require__(/*! ./pictureItem */ "./src/js/item/pictu
 
 var _pictureItem2 = _interopRequireDefault(_pictureItem);
 
+var _providerItem = __webpack_require__(/*! ./providerItem */ "./src/js/item/providerItem.js");
+
+var _providerItem2 = _interopRequireDefault(_providerItem);
+
 var _textItem = __webpack_require__(/*! ./textItem */ "./src/js/item/textItem.js");
 
 var _textItem2 = _interopRequireDefault(_textItem);
@@ -1487,6 +1520,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var classes = {
     AudioItem: _audioItem2.default,
     PictureItem: _pictureItem2.default,
+    ProviderItem: _providerItem2.default,
     TextItem: _textItem2.default,
     VideoItem: _videoItem2.default
 };
@@ -1502,7 +1536,7 @@ var Factory = function () {
         /**
          * @param {string} name
          * @param {object} parameters
-         * @returns {AudioItem|PictureItem|TextItem|VideoItem}
+         * @returns {AudioItem|PictureItem|ProviderItem|TextItem|VideoItem}
          */
         value: function create(name, parameters) {
             var className = name.toLowerCase() + 'Item';
@@ -1513,7 +1547,7 @@ var Factory = function () {
             } catch (exception) {
                 var message = void 0;
                 if ('undefined' !== typeof exception.name && exception.name === 'TypeError') {
-                    message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "text", "video")';
+                    message = 'Invalid item type "' + name + '" (allowed values: "audio", "picture", "provider", "text", "video")';
                 } else {
                     message = exception.message;
                 }
@@ -1634,6 +1668,99 @@ var PictureItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = PictureItem;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/item/providerItem.js":
+/*!*************************************!*\
+  !*** ./src/js/item/providerItem.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+
+var _baseItem2 = _interopRequireDefault(_baseItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * @extends BaseItem
+ */
+var ProviderItem = function (_BaseItem) {
+    _inherits(ProviderItem, _BaseItem);
+
+    /**
+     * @param {object} parameters
+     */
+    function ProviderItem(parameters) {
+        _classCallCheck(this, ProviderItem);
+
+        var _this = _possibleConstructorReturn(this, (ProviderItem.__proto__ || Object.getPrototypeOf(ProviderItem)).call(this, parameters));
+
+        _this.checkRequiredParameters(parameters, ['providerName', 'parameters']);
+
+        _this.providerName = parameters.providerName;
+        _this.parameters = parameters.parameters;
+
+        if ('youtube' !== _this.providerName) {
+            throw Error('Unsupported provider "' + _this.providerName + '"');
+        }
+        return _this;
+    }
+
+    /**
+     * @returns {HTMLElement}
+     */
+
+
+    _createClass(ProviderItem, [{
+        key: 'createIframe',
+        value: function createIframe() {
+            return this.domHelper.createElement('iframe', {
+                'frameborder': '0',
+                'src': 'https://www.youtube.com/embed/' + this.parameters.videoId
+            });
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'renderHtml',
+        value: function renderHtml() {
+            var element = this.createItemElement();
+            var providerItem = this.domHelper.createElement('div', { 'class': 'provider-item' });
+
+            providerItem.appendChild(this.createIframe());
+
+            element.appendChild(providerItem);
+
+            return element;
+        }
+    }]);
+
+    return ProviderItem;
+}(_baseItem2.default);
+
+exports.default = ProviderItem;
 module.exports = exports['default'];
 
 /***/ }),
@@ -1878,6 +2005,7 @@ var VideoItem = function (_BaseItem) {
         value: function createVideo() {
             var video = this.domHelper.createElement('video', { 'class': 'genuine-theme' }, VideoItem.unsupportedTagMessage());
             video.setAttribute('controls', '');
+            video.setAttribute('controlsList', 'nodownload');
             video.setAttribute('preload', 'metadata');
 
             var source = this.domHelper.createElement('source');

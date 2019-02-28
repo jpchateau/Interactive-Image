@@ -9,6 +9,7 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 ## Features
 
 * Interactive videos, sounds, images and texts over large pictures
+* Content providers support: Youtube 
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -64,9 +65,9 @@ Edit the source code of your web page:
   </style>
 </head>
 <body>
-  <div class="interactive-image"></div>  
+  <div id="my-interactive-image"></div>  
   
-  <!-- Do not forget to include jQuery here -->
+  <!-- Include jQuery -->
 
   <script src="interactive-image.min.js"></script>
 </body>
@@ -114,12 +115,23 @@ var items = [
       left: 400,
       top: 550
     }
+  },
+  {
+    type: "provider",
+    providerName: "youtube",
+    parameters: {
+      videoId: "iPRiQ6SBntQ"
+    },
+    position: {
+      left: 600,
+      top: 550
+    }
   }
 ];
 
 // Plugin activation
 $(document).ready(function() {
-  $(".interactive-image").interactiveImage(items);
+  $("#my-interactive-image").interactiveImage(items);
 });
 ```
 
@@ -202,6 +214,15 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path             |
 | caption     | string | "My caption"          | No       |                 | Video short description       |
 
+**Provider Item**
+
+| Property     | Type   | Example                 | Required | Default         | Purpose                       |
+| ------------ | ------ | ----------------------- |:--------:| --------------- | ----------------------------- |
+| type         | string | "provider"              | Yes      |                 | Item type                     |
+| position     | object | See `Position` object   | No       | {left:0, top:0} | Hotspot position on the scene |
+| providerName | string | "youtube"               | Yes      |                 | Content provider name         |
+| parameters   | object | See `Parameters` object | Yes      |                 | Content parameters            |
+
 ### Other objects
 
 **Position**
@@ -217,6 +238,14 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | ----------- | ------- | ------------------------ |:--------:| ----------- | ------------------- |
 | url         | string  | "https://www.github.com" | Yes      |             | href attribute      |
 | label       | string  | "My webpage"             | No       | `url` value | Name of the webpage |
+
+**Parameters**
+
+Please note that only [Youtube](https://www.youtube.com/) videos are supported for the moment.
+
+| Property | Type    | Exam          | Required | Default | Purpose          |
+| -------- | ------- | ------------- |:--------:| ------- | ---------------- |
+| videoId  | string  | "iPRiQ6SBntQ" | Yes      |         | Youtube Video ID |
 
 ## Dependencies
 

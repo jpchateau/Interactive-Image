@@ -39,7 +39,8 @@
     "multimedia content",
     "rich content",
     "jquery-plugin",
-    "ecosystem:jquery"
+    "ecosystem:jquery",
+    "youtube"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {

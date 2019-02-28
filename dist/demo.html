@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Image - Examples</title>
 
     <!-- Specific styles of a scene -->
     <style>
         .interactive-image {
+            margin: auto;
             width: 1024px;
             height: 680px;
-            margin: 20px auto;
             background-image: url('https://c2.staticflickr.com/8/7369/27165702821_ece3549805_b.jpg');
         }
     </style>
@@ -84,7 +85,7 @@
                 path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
                 position: {
                     left: 100,
-                    top: 200
+                    top: 150
                 }
             },
             {
@@ -93,7 +94,7 @@
                 caption: "Picture legend",
                 position: {
                     left: 300,
-                    top: 200
+                    top: 150
                 }
             },
             {
@@ -103,7 +104,7 @@
                 linkUrl: "https://www.nationalgeographic.com",
                 position: {
                     left: 500,
-                    top: 200
+                    top: 150
                 }
             },
             // Audio items
@@ -112,7 +113,7 @@
                 path: "http://www.healthfreedomusa.org/downloads/iMovie.app/Contents/Resources/iMovie%20%2708%20Sound%20Effects/Leopard%20Snarl.mp3",
                 position: {
                     left: 100,
-                    top: 350
+                    top: 250
                 }
             },
             {
@@ -121,7 +122,7 @@
                 caption: "Audio WAVE with caption",
                 position: {
                     left: 300,
-                    top: 350
+                    top: 250
                 }
             },
             {
@@ -130,7 +131,7 @@
                 caption: "Audio Ogg with caption",
                 position: {
                     left: 500,
-                    top: 350
+                    top: 250
                 }
             },
             // Video items
@@ -139,7 +140,7 @@
                 path: "https://www.videvo.net/videvo_files/converted/2015_08/videos/Tiger.mp460597.mp4",
                 position: {
                     left: 100,
-                    top: 500
+                    top: 350
                 }
             },
             {
@@ -148,7 +149,19 @@
                 caption: "Video WebM with caption",
                 position: {
                     left: 300,
-                    top: 500
+                    top: 350
+                }
+            },
+            // Provider items
+            {
+                type: "provider",
+                providerName: "youtube",
+                parameters: {
+                    videoId: "iPRiQ6SBntQ"
+                },
+                position: {
+                    left: 100,
+                    top: 450
                 }
             }
         ];
