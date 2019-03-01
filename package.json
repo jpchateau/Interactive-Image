@@ -10,8 +10,8 @@
     "eslint": "./node_modules/.bin/eslint ./src/js/",
     "sass-lint": "./node_modules/.bin/sass-lint --verbose --no-exit",
     "start:dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.js",
-    "test": "./node_modules/.bin/mocha --recursive --require babel-core/register",
-    "test-with-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/_mocha --recursive",
+    "test": "./node_modules/.bin/mocha",
+    "test-with-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/_mocha",
     "watch": "webpack --watch --colors --config webpack.dev.js"
   },
   "repository": {
@@ -63,6 +63,8 @@
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "jsdom": "13.2.0",
+    "jsdom-global": "3.0.2",
     "mini-css-extract-plugin": "^0.4.5",
     "mocha": "^5.1.1",
     "node-sass": "^4.11.0",
