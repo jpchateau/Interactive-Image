@@ -4,6 +4,7 @@ import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
+import Resizer from "./event/resizer";
 
 export default class App {
     /**
@@ -107,7 +108,11 @@ export default class App {
             this.logHelper.log('Starting events binding...');
             const start = Date.now();
 
-            new Hover().bindAll(this.$image);
+            let hover = new Hover(this.$image);
+            hover.bindAll();
+
+            let resizer = new Resizer(hover);
+            resizer.bind(this.$image);
 
             const end = Date.now();
             this.logHelper.log('All events have been bound', end - start, 'green');
