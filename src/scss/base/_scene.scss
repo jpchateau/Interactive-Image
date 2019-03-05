@@ -5,7 +5,7 @@
   caret-color: transparent;
   cursor: default;
 
-  #unsupported-screen {
+  .unsupported-screen {
     display: none;
     width: 120px;
     margin: 20px auto;
@@ -20,7 +20,7 @@
     background-color: white;
     max-width: 320px;
 
-    #unsupported-screen {
+    .unsupported-screen {
       display: block;
     }
   }

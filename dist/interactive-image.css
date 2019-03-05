@@ -4,7 +4,7 @@
   z-index: 8;
   caret-color: transparent;
   cursor: default; }
-  .interactive-image #unsupported-screen {
+  .interactive-image .unsupported-screen {
     display: none;
     width: 120px;
     margin: 20px auto;
@@ -17,7 +17,7 @@
       background-image: none;
       background-color: white;
       max-width: 320px; }
-      .interactive-image #unsupported-screen {
+      .interactive-image .unsupported-screen {
         display: block; } }
   .interactive-image .hotspot {
     position: absolute;

@@ -1,5 +1,3 @@
-import Hover from "./hover";
-
 export default class Resizer {
     /**
      * @param {Hover} hover

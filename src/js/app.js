@@ -153,8 +153,8 @@ export default class App {
         // Add message for unsupported screen sizes
         const unsupportedScreenElement = this.domHelper.createElement(
             'div',
-            {id: 'unsupported-screen'},
-            'Interacte with your device first ;-)'
+            {class: 'unsupported-screen'},
+            'Interacte with your device first ;)'
         );
         this.$image.append(unsupportedScreenElement);
 

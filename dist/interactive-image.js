@@ -640,6 +640,10 @@ var _logHelper = __webpack_require__(/*! ./helper/logHelper */ "./src/js/helper/
 
 var _logHelper2 = _interopRequireDefault(_logHelper);
 
+var _resizer = __webpack_require__(/*! ./event/resizer */ "./src/js/event/resizer.js");
+
+var _resizer2 = _interopRequireDefault(_resizer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -774,7 +778,11 @@ var App = function () {
                 _this4.logHelper.log('Starting events binding...');
                 var start = Date.now();
 
-                new _hover2.default().bindAll(_this4.$image);
+                var hover = new _hover2.default(_this4.$image);
+                hover.bindAll();
+
+                var resizer = new _resizer2.default(hover);
+                resizer.bind(_this4.$image);
 
                 var end = Date.now();
                 _this4.logHelper.log('All events have been bound', end - start, 'green');
@@ -819,7 +827,7 @@ var App = function () {
             }
 
             // Add message for unsupported screen sizes
-            var unsupportedScreenElement = this.domHelper.createElement('div', { id: 'unsupported-screen' }, 'Interacte with your device first ;-)');
+            var unsupportedScreenElement = this.domHelper.createElement('div', { class: 'unsupported-screen' }, 'Interacte with your device first ;)');
             this.$image.append(unsupportedScreenElement);
 
             this.checkSettings(this.settings).then(function () {
@@ -866,20 +874,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Hover = function () {
-    function Hover() {
+    function Hover($image) {
         _classCallCheck(this, Hover);
+
+        this.$image = $image;
+        this.enabled = false;
     }
+
+    /**
+     * @param $element
+     */
+
 
     _createClass(Hover, [{
         key: 'bindMainImageEvents',
-
-
-        /**
-         * @param $image
-         */
-        value: function bindMainImageEvents($image) {
+        value: function bindMainImageEvents() {
             // Mouse enters main image to show all hotspots
-            $image.on('mouseenter', function () {
+            this.$image.on('mouseenter', function () {
                 var $hotspots = $(this).find('.hotspot');
                 $.each($hotspots, function () {
                     $(this).fadeIn();
@@ -887,32 +898,29 @@ var Hover = function () {
             });
 
             // Mouse leaves main image to hide all hotspots and containers
-            $image.on('mouseleave', function () {
+            this.$image.on('mouseleave', function () {
                 var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
                     Hover.hideElement($(this));
                 });
             });
         }
-
-        /**
-         * @param $image
-         */
-
     }, {
         key: 'bindSpecificEvents',
-        value: function bindSpecificEvents($image) {
+        value: function bindSpecificEvents() {
+            var that = this;
+
             // Bind Mouse leaves container to hide it
             var bindContainerMouseLeaveEvent = function bindContainerMouseLeaveEvent() {
-                $image.on('mouseleave', '.item', function () {
+                that.$image.on('mouseleave', '.item', function () {
                     var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                     Hover.hideElement($container);
                 });
             };
 
             // Mouse enters icon to show its container and close all others
-            $image.on('mouseenter', '.hotspot', function () {
-                var $containers = $image.find('.item');
+            that.$image.on('mouseenter', '.hotspot', function () {
+                var $containers = that.$image.find('.item');
                 $.each($containers, function () {
                     Hover.hideElement($(this));
                 });
@@ -925,23 +933,27 @@ var Hover = function () {
                 });
             });
         }
-
-        /**
-         * @param $image
-         */
-
     }, {
         key: 'bindAll',
-        value: function bindAll($image) {
-            this.bindMainImageEvents($image);
-            this.bindSpecificEvents($image);
+        value: function bindAll() {
+            if (this.enabled === false) {
+                this.enabled = true;
+            }
+
+            this.bindMainImageEvents();
+            this.bindSpecificEvents();
+        }
+    }, {
+        key: 'unbindAll',
+        value: function unbindAll() {
+            if (this.enabled === true) {
+                this.enabled = false;
+            }
+
+            this.$image.off();
         }
     }], [{
         key: 'hideElement',
-
-        /**
-         * @param $element
-         */
         value: function hideElement($element) {
             if ($element.css('display') === 'block') {
                 $element.hide();
@@ -965,6 +977,67 @@ var Hover = function () {
 }();
 
 exports.default = Hover;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/event/resizer.js":
+/*!*********************************!*\
+  !*** ./src/js/event/resizer.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Resizer = function () {
+    /**
+     * @param {Hover} hover
+     */
+    function Resizer(hover) {
+        _classCallCheck(this, Resizer);
+
+        this.hover = hover;
+    }
+
+    _createClass(Resizer, [{
+        key: 'bind',
+        value: function bind() {
+            var resizeTimer = void 0;
+            var that = this;
+
+            var enableEffects = function enableEffects() {
+                if (window.innerWidth <= 320) {
+                    if (that.hover.enabled === true) {
+                        that.hover.unbindAll();
+                    }
+                } else {
+                    if (that.hover.enabled === false) {
+                        that.hover.bindAll();
+                    }
+                }
+            };
+
+            $(window).on('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(enableEffects, 250);
+            });
+        }
+    }]);
+
+    return Resizer;
+}();
+
+exports.default = Resizer;
 module.exports = exports['default'];
 
 /***/ }),
