@@ -1,7 +1,7 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.2.0 (2019-03-05)
+## 2.2.0 (2019-03-06)
 * Added Sound items
 * Added Video items
 * Added support for content providers (Youtube)
