@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Image - Examples</title>
 
     <!-- Specific styles of a scene -->
     <style>
         .interactive-image {
+            margin: auto;
             width: 1024px;
             height: 680px;
-            margin: 20px auto;
             background-image: url('https://c2.staticflickr.com/8/7369/27165702821_ece3549805_b.jpg');
         }
     </style>
 </head>
 <body>
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Include Interactive Image plugin -->
+    <script src="interactive-image.js"></script>
+
     <!-- Main container of a scene -->
     <div id="my-interactive-image"></div>
 
-    <!-- jQuery is required -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Interactive Image plugin -->
-    <script src="interactive-image.js"></script>
-
     <script>
-        // Items collection
+        // Plugin Items collection
         var items = [
+            // Text items
             {
                 type: "text",
                 title: "Text title",
@@ -77,12 +79,13 @@
                     label: "Interactive Image Demo"
                 }
             },
+            // Picture items
             {
                 type: "picture",
                 path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
                 position: {
                     left: 100,
-                    top: 200
+                    top: 150
                 }
             },
             {
@@ -91,7 +94,7 @@
                 caption: "Picture legend",
                 position: {
                     left: 300,
-                    top: 200
+                    top: 150
                 }
             },
             {
@@ -101,7 +104,64 @@
                 linkUrl: "https://www.nationalgeographic.com",
                 position: {
                     left: 500,
-                    top: 200
+                    top: 150
+                }
+            },
+            // Audio items
+            {
+                type: "audio",
+                path: "http://www.healthfreedomusa.org/downloads/iMovie.app/Contents/Resources/iMovie%20%2708%20Sound%20Effects/Leopard%20Snarl.mp3",
+                position: {
+                    left: 100,
+                    top: 250
+                }
+            },
+            {
+                type: "audio",
+                path: "http://www.bioacoustica.org/gallery/sounds/Panthera_pardus2_threat.wav",
+                caption: "Audio WAVE with caption",
+                position: {
+                    left: 300,
+                    top: 250
+                }
+            },
+            {
+                type: "audio",
+                path: "https://lasonotheque.org/UPLOAD/ogg/0935.ogg",
+                caption: "Audio Ogg with caption",
+                position: {
+                    left: 500,
+                    top: 250
+                }
+            },
+            // Video items
+            {
+                type: "video",
+                path: "https://www.videvo.net/videvo_files/converted/2015_08/videos/Tiger.mp460597.mp4",
+                position: {
+                    left: 100,
+                    top: 350
+                }
+            },
+            {
+                type: "video",
+                path: "https://upload.wikimedia.org/wikipedia/commons/1/11/Le_regard_du_f%C3%A9lin.webm",
+                caption: "Video WebM with caption",
+                position: {
+                    left: 300,
+                    top: 350
+                }
+            },
+            // Provider items
+            {
+                type: "provider",
+                providerName: "youtube",
+                parameters: {
+                    videoId: "iPRiQ6SBntQ"
+                },
+                position: {
+                    left: 100,
+                    top: 450
                 }
             }
         ];

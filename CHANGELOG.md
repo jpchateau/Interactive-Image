@@ -1,6 +1,14 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.0 (2019-03-06)
+* Added Sound items
+* Added Video items
+* Added support for content providers (Youtube)
+* Introduce a breakpoint for unsupported screens (<=320px))
+* Unit tests on DOM elements and better code coverage
+* Autoprefixer dev dependency removed as it was not working as expected
+
 ## 2.1.0 (2019-02-15)
 * Better rendering
 * Unit tests and code coverage metrics

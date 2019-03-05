@@ -1,8 +1,10 @@
+import DomHelper from "./helper/domHelper";
 import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
+import Resizer from "./event/resizer";
 
 export default class App {
     /**
@@ -15,7 +17,7 @@ export default class App {
         this.settings = settings;
         this.$image = $image;
         this.itemFactory = new ItemFactory();
-        this.itemHelper = new ItemHelper();
+        this.domHelper = new DomHelper();
         this.logHelper = new LogHelper(settings.debug);
     }
 
@@ -27,7 +29,7 @@ export default class App {
             this.logHelper.log('Starting settings check...');
             const start = Date.now();
 
-            if ('undefined' === typeof settings.debug || 'boolean' !== typeof settings.debug) {
+            if ('boolean' !== typeof settings.debug) {
                 this.settings.debug = true;
                 throw Error('Check "debug" plugin option');
             }
@@ -44,7 +46,7 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        this.logHelper.log(JSON.stringify(options), null, 'blue');
+        this.logHelper.log(JSON.stringify(options), undefined, 'blue');
 
         const type = options.type;
         delete options.type;
@@ -61,15 +63,13 @@ export default class App {
      * @param items
      */
     createElements(items) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting elements creation...');
             const start = Date.now();
 
-            for (let i in items) {
-                if (items.hasOwnProperty(i)) {
-                    this.$image.append(this.createElement(items[i]));
-                }
-            }
+            items.forEach((item) => {
+                this.$image.append(this.createElement(item));
+            });
 
             const end = Date.now();
             this.logHelper.log('All items have been created', end - start, 'green');
@@ -79,19 +79,18 @@ export default class App {
     }
 
     positionItems() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting items positioning...');
             const start = Date.now();
 
             const $items = this.$image.find('.item');
-            var _this = this;
             $.each($items, function() {
                 const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
                 const width = $(this).width();
                 let left;
                 let top;
 
-                [left, top] = _this.itemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                [left, top] = ItemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
 
                 $(this).css('left', left);
                 $(this).css('top', top);
@@ -105,11 +104,15 @@ export default class App {
     }
 
     bindEvents() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting events binding...');
             const start = Date.now();
 
-            new Hover().bindAll(this.$image);
+            let hover = new Hover(this.$image);
+            hover.bindAll();
+
+            let resizer = new Resizer(hover);
+            resizer.bind(this.$image);
 
             const end = Date.now();
             this.logHelper.log('All events have been bound', end - start, 'green');
@@ -119,7 +122,7 @@ export default class App {
     }
 
     loadImages() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.logHelper.log('Starting images loading...');
             const start = Date.now();
 
@@ -147,6 +150,14 @@ export default class App {
             this.$image.addClass('interactive-image');
         }
 
+        // Add message for unsupported screen sizes
+        const unsupportedScreenElement = this.domHelper.createElement(
+            'div',
+            {class: 'unsupported-screen'},
+            'Interacte with your device first ;)'
+        );
+        this.$image.append(unsupportedScreenElement);
+
         this
             .checkSettings(this.settings)
             .then(() => {
@@ -166,7 +177,7 @@ export default class App {
                 this.logHelper.log('Execution completed', end - start, 'green');
             })
             .catch((exception) => {
-                this.logHelper.log(exception.message, null, 'red');
+                this.logHelper.log(exception.message, undefined, 'red');
             });
     }
 }

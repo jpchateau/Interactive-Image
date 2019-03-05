@@ -4,7 +4,7 @@ import '../css/icomoon.css';
 import App from "./app";
 
 (($, window, document, undefined) => {
-    $.fn.interactiveImage = function (items, options) {
+    $.fn.interactiveImage = function(items, options) {
         const defaults = {
             debug: false
         };

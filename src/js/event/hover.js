@@ -1,4 +1,9 @@
 export default class Hover {
+    constructor($image) {
+        this.$image = $image;
+        this.enabled = false;
+    }
+
     /**
      * @param $element
      */
@@ -17,12 +22,9 @@ export default class Hover {
         }
     }
 
-    /**
-     * @param $image
-     */
-    bindMainImageEvents($image) {
+    bindMainImageEvents() {
         // Mouse enters main image to show all hotspots
-        $image.on('mouseenter.interactiveImage', function() {
+        this.$image.on('mouseenter', function() {
             const $hotspots = $(this).find('.hotspot');
             $.each($hotspots, function() {
                 $(this).fadeIn();
@@ -30,7 +32,7 @@ export default class Hover {
         });
 
         // Mouse leaves main image to hide all hotspots and containers
-        $image.on('mouseleave.interactiveImage', function() {
+        this.$image.on('mouseleave', function() {
             const $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
                 Hover.hideElement($(this));
@@ -38,39 +40,47 @@ export default class Hover {
         });
     }
 
-    /**
-     * @param $image
-     */
-    bindSpecificEvents($image) {
+    bindSpecificEvents() {
+        let that = this;
+
         // Bind Mouse leaves container to hide it
         const bindContainerMouseLeaveEvent = () => {
-            $image.on('mouseleave.interactiveImage', '.item', function() {
+            that.$image.on('mouseleave', '.item', function() {
                 const $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
                 Hover.hideElement($container);
             });
         };
 
         // Mouse enters icon to show its container and close all others
-        $image.on('mouseenter.interactiveImage', '.hotspot', function() {
-            const $containers = $image.find('.item');
+        that.$image.on('mouseenter', '.hotspot', function() {
+            const $containers = that.$image.find('.item');
             $.each($containers, function() {
                 Hover.hideElement($(this));
             });
 
             const $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
             Hover.showElement($container);
-            $container.on('mouseleave.interactiveImage', function() {
+            $container.on('mouseleave', function() {
                 Hover.hideElement($(this));
                 bindContainerMouseLeaveEvent();
             });
         });
     }
 
-    /**
-     * @param $image
-     */
-    bindAll($image) {
-        this.bindMainImageEvents($image);
-        this.bindSpecificEvents($image);
+    bindAll() {
+        if (this.enabled === false) {
+            this.enabled = true;
+        }
+
+        this.bindMainImageEvents();
+        this.bindSpecificEvents();
+    }
+
+    unbindAll() {
+        if (this.enabled === true) {
+            this.enabled = false;
+        }
+
+        this.$image.off();
     }
 }

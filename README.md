@@ -8,7 +8,8 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 
 ## Features
 
-* Interactive texts and images over large pictures
+* Interactive videos, sounds, images and texts over large pictures
+* Content providers support: Youtube 
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -64,9 +65,9 @@ Edit the source code of your web page:
   </style>
 </head>
 <body>
-  <div class="interactive-image"></div>  
+  <div id="my-interactive-image"></div>  
   
-  <!-- Do not forget to include jQuery here -->
+  <!-- Include jQuery -->
 
   <script src="interactive-image.min.js"></script>
 </body>
@@ -96,12 +97,41 @@ var items = [
       left: 200,
       top: 300
     }
+  },
+  {
+    type: "audio",
+    path: "/path/to/sound.mp3",
+    caption: "A clouded leopard growl",
+    position: {
+      left: 300,
+      top: 500
+    }
+  },
+  {
+    type: "video",
+    path: "/path/to/video.mp4",
+    caption: "A clouded leopard walking",
+    position: {
+      left: 400,
+      top: 550
+    }
+  },
+  {
+    type: "provider",
+    providerName: "youtube",
+    parameters: {
+      videoId: "iPRiQ6SBntQ"
+    },
+    position: {
+      left: 600,
+      top: 550
+    }
   }
 ];
 
 // Plugin activation
 $(document).ready(function() {
-  $(".interactive-image").interactiveImage(items);
+  $("#my-interactive-image").interactiveImage(items);
 });
 ```
 
@@ -137,34 +167,61 @@ $(document).ready(function() {
 
 **Options**
 
-| Property | Type    | Example | Required | Default | Purpose                 |
-| ---------| ------- | ------- |:--------:| ------- | ----------------------- |
-| debug    | boolean | true    | No       | false   | Logs enabled in console |
+| Property | Type    | Example | Required | Default | Purpose                |
+| ---------| ------- | ------- |:--------:| ------- | ---------------------- |
+| debug    | boolean | true    | No       | false   | Enable logs in console |
 
 ### Items
 
 Each item has several possibilities of configuration.  
-You can add a link and/or a picture to your `text` items, or a caption to your `picture` items.
+You can add a link and/or a picture to your `text` items, or a caption to your `picture`, `audio` or `video` items.
 
 **Text Item**
 
 | Property    | Type   | Example                | Required | Default         | Purpose                       |
 | ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
-| type        | string | "text"                 | Yes      |                 | Item type (text/picture)      |
+| type        | string | "text"                 | Yes      |                 | Item type                     |
 | position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
 | title       | string | "My title"             | Yes      |                 | Title                         |
 | description | string | "My description"       | Yes      |                 | Descriptive text              |
-| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration                  |
+| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration source path      |
 | link        | object | See `Link` object      | No       |                 | HTTP Link                     |
 
 **Picture Item**
 
 | Property    | Type   | Example                | Required | Default         | Purpose                        |
 | ----------- | ------ | ---------------------- |:--------:| --------------- | ------------------------------ |
-| type        | string | "picture"              | Yes      |                 | Item type (text/picture)       |
+| type        | string | "picture"              | Yes      |                 | Item type                      |
 | position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
-| path        | string | "/path/to/picture.png" | Yes      |                 | Illustration                   |
-| caption     | string | "My caption"           | No       |                 | Illustration small description |
+| path        | string | "/path/to/picture.png" | Yes      |                 | Illustration source path       |
+| caption     | string | "My caption"           | No       |                 | Illustration short description |
+
+**Audio Item**
+
+| Property    | Type   | Example               | Required | Default         | Purpose                       |
+| ----------- | ------ | --------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "audio"               | Yes      |                 | Item type                     |
+| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
+| path        | string | "/path/to/sound.mp3"  | Yes      |                 | Sound source path             |
+| caption     | string | "My caption"          | No       |                 | Sound short description       |
+
+**Video Item**
+
+| Property    | Type   | Example               | Required | Default         | Purpose                       |
+| ----------- | ------ | --------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string | "video"               | Yes      |                 | Item type                     |
+| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
+| path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path             |
+| caption     | string | "My caption"          | No       |                 | Video short description       |
+
+**Provider Item**
+
+| Property     | Type   | Example                 | Required | Default         | Purpose                       |
+| ------------ | ------ | ----------------------- |:--------:| --------------- | ----------------------------- |
+| type         | string | "provider"              | Yes      |                 | Item type                     |
+| position     | object | See `Position` object   | No       | {left:0, top:0} | Hotspot position on the scene |
+| providerName | string | "youtube"               | Yes      |                 | Content provider name         |
+| parameters   | object | See `Parameters` object | Yes      |                 | Content parameters            |
 
 ### Other objects
 
@@ -182,11 +239,13 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | url         | string  | "https://www.github.com" | Yes      |             | href attribute      |
 | label       | string  | "My webpage"             | No       | `url` value | Name of the webpage |
 
-## TODO
+**Parameters**
 
-* Make the plugin adaptive to all screens
-* Add audio items
-* Add video items
+Please note that only [Youtube](https://www.youtube.com/) videos are supported for the moment.
+
+| Property | Type    | Exam          | Required | Default | Purpose          |
+| -------- | ------- | ------------- |:--------:| ------- | ---------------- |
+| videoId  | string  | "iPRiQ6SBntQ" | Yes      |         | Youtube Video ID |
 
 ## Dependencies
 
@@ -200,9 +259,14 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 ## Alternatives
 
-* Free: [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
-* Premium: [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
-* For business: [genially](https://www.genial.ly/) - [Interactive-Img](https://interactive-img.com/) - [ThingLink](https://www.thinglink.com/)
+* Free:
+  * [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
+* Premium:
+  * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
+* For business:
+  * [genially](https://www.genial.ly/)
+  * [Interactive-Img](https://interactive-img.com/)
+  * [ThingLink](https://www.thinglink.com/)
 
 ## License
 

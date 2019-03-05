@@ -4,6 +4,21 @@
   z-index: 8;
   caret-color: transparent;
   cursor: default; }
+  .interactive-image .unsupported-screen {
+    display: none;
+    width: 120px;
+    margin: 20px auto;
+    padding: 20px;
+    color: #1d2129;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
+    font-size: 13px; }
+  @media screen and (max-width: 320px) {
+    .interactive-image {
+      background-image: none;
+      background-color: white;
+      max-width: 320px; }
+      .interactive-image .unsupported-screen {
+        display: block; } }
   .interactive-image .hotspot {
     position: absolute;
     z-index: 16;
@@ -24,7 +39,6 @@
     background-color: white;
     color: #1d2129;
     min-width: 100px;
-    max-width: 280px;
     min-height: 60px;
     height: auto;
     display: none;
@@ -45,8 +59,49 @@
       border-width: 7px;
       margin-left: -7px; }
 
-.interactive-image .text-item {
+.interactive-image .audio-item {
+  padding: 15px;
+  max-width: 300px;
+  text-align: left; }
+
+.interactive-image .caption {
+  display: block;
+  margin-bottom: 15px; }
+
+.interactive-image audio {
+  width: 270px;
+  margin-bottom: -4px; }
+
+.interactive-image .picture-item {
+  position: relative;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 15px; }
+  .interactive-image .picture-item::before {
+    content: attr(data-caption);
+    position: absolute;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 12px; }
+  .interactive-image .picture-item .picture {
+    margin-bottom: -4px; }
+
+.interactive-image .provider-item {
   padding: 15px; }
+
+.interactive-image iframe {
+  width: 400px;
+  height: 225px;
+  margin-bottom: -4px; }
+
+.interactive-image .text-item {
+  padding: 15px;
+  max-width: 300px; }
   .interactive-image .text-item .title {
     font-size: 20px;
     width: 100%;
@@ -77,24 +132,17 @@
     .interactive-image .text-item a:active {
       color: #1d2129; }
 
-.interactive-image .picture-item {
-  position: relative;
-  max-width: 200px;
-  max-height: 200px;
-  margin: 15px; }
-  .interactive-image .picture-item::before {
-    content: attr(data-caption);
-    position: absolute;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 5px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    font-size: 12px; }
-  .interactive-image .picture-item .picture {
-    margin-bottom: -4px; }
+.interactive-image .video-item {
+  padding: 15px;
+  text-align: left; }
+
+.interactive-image .caption {
+  display: block;
+  margin-bottom: 15px; }
+
+.interactive-image video {
+  width: 400px;
+  margin-bottom: -4px; }
 
 @font-face {
     font-family: 'icomoon';
