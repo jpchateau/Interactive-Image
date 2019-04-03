@@ -1777,9 +1777,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ProviderItem = function (_BaseItem) {
     _inherits(ProviderItem, _BaseItem);
 
-    /**
-     * @param {object} parameters
-     */
+    _createClass(ProviderItem, null, [{
+        key: 'providersUrls',
+        value: function providersUrls() {
+            return {
+                'youtube': 'https://www.youtube.com/embed/',
+                'dailymotion': 'https://www.dailymotion.com/embed/video/'
+            };
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
     function ProviderItem(parameters) {
         _classCallCheck(this, ProviderItem);
 
@@ -1787,10 +1799,10 @@ var ProviderItem = function (_BaseItem) {
 
         _this.checkRequiredParameters(parameters, ['providerName', 'parameters']);
 
-        _this.providerName = parameters.providerName;
+        _this.providerName = parameters.providerName.toLowerCase();
         _this.parameters = parameters.parameters;
 
-        if ('youtube' !== _this.providerName) {
+        if (!ProviderItem.providersUrls().hasOwnProperty(_this.providerName)) {
             throw Error('Unsupported provider "' + _this.providerName + '"');
         }
         return _this;
@@ -1806,7 +1818,7 @@ var ProviderItem = function (_BaseItem) {
         value: function createIframe() {
             return this.domHelper.createElement('iframe', {
                 'frameborder': '0',
-                'src': 'https://www.youtube.com/embed/' + this.parameters.videoId
+                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId
             });
         }
 

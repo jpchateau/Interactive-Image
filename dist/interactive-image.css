@@ -95,8 +95,8 @@
   padding: 15px; }
 
 .interactive-image iframe {
-  width: 400px;
-  height: 225px;
+  width: 480px;
+  height: 270px;
   margin-bottom: -4px; }
 
 .interactive-image .text-item {
@@ -141,7 +141,8 @@
   margin-bottom: 15px; }
 
 .interactive-image video {
-  width: 400px;
+  width: 480px;
+  height: 270px;
   margin-bottom: -4px; }
 
 @font-face {
