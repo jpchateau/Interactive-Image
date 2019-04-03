@@ -41,7 +41,8 @@
     "rich content",
     "jquery-plugin",
     "ecosystem:jquery",
-    "youtube"
+    "youtube",
+    "dailymotion"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {

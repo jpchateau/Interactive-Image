@@ -9,22 +9,12 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 ## Features
 
 * Interactive videos, sounds, images and texts over large pictures
-* Content providers support: Youtube 
+* Support for content providers: Youtube, Dailymotion
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
 * Installable via package managers
 * No restriction on commercial use
-
-## Browser Support
-
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
-| --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
-
-## Requirements
-
-[jQuery](https://jquery.com/download/) 1.7.2+ is required.
 
 ## Installation
 
@@ -56,6 +46,8 @@ Edit the source code of your web page:
 ```html
 <head>
   <link rel="stylesheet" href="interactive-image.min.css" />
+  
+  <!-- Specific styles of a scene -->
   <style>
   .interactive-image {
     width: 900px;
@@ -65,10 +57,13 @@ Edit the source code of your web page:
   </style>
 </head>
 <body>
+  <!-- Main container of a scene -->
   <div id="my-interactive-image"></div>  
   
   <!-- Include jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+  <!-- Include Interactive Image jQuery plugin -->
   <script src="interactive-image.min.js"></script>
 </body>
 ```
@@ -124,6 +119,17 @@ var items = [
     },
     position: {
       left: 600,
+      top: 550
+    }
+  },
+  {
+    type: "provider",
+    providerName: "dailymotion",
+    parameters: {
+      videoId: "x2y9n70"
+    },
+    position: {
+      left: 800,
       top: 550
     }
   }
@@ -220,7 +226,7 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | ------------ | ------ | ----------------------- |:--------:| --------------- | ----------------------------- |
 | type         | string | "provider"              | Yes      |                 | Item type                     |
 | position     | object | See `Position` object   | No       | {left:0, top:0} | Hotspot position on the scene |
-| providerName | string | "youtube"               | Yes      |                 | Content provider name         |
+| providerName | string | "youtube|dailymotion"   | Yes      |                 | Content provider name         |
 | parameters   | object | See `Parameters` object | Yes      |                 | Content parameters            |
 
 ### Other objects
@@ -241,15 +247,40 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Parameters**
 
-Please note that only [Youtube](https://www.youtube.com/) videos are supported for the moment.
+Please note that only [Youtube](https://www.youtube.com/) and [Dailymotion](https://www.dailymotion.com/) videos are supported.
 
-| Property | Type    | Exam          | Required | Default | Purpose          |
+| Property | Type    | Example       | Required | Default | Purpose          |
 | -------- | ------- | ------------- |:--------:| ------- | ---------------- |
-| videoId  | string  | "iPRiQ6SBntQ" | Yes      |         | Youtube Video ID |
+| videoId  | string  | "xxxYYY123"   | Yes      |         | Video identifier |
+
+## Tests
+
+All release builds are unit tested with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).  
+Check out for the results of the different builds on [Travis CI](https://travis-ci.org/jpchateau/Interactive-Image).
+
+### Run all unit tests
+```sh
+$ npm run test
+```
+
+### Run all unit tests and display code coverage
+```sh
+$ npm run test-with-coverage
+```
+
+## Requirements
+
+[jQuery](https://jquery.com/download/) 1.7.2+ is required.
 
 ## Dependencies
 
 * [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
+
+## Browser Support
+
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
+| --- | --- | --- | --- | --- |
+| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
 
 ## Contribute
 
@@ -257,16 +288,20 @@ Feel free to contribute and open some pull requests.
 This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 
+## Philosophy
+
+This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
+A good code base, following the language good pratices, reduces maintainability issues and could be used as example. 
+
 ## Alternatives
 
-* Free:
-  * [iPicture](https://github.com/vincicat/jQuery-iPicture) (inactive)
-* Premium:
-  * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
 * For business:
   * [genially](https://www.genial.ly/)
-  * [Interactive-Img](https://interactive-img.com/)
   * [ThingLink](https://www.thinglink.com/)
+* Premium:
+  * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
+* Free:
+  * [jquery.hotspot.js](https://github.com/skypluto/jquery.hotspot.js)
 
 ## License
 
