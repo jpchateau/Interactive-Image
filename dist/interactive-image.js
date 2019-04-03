@@ -665,27 +665,46 @@ var App = function () {
         this.logHelper = new _logHelper2.default(settings.debug);
     }
 
-    /**
-     * @param {object} settings
-     */
-
-
     _createClass(App, [{
         key: "checkSettings",
-        value: function checkSettings(settings) {
+        value: function checkSettings() {
             var _this = this;
 
             return new Promise(function (resolve, reject) {
                 _this.logHelper.log('Starting settings check...');
                 var start = Date.now();
 
-                if ('boolean' !== typeof settings.debug) {
+                if ('boolean' !== typeof _this.settings.debug) {
                     _this.settings.debug = true;
                     throw Error('Check "debug" plugin option');
                 }
 
                 var end = Date.now();
-                _this.logHelper.log('Options successfully checked', end - start, 'green');
+                _this.logHelper.log('Options checked', end - start, 'green');
+
+                resolve();
+            });
+        }
+    }, {
+        key: "consolidateDOM",
+        value: function consolidateDOM() {
+            var _this2 = this;
+
+            return new Promise(function (resolve, reject) {
+                _this2.logHelper.log('Starting DOM consolidation...');
+                var start = Date.now();
+
+                // Add interactive-image class on the main scene
+                if (!_this2.$image.hasClass('interactive-image')) {
+                    _this2.$image.addClass('interactive-image');
+                }
+
+                // Add message for unsupported screen sizes
+                var unsupportedScreenElement = _this2.domHelper.createElement('div', { class: 'unsupported-screen' }, 'Interacte with your device first ;)');
+                _this2.$image.append(unsupportedScreenElement);
+
+                var end = Date.now();
+                _this2.logHelper.log('DOM consolidated', end - start, 'green');
 
                 resolve();
             });
@@ -711,26 +730,21 @@ var App = function () {
 
             return $(element.renderHtml());
         }
-
-        /**
-         * @param items
-         */
-
     }, {
         key: "createElements",
-        value: function createElements(items) {
-            var _this2 = this;
+        value: function createElements() {
+            var _this3 = this;
 
             return new Promise(function (resolve) {
-                _this2.logHelper.log('Starting elements creation...');
+                _this3.logHelper.log('Starting elements creation...');
                 var start = Date.now();
 
-                items.forEach(function (item) {
-                    _this2.$image.append(_this2.createElement(item));
+                _this3.items.forEach(function (item) {
+                    _this3.$image.append(_this3.createElement(item));
                 });
 
                 var end = Date.now();
-                _this2.logHelper.log('All items have been created', end - start, 'green');
+                _this3.logHelper.log('All items have been created', end - start, 'green');
 
                 resolve();
             });
@@ -738,13 +752,13 @@ var App = function () {
     }, {
         key: "positionItems",
         value: function positionItems() {
-            var _this3 = this;
+            var _this4 = this;
 
             return new Promise(function (resolve) {
-                _this3.logHelper.log('Starting items positioning...');
+                _this4.logHelper.log('Starting items positioning...');
                 var start = Date.now();
 
-                var $items = _this3.$image.find('.item');
+                var $items = _this4.$image.find('.item');
                 $.each($items, function () {
                     var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
                     var width = $(this).width();
@@ -764,7 +778,7 @@ var App = function () {
                 });
 
                 var end = Date.now();
-                _this3.logHelper.log('All items have been positioned', end - start, 'green');
+                _this4.logHelper.log('All items have been positioned', end - start, 'green');
 
                 resolve();
             });
@@ -772,20 +786,20 @@ var App = function () {
     }, {
         key: "bindEvents",
         value: function bindEvents() {
-            var _this4 = this;
+            var _this5 = this;
 
             return new Promise(function (resolve) {
-                _this4.logHelper.log('Starting events binding...');
+                _this5.logHelper.log('Starting events binding...');
                 var start = Date.now();
 
-                var hover = new _hover2.default(_this4.$image);
+                var hover = new _hover2.default(_this5.$image);
                 hover.bindAll();
 
                 var resizer = new _resizer2.default(hover);
-                resizer.bind(_this4.$image);
+                resizer.bind(_this5.$image);
 
                 var end = Date.now();
-                _this4.logHelper.log('All events have been bound', end - start, 'green');
+                _this5.logHelper.log('All events have been bound', end - start, 'green');
 
                 resolve();
             });
@@ -793,22 +807,22 @@ var App = function () {
     }, {
         key: "loadImages",
         value: function loadImages() {
-            var _this5 = this;
+            var _this6 = this;
 
             return new Promise(function (resolve) {
-                _this5.logHelper.log('Starting images loading...');
+                _this6.logHelper.log('Starting images loading...');
                 var start = Date.now();
 
-                if (_this5.$image.find('img').length) {
-                    (0, _imagesloaded2.default)(_this5.$image, function () {
+                if (_this6.$image.find('img').length) {
+                    (0, _imagesloaded2.default)(_this6.$image, function () {
                         var end = Date.now();
-                        _this5.logHelper.log('All images have been detected and loaded', end - start, 'green');
+                        _this6.logHelper.log('All images have been detected and loaded', end - start, 'green');
 
                         resolve();
                     });
                 } else {
                     var end = Date.now();
-                    _this5.logHelper.log('No image detected', end - start, 'green');
+                    _this6.logHelper.log('No image detected', end - start, 'green');
 
                     resolve();
                 }
@@ -817,32 +831,25 @@ var App = function () {
     }, {
         key: "execute",
         value: function execute() {
-            var _this6 = this;
+            var _this7 = this;
 
             var start = Date.now();
 
-            // Add the interactive-image class on the main scene
-            if (!this.$image.hasClass('interactive-image')) {
-                this.$image.addClass('interactive-image');
-            }
-
-            // Add message for unsupported screen sizes
-            var unsupportedScreenElement = this.domHelper.createElement('div', { class: 'unsupported-screen' }, 'Interacte with your device first ;)');
-            this.$image.append(unsupportedScreenElement);
-
-            this.checkSettings(this.settings).then(function () {
-                return _this6.createElements(_this6.items);
+            this.checkSettings().then(function () {
+                return _this7.consolidateDOM();
             }).then(function () {
-                return _this6.loadImages();
+                return _this7.createElements();
             }).then(function () {
-                return _this6.positionItems();
+                return _this7.loadImages();
             }).then(function () {
-                return _this6.bindEvents();
+                return _this7.positionItems();
+            }).then(function () {
+                return _this7.bindEvents();
             }).then(function () {
                 var end = Date.now();
-                _this6.logHelper.log('Execution completed', end - start, 'green');
+                _this7.logHelper.log('Execution completed', end - start, 'green');
             }).catch(function (exception) {
-                _this6.logHelper.log(exception.message, undefined, 'red');
+                _this7.logHelper.log(exception.message, undefined, 'red');
             });
         }
     }]);
@@ -1072,10 +1079,11 @@ var DomHelper = function () {
          * Create a DOM element
          *
          * @param {string} name
-         * @param {object} attributes
+         * @param {?object} attributes
+         * @param {?string} text
          * @returns {HTMLElement}
          */
-        value: function createElement(name, attributes) {
+        value: function createElement(name, attributes, text) {
             var node = document.createElement(name);
 
             if ('undefined' !== typeof attributes) {
@@ -1086,12 +1094,8 @@ var DomHelper = function () {
                 }
             }
 
-            for (var i = 2; i < arguments.length; i++) {
-                var child = arguments[i];
-                if ('string' === typeof child) {
-                    child = document.createTextNode(child);
-                    node.appendChild(child);
-                }
+            if ('undefined' !== typeof text) {
+                node.appendChild(document.createTextNode(text));
             }
 
             return node;
@@ -1292,12 +1296,6 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * @license
- * interactiveimagejs v2.1.0
- * A jQuery plugin to embed interactive images on your website
- * MIT License
- */
 (function ($, window, document, undefined) {
     $.fn.interactiveImage = function (items, options) {
         var _this = this;

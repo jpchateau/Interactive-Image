@@ -21,21 +21,43 @@ export default class App {
         this.logHelper = new LogHelper(settings.debug);
     }
 
-    /**
-     * @param {object} settings
-     */
-    checkSettings(settings) {
+    checkSettings() {
         return new Promise((resolve, reject) => {
             this.logHelper.log('Starting settings check...');
             const start = Date.now();
 
-            if ('boolean' !== typeof settings.debug) {
+            if ('boolean' !== typeof this.settings.debug) {
                 this.settings.debug = true;
                 throw Error('Check "debug" plugin option');
             }
 
             const end = Date.now();
-            this.logHelper.log('Options successfully checked', end - start, 'green');
+            this.logHelper.log('Options checked', end - start, 'green');
+
+            resolve();
+        });
+    }
+
+    consolidateDOM() {
+        return new Promise((resolve, reject) => {
+            this.logHelper.log('Starting DOM consolidation...');
+            const start = Date.now();
+
+            // Add interactive-image class on the main scene
+            if (!this.$image.hasClass('interactive-image')) {
+                this.$image.addClass('interactive-image');
+            }
+
+            // Add message for unsupported screen sizes
+            const unsupportedScreenElement = this.domHelper.createElement(
+                'div',
+                {class: 'unsupported-screen'},
+                'Interacte with your device first ;)'
+            );
+            this.$image.append(unsupportedScreenElement);
+
+            const end = Date.now();
+            this.logHelper.log('DOM consolidated', end - start, 'green');
 
             resolve();
         });
@@ -59,15 +81,12 @@ export default class App {
         return $(element.renderHtml());
     }
 
-    /**
-     * @param items
-     */
-    createElements(items) {
+    createElements() {
         return new Promise((resolve) => {
             this.logHelper.log('Starting elements creation...');
             const start = Date.now();
 
-            items.forEach((item) => {
+            this.items.forEach((item) => {
                 this.$image.append(this.createElement(item));
             });
 
@@ -145,23 +164,13 @@ export default class App {
     execute() {
         const start = Date.now();
 
-        // Add the interactive-image class on the main scene
-        if (!this.$image.hasClass('interactive-image')) {
-            this.$image.addClass('interactive-image');
-        }
-
-        // Add message for unsupported screen sizes
-        const unsupportedScreenElement = this.domHelper.createElement(
-            'div',
-            {class: 'unsupported-screen'},
-            'Interacte with your device first ;)'
-        );
-        this.$image.append(unsupportedScreenElement);
-
         this
-            .checkSettings(this.settings)
+            .checkSettings()
             .then(() => {
-                return this.createElements(this.items);
+                return this.consolidateDOM();
+            })
+            .then(() => {
+                return this.createElements();
             })
             .then(() => {
                 return this.loadImages();

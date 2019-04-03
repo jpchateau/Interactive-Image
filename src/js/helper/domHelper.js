@@ -3,10 +3,11 @@ export default class DomHelper {
      * Create a DOM element
      *
      * @param {string} name
-     * @param {object} attributes
+     * @param {?object} attributes
+     * @param {?string} text
      * @returns {HTMLElement}
      */
-    createElement(name, attributes) {
+    createElement(name, attributes, text) {
         const node = document.createElement(name);
 
         if ('undefined' !== typeof attributes) {
@@ -17,12 +18,8 @@ export default class DomHelper {
             }
         }
 
-        for (let i = 2; i < arguments.length; i++) {
-            let child = arguments[i];
-            if ('string' === typeof child) {
-                child = document.createTextNode(child);
-                node.appendChild(child);
-            }
+        if ('undefined' !== typeof text) {
+            node.appendChild(document.createTextNode(text));
         }
 
         return node;
