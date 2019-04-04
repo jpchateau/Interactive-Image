@@ -106,6 +106,7 @@ var items = [
     type: "video",
     path: "/path/to/video.mp4",
     caption: "A clouded leopard walking",
+    poster: "/path/to/poster.png",
     position: {
       left: 400,
       top: 550
@@ -119,17 +120,6 @@ var items = [
     },
     position: {
       left: 600,
-      top: 550
-    }
-  },
-  {
-    type: "provider",
-    providerName: "dailymotion",
-    parameters: {
-      videoId: "x2y9n70"
-    },
-    position: {
-      left: 800,
       top: 550
     }
   }
@@ -204,6 +194,8 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Audio Item**
 
+Supported audio formats: mp3, ogg, wav.
+
 | Property    | Type   | Example               | Required | Default         | Purpose                       |
 | ----------- | ------ | --------------------- |:--------:| --------------- | ----------------------------- |
 | type        | string | "audio"               | Yes      |                 | Item type                     |
@@ -213,12 +205,15 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Video Item**
 
-| Property    | Type   | Example               | Required | Default         | Purpose                       |
-| ----------- | ------ | --------------------- |:--------:| --------------- | ----------------------------- |
-| type        | string | "video"               | Yes      |                 | Item type                     |
-| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
-| path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path             |
-| caption     | string | "My caption"          | No       |                 | Video short description       |
+Supported video formats: mp4, webm.
+
+| Property    | Type   | Example               | Required | Default         | Purpose                                             |
+| ----------- | ------ | --------------------- |:--------:| --------------- | --------------------------------------------------- |
+| type        | string | "video"               | Yes      |                 | Item type                                           |
+| position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene                       |
+| path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path                                   |
+| caption     | string | "My caption"          | No       |                 | Video short description                             |
+| poster      | string | "path/to/poster.png"  | No       |                 | An image to be shown while the video is downloading |
 
 **Provider Item**
 
@@ -226,7 +221,7 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | ------------ | ------ | ----------------------- |:--------:| --------------- | ----------------------------- |
 | type         | string | "provider"              | Yes      |                 | Item type                     |
 | position     | object | See `Position` object   | No       | {left:0, top:0} | Hotspot position on the scene |
-| providerName | string | "youtube|dailymotion"   | Yes      |                 | Content provider name         |
+| providerName | string | "youtube\|dailymotion"  | Yes      |                 | Content provider name         |
 | parameters   | object | See `Parameters` object | Yes      |                 | Content parameters            |
 
 ### Other objects
@@ -247,11 +242,11 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Parameters**
 
-Please note that only [Youtube](https://www.youtube.com/) and [Dailymotion](https://www.dailymotion.com/) videos are supported.
-
 | Property | Type    | Example       | Required | Default | Purpose          |
 | -------- | ------- | ------------- |:--------:| ------- | ---------------- |
 | videoId  | string  | "xxxYYY123"   | Yes      |         | Video identifier |
+
+Please note that only [Youtube](https://www.youtube.com/) and [Dailymotion](https://www.dailymotion.com/) videos are supported.
 
 ## Tests
 

@@ -2069,6 +2069,7 @@ var VideoItem = function (_BaseItem) {
 
         _this.path = parameters.path;
         _this.caption = parameters.caption;
+        _this.poster = parameters.poster;
 
         _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
 
@@ -2094,6 +2095,10 @@ var VideoItem = function (_BaseItem) {
             var source = this.domHelper.createElement('source');
             source.setAttribute('src', this.path);
             source.setAttribute('type', VideoItem.fileFormats()[this.fileExtension]);
+
+            if ('undefined' !== typeof this.poster) {
+                video.setAttribute('poster', this.poster);
+            }
 
             video.appendChild(source);
 
