@@ -187,7 +187,6 @@ export default class App {
             .finally( () => {
                 const end = Date.now();
                 this.logHelper.log('Execution completed', end - start, 'green');
-            })
-        ;
+            });
     }
 }
