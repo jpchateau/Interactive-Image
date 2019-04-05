@@ -181,12 +181,13 @@ export default class App {
             .then(() => {
                 return this.bindEvents();
             })
-            .then(() => {
+            .catch((exception) => {
+                this.logHelper.log(exception.message, undefined, 'red');
+            })
+            .finally( () => {
                 const end = Date.now();
                 this.logHelper.log('Execution completed', end - start, 'green');
             })
-            .catch((exception) => {
-                this.logHelper.log(exception.message, undefined, 'red');
-            });
+        ;
     }
 }

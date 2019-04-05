@@ -845,11 +845,11 @@ var App = function () {
                 return _this7.positionItems();
             }).then(function () {
                 return _this7.bindEvents();
-            }).then(function () {
-                var end = Date.now();
-                _this7.logHelper.log('Execution completed', end - start, 'green');
             }).catch(function (exception) {
                 _this7.logHelper.log(exception.message, undefined, 'red');
+            }).finally(function () {
+                var end = Date.now();
+                _this7.logHelper.log('Execution completed', end - start, 'green');
             });
         }
     }]);
