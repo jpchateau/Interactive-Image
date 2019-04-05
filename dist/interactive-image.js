@@ -1296,13 +1296,6 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*!
-* interactiveimagejs
-* Version 2.3.0
-* https://github.com/jpchateau
-* Jean-Philippe Chateau - <contact@jpchateau.com>
-* MIT License
-*/
 (function ($, window, document, undefined) {
     $.fn.interactiveImage = function (items, options) {
         var _this = this;
