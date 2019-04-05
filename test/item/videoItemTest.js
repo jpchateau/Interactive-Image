@@ -7,6 +7,7 @@ describe('Video Item', function() {
             let parameters = {
                 path: "test.mp4",
                 caption: "my test caption",
+                poster: "test.png",
                 position: {
                     top: 100,
                     left: 100
@@ -36,6 +37,7 @@ describe('Video Item', function() {
             expect(videoElement.hasAttribute('controls')).to.be.true;
             expect(videoElement.getAttribute('controlsList')).to.equal('nodownload');
             expect(videoElement.getAttribute('preload')).to.equal('metadata');
+            expect(videoElement.getAttribute('poster')).to.equal('test.png');
             expect(videoElement.textContent).to.equal('Your browser does not support the video tag.');
 
             let sourceElement = videoElement.childNodes[1];

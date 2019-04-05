@@ -4,6 +4,13 @@ import BaseItem from "./baseItem";
  * @extends BaseItem
  */
 export default class ProviderItem extends BaseItem {
+    static providersUrls() {
+        return {
+            'youtube': 'https://www.youtube.com/embed/',
+            'dailymotion': 'https://www.dailymotion.com/embed/video/'
+        };
+    }
+
     /**
      * @param {object} parameters
      */
@@ -12,10 +19,10 @@ export default class ProviderItem extends BaseItem {
 
         this.checkRequiredParameters(parameters, ['providerName', 'parameters']);
 
-        this.providerName = parameters.providerName;
+        this.providerName = parameters.providerName.toLowerCase();
         this.parameters = parameters.parameters;
 
-        if ('youtube' !== this.providerName) {
+        if (!ProviderItem.providersUrls().hasOwnProperty(this.providerName)) {
             throw Error('Unsupported provider "' + this.providerName + '"');
         }
     }
@@ -28,7 +35,7 @@ export default class ProviderItem extends BaseItem {
             'iframe',
             {
                 'frameborder': '0',
-                'src': 'https://www.youtube.com/embed/' + this.parameters.videoId
+                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId
             }
         );
     }

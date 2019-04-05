@@ -14,16 +14,15 @@
             background-image: url('https://c2.staticflickr.com/8/7369/27165702821_ece3549805_b.jpg');
         }
     </style>
+
+    <!-- Include Interactive Image jQuery plugin Styles -->
 </head>
 <body>
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Include Interactive Image plugin -->
-    <script src="interactive-image.js"></script>
-
     <!-- Main container of a scene -->
     <div id="my-interactive-image"></div>
+
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script>
         // Plugin Items collection
@@ -152,6 +151,16 @@
                     top: 350
                 }
             },
+            {
+                type: "video",
+                path: "https://www.videvo.net/videvo_files/converted/2015_08/videos/Tiger.mp460597.mp4",
+                caption: "Video with caption and poster",
+                poster: "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwMC8zNDkvb3JpZ2luYWwvc2liZXJpYW4tdGlnZXIuanBn",
+                position: {
+                    left: 500,
+                    top: 350
+                }
+            },
             // Provider items
             {
                 type: "provider",
@@ -163,12 +172,23 @@
                     left: 100,
                     top: 450
                 }
+            },
+            {
+                type: "provider",
+                providerName: "dailymotion",
+                parameters: {
+                    videoId: "x2y9n70"
+                },
+                position: {
+                    left: 300,
+                    top: 450
+                }
             }
         ];
 
         // Plugin configuration
         var options = {
-            debug: true // debug messages are visible in console
+            debug: true // debug messages enabled in console
         };
 
         // Plugin activation
@@ -176,5 +196,7 @@
             $("#my-interactive-image").interactiveImage(items, options);
         });
     </script>
+
+    <!-- Include Interactive Image jQuery plugin JavaScript -->
 </body>
 </html>

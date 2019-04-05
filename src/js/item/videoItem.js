@@ -34,6 +34,7 @@ export default class VideoItem extends BaseItem {
 
         this.path = parameters.path;
         this.caption = parameters.caption;
+        this.poster = parameters.poster;
 
         this.fileExtension = FileHelper.guessExtension(this.path);
 
@@ -54,6 +55,10 @@ export default class VideoItem extends BaseItem {
         const source = this.domHelper.createElement('source');
         source.setAttribute('src', this.path);
         source.setAttribute('type', VideoItem.fileFormats()[this.fileExtension]);
+
+        if ('undefined' !== typeof this.poster) {
+            video.setAttribute('poster', this.poster);
+        }
 
         video.appendChild(source);
 
