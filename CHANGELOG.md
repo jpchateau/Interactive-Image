@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.3.0 (2019-04-05)
+* Added support of poster attribute for HTML5 video items
+* Added support of Dailymotion videos
+* Codebase improvements
+
 ## 2.2.0 (2019-03-06)
 * Added Sound items
 * Added Video items

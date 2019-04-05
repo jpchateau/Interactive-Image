@@ -250,8 +250,8 @@ Please note that only [Youtube](https://www.youtube.com/) and [Dailymotion](http
 
 ## Tests
 
-All release builds are unit tested with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).  
-Check out for the results of the different builds on [Travis CI](https://travis-ci.org/jpchateau/Interactive-Image).
+All builds are unit tested with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).
+Check it out on [Travis CI](https://travis-ci.org/jpchateau/Interactive-Image)!
 
 ### Run all unit tests
 ```sh
