@@ -45,6 +45,7 @@ Edit the source code of your web page:
 
 ```html
 <head>
+  <!-- Include Interactive Image jQuery plugin Styles -->
   <link rel="stylesheet" href="interactive-image.min.css" />
   
   <!-- Specific styles of a scene -->
@@ -63,7 +64,7 @@ Edit the source code of your web page:
   <!-- Include jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <!-- Include Interactive Image jQuery plugin -->
+  <!-- Include Interactive Image jQuery plugin JavaScript -->
   <script src="interactive-image.min.js"></script>
 </body>
 ```
