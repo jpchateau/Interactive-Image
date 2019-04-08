@@ -47,7 +47,7 @@ module.exports = {
         }),
         new HtmlWebPackPlugin({
             template: './src/demo.html',
-            filename: './demo.html'
+            filename: '../demo/demo.html'
         })
     ],
     externals: {

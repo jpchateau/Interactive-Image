@@ -19,7 +19,7 @@ $ npm run build
 ```
 
 When working on local files, you can build the project in development mode, start a local server, and view the result in
-your web browser at this URL: `http://localhost:8080/dist/demo.html`.
+your web browser at this URL: `http://localhost:8080/demo/demo.html`.
 
 ```sh
 $ npm run dev
