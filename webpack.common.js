@@ -48,6 +48,9 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: './src/demo.html',
             filename: '../demo/demo.html'
+        }),
+        new webpack.BannerPlugin({
+            banner: '[name] v2.3.0\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],
     externals: {

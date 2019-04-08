@@ -1,3 +1,9 @@
+/*!
+ * interactive-image v2.3.0
+ * https://github.com/jpchateau
+ * Jean-Philippe Chateau - <contact@jpchateau.com>
+ * MIT License
+ */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
