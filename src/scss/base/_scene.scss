@@ -1,7 +1,7 @@
 .interactive-image {
   font-family: Arial, sans-serif;
   position: relative;
-  z-index: 8;
+  z-index: 0;
   caret-color: transparent;
   cursor: default;
 
@@ -27,7 +27,7 @@
 
   .hotspot {
     position: absolute;
-    z-index: 16;
+    z-index: 8;
     width: 30px;
     height: 30px;
     color: white;
@@ -47,7 +47,7 @@
 
   .item {
     position: absolute;
-    z-index: 32;
+    z-index: 8;
     background-color: white;
     color: $black-small-text;
     min-width: 100px;
