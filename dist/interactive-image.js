@@ -626,7 +626,7 @@ var _domHelper = __webpack_require__(/*! ./helper/domHelper */ "./src/js/helper/
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
 
-var _hover = __webpack_require__(/*! ./event/hover */ "./src/js/event/hover.js");
+var _hover = __webpack_require__(/*! ./behavior/hover */ "./src/js/behavior/hover.js");
 
 var _hover2 = _interopRequireDefault(_hover);
 
@@ -706,7 +706,7 @@ var App = function () {
                 }
 
                 // Add message for unsupported screen sizes
-                var unsupportedScreenElement = _this2.domHelper.createElement('div', { class: 'unsupported-screen' }, 'Interacte with your device first ;)');
+                var unsupportedScreenElement = _this2.domHelper.createElement('div', { class: 'unsupported-screen' }, 'Please rotate your device.');
                 _this2.$image.append(unsupportedScreenElement);
 
                 var end = Date.now();
@@ -868,10 +868,10 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ "./src/js/event/hover.js":
-/*!*******************************!*\
-  !*** ./src/js/event/hover.js ***!
-  \*******************************/
+/***/ "./src/js/behavior/baseBehavior.js":
+/*!*****************************************!*\
+  !*** ./src/js/behavior/baseBehavior.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -886,9 +886,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Hover = function () {
-    function Hover($image) {
-        _classCallCheck(this, Hover);
+var BaseBehavior = function () {
+    function BaseBehavior($image) {
+        _classCallCheck(this, BaseBehavior);
 
         this.$image = $image;
         this.enabled = false;
@@ -899,7 +899,7 @@ var Hover = function () {
      */
 
 
-    _createClass(Hover, [{
+    _createClass(BaseBehavior, [{
         key: 'bindMainImageEvents',
         value: function bindMainImageEvents() {
             // Mouse enters main image to show all hotspots
@@ -914,11 +914,101 @@ var Hover = function () {
             this.$image.on('mouseleave', function () {
                 var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
-                    Hover.hideElement($(this));
+                    BaseBehavior.hideElement($(this));
                 });
             });
         }
     }, {
+        key: 'bindAll',
+        value: function bindAll() {
+            if (this.enabled === false) {
+                this.enabled = true;
+            }
+
+            this.bindMainImageEvents();
+            this.bindSpecificEvents();
+        }
+    }, {
+        key: 'unbindAll',
+        value: function unbindAll() {
+            if (this.enabled === true) {
+                this.enabled = false;
+            }
+
+            this.$image.off();
+        }
+    }, {
+        key: 'bindSpecificEvents',
+        value: function bindSpecificEvents() {
+            throw Error('bindSpecificEvents method not implemented');
+        }
+    }], [{
+        key: 'hideElement',
+        value: function hideElement($element) {
+            if ($element.css('display') === 'block') {
+                $element.hide();
+            }
+        }
+
+        /**
+         * @param $element
+         */
+
+    }, {
+        key: 'showElement',
+        value: function showElement($element) {
+            if ($element.css('display') !== 'block') {
+                $element.show();
+            }
+        }
+    }]);
+
+    return BaseBehavior;
+}();
+
+exports.default = BaseBehavior;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/js/behavior/hover.js":
+/*!**********************************!*\
+  !*** ./src/js/behavior/hover.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _baseBehavior = __webpack_require__(/*! ./baseBehavior */ "./src/js/behavior/baseBehavior.js");
+
+var _baseBehavior2 = _interopRequireDefault(_baseBehavior);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Hover = function (_BaseBehavior) {
+    _inherits(Hover, _BaseBehavior);
+
+    function Hover($image) {
+        _classCallCheck(this, Hover);
+
+        return _possibleConstructorReturn(this, (Hover.__proto__ || Object.getPrototypeOf(Hover)).call(this, $image));
+    }
+
+    _createClass(Hover, [{
         key: 'bindSpecificEvents',
         value: function bindSpecificEvents() {
             var that = this;
@@ -946,48 +1036,10 @@ var Hover = function () {
                 });
             });
         }
-    }, {
-        key: 'bindAll',
-        value: function bindAll() {
-            if (this.enabled === false) {
-                this.enabled = true;
-            }
-
-            this.bindMainImageEvents();
-            this.bindSpecificEvents();
-        }
-    }, {
-        key: 'unbindAll',
-        value: function unbindAll() {
-            if (this.enabled === true) {
-                this.enabled = false;
-            }
-
-            this.$image.off();
-        }
-    }], [{
-        key: 'hideElement',
-        value: function hideElement($element) {
-            if ($element.css('display') === 'block') {
-                $element.hide();
-            }
-        }
-
-        /**
-         * @param $element
-         */
-
-    }, {
-        key: 'showElement',
-        value: function showElement($element) {
-            if ($element.css('display') !== 'block') {
-                $element.show();
-            }
-        }
     }]);
 
     return Hover;
-}();
+}(_baseBehavior2.default);
 
 exports.default = Hover;
 module.exports = exports['default'];
@@ -1014,12 +1066,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Resizer = function () {
     /**
-     * @param {Hover} hover
+     * @param {Hover} behavior
      */
-    function Resizer(hover) {
+    function Resizer(behavior) {
         _classCallCheck(this, Resizer);
 
-        this.hover = hover;
+        this.behavior = behavior;
     }
 
     _createClass(Resizer, [{
@@ -1030,12 +1082,12 @@ var Resizer = function () {
 
             var enableEffects = function enableEffects() {
                 if (window.innerWidth <= 320) {
-                    if (that.hover.enabled === true) {
-                        that.hover.unbindAll();
+                    if (that.behavior.enabled === true) {
+                        that.behavior.unbindAll();
                     }
                 } else {
-                    if (that.hover.enabled === false) {
-                        that.hover.bindAll();
+                    if (that.behavior.enabled === false) {
+                        that.behavior.bindAll();
                     }
                 }
             };

@@ -7,7 +7,7 @@
 .interactive-image {
   font-family: Arial, sans-serif;
   position: relative;
-  z-index: 8;
+  z-index: 0;
   caret-color: transparent;
   cursor: default; }
   .interactive-image .unsupported-screen {
@@ -27,7 +27,7 @@
         display: block; } }
   .interactive-image .hotspot {
     position: absolute;
-    z-index: 16;
+    z-index: 8;
     width: 30px;
     height: 30px;
     color: white;
@@ -41,7 +41,7 @@
     max-height: 200px; }
   .interactive-image .item {
     position: absolute;
-    z-index: 32;
+    z-index: 16;
     background-color: white;
     color: #1d2129;
     min-width: 100px;

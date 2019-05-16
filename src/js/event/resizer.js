@@ -1,9 +1,9 @@
 export default class Resizer {
     /**
-     * @param {Hover} hover
+     * @param {Hover} behavior
      */
-    constructor(hover) {
-        this.hover = hover;
+    constructor(behavior) {
+        this.behavior = behavior;
     }
 
     bind() {
@@ -12,12 +12,12 @@ export default class Resizer {
 
         let enableEffects = () => {
             if (window.innerWidth <= 320) {
-                if (that.hover.enabled === true) {
-                    that.hover.unbindAll();
+                if (that.behavior.enabled === true) {
+                    that.behavior.unbindAll();
                 }
             } else {
-                if (that.hover.enabled === false) {
-                    that.hover.bindAll();
+                if (that.behavior.enabled === false) {
+                    that.behavior.bindAll();
                 }
             }
         };

@@ -1,5 +1,5 @@
 import DomHelper from "./helper/domHelper";
-import Hover from "./event/hover";
+import Hover from "./behavior/hover";
 import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
@@ -52,7 +52,7 @@ export default class App {
             const unsupportedScreenElement = this.domHelper.createElement(
                 'div',
                 {class: 'unsupported-screen'},
-                'Interacte with your device first ;)'
+                'Please rotate your device.'
             );
             this.$image.append(unsupportedScreenElement);
 
