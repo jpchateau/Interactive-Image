@@ -1,6 +1,4 @@
 import '../scss/main.scss';
-import '../css/icomoon.css';
-
 import App from "./app";
 
 (($, window, document, undefined) => {

@@ -593,17 +593,6 @@ function factory(window, EvEmitter) {
 
 /***/ }),
 
-/***/ "./src/css/icomoon.css":
-/*!*****************************!*\
-  !*** ./src/css/icomoon.css ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./src/js/app.js":
 /*!***********************!*\
   !*** ./src/js/app.js ***!
@@ -1345,8 +1334,6 @@ module.exports = exports['default'];
 /* WEBPACK VAR INJECTION */(function(jQuery) {
 
 __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
-
-__webpack_require__(/*! ../css/icomoon.css */ "./src/css/icomoon.css");
 
 var _app = __webpack_require__(/*! ./app */ "./src/js/app.js");
 

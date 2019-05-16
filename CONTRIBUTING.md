@@ -29,7 +29,7 @@ $ npm run start:dev
 ### Icons
 
 Use [IcoMoon](https://icomoon.io/) icon library to export icons from IcoMoon app and include them in the project.  
-Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon app.
+Just start by importing `src/fonts/selection.json` file into the IcoMoon app.
 
 ## Code Quality
 
