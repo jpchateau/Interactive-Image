@@ -5,6 +5,7 @@ import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
 import Resizer from "./event/resizer";
+import SocialShare from "./service/socialShare";
 
 export default class App {
     /**
@@ -29,6 +30,10 @@ export default class App {
             if ('boolean' !== typeof this.settings.debug) {
                 this.settings.debug = true;
                 throw Error('Check "debug" plugin option');
+            }
+
+            if ('boolean' !== typeof this.settings.share) {
+                throw Error('Check "share" plugin option');
             }
 
             const end = Date.now();
@@ -131,11 +136,28 @@ export default class App {
             hover.bindAll();
 
             let resizer = new Resizer(hover);
-            resizer.bind(this.$image);
+            resizer.bind();
 
             const end = Date.now();
             this.logHelper.log('All events have been bound', end - start, 'green');
 
+            resolve();
+        });
+    }
+
+    socialShare() {
+        return new Promise((resolve) => {
+            this.logHelper.log('Starting to evaluate social share capabilities...');
+            const start = Date.now();
+
+            if (true === this.settings.share) {
+                const socialShare = new SocialShare(this.domHelper, this.$image);
+                console.log(socialShare);
+                socialShare.buildSocialShareBox([]);
+            }
+
+            const end = Date.now();
+            this.logHelper.log('Social capabilities executed', end - start, 'green');
             resolve();
         });
     }
@@ -180,6 +202,9 @@ export default class App {
             })
             .then(() => {
                 return this.bindEvents();
+            })
+            .then(() => {
+                return this.socialShare();
             })
             .catch((exception) => {
                 this.logHelper.log(exception.message, undefined, 'red');

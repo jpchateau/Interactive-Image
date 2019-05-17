@@ -4,7 +4,8 @@ import App from "./app";
 (($, window, document, undefined) => {
     $.fn.interactiveImage = function(items, options) {
         const defaults = {
-            debug: false
+            debug: false,
+            share: true
         };
 
         options = $.extend(defaults, options);

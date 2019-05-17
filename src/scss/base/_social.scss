@@ -1,0 +1,43 @@
+.interactive-image {
+  .social-share-box {
+    background-color: white;
+    display: flex;
+    width: 32px;
+    transition: height 0.3s;
+    height: 32px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    cursor: pointer;
+
+    &.expanded {
+      transition: height 0.3s;
+      height: 64px;
+    }
+
+    .share-button {
+      width: 32px;
+      height: 32px;
+      font-size: 22px;
+      background: rgba(0, 0, 0, .7);
+      color: white;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: center;
+    }
+
+    .twitter-button {
+      width: 32px;
+      height: 32px;
+      font-size: 22px;
+      background-color: #1da1f2;
+      color: #f5f8fa;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: center;
+    }
+  }
+}

@@ -639,6 +639,10 @@ var _resizer = __webpack_require__(/*! ./event/resizer */ "./src/js/event/resize
 
 var _resizer2 = _interopRequireDefault(_resizer);
 
+var _socialShare = __webpack_require__(/*! ./service/socialShare */ "./src/js/service/socialShare.js");
+
+var _socialShare2 = _interopRequireDefault(_socialShare);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -672,6 +676,10 @@ var App = function () {
                 if ('boolean' !== typeof _this.settings.debug) {
                     _this.settings.debug = true;
                     throw Error('Check "debug" plugin option');
+                }
+
+                if ('boolean' !== typeof _this.settings.share) {
+                    throw Error('Check "share" plugin option');
                 }
 
                 var end = Date.now();
@@ -791,7 +799,7 @@ var App = function () {
                 hover.bindAll();
 
                 var resizer = new _resizer2.default(hover);
-                resizer.bind(_this5.$image);
+                resizer.bind();
 
                 var end = Date.now();
                 _this5.logHelper.log('All events have been bound', end - start, 'green');
@@ -800,24 +808,44 @@ var App = function () {
             });
         }
     }, {
-        key: "loadImages",
-        value: function loadImages() {
+        key: "socialShare",
+        value: function socialShare() {
             var _this6 = this;
 
             return new Promise(function (resolve) {
-                _this6.logHelper.log('Starting images loading...');
+                _this6.logHelper.log('Starting to evaluate social share capabilities...');
                 var start = Date.now();
 
-                if (_this6.$image.find('img').length) {
-                    (0, _imagesloaded2.default)(_this6.$image, function () {
+                if (true === _this6.settings.share) {
+                    var socialShare = new _socialShare2.default(_this6.domHelper, _this6.$image);
+                    console.log(socialShare);
+                    socialShare.buildSocialShareBox([]);
+                }
+
+                var end = Date.now();
+                _this6.logHelper.log('Social capabilities executed', end - start, 'green');
+                resolve();
+            });
+        }
+    }, {
+        key: "loadImages",
+        value: function loadImages() {
+            var _this7 = this;
+
+            return new Promise(function (resolve) {
+                _this7.logHelper.log('Starting images loading...');
+                var start = Date.now();
+
+                if (_this7.$image.find('img').length) {
+                    (0, _imagesloaded2.default)(_this7.$image, function () {
                         var end = Date.now();
-                        _this6.logHelper.log('All images have been detected and loaded', end - start, 'green');
+                        _this7.logHelper.log('All images have been detected and loaded', end - start, 'green');
 
                         resolve();
                     });
                 } else {
                     var end = Date.now();
-                    _this6.logHelper.log('No image detected', end - start, 'green');
+                    _this7.logHelper.log('No image detected', end - start, 'green');
 
                     resolve();
                 }
@@ -826,25 +854,27 @@ var App = function () {
     }, {
         key: "execute",
         value: function execute() {
-            var _this7 = this;
+            var _this8 = this;
 
             var start = Date.now();
 
             this.checkSettings().then(function () {
-                return _this7.consolidateDOM();
+                return _this8.consolidateDOM();
             }).then(function () {
-                return _this7.createElements();
+                return _this8.createElements();
             }).then(function () {
-                return _this7.loadImages();
+                return _this8.loadImages();
             }).then(function () {
-                return _this7.positionItems();
+                return _this8.positionItems();
             }).then(function () {
-                return _this7.bindEvents();
+                return _this8.bindEvents();
+            }).then(function () {
+                return _this8.socialShare();
             }).catch(function (exception) {
-                _this7.logHelper.log(exception.message, undefined, 'red');
+                _this8.logHelper.log(exception.message, undefined, 'red');
             }).finally(function () {
                 var end = Date.now();
-                _this7.logHelper.log('Execution completed', end - start, 'green');
+                _this8.logHelper.log('Execution completed', end - start, 'green');
             });
         }
     }]);
@@ -1346,7 +1376,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         var _this = this;
 
         var defaults = {
-            debug: false
+            debug: false,
+            share: true
         };
 
         options = $.extend(defaults, options);
@@ -2178,6 +2209,79 @@ var VideoItem = function (_BaseItem) {
 
 exports.default = VideoItem;
 module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./src/js/service/socialShare.js":
+/*!***************************************!*\
+  !*** ./src/js/service/socialShare.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var SocialShare = function () {
+    /**
+     * @param {DomHelper} domHelper
+     * @param $image
+     */
+    function SocialShare(domHelper, $image) {
+        _classCallCheck(this, SocialShare);
+
+        this.domHelper = domHelper;
+        this.$image = $image;
+    }
+
+    _createClass(SocialShare, [{
+        key: 'buildTwitterButton',
+        value: function buildTwitterButton() {
+            return this.domHelper.createElement('div', { 'class': 'twitter-button icon-twitter' });
+        }
+    }, {
+        key: 'buildSocialShareBox',
+        value: function buildSocialShareBox(socialOptions) {
+            var elementBox = this.domHelper.createElement('div', { 'class': 'social-share-box' });
+            var elementShareButton = this.domHelper.createElement('div', { 'class': 'share-button icon-share2' });
+
+            elementBox.appendChild(this.buildTwitterButton());
+            elementBox.appendChild(elementShareButton);
+
+            this.$image.append(elementBox);
+
+            this.bindEvents();
+        }
+    }, {
+        key: 'bindEvents',
+        value: function bindEvents() {
+            $('.share-button').on('mouseenter', function () {
+                $(this).parent().addClass('expanded');
+            });
+
+            $('.social-share-box').on('mouseleave', function () {
+                $(this).removeClass('expanded');
+            });
+
+            $('.twitter-button').on('click', function () {
+                alert('tweet');
+            });
+        }
+    }]);
+
+    return SocialShare;
+}();
+
+exports.default = SocialShare;
+module.exports = exports['default'];
 
 /***/ }),
 
