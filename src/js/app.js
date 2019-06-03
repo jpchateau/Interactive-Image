@@ -32,7 +32,7 @@ export default class App {
                 throw Error('Check "debug" plugin option');
             }
 
-            if ('boolean' !== typeof this.settings.share) {
+            if ('boolean' !== typeof this.settings.share && 'object' !== typeof this.settings.share) {
                 throw Error('Check "share" plugin option');
             }
 
@@ -150,10 +150,9 @@ export default class App {
             this.logHelper.log('Starting to evaluate social share capabilities...');
             const start = Date.now();
 
-            if (true === this.settings.share) {
+            if (false !== this.settings.share) {
                 const socialShare = new SocialShare(this.domHelper, this.$image);
-                console.log(socialShare);
-                socialShare.buildSocialShareBox([]);
+                socialShare.buildSocialShareBox(this.settings.share);
             }
 
             const end = Date.now();

@@ -10,6 +10,7 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 
 * Interactive videos, sounds, images and texts over large pictures
 * Support for content providers: Youtube, Dailymotion
+* Social sharing capabilities (Twitter)
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -164,9 +165,23 @@ $(document).ready(function() {
 
 **Options**
 
-| Property | Type    | Example | Required | Default | Purpose                |
-| ---------| ------- | ------- |:--------:| ------- | ---------------------- |
-| debug    | boolean | true    | No       | false   | Enable logs in console |
+| Property | Type                       | Example | Required | Default | Purpose                |
+| ---------| -------------------------- | ------- |:--------:| ------- | ---------------------- |
+| debug    | boolean                    | true    | No       | false   | Enable logs in console |
+| social   | boolean or `Twitter` object | false   | No       | true    | Enable social sharing  |
+
+Supported social media: Twitter
+
+** Twitter options **
+
+| Property | Type   | Example                      | Required | Default      | Purpose          |
+| -------- | ------ | ---------------------------- |:--------:| ------------ | ---------------- |
+| url      | string | "http://www.example.com"     | No       | document url | Custom URL       |
+| text     | string | "Text"                       | No       | page title   | Text             |
+| username | string | "Twitter account"            | No       |              | Twitter username |
+| hashtags | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags         |
+
+See 
 
 ### Items
 

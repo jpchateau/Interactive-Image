@@ -3,7 +3,7 @@
     background-color: white;
     display: flex;
     width: 32px;
-    transition: height 0.3s;
+    transition: height .3s;
     height: 32px;
     position: absolute;
     bottom: 20px;
@@ -14,7 +14,7 @@
     cursor: pointer;
 
     &.expanded {
-      transition: height 0.3s;
+      transition: height .3s;
       height: 64px;
     }
 
@@ -38,6 +38,11 @@
       padding-top: 5px;
       padding-bottom: 5px;
       text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      display: block;
     }
   }
 }

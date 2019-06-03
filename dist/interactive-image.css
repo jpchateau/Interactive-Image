@@ -72,8 +72,8 @@
   font-weight: normal;
   font-style: normal; }
 
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
+[class^='icon-'],
+[class*=' icon-'] {
   font-family: "icomoon" !important;
   speak: none;
   font-style: normal;
@@ -81,24 +81,23 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-radio-checked:before {
+.icon-radio-checked::before {
   content: "\EA54"; }
 
-.icon-share2:before {
+.icon-share2::before {
   content: "\EA82"; }
 
-.icon-twitter:before {
+.icon-twitter::before {
   content: "\EA96"; }
 
 .interactive-image .social-share-box {
   background-color: white;
   display: flex;
   width: 32px;
-  transition: height 0.3s;
+  transition: height .3s;
   height: 32px;
   position: absolute;
   bottom: 20px;
@@ -108,7 +107,7 @@
   overflow: hidden;
   cursor: pointer; }
   .interactive-image .social-share-box.expanded {
-    transition: height 0.3s;
+    transition: height .3s;
     height: 64px; }
   .interactive-image .social-share-box .share-button {
     width: 32px;
@@ -128,6 +127,9 @@
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center; }
+  .interactive-image .social-share-box a {
+    text-decoration: none;
+    display: block; }
 
 .interactive-image .audio-item {
   padding: 15px;

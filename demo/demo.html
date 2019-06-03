@@ -188,7 +188,15 @@
 
         // Plugin configuration
         var options = {
-            debug: true // debug messages enabled in console
+            debug: true, // debug messages enabled in console
+            share: { // false to disable the social share feature
+                twitter: {
+                    url: "https://www.jpchateau.com/demo/interactive-image", // default: document URL
+                    text: "Clouded Leopard", // default: page title
+                    username: "jpchateau",
+                    hashtags: ["jQuery", "cloudedLeopard"]
+                }
+            }
         };
 
         // Plugin activation

@@ -609,6 +609,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _domHelper = __webpack_require__(/*! ./helper/domHelper */ "./src/js/helper/domHelper.js");
@@ -678,7 +680,7 @@ var App = function () {
                     throw Error('Check "debug" plugin option');
                 }
 
-                if ('boolean' !== typeof _this.settings.share) {
+                if ('boolean' !== typeof _this.settings.share && 'object' !== _typeof(_this.settings.share)) {
                     throw Error('Check "share" plugin option');
                 }
 
@@ -816,10 +818,9 @@ var App = function () {
                 _this6.logHelper.log('Starting to evaluate social share capabilities...');
                 var start = Date.now();
 
-                if (true === _this6.settings.share) {
+                if (false !== _this6.settings.share) {
                     var socialShare = new _socialShare2.default(_this6.domHelper, _this6.$image);
-                    console.log(socialShare);
-                    socialShare.buildSocialShareBox([]);
+                    socialShare.buildSocialShareBox(_this6.settings.share);
                 }
 
                 var end = Date.now();
@@ -2226,6 +2227,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2242,18 +2245,56 @@ var SocialShare = function () {
         this.$image = $image;
     }
 
+    /**
+     * @param {object} options
+     * @returns {string}
+     */
+
+
     _createClass(SocialShare, [{
-        key: 'buildTwitterButton',
-        value: function buildTwitterButton() {
-            return this.domHelper.createElement('div', { 'class': 'twitter-button icon-twitter' });
+        key: 'buildTwitterUrl',
+        value: function buildTwitterUrl(options) {
+            var parameters = {
+                url: options.url || window.location.href,
+                text: options.text || window.document.title
+            };
+
+            if (typeof options.username === 'string') {
+                parameters.via = options.username;
+            }
+
+            if (_typeof(options.hashtags) === 'object') {
+                parameters.hashtags = options.hashtags.join(',');
+            }
+
+            return 'https://twitter.com/intent/tweet?' + $.param(parameters);
         }
+
+        /**
+         * @param {object} options
+         */
+
+    }, {
+        key: 'buildTwitterButton',
+        value: function buildTwitterButton(options) {
+            var twitterLink = this.domHelper.createElement('a', { 'class': 'twitter-button icon-twitter' });
+            twitterLink.setAttribute('target', '_blank');
+            twitterLink.setAttribute('href', this.buildTwitterUrl(options));
+
+            return twitterLink;
+        }
+
+        /**
+         * @param {object} socialOptions
+         */
+
     }, {
         key: 'buildSocialShareBox',
         value: function buildSocialShareBox(socialOptions) {
             var elementBox = this.domHelper.createElement('div', { 'class': 'social-share-box' });
             var elementShareButton = this.domHelper.createElement('div', { 'class': 'share-button icon-share2' });
 
-            elementBox.appendChild(this.buildTwitterButton());
+            elementBox.appendChild(this.buildTwitterButton(socialOptions.twitter || {}));
             elementBox.appendChild(elementShareButton);
 
             this.$image.append(elementBox);
@@ -2269,10 +2310,6 @@ var SocialShare = function () {
 
             $('.social-share-box').on('mouseleave', function () {
                 $(this).removeClass('expanded');
-            });
-
-            $('.twitter-button').on('click', function () {
-                alert('tweet');
             });
         }
     }]);
