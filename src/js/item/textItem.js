@@ -70,11 +70,12 @@ export default class TextItem extends BaseItem {
         const textElement = this.domHelper.createElement('div', {'class': 'text-item'});
 
         textElement.appendChild(this.createTitle());
-        textElement.appendChild(this.createDescription());
 
         if ('undefined' !== typeof this.picturePath) {
             textElement.appendChild(this.createPicture());
         }
+
+        textElement.appendChild(this.createDescription());
 
         if ('undefined' !== typeof this.link) {
             textElement.appendChild(this.createLink());

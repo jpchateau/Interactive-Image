@@ -1511,12 +1511,12 @@ var AudioItem = function (_BaseItem) {
             var element = this.createItemElement();
             var audioItem = this.domHelper.createElement('div', { 'class': 'audio-item' });
 
+            audioItem.appendChild(this.createAudio());
+
             if ('undefined' !== typeof this.caption) {
                 var caption = this.domHelper.createElement('span', { 'class': 'caption' }, this.caption);
                 audioItem.appendChild(caption);
             }
-
-            audioItem.appendChild(this.createAudio());
 
             element.appendChild(audioItem);
 
@@ -2044,11 +2044,12 @@ var TextItem = function (_BaseItem) {
             var textElement = this.domHelper.createElement('div', { 'class': 'text-item' });
 
             textElement.appendChild(this.createTitle());
-            textElement.appendChild(this.createDescription());
 
             if ('undefined' !== typeof this.picturePath) {
                 textElement.appendChild(this.createPicture());
             }
+
+            textElement.appendChild(this.createDescription());
 
             if ('undefined' !== typeof this.link) {
                 textElement.appendChild(this.createLink());
@@ -2192,12 +2193,12 @@ var VideoItem = function (_BaseItem) {
             var element = this.createItemElement();
             var videoItem = this.domHelper.createElement('div', { 'class': 'video-item' });
 
+            videoItem.appendChild(this.createVideo());
+
             if ('undefined' !== typeof this.caption) {
                 var caption = this.domHelper.createElement('span', { 'class': 'caption' }, this.caption);
                 videoItem.appendChild(caption);
             }
-
-            videoItem.appendChild(this.createVideo());
 
             element.appendChild(videoItem);
 

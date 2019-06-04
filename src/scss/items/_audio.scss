@@ -3,15 +3,16 @@
     padding: 15px;
     max-width: 300px;
     text-align: left;
-  }
 
-  .caption {
-    display: block;
-    margin-bottom: 15px;
-  }
+    .caption {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: -4px;
+    }
 
-  audio {
-    width: 270px;
-    margin-bottom: -4px;
+    audio {
+      width: 270px;
+      margin-bottom: -4px;
+    }
   }
 }

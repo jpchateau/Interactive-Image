@@ -67,12 +67,12 @@ export default class AudioItem extends BaseItem {
         const element = this.createItemElement();
         const audioItem = this.domHelper.createElement('div', {'class': 'audio-item'});
 
+        audioItem.appendChild(this.createAudio());
+
         if ('undefined' !== typeof this.caption) {
             const caption = this.domHelper.createElement('span', {'class': 'caption'}, this.caption);
             audioItem.appendChild(caption);
         }
-
-        audioItem.appendChild(this.createAudio());
 
         element.appendChild(audioItem);
 
