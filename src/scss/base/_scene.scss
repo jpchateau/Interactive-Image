@@ -117,13 +117,19 @@
 }
 
 .icon-twitter {
+   &::before {
+     content: $icon-twitter;
+   }
+ }
+
+.icon-cross {
   &::before {
-    content: $icon-twitter;
+    content: $icon-cross;
   }
 }
 
 .icon-mail {
   &::before {
-    content: $icon-mail;
+    content: $icon-mail4;
   }
 }

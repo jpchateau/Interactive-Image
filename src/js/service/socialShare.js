@@ -69,7 +69,7 @@ export default class SocialShare {
      */
     buildSocialShareBox(socialOptions) {
         const elementBox = this.domHelper.createElement('div', {'class': 'social-share-box'});
-        const elementShareButton = this.domHelper.createElement('div', {'class': 'share-button icon-share2'});
+        const elementShareButton = this.domHelper.createElement('div', {'class': 'social-button share-colors icon-share2'});
 
         elementBox.appendChild(this.buildTwitterButton(socialOptions.twitter || {}));
         elementBox.appendChild(this.buildMailButton());
@@ -81,7 +81,7 @@ export default class SocialShare {
     }
 
     bindEvents() {
-        $('.share-button').on('mouseenter', function () {
+        $('.social-button.share-colors').on('mouseenter', function () {
             $(this).parent().addClass('expanded');
         });
 

@@ -1,13 +1,13 @@
 .interactive-image {
   .social-share-box {
-    background-color: white;
-    display: flex;
-    width: 32px;
-    transition: height .3s;
-    height: 32px;
     position: absolute;
     bottom: 20px;
     right: 20px;
+    background-color: white;
+    width: 32px;
+    height: 32px;
+    transition: height .3s;
+    display: flex;
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
@@ -18,24 +18,18 @@
       height: 96px;
     }
 
-    .share-button {
-      width: 32px;
-      height: 32px;
-      font-size: 22px;
-      background: rgba(0, 0, 0, .7);
-      color: white;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      text-align: center;
-    }
-
     .social-button {
       width: 32px;
       height: 32px;
-      font-size: 22px;
-      padding-top: 5px;
-      padding-bottom: 5px;
+      font-size: 20px;
+      padding-top: 6px;
+      padding-bottom: 6px;
       text-align: center;
+    }
+
+    .share-colors {
+      background: rgba(0, 0, 0, .7);
+      color: white;
     }
 
     .twitter-colors {
@@ -44,7 +38,7 @@
     }
 
     .mail-colors {
-      background-color: #727272;
+      background-color: rgba(0, 0, 0, .7);
       color: white;
     }
 

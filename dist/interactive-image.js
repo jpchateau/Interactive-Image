@@ -2323,7 +2323,7 @@ var SocialShare = function () {
         key: 'buildSocialShareBox',
         value: function buildSocialShareBox(socialOptions) {
             var elementBox = this.domHelper.createElement('div', { 'class': 'social-share-box' });
-            var elementShareButton = this.domHelper.createElement('div', { 'class': 'share-button icon-share2' });
+            var elementShareButton = this.domHelper.createElement('div', { 'class': 'social-button share-colors icon-share2' });
 
             elementBox.appendChild(this.buildTwitterButton(socialOptions.twitter || {}));
             elementBox.appendChild(this.buildMailButton());
@@ -2336,7 +2336,7 @@ var SocialShare = function () {
     }, {
         key: 'bindEvents',
         value: function bindEvents() {
-            $('.share-button').on('mouseenter', function () {
+            $('.social-button.share-colors').on('mouseenter', function () {
                 $(this).parent().addClass('expanded');
             });
 
