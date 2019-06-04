@@ -27,6 +27,7 @@
     "sound",
     "video",
     "tooltip",
+    "animation",
     "image note",
     "image marker",
     "image effects",
@@ -40,9 +41,13 @@
     "multimedia content",
     "rich content",
     "jquery-plugin",
+    "plugin",
     "ecosystem:jquery",
     "youtube",
-    "dailymotion"
+    "dailymotion",
+    "javascript",
+    "es6",
+    "sass"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {

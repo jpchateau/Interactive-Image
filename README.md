@@ -165,23 +165,21 @@ $(document).ready(function() {
 
 **Options**
 
-| Property | Type                       | Example | Required | Default | Purpose                |
-| ---------| -------------------------- | ------- |:--------:| ------- | ---------------------- |
-| debug    | boolean                    | true    | No       | false   | Enable logs in console |
+| Property | Type                        | Example | Required | Default | Purpose                |
+| ---------| --------------------------- | ------- |:--------:| ------- | ---------------------- |
+| debug    | boolean                     | true    | No       | false   | Enable logs in console |
 | social   | boolean or `Twitter` object | false   | No       | true    | Enable social sharing  |
 
 Supported social media: Twitter
 
-** Twitter options **
+**Twitter options**
 
 | Property | Type   | Example                      | Required | Default      | Purpose          |
 | -------- | ------ | ---------------------------- |:--------:| ------------ | ---------------- |
-| url      | string | "http://www.example.com"     | No       | document url | Custom URL       |
-| text     | string | "Text"                       | No       | page title   | Text             |
-| username | string | "Twitter account"            | No       |              | Twitter username |
+| url      | string | "http://www.example.com"     | No       | Document URL | Custom URL       |
+| text     | string | "Text"                       | No       | Page title   | Text             |
+| username | string | "my_username"                | No       |              | Twitter account  |
 | hashtags | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags         |
-
-See 
 
 ### Items
 

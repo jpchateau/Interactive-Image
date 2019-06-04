@@ -6,5 +6,8 @@ indent_style = space
 indent_size = 4
 charset = utf-8
 
-[*.scss]
+[{*.scss}]
+indent_size = 2
+
+[{*.json}]
 indent_size = 2
