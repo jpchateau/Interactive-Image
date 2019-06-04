@@ -15,7 +15,7 @@
 
     &.expanded {
       transition: height .3s;
-      height: 64px;
+      height: 96px;
     }
 
     .share-button {
@@ -29,15 +29,23 @@
       text-align: center;
     }
 
-    .twitter-button {
+    .social-button {
       width: 32px;
       height: 32px;
       font-size: 22px;
-      background-color: #1da1f2;
-      color: #f5f8fa;
       padding-top: 5px;
       padding-bottom: 5px;
       text-align: center;
+    }
+
+    .twitter-colors {
+      background-color: #1da1f2;
+      color: #f5f8fa;
+    }
+
+    .mail-colors {
+      background-color: #727272;
+      color: white;
     }
 
     a {

@@ -2271,17 +2271,47 @@ var SocialShare = function () {
         }
 
         /**
+         * @returns {string}
+         */
+
+    }, {
+        key: 'buildMailLink',
+        value: function buildMailLink() {
+            var parameters = {
+                subject: window.document.title,
+                body: window.document.title + ': ' + window.location.href
+            };
+
+            return 'mailto:?' + $.param(parameters);
+        }
+
+        /**
          * @param {object} options
+         * @returns {HTMLElement}
          */
 
     }, {
         key: 'buildTwitterButton',
         value: function buildTwitterButton(options) {
-            var twitterLink = this.domHelper.createElement('a', { 'class': 'twitter-button icon-twitter' });
+            var twitterLink = this.domHelper.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
             twitterLink.setAttribute('target', '_blank');
             twitterLink.setAttribute('href', this.buildTwitterUrl(options));
 
             return twitterLink;
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'buildMailButton',
+        value: function buildMailButton() {
+            var mailLink = this.domHelper.createElement('a', { 'class': 'social-button mail-colors icon-mail' });
+            mailLink.setAttribute('target', '_blank');
+            mailLink.setAttribute('href', this.buildMailLink());
+
+            return mailLink;
         }
 
         /**
@@ -2295,6 +2325,7 @@ var SocialShare = function () {
             var elementShareButton = this.domHelper.createElement('div', { 'class': 'share-button icon-share2' });
 
             elementBox.appendChild(this.buildTwitterButton(socialOptions.twitter || {}));
+            elementBox.appendChild(this.buildMailButton());
             elementBox.appendChild(elementShareButton);
 
             this.$image.append(elementBox);

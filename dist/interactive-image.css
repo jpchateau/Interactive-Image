@@ -93,6 +93,9 @@
 .icon-twitter::before {
   content: "\EA96"; }
 
+.icon-mail::before {
+  content: "\EA83"; }
+
 .interactive-image .social-share-box {
   background-color: white;
   display: flex;
@@ -108,7 +111,7 @@
   cursor: pointer; }
   .interactive-image .social-share-box.expanded {
     transition: height .3s;
-    height: 64px; }
+    height: 96px; }
   .interactive-image .social-share-box .share-button {
     width: 32px;
     height: 32px;
@@ -118,15 +121,19 @@
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center; }
-  .interactive-image .social-share-box .twitter-button {
+  .interactive-image .social-share-box .social-button {
     width: 32px;
     height: 32px;
     font-size: 22px;
-    background-color: #1da1f2;
-    color: #f5f8fa;
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center; }
+  .interactive-image .social-share-box .twitter-colors {
+    background-color: #1da1f2;
+    color: #f5f8fa; }
+  .interactive-image .social-share-box .mail-colors {
+    background-color: #727272;
+    color: white; }
   .interactive-image .social-share-box a {
     text-decoration: none;
     display: block; }

@@ -121,3 +121,9 @@
     content: $icon-twitter;
   }
 }
+
+.icon-mail {
+  &::before {
+    content: $icon-mail;
+  }
+}
