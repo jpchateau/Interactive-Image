@@ -32,5 +32,19 @@ describe('Provider Item', function() {
             expect(iframeElement.getAttribute('src')).to.equal('https://www.youtube.com/embed/XXXYYYZZZ');
             expect(iframeElement.getAttribute('frameborder')).to.equal('0');
         });
+
+        it('should throw an exception when given provider is not supported', function() {
+            let parameters = {
+                providerName: "vimeo",
+                parameters: {
+                    videoId: "XXXYYYZZZ"
+                },
+                position: {
+                    top: 100,
+                    left: 100
+                }
+            };
+            expect(() => new ProviderItem(parameters)).to.throw('Unsupported provider "vimeo"');
+        });
     });
 });

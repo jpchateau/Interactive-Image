@@ -2253,50 +2253,17 @@ var SocialShare = function () {
 
 
     _createClass(SocialShare, [{
-        key: 'buildTwitterUrl',
-        value: function buildTwitterUrl(options) {
-            var parameters = {
-                url: options.url || window.location.href,
-                text: options.text || window.document.title
-            };
+        key: 'buildTwitterButton',
 
-            if (typeof options.username === 'string') {
-                parameters.via = options.username;
-            }
-
-            if (_typeof(options.hashtags) === 'object') {
-                parameters.hashtags = options.hashtags.join(',');
-            }
-
-            return 'https://twitter.com/intent/tweet?' + $.param(parameters);
-        }
-
-        /**
-         * @returns {string}
-         */
-
-    }, {
-        key: 'buildMailLink',
-        value: function buildMailLink() {
-            var parameters = {
-                subject: window.document.title,
-                body: window.document.title + ': ' + window.location.href
-            };
-
-            return 'mailto:?' + $.param(parameters);
-        }
 
         /**
          * @param {object} options
          * @returns {HTMLElement}
          */
-
-    }, {
-        key: 'buildTwitterButton',
         value: function buildTwitterButton(options) {
             var twitterLink = this.domHelper.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
             twitterLink.setAttribute('target', '_blank');
-            twitterLink.setAttribute('href', this.buildTwitterUrl(options));
+            twitterLink.setAttribute('href', SocialShare.buildTwitterUrl(options));
 
             return twitterLink;
         }
@@ -2310,7 +2277,7 @@ var SocialShare = function () {
         value: function buildMailButton() {
             var mailLink = this.domHelper.createElement('a', { 'class': 'social-button mail-colors icon-mail' });
             mailLink.setAttribute('target', '_blank');
-            mailLink.setAttribute('href', this.buildMailLink());
+            mailLink.setAttribute('href', SocialShare.buildMailUrl());
 
             return mailLink;
         }
@@ -2343,6 +2310,39 @@ var SocialShare = function () {
             $('.social-share-box').on('mouseleave', function () {
                 $(this).removeClass('expanded');
             });
+        }
+    }], [{
+        key: 'buildTwitterUrl',
+        value: function buildTwitterUrl(options) {
+            var parameters = {
+                url: options.url || window.location.href,
+                text: options.text || window.document.title
+            };
+
+            if (typeof options.username === 'string') {
+                parameters.via = options.username;
+            }
+
+            if (_typeof(options.hashtags) === 'object') {
+                parameters.hashtags = options.hashtags.join(',');
+            }
+
+            return 'https://twitter.com/intent/tweet?' + $.param(parameters);
+        }
+
+        /**
+         * @returns {string}
+         */
+
+    }, {
+        key: 'buildMailUrl',
+        value: function buildMailUrl() {
+            var parameters = {
+                subject: window.document.title,
+                body: window.document.title + ': ' + window.location.href
+            };
+
+            return 'mailto:?' + $.param(parameters);
         }
     }]);
 

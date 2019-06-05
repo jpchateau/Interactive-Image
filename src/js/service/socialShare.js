@@ -12,7 +12,7 @@ export default class SocialShare {
      * @param {object} options
      * @returns {string}
      */
-    buildTwitterUrl(options) {
+    static buildTwitterUrl(options) {
         let parameters = {
             url: options.url || window.location.href,
             text: options.text || window.document.title
@@ -32,7 +32,7 @@ export default class SocialShare {
     /**
      * @returns {string}
      */
-    buildMailLink() {
+    static buildMailUrl() {
         let parameters = {
             subject: window.document.title,
             body: window.document.title + ': ' + window.location.href
@@ -48,7 +48,7 @@ export default class SocialShare {
     buildTwitterButton(options) {
         const twitterLink = this.domHelper.createElement('a', {'class': 'social-button twitter-colors icon-twitter'});
         twitterLink.setAttribute('target', '_blank');
-        twitterLink.setAttribute('href', this.buildTwitterUrl(options));
+        twitterLink.setAttribute('href', SocialShare.buildTwitterUrl(options));
 
         return twitterLink;
     }
@@ -59,7 +59,7 @@ export default class SocialShare {
     buildMailButton() {
         const mailLink = this.domHelper.createElement('a', {'class': 'social-button mail-colors icon-mail'});
         mailLink.setAttribute('target', '_blank');
-        mailLink.setAttribute('href', this.buildMailLink());
+        mailLink.setAttribute('href', SocialShare.buildMailUrl());
 
         return mailLink;
     }
