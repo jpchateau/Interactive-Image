@@ -10,7 +10,7 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 
 * Interactive videos, sounds, images and texts over large pictures
 * Support for content providers: Youtube, Dailymotion
-* Social sharing capabilities (Twitter)
+* Social sharing capabilities: email, Twitter
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -306,6 +306,7 @@ A good code base, following the language good pratices, reduces maintainability 
 
 * For business:
   * [genially](https://www.genial.ly/)
+  * [ImageMarker](https://www.imagemarker.com/)
   * [ThingLink](https://www.thinglink.com/)
 * Premium:
   * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
