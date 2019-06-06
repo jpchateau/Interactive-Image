@@ -4,6 +4,16 @@ import BaseItem from "./baseItem";
  * @extends BaseItem
  */
 export default class ProviderItem extends BaseItem {
+    /**
+     * @returns {string[]}
+     */
+    static supportedProviders() {
+        return ['youtube', 'dailymotion'];
+    }
+
+    /**
+     * @returns {{youtube: string, dailymotion: string}}
+     */
     static providersUrls() {
         return {
             'youtube': 'https://www.youtube.com/embed/',
@@ -22,7 +32,7 @@ export default class ProviderItem extends BaseItem {
         this.providerName = parameters.providerName.toLowerCase();
         this.parameters = parameters.parameters;
 
-        if (!ProviderItem.providersUrls().hasOwnProperty(this.providerName)) {
+        if (ProviderItem.supportedProviders().indexOf(this.providerName) === -1) {
             throw Error('Unsupported provider "' + this.providerName + '"');
         }
     }

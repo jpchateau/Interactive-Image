@@ -6,11 +6,11 @@ import FileHelper from "./../helper/fileHelper";
  */
 export default class VideoItem extends BaseItem {
     /**
-     * Allowed file extensions for video tag
+     * Allowed file extensions
      *
      * @returns {{mp4: string, webm: string}}
      */
-    static fileFormats() {
+    static supportedFileFormats() {
         return {
             'mp4': 'video/mp4',
             'webm': 'video/webm'
@@ -35,12 +35,9 @@ export default class VideoItem extends BaseItem {
         this.path = parameters.path;
         this.caption = parameters.caption;
         this.poster = parameters.poster;
-
         this.fileExtension = FileHelper.guessExtension(this.path);
 
-        if (!VideoItem.fileFormats().hasOwnProperty(this.fileExtension)) {
-            throw Error('Unsupported file extension "' + this.fileExtension + '"');
-        }
+        FileHelper.checkFileFormat(this.fileExtension, VideoItem.supportedFileFormats());
     }
 
     /**
@@ -54,7 +51,7 @@ export default class VideoItem extends BaseItem {
 
         const source = this.domHelper.createElement('source');
         source.setAttribute('src', this.path);
-        source.setAttribute('type', VideoItem.fileFormats()[this.fileExtension]);
+        source.setAttribute('type', VideoItem.supportedFileFormats()[this.fileExtension]);
 
         if ('undefined' !== typeof this.poster) {
             video.setAttribute('poster', this.poster);

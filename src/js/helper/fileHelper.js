@@ -8,4 +8,18 @@ export default class FileHelper {
     static guessExtension(filename) {
         return filename.split('.').pop();
     }
+
+    /**
+     * Throw an error if file extension is not allowed
+     *
+     * @param {string} extension
+     * @param {object} allowedFormats
+     */
+    static checkFileFormat(extension, allowedFormats) {
+        if (allowedFormats.hasOwnProperty(extension)) {
+            return;
+        }
+
+        throw Error('Unsupported file extension "' + extension + '"');
+    }
 }

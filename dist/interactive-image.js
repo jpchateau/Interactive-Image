@@ -1223,6 +1223,23 @@ var FileHelper = function () {
         value: function guessExtension(filename) {
             return filename.split('.').pop();
         }
+
+        /**
+         * Throw an error if file extension is not allowed
+         *
+         * @param {string} extension
+         * @param {object} allowedFormats
+         */
+
+    }, {
+        key: 'checkFileFormat',
+        value: function checkFileFormat(extension, allowedFormats) {
+            if (allowedFormats.hasOwnProperty(extension)) {
+                return;
+            }
+
+            throw Error('Unsupported file extension "' + extension + '"');
+        }
     }]);
 
     return FileHelper;
@@ -1431,14 +1448,14 @@ var AudioItem = function (_BaseItem) {
     _inherits(AudioItem, _BaseItem);
 
     _createClass(AudioItem, null, [{
-        key: "fileFormats",
+        key: "supportedFileFormats",
 
         /**
-         * Allowed file extensions for audio tag
+         * Allowed file extensions
          *
          * @returns {{mp3: string, wav: string, ogg: string}}
          */
-        value: function fileFormats() {
+        value: function supportedFileFormats() {
             return {
                 'mp3': 'audio/mpeg',
                 'ogg': 'audio/ogg',
@@ -1471,12 +1488,9 @@ var AudioItem = function (_BaseItem) {
 
         _this.path = parameters.path;
         _this.caption = parameters.caption;
-
         _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
 
-        if (!AudioItem.fileFormats().hasOwnProperty(_this.fileExtension)) {
-            throw Error('Unsupported file extension "' + _this.fileExtension + '"');
-        }
+        _fileHelper2.default.checkFileFormat(_this.fileExtension, AudioItem.supportedFileFormats());
         return _this;
     }
 
@@ -1494,7 +1508,7 @@ var AudioItem = function (_BaseItem) {
 
             var source = this.domHelper.createElement('source');
             source.setAttribute('src', this.path);
-            source.setAttribute('type', AudioItem.fileFormats()[this.fileExtension]);
+            source.setAttribute('type', AudioItem.supportedFileFormats()[this.fileExtension]);
 
             audio.appendChild(source);
 
@@ -1855,6 +1869,20 @@ var ProviderItem = function (_BaseItem) {
     _inherits(ProviderItem, _BaseItem);
 
     _createClass(ProviderItem, null, [{
+        key: 'supportedProviders',
+
+        /**
+         * @returns {string[]}
+         */
+        value: function supportedProviders() {
+            return ['youtube', 'dailymotion'];
+        }
+
+        /**
+         * @returns {{youtube: string, dailymotion: string}}
+         */
+
+    }, {
         key: 'providersUrls',
         value: function providersUrls() {
             return {
@@ -1879,7 +1907,7 @@ var ProviderItem = function (_BaseItem) {
         _this.providerName = parameters.providerName.toLowerCase();
         _this.parameters = parameters.parameters;
 
-        if (!ProviderItem.providersUrls().hasOwnProperty(_this.providerName)) {
+        if (ProviderItem.supportedProviders().indexOf(_this.providerName) === -1) {
             throw Error('Unsupported provider "' + _this.providerName + '"');
         }
         return _this;
@@ -2108,14 +2136,14 @@ var VideoItem = function (_BaseItem) {
     _inherits(VideoItem, _BaseItem);
 
     _createClass(VideoItem, null, [{
-        key: "fileFormats",
+        key: "supportedFileFormats",
 
         /**
-         * Allowed file extensions for video tag
+         * Allowed file extensions
          *
          * @returns {{mp4: string, webm: string}}
          */
-        value: function fileFormats() {
+        value: function supportedFileFormats() {
             return {
                 'mp4': 'video/mp4',
                 'webm': 'video/webm'
@@ -2148,12 +2176,9 @@ var VideoItem = function (_BaseItem) {
         _this.path = parameters.path;
         _this.caption = parameters.caption;
         _this.poster = parameters.poster;
-
         _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
 
-        if (!VideoItem.fileFormats().hasOwnProperty(_this.fileExtension)) {
-            throw Error('Unsupported file extension "' + _this.fileExtension + '"');
-        }
+        _fileHelper2.default.checkFileFormat(_this.fileExtension, VideoItem.supportedFileFormats());
         return _this;
     }
 
@@ -2172,7 +2197,7 @@ var VideoItem = function (_BaseItem) {
 
             var source = this.domHelper.createElement('source');
             source.setAttribute('src', this.path);
-            source.setAttribute('type', VideoItem.fileFormats()[this.fileExtension]);
+            source.setAttribute('type', VideoItem.supportedFileFormats()[this.fileExtension]);
 
             if ('undefined' !== typeof this.poster) {
                 video.setAttribute('poster', this.poster);

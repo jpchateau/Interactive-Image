@@ -6,11 +6,11 @@ import FileHelper from "./../helper/fileHelper";
  */
 export default class AudioItem extends BaseItem {
     /**
-     * Allowed file extensions for audio tag
+     * Allowed file extensions
      *
      * @returns {{mp3: string, wav: string, ogg: string}}
      */
-    static fileFormats() {
+    static supportedFileFormats() {
         return {
             'mp3': 'audio/mpeg',
             'ogg': 'audio/ogg',
@@ -35,12 +35,9 @@ export default class AudioItem extends BaseItem {
 
         this.path = parameters.path;
         this.caption = parameters.caption;
-
         this.fileExtension = FileHelper.guessExtension(this.path);
 
-        if (!AudioItem.fileFormats().hasOwnProperty(this.fileExtension)) {
-            throw Error('Unsupported file extension "' + this.fileExtension + '"');
-        }
+        FileHelper.checkFileFormat(this.fileExtension, AudioItem.supportedFileFormats());
     }
 
     /**
@@ -53,7 +50,7 @@ export default class AudioItem extends BaseItem {
 
         const source = this.domHelper.createElement('source');
         source.setAttribute('src', this.path);
-        source.setAttribute('type', AudioItem.fileFormats()[this.fileExtension]);
+        source.setAttribute('type', AudioItem.supportedFileFormats()[this.fileExtension]);
 
         audio.appendChild(source);
 
