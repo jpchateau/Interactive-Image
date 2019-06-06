@@ -1,4 +1,5 @@
 import BaseItem from "./baseItem";
+import DomHelper from "../helper/domHelper";
 
 /**
  * @extends BaseItem
@@ -21,7 +22,7 @@ export default class PictureItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createPicture() {
-        const element = this.domHelper.createElement('img', {'class': 'picture'});
+        const element = DomHelper.createElement('img', {'class': 'picture'});
         element.src = this.path;
 
         if ('undefined' !== typeof this.caption) {
@@ -38,14 +39,14 @@ export default class PictureItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const pictureItem = this.domHelper.createElement('div', {'class': 'picture-item'});
+        const pictureItem = DomHelper.createElement('div', {'class': 'picture-item'});
 
         if ('undefined' !== typeof this.caption) {
             pictureItem.setAttribute('data-caption', this.caption);
         }
 
         if ('undefined' !== typeof this.linkUrl) {
-            const link = this.domHelper.createElement('a');
+            const link = DomHelper.createElement('a');
             link.href = this.linkUrl;
             link.appendChild(this.createPicture());
             pictureItem.appendChild(link);
