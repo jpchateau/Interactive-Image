@@ -57,7 +57,7 @@ export default class SocialShare {
      * @returns {HTMLElement}
      */
     buildMailButton() {
-        const mailLink = this.domHelper.createElement('a', {'class': 'social-button mail-colors icon-mail'});
+        const mailLink = this.domHelper.createElement('a', {'class': 'social-button mail-colors icon-envelop'});
         mailLink.setAttribute('target', '_blank');
         mailLink.setAttribute('href', SocialShare.buildMailUrl());
 

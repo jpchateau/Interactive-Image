@@ -25,6 +25,12 @@
       padding-top: 6px;
       padding-bottom: 6px;
       text-align: center;
+
+      &.mail-colors {
+        font-size: 14px;
+        padding-top: 9px;
+        padding-bottom: 9px;
+      }
     }
 
     .share-colors {
@@ -38,7 +44,7 @@
     }
 
     .mail-colors {
-      background-color: rgba(0, 0, 0, .7);
+      background-color: #a1adb3;
       color: white;
     }
 

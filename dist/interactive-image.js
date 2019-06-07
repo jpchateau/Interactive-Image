@@ -2300,7 +2300,7 @@ var SocialShare = function () {
     }, {
         key: 'buildMailButton',
         value: function buildMailButton() {
-            var mailLink = this.domHelper.createElement('a', { 'class': 'social-button mail-colors icon-mail' });
+            var mailLink = this.domHelper.createElement('a', { 'class': 'social-button mail-colors icon-envelop' });
             mailLink.setAttribute('target', '_blank');
             mailLink.setAttribute('href', SocialShare.buildMailUrl());
 

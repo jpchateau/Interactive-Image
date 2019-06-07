@@ -104,6 +104,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-envelop {
+  &::before {
+    content: $icon-envelop;
+  }
+}
+
+.icon-cancel-circle {
+  &::before {
+    content: $icon-cancel-circle;
+  }
+}
+
 .icon-radio-checked {
   &::before {
     content: $icon-radio-checked;
@@ -116,20 +128,14 @@
   }
 }
 
+.icon-facebook {
+  &::before {
+    content: $icon-facebook;
+  }
+}
+
 .icon-twitter {
   &::before {
     content: $icon-twitter;
-  }
-}
-
-.icon-cross {
-  &::before {
-    content: $icon-cross;
-  }
-}
-
-.icon-mail {
-  &::before {
-    content: $icon-mail4;
   }
 }
