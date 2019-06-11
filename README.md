@@ -10,7 +10,7 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 
 * Interactive videos, sounds, images and texts over large pictures
 * Support for content providers: Youtube, Dailymotion
-* Social sharing capabilities: email, Twitter
+* Social media sharing capabilities: email, Twitter
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -63,7 +63,7 @@ Edit the source code of your web page:
   <div id="my-interactive-image"></div>  
   
   <!-- Include jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- Include Interactive Image jQuery plugin JavaScript -->
   <script src="interactive-image.min.js"></script>
@@ -133,6 +133,35 @@ $(document).ready(function() {
 });
 ```
 
+### Social Media Share
+
+By default, a social media share box is displayed.  
+You can prevent this behavior by passing `false` to the `shareBox` option, before activating the plugin.
+```javascript
+var options = {
+  shareBox: false
+};
+
+$(".interactive-image").interactiveImage(items, options);
+```
+
+You can customize the social media share properties of your Interactive Image:
+```javascript
+var options = {
+  socialMedia: {
+    url: "https://www.jpchateau.com/demo/interactive-image",
+    text: "Clouded Leopard",
+    hashtags: ["jQuery", "cloudedLeopard"],
+    twitterUsername: "my_twitter_account",
+  }
+}
+
+$(".interactive-image").interactiveImage(items, options);
+```
+
+Supported social media: email and Twitter.  
+In case of email share, the subject of the email is the webpage title.
+
 ### Style customization
 
 You may want to change the rendering of an item, as for example the background and the front color of text items.  
@@ -154,9 +183,7 @@ var options = {
   debug: true
 };
 
-$(document).ready(function() {
-  $(".interactive-image").interactiveImage(items, options);
-}); 
+$(".interactive-image").interactiveImage(items, options);
 ```
 
 ## Configuration
@@ -165,21 +192,19 @@ $(document).ready(function() {
 
 **Options**
 
-| Property | Type                        | Example | Required | Default | Purpose                |
-| ---------| --------------------------- | ------- |:--------:| ------- | ---------------------- |
-| debug    | boolean                     | true    | No       | false   | Enable logs in console |
-| social   | boolean or `Twitter` object | false   | No       | true    | Enable social sharing  |
+| Property | Type    | Example | Required | Default | Purpose                   |
+| ---------| --------| ------- |:--------:| ------- | ------------------------- |
+| debug    | boolean | true    | No       | false   | Enable logs in console    |
+| shareBox | boolean | false   | No       | true    | Enable social media share |
 
-Supported social media: Twitter
+**SocialMedia options**
 
-**Twitter options**
-
-| Property | Type   | Example                      | Required | Default      | Purpose          |
-| -------- | ------ | ---------------------------- |:--------:| ------------ | ---------------- |
-| url      | string | "http://www.example.com"     | No       | Document URL | Custom URL       |
-| text     | string | "Text"                       | No       | Page title   | Text             |
-| username | string | "my_username"                | No       |              | Twitter account  |
-| hashtags | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags         |
+| Property        | Type   | Example                      | Required | Default      | Purpose          |
+| --------------- | ------ | ---------------------------- |:--------:| ------------ | ---------------- |
+| url             | string | "http://www.example.com"     | No       | Document URL | Custom URL       |
+| text            | string | "Text"                       | No       | Page title   | Text             |
+| hashtags        | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags         |
+| twitterUsername | string | "my_twitter_account          | No       |              | Twitter account  |
 
 ### Items
 
@@ -230,6 +255,8 @@ Supported video formats: mp4, webm.
 | poster      | string | "path/to/poster.png"  | No       |                 | An image to be shown while the video is downloading |
 
 **Provider Item**
+
+Supported providers: Youtube, Dailymotion.
 
 | Property     | Type   | Example                 | Required | Default         | Purpose                       |
 | ------------ | ------ | ----------------------- |:--------:| --------------- | ----------------------------- |
@@ -293,7 +320,7 @@ $ npm run test-with-coverage
 
 ## Contribute
 
-Feel free to contribute and open some pull requests.  
+Feel free to contribute and open some issues or pull requests.  
 This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 

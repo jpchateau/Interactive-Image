@@ -5,7 +5,7 @@ import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
 import Resizer from "./event/resizer";
-import SocialShare from "./service/socialShare";
+import SocialMediaShare from "./service/socialMediaShare";
 
 export default class App {
     /**
@@ -32,8 +32,8 @@ export default class App {
                 throw Error('Check "debug" plugin option');
             }
 
-            if ('boolean' !== typeof this.settings.share && 'object' !== typeof this.settings.share) {
-                throw Error('Check "share" plugin option');
+            if ('boolean' !== typeof this.settings.shareBox) {
+                throw Error('Check "shareBox" plugin option');
             }
 
             const end = Date.now();
@@ -145,18 +145,18 @@ export default class App {
         });
     }
 
-    socialShare() {
+    processShareCapabilities() {
         return new Promise((resolve) => {
-            this.logHelper.log('Starting to evaluate social share capabilities...');
+            this.logHelper.log('Starting to evaluate social media share capabilities...');
             const start = Date.now();
 
-            if (false !== this.settings.share) {
-                const socialShare = new SocialShare(this.domHelper, this.$image);
-                socialShare.buildSocialShareBox(this.settings.share);
+            if (true === this.settings.shareBox && typeof this.settings.socialMedia === 'object') {
+                const socialMediaShare = new SocialMediaShare(this.domHelper, this.$image);
+                socialMediaShare.buildShareBox(this.settings.socialMedia);
             }
 
             const end = Date.now();
-            this.logHelper.log('Social capabilities executed', end - start, 'green');
+            this.logHelper.log('Social media share capabilities executed', end - start, 'green');
             resolve();
         });
     }
@@ -203,7 +203,7 @@ export default class App {
                 return this.bindEvents();
             })
             .then(() => {
-                return this.socialShare();
+                return this.processShareCapabilities();
             })
             .catch((exception) => {
                 this.logHelper.log(exception.message, undefined, 'red');

@@ -1,4 +1,4 @@
-export default class SocialShare {
+export default class SocialMediaShare {
     /**
      * @param {DomHelper} domHelper
      * @param $image
@@ -18,8 +18,8 @@ export default class SocialShare {
             text: options.text || window.document.title
         };
 
-        if (typeof options.username === 'string') {
-            parameters.via = options.username;
+        if (typeof options.twitterUsername === 'string') {
+            parameters.via = options.twitterUsername;
         }
 
         if (typeof options.hashtags === 'object') {
@@ -30,12 +30,13 @@ export default class SocialShare {
     }
 
     /**
+     * @param {object} options
      * @returns {string}
      */
-    static buildMailUrl() {
+    static buildMailUrl(options) {
         let parameters = {
             subject: window.document.title,
-            body: window.document.title + ': ' + window.location.href
+            body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
         };
 
         return 'mailto:?' + $.param(parameters);
@@ -48,31 +49,32 @@ export default class SocialShare {
     buildTwitterButton(options) {
         const twitterLink = this.domHelper.createElement('a', {'class': 'social-button twitter-colors icon-twitter'});
         twitterLink.setAttribute('target', '_blank');
-        twitterLink.setAttribute('href', SocialShare.buildTwitterUrl(options));
+        twitterLink.setAttribute('href', SocialMediaShare.buildTwitterUrl(options));
 
         return twitterLink;
     }
 
     /**
+     * @param {object} options
      * @returns {HTMLElement}
      */
-    buildMailButton() {
+    buildMailButton(options) {
         const mailLink = this.domHelper.createElement('a', {'class': 'social-button mail-colors icon-envelop'});
         mailLink.setAttribute('target', '_blank');
-        mailLink.setAttribute('href', SocialShare.buildMailUrl());
+        mailLink.setAttribute('href', SocialMediaShare.buildMailUrl(options));
 
         return mailLink;
     }
 
     /**
-     * @param {object} socialOptions
+     * @param {object} socialMediaOptions
      */
-    buildSocialShareBox(socialOptions) {
+    buildShareBox(socialMediaOptions) {
         const elementBox = this.domHelper.createElement('div', {'class': 'social-share-box'});
         const elementShareButton = this.domHelper.createElement('div', {'class': 'social-button share-colors icon-share2'});
 
-        elementBox.appendChild(this.buildTwitterButton(socialOptions.twitter || {}));
-        elementBox.appendChild(this.buildMailButton());
+        elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
+        elementBox.appendChild(this.buildMailButton(socialMediaOptions));
         elementBox.appendChild(elementShareButton);
 
         this.$image.append(elementBox);

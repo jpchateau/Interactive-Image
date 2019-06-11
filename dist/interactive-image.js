@@ -607,9 +607,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -641,9 +641,9 @@ var _resizer = __webpack_require__(/*! ./event/resizer */ "./src/js/event/resize
 
 var _resizer2 = _interopRequireDefault(_resizer);
 
-var _socialShare = __webpack_require__(/*! ./service/socialShare */ "./src/js/service/socialShare.js");
+var _socialMediaShare = __webpack_require__(/*! ./service/socialMediaShare */ "./src/js/service/socialMediaShare.js");
 
-var _socialShare2 = _interopRequireDefault(_socialShare);
+var _socialMediaShare2 = _interopRequireDefault(_socialMediaShare);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -680,8 +680,8 @@ var App = function () {
                     throw Error('Check "debug" plugin option');
                 }
 
-                if ('boolean' !== typeof _this.settings.share && 'object' !== _typeof(_this.settings.share)) {
-                    throw Error('Check "share" plugin option');
+                if ('boolean' !== typeof _this.settings.shareBox) {
+                    throw Error('Check "shareBox" plugin option');
                 }
 
                 var end = Date.now();
@@ -810,21 +810,21 @@ var App = function () {
             });
         }
     }, {
-        key: "socialShare",
-        value: function socialShare() {
+        key: "processShareCapabilities",
+        value: function processShareCapabilities() {
             var _this6 = this;
 
             return new Promise(function (resolve) {
-                _this6.logHelper.log('Starting to evaluate social share capabilities...');
+                _this6.logHelper.log('Starting to evaluate social media share capabilities...');
                 var start = Date.now();
 
-                if (false !== _this6.settings.share) {
-                    var socialShare = new _socialShare2.default(_this6.domHelper, _this6.$image);
-                    socialShare.buildSocialShareBox(_this6.settings.share);
+                if (true === _this6.settings.shareBox && _typeof(_this6.settings.socialMedia) === 'object') {
+                    var socialMediaShare = new _socialMediaShare2.default(_this6.domHelper, _this6.$image);
+                    socialMediaShare.buildShareBox(_this6.settings.socialMedia);
                 }
 
                 var end = Date.now();
-                _this6.logHelper.log('Social capabilities executed', end - start, 'green');
+                _this6.logHelper.log('Social media share capabilities executed', end - start, 'green');
                 resolve();
             });
         }
@@ -870,7 +870,7 @@ var App = function () {
             }).then(function () {
                 return _this8.bindEvents();
             }).then(function () {
-                return _this8.socialShare();
+                return _this8.processShareCapabilities();
             }).catch(function (exception) {
                 _this8.logHelper.log(exception.message, undefined, 'red');
             }).finally(function () {
@@ -1395,7 +1395,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
         var defaults = {
             debug: false,
-            share: true
+            shareBox: true
         };
 
         options = $.extend(defaults, options);
@@ -2239,10 +2239,10 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ "./src/js/service/socialShare.js":
-/*!***************************************!*\
-  !*** ./src/js/service/socialShare.js ***!
-  \***************************************/
+/***/ "./src/js/service/socialMediaShare.js":
+/*!********************************************!*\
+  !*** ./src/js/service/socialMediaShare.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2259,13 +2259,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SocialShare = function () {
+var SocialMediaShare = function () {
     /**
      * @param {DomHelper} domHelper
      * @param $image
      */
-    function SocialShare(domHelper, $image) {
-        _classCallCheck(this, SocialShare);
+    function SocialMediaShare(domHelper, $image) {
+        _classCallCheck(this, SocialMediaShare);
 
         this.domHelper = domHelper;
         this.$image = $image;
@@ -2277,7 +2277,7 @@ var SocialShare = function () {
      */
 
 
-    _createClass(SocialShare, [{
+    _createClass(SocialMediaShare, [{
         key: 'buildTwitterButton',
 
 
@@ -2288,37 +2288,38 @@ var SocialShare = function () {
         value: function buildTwitterButton(options) {
             var twitterLink = this.domHelper.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
             twitterLink.setAttribute('target', '_blank');
-            twitterLink.setAttribute('href', SocialShare.buildTwitterUrl(options));
+            twitterLink.setAttribute('href', SocialMediaShare.buildTwitterUrl(options));
 
             return twitterLink;
         }
 
         /**
+         * @param {object} options
          * @returns {HTMLElement}
          */
 
     }, {
         key: 'buildMailButton',
-        value: function buildMailButton() {
+        value: function buildMailButton(options) {
             var mailLink = this.domHelper.createElement('a', { 'class': 'social-button mail-colors icon-envelop' });
             mailLink.setAttribute('target', '_blank');
-            mailLink.setAttribute('href', SocialShare.buildMailUrl());
+            mailLink.setAttribute('href', SocialMediaShare.buildMailUrl(options));
 
             return mailLink;
         }
 
         /**
-         * @param {object} socialOptions
+         * @param {object} socialMediaOptions
          */
 
     }, {
-        key: 'buildSocialShareBox',
-        value: function buildSocialShareBox(socialOptions) {
+        key: 'buildShareBox',
+        value: function buildShareBox(socialMediaOptions) {
             var elementBox = this.domHelper.createElement('div', { 'class': 'social-share-box' });
             var elementShareButton = this.domHelper.createElement('div', { 'class': 'social-button share-colors icon-share2' });
 
-            elementBox.appendChild(this.buildTwitterButton(socialOptions.twitter || {}));
-            elementBox.appendChild(this.buildMailButton());
+            elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
+            elementBox.appendChild(this.buildMailButton(socialMediaOptions));
             elementBox.appendChild(elementShareButton);
 
             this.$image.append(elementBox);
@@ -2344,8 +2345,8 @@ var SocialShare = function () {
                 text: options.text || window.document.title
             };
 
-            if (typeof options.username === 'string') {
-                parameters.via = options.username;
+            if (typeof options.twitterUsername === 'string') {
+                parameters.via = options.twitterUsername;
             }
 
             if (_typeof(options.hashtags) === 'object') {
@@ -2356,25 +2357,26 @@ var SocialShare = function () {
         }
 
         /**
+         * @param {object} options
          * @returns {string}
          */
 
     }, {
         key: 'buildMailUrl',
-        value: function buildMailUrl() {
+        value: function buildMailUrl(options) {
             var parameters = {
                 subject: window.document.title,
-                body: window.document.title + ': ' + window.location.href
+                body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
             };
 
             return 'mailto:?' + $.param(parameters);
         }
     }]);
 
-    return SocialShare;
+    return SocialMediaShare;
 }();
 
-exports.default = SocialShare;
+exports.default = SocialMediaShare;
 module.exports = exports['default'];
 
 /***/ }),
