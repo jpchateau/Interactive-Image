@@ -133,10 +133,12 @@ $(document).ready(function() {
 });
 ```
 
+More examples can be found in the `examples` directory.
+
 ### Social Media Share
 
 By default, a social media share box is displayed.  
-You can prevent this behavior by passing `false` to the `shareBox` option, before activating the plugin.
+You can prevent this behavior before activating the plugin:
 ```javascript
 var options = {
   shareBox: false
@@ -162,21 +164,9 @@ $(".interactive-image").interactiveImage(items, options);
 Supported social media: email and Twitter.  
 In case of email share, the subject of the email is the webpage title.
 
-### Style customization
-
-You may want to change the rendering of an item, as for example the background and the front color of text items.  
-Adapt this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
-
-```css
-.interactive-image .text-item {
-  background-color: blue;
-  color: yellow;
-}
-```
-
 ### Debugging
 
-In order to display some console messages to see the different steps of the processing, add an `options` object to the app initialization:
+In order to display some console messages to see the different steps of the processing, you can enable the debug mode before activating the plugin:
 
 ```javascript
 var options = {
@@ -192,19 +182,22 @@ $(".interactive-image").interactiveImage(items, options);
 
 **Options**
 
-| Property | Type    | Example | Required | Default | Purpose                   |
-| ---------| --------| ------- |:--------:| ------- | ------------------------- |
-| debug    | boolean | true    | No       | false   | Enable logs in console    |
-| shareBox | boolean | false   | No       | true    | Enable social media share |
+| Property    | Type    | Example                  | Required | Default | Purpose                    |
+| ------------| --------| ------------------------ |:--------:| ------- | -------------------------- |
+| debug       | boolean | true                     | No       | false   | Enable logs in console     |
+| shareBox    | boolean | false                    | No       | true    | Enable social media share  |
+| socialMedia | object  | See `SocialMedia` object | No       |         | Social media configuration |
 
-**SocialMedia options**
+**SocialMedia**
 
-| Property        | Type   | Example                      | Required | Default      | Purpose          |
-| --------------- | ------ | ---------------------------- |:--------:| ------------ | ---------------- |
-| url             | string | "http://www.example.com"     | No       | Document URL | Custom URL       |
-| text            | string | "Text"                       | No       | Page title   | Text             |
-| hashtags        | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags         |
-| twitterUsername | string | "my_twitter_account          | No       |              | Twitter account  |
+| Property        | Type   | Example                      | Required | Default      | Purpose         |
+| --------------- | ------ | ---------------------------- |:--------:| ------------ | --------------- |
+| url             | string | "http://www.example.com"     | No       | Document URL | URL to share    |
+| text            | string | "Text"                       | No       | Page title   | Text            |
+| hashtags        | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags        |
+| twitterUsername | string | "my_twitter_account          | No       |              | Twitter account |
+
+You do not need to prefix your Twitter account by "@".
 
 ### Items
 
@@ -256,8 +249,6 @@ Supported video formats: mp4, webm.
 
 **Provider Item**
 
-Supported providers: Youtube, Dailymotion.
-
 | Property     | Type   | Example                 | Required | Default         | Purpose                       |
 | ------------ | ------ | ----------------------- |:--------:| --------------- | ----------------------------- |
 | type         | string | "provider"              | Yes      |                 | Item type                     |
@@ -289,6 +280,18 @@ Supported providers: Youtube, Dailymotion.
 
 Please note that only [Youtube](https://www.youtube.com/) and [Dailymotion](https://www.dailymotion.com/) videos are supported.
 
+### Style customization
+
+You may want to change the rendering of an item, as for example the background and the front color of text items.  
+Adapt this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
+
+```css
+.interactive-image .text-item {
+  background-color: blue;
+  color: yellow;
+}
+```
+
 ## Tests
 
 All builds are unit tested with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).
@@ -304,6 +307,12 @@ $ npm run test
 $ npm run test-with-coverage
 ```
 
+## Browser Support
+
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
+| --- | --- | --- | --- | --- |
+| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
+
 ## Requirements
 
 [jQuery](https://jquery.com/download/) 1.7.2+ is required.
@@ -312,22 +321,16 @@ $ npm run test-with-coverage
 
 * [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
 
-## Browser Support
+## Philosophy
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
-| --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
+This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
+A good code base, following the language good pratices, reduces maintainability issues and could be used as example. 
 
 ## Contribute
 
 Feel free to contribute and open some issues or pull requests.  
 This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
 See the complete contributing guidelines [here](CONTRIBUTING.md).
-
-## Philosophy
-
-This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
-A good code base, following the language good pratices, reduces maintainability issues and could be used as example. 
 
 ## Alternatives
 
