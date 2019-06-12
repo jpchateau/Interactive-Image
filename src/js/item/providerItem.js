@@ -45,7 +45,7 @@ export default class ProviderItem extends BaseItem {
             'iframe',
             {
                 'frameborder': '0',
-                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId
+                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId + (this.providerName === 'youtube' ? '?origin=' + ProviderItem.guessOrigin() : '')
             }
         );
     }
@@ -63,4 +63,14 @@ export default class ProviderItem extends BaseItem {
 
         return element;
     }
+
+    /**
+     * @returns {string}
+     */
+    static guessOrigin() {
+        let urlSplit = window.location.href.split("/");
+
+        return urlSplit[0] + "//" + urlSplit[2];
+    }
+
 }

@@ -1923,7 +1923,7 @@ var ProviderItem = function (_BaseItem) {
         value: function createIframe() {
             return this.domHelper.createElement('iframe', {
                 'frameborder': '0',
-                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId
+                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId + (this.providerName === 'youtube' ? '?origin=' + ProviderItem.guessOrigin() : '')
             });
         }
 
@@ -1942,6 +1942,18 @@ var ProviderItem = function (_BaseItem) {
             element.appendChild(providerItem);
 
             return element;
+        }
+
+        /**
+         * @returns {string}
+         */
+
+    }], [{
+        key: 'guessOrigin',
+        value: function guessOrigin() {
+            var urlSplit = window.location.href.split("/");
+
+            return urlSplit[0] + "//" + urlSplit[2];
         }
     }]);
 

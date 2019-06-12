@@ -29,7 +29,7 @@ describe('Provider Item', function() {
 
             let iframeElement = providerContainerElement.childNodes[0];
             expect(iframeElement.nodeName).to.equal('IFRAME');
-            expect(iframeElement.getAttribute('src')).to.equal('https://www.youtube.com/embed/XXXYYYZZZ');
+            expect(iframeElement.getAttribute('src')).to.contain('https://www.youtube.com/embed/XXXYYYZZZ');
             expect(iframeElement.getAttribute('frameborder')).to.equal('0');
         });
 
