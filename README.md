@@ -9,8 +9,8 @@ See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-i
 ## Features
 
 * Interactive videos, sounds, images and texts over large pictures
-* Support for content providers: Youtube, Dailymotion
-* Social media sharing capabilities: email, Twitter
+* Support for popular content providers
+* Social media sharing capabilities
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -34,7 +34,7 @@ $ yarn add interactiveimagejs
 **Download**
 
 Download the production or the development version from GitHub.  
-All the files (.js, .css and fonts) are located in the `dist` directory.
+All the plugin files (.js, .css and fonts) are located in the `dist` directory.
 
 ## Usage
 
@@ -123,7 +123,8 @@ var items = [
     position: {
       left: 600,
       top: 550
-    }
+    },
+    sticky: true
   }
 ];
 
@@ -144,7 +145,7 @@ var options = {
   shareBox: false
 };
 
-$(".interactive-image").interactiveImage(items, options);
+$("#my-interactive-image").interactiveImage(items, options);
 ```
 
 You can customize the social media share properties of your Interactive Image:
@@ -158,11 +159,23 @@ var options = {
   }
 }
 
-$(".interactive-image").interactiveImage(items, options);
+$("#my-interactive-image").interactiveImage(items, options);
 ```
 
-Supported social media: email and Twitter.  
+Supported social media: email, [Twitter](https://twitter.com/) and [Facebook](https://www.facebook.com/).  
 In case of email share, the subject of the email is the webpage title.
+
+### Sticky elements
+
+Make some elements to have a sticky behavior:
+
+```javascript
+// item object
+{
+  //...
+  sticky: true
+}
+```
 
 ### Debugging
 
@@ -173,7 +186,7 @@ var options = {
   debug: true
 };
 
-$(".interactive-image").interactiveImage(items, options);
+$("#my-interactive-image").interactiveImage(items, options);
 ```
 
 ## Configuration
@@ -206,14 +219,15 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Text Item**
 
-| Property    | Type   | Example                | Required | Default         | Purpose                       |
-| ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
-| type        | string | "text"                 | Yes      |                 | Item type                     |
-| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
-| title       | string | "My title"             | Yes      |                 | Title                         |
-| description | string | "My description"       | Yes      |                 | Descriptive text              |
-| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration source path      |
-| link        | object | See `Link` object      | No       |                 | HTTP Link                     |
+| Property    | Type    | Example                | Required | Default         | Purpose                       |
+| ----------- | ------- | ---------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string  | "text"                 | Yes      |                 | Item type                     |
+| position    | object  | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
+| title       | string  | "My title"             | Yes      |                 | Title                         |
+| description | string  | "My description"       | Yes      |                 | Descriptive text              |
+| picturePath | string  | "/path/to/picture.png" | No       |                 | Illustration source path      |
+| link        | object  | See `Link` object      | No       |                 | HTTP Link                     |
+| sticky      | boolean | true                   | No       | false           | Sticky behavior               |
 
 **Picture Item**
 
@@ -223,6 +237,7 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
 | path        | string | "/path/to/picture.png" | Yes      |                 | Illustration source path       |
 | caption     | string | "My caption"           | No       |                 | Illustration short description |
+| sticky      | boolean | true                  | No       | false           | Sticky behavior                |
 
 **Audio Item**
 
@@ -234,6 +249,7 @@ Supported audio formats: mp3, ogg, wav.
 | position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
 | path        | string | "/path/to/sound.mp3"  | Yes      |                 | Sound source path             |
 | caption     | string | "My caption"          | No       |                 | Sound short description       |
+| sticky      | boolean | true                 | No       | false           | Sticky behavior               |
 
 **Video Item**
 
@@ -246,6 +262,7 @@ Supported video formats: mp4, webm.
 | path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path                                   |
 | caption     | string | "My caption"          | No       |                 | Video short description                             |
 | poster      | string | "path/to/poster.png"  | No       |                 | An image to be shown while the video is downloading |
+| sticky      | boolean | true                 | No       | false           | Sticky behavior                                     |
 
 **Provider Item**
 
@@ -255,6 +272,7 @@ Supported video formats: mp4, webm.
 | position     | object | See `Position` object   | No       | {left:0, top:0} | Hotspot position on the scene |
 | providerName | string | "youtube\|dailymotion"  | Yes      |                 | Content provider name         |
 | parameters   | object | See `Parameters` object | Yes      |                 | Content parameters            |
+| sticky       | boolean | true                   | No       | false           | Sticky behavior               |
 
 ### Other objects
 
