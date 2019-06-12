@@ -1,4 +1,5 @@
 import BaseItem from "./baseItem";
+import DomHelper from "../helper/domHelper";
 
 /**
  * @extends BaseItem
@@ -41,7 +42,7 @@ export default class ProviderItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createIframe() {
-        return this.domHelper.createElement(
+        return DomHelper.createElement(
             'iframe',
             {
                 'frameborder': '0',
@@ -55,7 +56,7 @@ export default class ProviderItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const providerItem = this.domHelper.createElement('div', {'class': 'provider-item'});
+        const providerItem = DomHelper.createElement('div', {'class': 'provider-item'});
 
         providerItem.appendChild(this.createIframe());
 

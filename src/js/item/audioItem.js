@@ -1,4 +1,5 @@
 import BaseItem from "./baseItem";
+import DomHelper from "../helper/domHelper";
 import FileHelper from "./../helper/fileHelper";
 
 /**
@@ -44,11 +45,11 @@ export default class AudioItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createAudio() {
-        const audio = this.domHelper.createElement('audio', {'class': 'genuine-theme'}, AudioItem.unsupportedTagMessage());
+        const audio = DomHelper.createElement('audio', {'class': 'genuine-theme'}, AudioItem.unsupportedTagMessage());
         audio.setAttribute('controls', '');
         audio.setAttribute('preload', 'metadata');
 
-        const source = this.domHelper.createElement('source');
+        const source = DomHelper.createElement('source');
         source.setAttribute('src', this.path);
         source.setAttribute('type', AudioItem.supportedFileFormats()[this.fileExtension]);
 
@@ -62,12 +63,12 @@ export default class AudioItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const audioItem = this.domHelper.createElement('div', {'class': 'audio-item'});
+        const audioItem = DomHelper.createElement('div', {'class': 'audio-item'});
 
         audioItem.appendChild(this.createAudio());
 
         if ('undefined' !== typeof this.caption) {
-            const caption = this.domHelper.createElement('span', {'class': 'caption'}, this.caption);
+            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption);
             audioItem.appendChild(caption);
         }
 

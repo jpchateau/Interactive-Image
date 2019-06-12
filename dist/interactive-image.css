@@ -65,6 +65,17 @@
       border-bottom-color: white;
       border-width: 7px;
       margin-left: -7px; }
+  .interactive-image .close-button {
+    display: block;
+    width: 19px;
+    height: 17px;
+    color: #333;
+    position: absolute;
+    top: 3px;
+    right: 1px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center; }
 
 @font-face {
   font-family: "icomoon";
@@ -146,7 +157,7 @@
     display: block; }
 
 .interactive-image .audio-item {
-  padding: 15px;
+  padding: 20px;
   max-width: 300px;
   text-align: left; }
   .interactive-image .audio-item .caption {
@@ -159,9 +170,9 @@
 
 .interactive-image .picture-item {
   position: relative;
-  max-width: 200px;
-  max-height: 200px;
-  margin: 15px; }
+  max-width: 210px;
+  max-height: 210px;
+  margin: 20px; }
   .interactive-image .picture-item::before {
     content: attr(data-caption);
     position: absolute;
@@ -178,15 +189,15 @@
     margin-bottom: -4px; }
 
 .interactive-image .provider-item {
-  padding: 15px; }
+  padding: 20px; }
   .interactive-image .provider-item iframe {
     width: 480px;
     height: 270px;
     margin-bottom: -4px; }
 
 .interactive-image .text-item {
-  padding: 15px;
-  max-width: 200px; }
+  padding: 20px;
+  max-width: 210px; }
   .interactive-image .text-item .title {
     font-size: 20px;
     width: 100%;
@@ -217,7 +228,7 @@
       color: #1d2129; }
 
 .interactive-image .video-item {
-  padding: 15px;
+  padding: 20px;
   text-align: left; }
   .interactive-image .video-item .caption {
     display: block;

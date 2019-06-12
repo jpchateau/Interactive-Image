@@ -1,4 +1,5 @@
 import BaseItem from "./baseItem";
+import DomHelper from "../helper/domHelper";
 import FileHelper from "./../helper/fileHelper";
 
 /**
@@ -44,12 +45,12 @@ export default class VideoItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createVideo() {
-        const video = this.domHelper.createElement('video', {'class': 'genuine-theme'}, VideoItem.unsupportedTagMessage());
+        const video = DomHelper.createElement('video', {'class': 'genuine-theme'}, VideoItem.unsupportedTagMessage());
         video.setAttribute('controls', '');
         video.setAttribute('controlsList', 'nodownload');
         video.setAttribute('preload', 'metadata');
 
-        const source = this.domHelper.createElement('source');
+        const source = DomHelper.createElement('source');
         source.setAttribute('src', this.path);
         source.setAttribute('type', VideoItem.supportedFileFormats()[this.fileExtension]);
 
@@ -67,12 +68,12 @@ export default class VideoItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const videoItem = this.domHelper.createElement('div', {'class': 'video-item'});
+        const videoItem = DomHelper.createElement('div', {'class': 'video-item'});
 
         videoItem.appendChild(this.createVideo());
 
         if ('undefined' !== typeof this.caption) {
-            const caption = this.domHelper.createElement('span', {'class': 'caption'}, this.caption);
+            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption);
             videoItem.appendChild(caption);
         }
 

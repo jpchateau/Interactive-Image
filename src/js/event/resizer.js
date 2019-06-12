@@ -1,6 +1,6 @@
 export default class Resizer {
     /**
-     * @param {Hover} behavior
+     * @param {Behavior} behavior
      */
     constructor(behavior) {
         this.behavior = behavior;

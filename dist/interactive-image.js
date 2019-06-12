@@ -613,13 +613,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _behavior = __webpack_require__(/*! ./event/behavior */ "./src/js/event/behavior.js");
+
+var _behavior2 = _interopRequireDefault(_behavior);
+
 var _domHelper = __webpack_require__(/*! ./helper/domHelper */ "./src/js/helper/domHelper.js");
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
-
-var _hover = __webpack_require__(/*! ./behavior/hover */ "./src/js/behavior/hover.js");
-
-var _hover2 = _interopRequireDefault(_hover);
 
 var _imagesloaded = __webpack_require__(/*! imagesloaded */ "./node_modules/imagesloaded/imagesloaded.js");
 
@@ -651,19 +651,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var App = function () {
     /**
-     * @param items
-     * @param {object} settings
      * @param $image
+     * @param {array} items
+     * @param {object} settings
      */
-    function App(items, settings, $image) {
+    function App($image, items, settings) {
         _classCallCheck(this, App);
 
+        this.$image = $image;
         this.items = items;
         this.settings = settings;
-        this.$image = $image;
-        this.itemFactory = new _factory2.default();
-        this.domHelper = new _domHelper2.default();
-        this.logHelper = new _logHelper2.default(settings.debug);
     }
 
     _createClass(App, [{
@@ -709,7 +706,7 @@ var App = function () {
                 }
 
                 // Add message for unsupported screen sizes
-                var unsupportedScreenElement = _this2.domHelper.createElement('div', { class: 'unsupported-screen' }, 'Please rotate your device.');
+                var unsupportedScreenElement = _domHelper2.default.createElement('div', { class: 'unsupported-screen' }, 'Please rotate your device.');
                 _this2.$image.append(unsupportedScreenElement);
 
                 var end = Date.now();
@@ -728,6 +725,12 @@ var App = function () {
         key: "createElement",
         value: function createElement(options) {
             this.logHelper.log(JSON.stringify(options), undefined, 'blue');
+
+            var defaults = {
+                sticky: false
+            };
+
+            options = $.extend(defaults, options);
 
             var type = options.type;
             delete options.type;
@@ -801,10 +804,10 @@ var App = function () {
                 _this5.logHelper.log('Starting events binding...');
                 var start = Date.now();
 
-                var hover = new _hover2.default(_this5.$image);
-                hover.bindAll();
+                var behavior = new _behavior2.default(_this5.$image);
+                behavior.bindAll();
 
-                var resizer = new _resizer2.default(hover);
+                var resizer = new _resizer2.default(behavior);
                 resizer.bind();
 
                 var end = Date.now();
@@ -823,7 +826,7 @@ var App = function () {
                 var start = Date.now();
 
                 if (true === _this6.settings.shareBox) {
-                    var socialMediaShare = new _socialMediaShare2.default(_this6.domHelper, _this6.$image);
+                    var socialMediaShare = new _socialMediaShare2.default(_this6.$image);
                     socialMediaShare.buildShareBox(_this6.settings.socialMedia || {});
                 }
 
@@ -863,6 +866,9 @@ var App = function () {
 
             var start = Date.now();
 
+            this.logHelper = new _logHelper2.default(this.settings.debug);
+            this.itemFactory = new _factory2.default();
+
             this.checkSettings().then(function () {
                 return _this8.consolidateDOM();
             }).then(function () {
@@ -892,112 +898,9 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ "./src/js/behavior/baseBehavior.js":
-/*!*****************************************!*\
-  !*** ./src/js/behavior/baseBehavior.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BaseBehavior = function () {
-    function BaseBehavior($image) {
-        _classCallCheck(this, BaseBehavior);
-
-        this.$image = $image;
-        this.enabled = false;
-    }
-
-    /**
-     * @param $element
-     */
-
-
-    _createClass(BaseBehavior, [{
-        key: 'bindMainImageEvents',
-        value: function bindMainImageEvents() {
-            // Mouse enters main image to show all hotspots
-            this.$image.on('mouseenter', function () {
-                var $hotspots = $(this).find('.hotspot');
-                $.each($hotspots, function () {
-                    $(this).fadeIn();
-                });
-            });
-
-            // Mouse leaves main image to hide all hotspots and containers
-            this.$image.on('mouseleave', function () {
-                var $elements = $(this).find('.hotspot, .item');
-                $.each($elements, function () {
-                    BaseBehavior.hideElement($(this));
-                });
-            });
-        }
-    }, {
-        key: 'bindAll',
-        value: function bindAll() {
-            if (this.enabled === false) {
-                this.enabled = true;
-            }
-
-            this.bindMainImageEvents();
-            this.bindSpecificEvents();
-        }
-    }, {
-        key: 'unbindAll',
-        value: function unbindAll() {
-            if (this.enabled === true) {
-                this.enabled = false;
-            }
-
-            this.$image.off();
-        }
-    }, {
-        key: 'bindSpecificEvents',
-        value: function bindSpecificEvents() {
-            throw Error('bindSpecificEvents method not implemented');
-        }
-    }], [{
-        key: 'hideElement',
-        value: function hideElement($element) {
-            if ($element.css('display') === 'block') {
-                $element.hide();
-            }
-        }
-
-        /**
-         * @param $element
-         */
-
-    }, {
-        key: 'showElement',
-        value: function showElement($element) {
-            if ($element.css('display') !== 'block') {
-                $element.show();
-            }
-        }
-    }]);
-
-    return BaseBehavior;
-}();
-
-exports.default = BaseBehavior;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ "./src/js/behavior/hover.js":
+/***/ "./src/js/event/behavior.js":
 /*!**********************************!*\
-  !*** ./src/js/behavior/hover.js ***!
+  !*** ./src/js/event/behavior.js ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1011,61 +914,99 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _baseBehavior = __webpack_require__(/*! ./baseBehavior */ "./src/js/behavior/baseBehavior.js");
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
 
-var _baseBehavior2 = _interopRequireDefault(_baseBehavior);
+var _domHelper2 = _interopRequireDefault(_domHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var Behavior = function () {
+    /**
+     * @param $image
+     */
+    function Behavior($image) {
+        _classCallCheck(this, Behavior);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Hover = function (_BaseBehavior) {
-    _inherits(Hover, _BaseBehavior);
-
-    function Hover($image) {
-        _classCallCheck(this, Hover);
-
-        return _possibleConstructorReturn(this, (Hover.__proto__ || Object.getPrototypeOf(Hover)).call(this, $image));
+        this.$image = $image;
+        this.enabled = false;
     }
 
-    _createClass(Hover, [{
-        key: 'bindSpecificEvents',
-        value: function bindSpecificEvents() {
+    _createClass(Behavior, [{
+        key: 'bindAll',
+        value: function bindAll() {
+            if (this.enabled === false) {
+                this.enabled = true;
+            }
+
+            this.bindSceneEvents();
+            this.bindItemsEvents();
+        }
+    }, {
+        key: 'unbindAll',
+        value: function unbindAll() {
+            if (this.enabled === true) {
+                this.enabled = false;
+            }
+
+            this.$image.off();
+        }
+    }, {
+        key: 'bindSceneEvents',
+        value: function bindSceneEvents() {
+            // Mouse enters scene -> show all hotspots
+            this.$image.on('mouseenter', function () {
+                var $hotspots = $(this).find('.hotspot');
+                $.each($hotspots, function () {
+                    $(this).fadeIn();
+                });
+            });
+
+            // Mouse leaves scene -> hide all hotspots and containers
+            this.$image.on('mouseleave', function () {
+                var $elements = $(this).find('.hotspot, .item');
+                $.each($elements, function () {
+                    _domHelper2.default.hideElement($(this));
+                });
+            });
+        }
+    }, {
+        key: 'bindItemsEvents',
+        value: function bindItemsEvents() {
             var that = this;
 
-            // Bind Mouse leaves container to hide it
-            var bindContainerMouseLeaveEvent = function bindContainerMouseLeaveEvent() {
-                that.$image.on('mouseleave', '.item', function () {
-                    var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
-                    Hover.hideElement($container);
-                });
-            };
-
-            // Mouse enters icon to show its container and close all others
+            // Mouse enters a hotspot
             that.$image.on('mouseenter', '.hotspot', function () {
-                var $containers = that.$image.find('.item');
+                // Hide all other containers that are not sticky
+                var $containers = that.$image.find('.item').not('.behavior-sticky');
                 $.each($containers, function () {
-                    Hover.hideElement($(this));
+                    _domHelper2.default.hideElement($(this));
                 });
 
+                // Show the related container
                 var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
-                Hover.showElement($container);
-                $container.on('mouseleave', function () {
-                    Hover.hideElement($(this));
-                    bindContainerMouseLeaveEvent();
-                });
+                _domHelper2.default.showElement($container);
+
+                if ($container.hasClass('behavior-sticky')) {
+                    // Bind event to hide the related container when close button is clicked
+                    $container.on('click', '.close-button', function () {
+                        _domHelper2.default.hideElement($container);
+                    });
+                } else {
+                    // Bind event to hide the related container when mouse leaves it
+                    $container.on('mouseleave', function () {
+                        _domHelper2.default.hideElement($(this));
+                    });
+                }
             });
         }
     }]);
 
-    return Hover;
-}(_baseBehavior2.default);
+    return Behavior;
+}();
 
-exports.default = Hover;
+exports.default = Behavior;
 module.exports = exports['default'];
 
 /***/ }),
@@ -1090,7 +1031,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Resizer = function () {
     /**
-     * @param {Hover} behavior
+     * @param {Behavior} behavior
      */
     function Resizer(behavior) {
         _classCallCheck(this, Resizer);
@@ -1154,7 +1095,7 @@ var DomHelper = function () {
         _classCallCheck(this, DomHelper);
     }
 
-    _createClass(DomHelper, [{
+    _createClass(DomHelper, null, [{
         key: 'createElement',
 
         /**
@@ -1181,6 +1122,34 @@ var DomHelper = function () {
             }
 
             return node;
+        }
+
+        /**
+         * Hide a jQuery wrapped DOM element
+         *
+         * @param {jQuery} $element
+         */
+
+    }, {
+        key: 'hideElement',
+        value: function hideElement($element) {
+            if ($element.css('display') === 'block') {
+                $element.hide();
+            }
+        }
+
+        /**
+         * Show a jQuery wrapped DOM element
+         *
+         * @param {jQuery} $element
+         */
+
+    }, {
+        key: 'showElement',
+        value: function showElement($element) {
+            if ($element.css('display') !== 'block') {
+                $element.show();
+            }
         }
     }]);
 
@@ -1405,7 +1374,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         options = $.extend(defaults, options);
 
         return this.each(function () {
-            new _app2.default(items, options, $(_this)).execute();
+            new _app2.default($(_this), items, options).execute();
         });
     };
 })(jQuery, window, document);
@@ -1432,6 +1401,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
 
 var _baseItem2 = _interopRequireDefault(_baseItem);
+
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
 
 var _fileHelper = __webpack_require__(/*! ./../helper/fileHelper */ "./src/js/helper/fileHelper.js");
 
@@ -1506,11 +1479,11 @@ var AudioItem = function (_BaseItem) {
     _createClass(AudioItem, [{
         key: "createAudio",
         value: function createAudio() {
-            var audio = this.domHelper.createElement('audio', { 'class': 'genuine-theme' }, AudioItem.unsupportedTagMessage());
+            var audio = _domHelper2.default.createElement('audio', { 'class': 'genuine-theme' }, AudioItem.unsupportedTagMessage());
             audio.setAttribute('controls', '');
             audio.setAttribute('preload', 'metadata');
 
-            var source = this.domHelper.createElement('source');
+            var source = _domHelper2.default.createElement('source');
             source.setAttribute('src', this.path);
             source.setAttribute('type', AudioItem.supportedFileFormats()[this.fileExtension]);
 
@@ -1527,12 +1500,12 @@ var AudioItem = function (_BaseItem) {
         key: "renderHtml",
         value: function renderHtml() {
             var element = this.createItemElement();
-            var audioItem = this.domHelper.createElement('div', { 'class': 'audio-item' });
+            var audioItem = _domHelper2.default.createElement('div', { 'class': 'audio-item' });
 
             audioItem.appendChild(this.createAudio());
 
             if ('undefined' !== typeof this.caption) {
-                var caption = this.domHelper.createElement('span', { 'class': 'caption' }, this.caption);
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption);
                 audioItem.appendChild(caption);
             }
 
@@ -1585,10 +1558,9 @@ var BaseItem = function () {
     function BaseItem(parameters) {
         _classCallCheck(this, BaseItem);
 
-        this.domHelper = new _domHelper2.default();
-
         this.identifier = _uniqueId2.default.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
+        this.sticky = parameters.sticky;
     }
 
     _createClass(BaseItem, [{
@@ -1608,7 +1580,7 @@ var BaseItem = function () {
     }, {
         key: "createHotspotElement",
         value: function createHotspotElement() {
-            var element = this.domHelper.createElement('div', { 'class': 'hotspot icon-radio-checked' });
+            var element = _domHelper2.default.createElement('div', { 'class': 'hotspot icon-radio-checked' });
             element.setAttribute('data-for', this.identifier);
             element.style.left = this.position.left + 'px';
             element.style.top = this.position.top + 'px';
@@ -1623,8 +1595,18 @@ var BaseItem = function () {
     }, {
         key: "createItemElement",
         value: function createItemElement() {
-            var element = this.domHelper.createElement('div', { 'class': 'item' });
+            var itemClass = 'item';
+            if (this.sticky === true) {
+                itemClass += ' behavior-sticky';
+            }
+
+            var element = _domHelper2.default.createElement('div', { 'class': itemClass });
             element.setAttribute('data-id', this.identifier);
+
+            if (this.sticky === true) {
+                var closeButton = _domHelper2.default.createElement('div', { 'class': 'close-button icon-cancel-circle' });
+                element.appendChild(closeButton);
+            }
 
             return element;
         }
@@ -1751,6 +1733,10 @@ var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js
 
 var _baseItem2 = _interopRequireDefault(_baseItem);
 
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1787,9 +1773,9 @@ var PictureItem = function (_BaseItem) {
 
 
     _createClass(PictureItem, [{
-        key: 'createPicture',
+        key: "createPicture",
         value: function createPicture() {
-            var element = this.domHelper.createElement('img', { 'class': 'picture' });
+            var element = _domHelper2.default.createElement('img', { 'class': 'picture' });
             element.src = this.path;
 
             if ('undefined' !== typeof this.caption) {
@@ -1806,17 +1792,17 @@ var PictureItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'renderHtml',
+        key: "renderHtml",
         value: function renderHtml() {
             var element = this.createItemElement();
-            var pictureItem = this.domHelper.createElement('div', { 'class': 'picture-item' });
+            var pictureItem = _domHelper2.default.createElement('div', { 'class': 'picture-item' });
 
             if ('undefined' !== typeof this.caption) {
                 pictureItem.setAttribute('data-caption', this.caption);
             }
 
             if ('undefined' !== typeof this.linkUrl) {
-                var link = this.domHelper.createElement('a');
+                var link = _domHelper2.default.createElement('a');
                 link.href = this.linkUrl;
                 link.appendChild(this.createPicture());
                 pictureItem.appendChild(link);
@@ -1834,7 +1820,7 @@ var PictureItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = PictureItem;
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 
@@ -1858,6 +1844,10 @@ var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js
 
 var _baseItem2 = _interopRequireDefault(_baseItem);
 
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1873,7 +1863,7 @@ var ProviderItem = function (_BaseItem) {
     _inherits(ProviderItem, _BaseItem);
 
     _createClass(ProviderItem, null, [{
-        key: 'supportedProviders',
+        key: "supportedProviders",
 
         /**
          * @returns {string[]}
@@ -1887,7 +1877,7 @@ var ProviderItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'providersUrls',
+        key: "providersUrls",
         value: function providersUrls() {
             return {
                 'youtube': 'https://www.youtube.com/embed/',
@@ -1923,9 +1913,9 @@ var ProviderItem = function (_BaseItem) {
 
 
     _createClass(ProviderItem, [{
-        key: 'createIframe',
+        key: "createIframe",
         value: function createIframe() {
-            return this.domHelper.createElement('iframe', {
+            return _domHelper2.default.createElement('iframe', {
                 'frameborder': '0',
                 'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId + (this.providerName === 'youtube' ? '?origin=' + ProviderItem.guessOrigin() : '')
             });
@@ -1936,10 +1926,10 @@ var ProviderItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'renderHtml',
+        key: "renderHtml",
         value: function renderHtml() {
             var element = this.createItemElement();
-            var providerItem = this.domHelper.createElement('div', { 'class': 'provider-item' });
+            var providerItem = _domHelper2.default.createElement('div', { 'class': 'provider-item' });
 
             providerItem.appendChild(this.createIframe());
 
@@ -1953,7 +1943,7 @@ var ProviderItem = function (_BaseItem) {
          */
 
     }], [{
-        key: 'guessOrigin',
+        key: "guessOrigin",
         value: function guessOrigin() {
             var urlSplit = window.location.href.split("/");
 
@@ -1965,7 +1955,7 @@ var ProviderItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = ProviderItem;
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 
@@ -1988,6 +1978,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
 
 var _baseItem2 = _interopRequireDefault(_baseItem);
+
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2026,9 +2020,9 @@ var TextItem = function (_BaseItem) {
 
 
     _createClass(TextItem, [{
-        key: 'createTitle',
+        key: "createTitle",
         value: function createTitle() {
-            return this.domHelper.createElement('span', { 'class': 'title' }, this.title);
+            return _domHelper2.default.createElement('span', { 'class': 'title' }, this.title);
         }
 
         /**
@@ -2036,9 +2030,9 @@ var TextItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'createDescription',
+        key: "createDescription",
         value: function createDescription() {
-            return this.domHelper.createElement('p', { 'class': 'description' }, this.description);
+            return _domHelper2.default.createElement('p', { 'class': 'description' }, this.description);
         }
 
         /**
@@ -2046,9 +2040,9 @@ var TextItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'createPicture',
+        key: "createPicture",
         value: function createPicture() {
-            var element = this.domHelper.createElement('img', { 'class': 'picture' });
+            var element = _domHelper2.default.createElement('img', { 'class': 'picture' });
             element.src = this.picturePath;
             element.alt = this.title;
 
@@ -2060,9 +2054,9 @@ var TextItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'createLink',
+        key: "createLink",
         value: function createLink() {
-            var element = document.createElement('a');
+            var element = _domHelper2.default.createElement('a');
             element.href = this.link.url;
 
             var label = void 0;
@@ -2082,10 +2076,10 @@ var TextItem = function (_BaseItem) {
          */
 
     }, {
-        key: 'renderHtml',
+        key: "renderHtml",
         value: function renderHtml() {
             var element = this.createItemElement();
-            var textElement = this.domHelper.createElement('div', { 'class': 'text-item' });
+            var textElement = _domHelper2.default.createElement('div', { 'class': 'text-item' });
 
             textElement.appendChild(this.createTitle());
 
@@ -2109,7 +2103,7 @@ var TextItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = TextItem;
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 
@@ -2132,6 +2126,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
 
 var _baseItem2 = _interopRequireDefault(_baseItem);
+
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
 
 var _fileHelper = __webpack_require__(/*! ./../helper/fileHelper */ "./src/js/helper/fileHelper.js");
 
@@ -2206,12 +2204,12 @@ var VideoItem = function (_BaseItem) {
     _createClass(VideoItem, [{
         key: "createVideo",
         value: function createVideo() {
-            var video = this.domHelper.createElement('video', { 'class': 'genuine-theme' }, VideoItem.unsupportedTagMessage());
+            var video = _domHelper2.default.createElement('video', { 'class': 'genuine-theme' }, VideoItem.unsupportedTagMessage());
             video.setAttribute('controls', '');
             video.setAttribute('controlsList', 'nodownload');
             video.setAttribute('preload', 'metadata');
 
-            var source = this.domHelper.createElement('source');
+            var source = _domHelper2.default.createElement('source');
             source.setAttribute('src', this.path);
             source.setAttribute('type', VideoItem.supportedFileFormats()[this.fileExtension]);
 
@@ -2232,12 +2230,12 @@ var VideoItem = function (_BaseItem) {
         key: "renderHtml",
         value: function renderHtml() {
             var element = this.createItemElement();
-            var videoItem = this.domHelper.createElement('div', { 'class': 'video-item' });
+            var videoItem = _domHelper2.default.createElement('div', { 'class': 'video-item' });
 
             videoItem.appendChild(this.createVideo());
 
             if ('undefined' !== typeof this.caption) {
-                var caption = this.domHelper.createElement('span', { 'class': 'caption' }, this.caption);
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption);
                 videoItem.appendChild(caption);
             }
 
@@ -2273,17 +2271,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var SocialMediaShare = function () {
     /**
-     * @param {DomHelper} domHelper
      * @param $image
      */
-    function SocialMediaShare(domHelper, $image) {
+    function SocialMediaShare($image) {
         _classCallCheck(this, SocialMediaShare);
 
-        this.domHelper = domHelper;
         this.$image = $image;
     }
 
@@ -2302,7 +2304,7 @@ var SocialMediaShare = function () {
          * @returns {HTMLElement}
          */
         value: function buildFacebookButton(options) {
-            var facebookLink = this.domHelper.createElement('a', { 'class': 'social-button facebook-colors icon-facebook' });
+            var facebookLink = _domHelper2.default.createElement('a', { 'class': 'social-button facebook-colors icon-facebook' });
             facebookLink.setAttribute('target', '_blank');
             facebookLink.setAttribute('href', SocialMediaShare.buildFacebookUrl(options));
 
@@ -2317,7 +2319,7 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildTwitterButton',
         value: function buildTwitterButton(options) {
-            var twitterLink = this.domHelper.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
+            var twitterLink = _domHelper2.default.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
             twitterLink.setAttribute('target', '_blank');
             twitterLink.setAttribute('href', SocialMediaShare.buildTwitterUrl(options));
 
@@ -2332,7 +2334,7 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildMailButton',
         value: function buildMailButton(options) {
-            var mailLink = this.domHelper.createElement('a', { 'class': 'social-button mail-colors icon-envelop' });
+            var mailLink = _domHelper2.default.createElement('a', { 'class': 'social-button mail-colors icon-envelop' });
             mailLink.setAttribute('target', '_blank');
             mailLink.setAttribute('href', SocialMediaShare.buildMailUrl(options));
 
@@ -2346,8 +2348,8 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildShareBox',
         value: function buildShareBox(socialMediaOptions) {
-            var elementBox = this.domHelper.createElement('div', { 'class': 'social-share-box' });
-            var elementShareButton = this.domHelper.createElement('div', { 'class': 'social-button share-colors icon-share2' });
+            var elementBox = _domHelper2.default.createElement('div', { 'class': 'social-share-box' });
+            var elementShareButton = _domHelper2.default.createElement('div', { 'class': 'social-button share-colors icon-share2' });
 
             elementBox.appendChild(this.buildFacebookButton(socialMediaOptions));
             elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
