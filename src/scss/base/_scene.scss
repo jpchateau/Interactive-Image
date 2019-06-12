@@ -79,14 +79,15 @@
 
   .close-button {
     display: block;
-    width: 10px;
-    height: 10px;
-    color: dimgrey;
+    width: 19px;
+    height: 17px;
+    color: $black-heading-text;
     position: absolute;
     top: 3px;
-    right: 3px;
-    font-size: 0.6em;
+    right: 1px;
+    font-size: 16px;
     cursor: pointer;
+    text-align: center;
   }
 }
 

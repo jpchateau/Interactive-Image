@@ -1,9 +1,9 @@
 .interactive-image {
   .picture-item {
     position: relative;
-    max-width: 200px;
-    max-height: 200px;
-    margin: 15px;
+    max-width: 210px;
+    max-height: 210px;
+    margin: 20px;
 
     &::before {
       content: attr(data-caption);

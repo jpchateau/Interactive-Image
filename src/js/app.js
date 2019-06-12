@@ -1,5 +1,5 @@
+import Behavior from "./event/behavior";
 import DomHelper from "./helper/domHelper";
-import Hover from "./behavior/hover";
 import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
@@ -9,17 +9,14 @@ import SocialMediaShare from "./service/socialMediaShare";
 
 export default class App {
     /**
-     * @param items
-     * @param {object} settings
      * @param $image
+     * @param {array} items
+     * @param {object} settings
      */
-    constructor(items, settings, $image) {
+    constructor($image, items, settings) {
+        this.$image = $image;
         this.items = items;
         this.settings = settings;
-        this.$image = $image;
-        this.itemFactory = new ItemFactory();
-        this.domHelper = new DomHelper();
-        this.logHelper = new LogHelper(settings.debug);
     }
 
     checkSettings() {
@@ -58,7 +55,7 @@ export default class App {
             }
 
             // Add message for unsupported screen sizes
-            const unsupportedScreenElement = this.domHelper.createElement(
+            const unsupportedScreenElement = DomHelper.createElement(
                 'div',
                 {class: 'unsupported-screen'},
                 'Please rotate your device.'
@@ -78,6 +75,12 @@ export default class App {
      */
     createElement(options) {
         this.logHelper.log(JSON.stringify(options), undefined, 'blue');
+
+        const defaults = {
+            sticky: false
+        };
+
+        options = $.extend(defaults, options);
 
         const type = options.type;
         delete options.type;
@@ -136,10 +139,10 @@ export default class App {
             this.logHelper.log('Starting events binding...');
             const start = Date.now();
 
-            let hover = new Hover(this.$image);
-            hover.bindAll();
+            const behavior = new Behavior(this.$image);
+            behavior.bindAll();
 
-            let resizer = new Resizer(hover);
+            const resizer = new Resizer(behavior);
             resizer.bind();
 
             const end = Date.now();
@@ -155,7 +158,7 @@ export default class App {
             const start = Date.now();
 
             if (true === this.settings.shareBox) {
-                const socialMediaShare = new SocialMediaShare(this.domHelper, this.$image);
+                const socialMediaShare = new SocialMediaShare(this.$image);
                 socialMediaShare.buildShareBox(this.settings.socialMedia || {});
             }
 
@@ -188,6 +191,9 @@ export default class App {
 
     execute() {
         const start = Date.now();
+
+        this.logHelper = new LogHelper(this.settings.debug);
+        this.itemFactory = new ItemFactory();
 
         this
             .checkSettings()

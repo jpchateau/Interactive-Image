@@ -11,7 +11,7 @@ import App from "./app";
         options = $.extend(defaults, options);
 
         return this.each(() => {
-            new App(items, options, $(this)).execute();
+            new App($(this), items, options).execute();
         });
     };
 })(jQuery, window, document);
