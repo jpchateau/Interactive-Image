@@ -607,9 +607,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -682,6 +682,10 @@ var App = function () {
 
                 if ('boolean' !== typeof _this.settings.shareBox) {
                     throw Error('Check "shareBox" plugin option');
+                }
+
+                if ('undefined' !== typeof _this.settings.socialMedia && 'object' !== _typeof(_this.settings.socialMedia)) {
+                    throw Error('Check "socialMedia" plugin option');
                 }
 
                 var end = Date.now();
@@ -818,9 +822,9 @@ var App = function () {
                 _this6.logHelper.log('Starting to evaluate social media share capabilities...');
                 var start = Date.now();
 
-                if (true === _this6.settings.shareBox && _typeof(_this6.settings.socialMedia) === 'object') {
+                if (true === _this6.settings.shareBox) {
                     var socialMediaShare = new _socialMediaShare2.default(_this6.domHelper, _this6.$image);
-                    socialMediaShare.buildShareBox(_this6.settings.socialMedia);
+                    socialMediaShare.buildShareBox(_this6.settings.socialMedia || {});
                 }
 
                 var end = Date.now();
@@ -2290,13 +2294,28 @@ var SocialMediaShare = function () {
 
 
     _createClass(SocialMediaShare, [{
-        key: 'buildTwitterButton',
+        key: 'buildFacebookButton',
 
 
         /**
          * @param {object} options
          * @returns {HTMLElement}
          */
+        value: function buildFacebookButton(options) {
+            var facebookLink = this.domHelper.createElement('a', { 'class': 'social-button facebook-colors icon-facebook' });
+            facebookLink.setAttribute('target', '_blank');
+            facebookLink.setAttribute('href', SocialMediaShare.buildFacebookUrl(options));
+
+            return facebookLink;
+        }
+
+        /**
+         * @param {object} options
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'buildTwitterButton',
         value: function buildTwitterButton(options) {
             var twitterLink = this.domHelper.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
             twitterLink.setAttribute('target', '_blank');
@@ -2330,6 +2349,7 @@ var SocialMediaShare = function () {
             var elementBox = this.domHelper.createElement('div', { 'class': 'social-share-box' });
             var elementShareButton = this.domHelper.createElement('div', { 'class': 'social-button share-colors icon-share2' });
 
+            elementBox.appendChild(this.buildFacebookButton(socialMediaOptions));
             elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
             elementBox.appendChild(this.buildMailButton(socialMediaOptions));
             elementBox.appendChild(elementShareButton);
@@ -2350,6 +2370,21 @@ var SocialMediaShare = function () {
             });
         }
     }], [{
+        key: 'buildFacebookUrl',
+        value: function buildFacebookUrl(options) {
+            var parameters = {
+                u: options.url || window.location.href
+            };
+
+            return 'https://www.facebook.com/sharer.php?' + $.param(parameters);
+        }
+
+        /**
+         * @param {object} options
+         * @returns {string}
+         */
+
+    }, {
         key: 'buildTwitterUrl',
         value: function buildTwitterUrl(options) {
             var parameters = {

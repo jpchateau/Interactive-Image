@@ -117,7 +117,7 @@
   cursor: pointer; }
   .interactive-image .social-share-box.expanded {
     transition: height .3s;
-    height: 96px; }
+    height: 128px; }
   .interactive-image .social-share-box .social-button {
     width: 32px;
     height: 32px;
@@ -126,11 +126,14 @@
     padding-bottom: 6px;
     text-align: center; }
     .interactive-image .social-share-box .social-button.mail-colors {
-      font-size: 14px;
-      padding-top: 9px;
-      padding-bottom: 9px; }
+      font-size: 18px;
+      padding-top: 7px;
+      padding-bottom: 7px; }
   .interactive-image .social-share-box .share-colors {
     background: rgba(0, 0, 0, 0.7);
+    color: white; }
+  .interactive-image .social-share-box .facebook-colors {
+    background-color: #1877f2;
     color: white; }
   .interactive-image .social-share-box .twitter-colors {
     background-color: #1da1f2;

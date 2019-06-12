@@ -36,6 +36,10 @@ export default class App {
                 throw Error('Check "shareBox" plugin option');
             }
 
+            if ('undefined' !== typeof this.settings.socialMedia && 'object' !== typeof this.settings.socialMedia) {
+                throw Error('Check "socialMedia" plugin option');
+            }
+
             const end = Date.now();
             this.logHelper.log('Options checked', end - start, 'green');
 
@@ -150,9 +154,9 @@ export default class App {
             this.logHelper.log('Starting to evaluate social media share capabilities...');
             const start = Date.now();
 
-            if (true === this.settings.shareBox && typeof this.settings.socialMedia === 'object') {
+            if (true === this.settings.shareBox) {
                 const socialMediaShare = new SocialMediaShare(this.domHelper, this.$image);
-                socialMediaShare.buildShareBox(this.settings.socialMedia);
+                socialMediaShare.buildShareBox(this.settings.socialMedia || {});
             }
 
             const end = Date.now();

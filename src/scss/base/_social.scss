@@ -15,7 +15,7 @@
 
     &.expanded {
       transition: height .3s;
-      height: 96px;
+      height: 128px;
     }
 
     .social-button {
@@ -27,14 +27,19 @@
       text-align: center;
 
       &.mail-colors {
-        font-size: 14px;
-        padding-top: 9px;
-        padding-bottom: 9px;
+        font-size: 18px;
+        padding-top: 7px;
+        padding-bottom: 7px;
       }
     }
 
     .share-colors {
       background: rgba(0, 0, 0, .7);
+      color: white;
+    }
+
+    .facebook-colors {
+      background-color: #1877f2;
       color: white;
     }
 

@@ -12,6 +12,18 @@ export default class SocialMediaShare {
      * @param {object} options
      * @returns {string}
      */
+    static buildFacebookUrl(options) {
+        let parameters = {
+            u: options.url || window.location.href
+        };
+
+        return 'https://www.facebook.com/sharer.php?' + $.param(parameters);
+    }
+
+    /**
+     * @param {object} options
+     * @returns {string}
+     */
     static buildTwitterUrl(options) {
         let parameters = {
             url: options.url || window.location.href,
@@ -46,6 +58,18 @@ export default class SocialMediaShare {
      * @param {object} options
      * @returns {HTMLElement}
      */
+    buildFacebookButton(options) {
+        const facebookLink = this.domHelper.createElement('a', {'class': 'social-button facebook-colors icon-facebook'});
+        facebookLink.setAttribute('target', '_blank');
+        facebookLink.setAttribute('href', SocialMediaShare.buildFacebookUrl(options));
+
+        return facebookLink;
+    }
+
+    /**
+     * @param {object} options
+     * @returns {HTMLElement}
+     */
     buildTwitterButton(options) {
         const twitterLink = this.domHelper.createElement('a', {'class': 'social-button twitter-colors icon-twitter'});
         twitterLink.setAttribute('target', '_blank');
@@ -73,6 +97,7 @@ export default class SocialMediaShare {
         const elementBox = this.domHelper.createElement('div', {'class': 'social-share-box'});
         const elementShareButton = this.domHelper.createElement('div', {'class': 'social-button share-colors icon-share2'});
 
+        elementBox.appendChild(this.buildFacebookButton(socialMediaOptions));
         elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
         elementBox.appendChild(this.buildMailButton(socialMediaOptions));
         elementBox.appendChild(elementShareButton);
