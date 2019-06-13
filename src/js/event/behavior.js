@@ -27,20 +27,28 @@ export default class Behavior {
     }
 
     bindSceneEvents() {
-        // Mouse enters scene -> show all hotspots
+        // Mouse enters scene -> show all hotspots and share box
         this.$image.on('mouseenter', function() {
             const $hotspots = $(this).find('.hotspot');
             $.each($hotspots, function() {
                 $(this).fadeIn();
             });
+
+            const $shareBox = $(this).find('.social-share-box');
+            setTimeout(() => {
+                $shareBox.css('display', 'flex');
+            }, 100);
         });
 
-        // Mouse leaves scene -> hide all hotspots and containers
+        // Mouse leaves scene -> hide all hotspots, containers and share box
         this.$image.on('mouseleave', function() {
             const $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
                 DomHelper.hideElement($(this));
             });
+
+            const $shareBox = $(this).find('.social-share-box');
+            $shareBox.hide();
         });
     }
 

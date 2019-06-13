@@ -3,15 +3,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.4.0
 * Sticky behavior available on items
-* Added a social share box to enable content sharing on Twitter and by email
-* Description texts are now displayed after each media for a better readability
-* Codebase improvements based on Code Climate report
-* Added more unit tests
+* Added a social share box to enable content sharing on Facebook, Twitter and by email
+* Description texts are now displayed after each media for a better flow - issue #3
+* Codebase improvements based on Code Climate report and unit tests
 * Added an editorconfig file to ease contributing
-* Demo file has now its own directory
 * Fixed an issue affecting the link over a picture that was not clickable on the caption part, on Picture items
 * Fixed an issue regarding the poster size of HTML video elements
-* Fixed an issue affecting the automatic generation of legal comments on dist files
 
 ## 2.3.0 (2019-04-05)
 * Added support of poster attribute for HTML5 video items

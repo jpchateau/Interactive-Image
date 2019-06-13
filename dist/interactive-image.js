@@ -955,20 +955,28 @@ var Behavior = function () {
     }, {
         key: 'bindSceneEvents',
         value: function bindSceneEvents() {
-            // Mouse enters scene -> show all hotspots
+            // Mouse enters scene -> show all hotspots and share box
             this.$image.on('mouseenter', function () {
                 var $hotspots = $(this).find('.hotspot');
                 $.each($hotspots, function () {
                     $(this).fadeIn();
                 });
+
+                var $shareBox = $(this).find('.social-share-box');
+                setTimeout(function () {
+                    $shareBox.css('display', 'flex');
+                }, 100);
             });
 
-            // Mouse leaves scene -> hide all hotspots and containers
+            // Mouse leaves scene -> hide all hotspots, containers and share box
             this.$image.on('mouseleave', function () {
                 var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
                     _domHelper2.default.hideElement($(this));
                 });
+
+                var $shareBox = $(this).find('.social-share-box');
+                $shareBox.hide();
             });
         }
     }, {
