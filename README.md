@@ -2,7 +2,7 @@
 
 > A jQuery plugin to embed interactive images on your website.
 
-[![Demo](./docs/demo.png)](https://www.jpchateau.com/demo/interactive-image)
+[![Demo](./docs/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
 
 See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-image).
 
@@ -208,7 +208,7 @@ $("#my-interactive-image").interactiveImage(items, options);
 | url             | string | "http://www.example.com"     | No       | Document URL | URL to share    |
 | text            | string | "Text"                       | No       | Page title   | Text            |
 | hashtags        | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags        |
-| twitterUsername | string | "my_twitter_account          | No       |              | Twitter account |
+| twitterUsername | string | "my_twitter_account"         | No       |              | Twitter account |
 
 You do not need to prefix your Twitter account by "@".
 
