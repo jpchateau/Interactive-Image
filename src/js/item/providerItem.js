@@ -1,9 +1,20 @@
 import BaseItem from "./baseItem";
+import DomHelper from "../helper/domHelper";
 
 /**
  * @extends BaseItem
  */
 export default class ProviderItem extends BaseItem {
+    /**
+     * @returns {string[]}
+     */
+    static supportedProviders() {
+        return ['youtube', 'dailymotion'];
+    }
+
+    /**
+     * @returns {{youtube: string, dailymotion: string}}
+     */
     static providersUrls() {
         return {
             'youtube': 'https://www.youtube.com/embed/',
@@ -22,7 +33,7 @@ export default class ProviderItem extends BaseItem {
         this.providerName = parameters.providerName.toLowerCase();
         this.parameters = parameters.parameters;
 
-        if (!ProviderItem.providersUrls().hasOwnProperty(this.providerName)) {
+        if (ProviderItem.supportedProviders().indexOf(this.providerName) === -1) {
             throw Error('Unsupported provider "' + this.providerName + '"');
         }
     }
@@ -31,11 +42,11 @@ export default class ProviderItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createIframe() {
-        return this.domHelper.createElement(
+        return DomHelper.createElement(
             'iframe',
             {
                 'frameborder': '0',
-                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId
+                'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId + (this.providerName === 'youtube' ? '?origin=' + ProviderItem.guessOrigin() : '')
             }
         );
     }
@@ -45,7 +56,7 @@ export default class ProviderItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const providerItem = this.domHelper.createElement('div', {'class': 'provider-item'});
+        const providerItem = DomHelper.createElement('div', {'class': 'provider-item'});
 
         providerItem.appendChild(this.createIframe());
 
@@ -53,4 +64,14 @@ export default class ProviderItem extends BaseItem {
 
         return element;
     }
+
+    /**
+     * @returns {string}
+     */
+    static guessOrigin() {
+        let urlSplit = window.location.href.split("/");
+
+        return urlSplit[0] + "//" + urlSplit[2];
+    }
+
 }

@@ -19,7 +19,7 @@ $ npm run build
 ```
 
 When working on local files, you can build the project in development mode, start a local server, and view the result in
-your web browser at this URL: `http://localhost:8080/dist/demo.html`.
+your web browser at this URL: `http://localhost:8080/examples/index.html`.
 
 ```sh
 $ npm run dev
@@ -29,7 +29,7 @@ $ npm run start:dev
 ### Icons
 
 Use [IcoMoon](https://icomoon.io/) icon library to export icons from IcoMoon app and include them in the project.  
-Just start by importing `src/fonts/icomoon-selection.json` file into the IcoMoon app.
+Just start by importing `src/fonts/selection.json` file into the IcoMoon app.
 
 ## Code Quality
 

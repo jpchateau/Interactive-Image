@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image - Examples</title>
+
+    <!-- Specific styles of a scene -->
+    <style>
+        .interactive-image {
+            margin: auto;
+            width: 1024px;
+            height: 680px;
+            background-image: url('https://c2.staticflickr.com/8/7369/27165702821_ece3549805_b.jpg');
+        }
+    </style>
+
+    <!-- Include Interactive Image jQuery plugin Styles -->
+</head>
+<body>
+    <!-- Main container of a scene -->
+    <div id="my-interactive-image"></div>
+
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        // Plugin Items collection
+        var items = [
+            // Text items
+            {
+                type: "text",
+                title: "Text title",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
+                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
+                "dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
+                "deserunt mollit anim id est laborum.",
+                position: {
+                    left: 100,
+                    top: 50
+                }
+            },
+            {
+                type: "text",
+                title: "Text title",
+                description: "Text item with HTTP link",
+                position: {
+                    left: 300,
+                    top: 50
+                },
+                link: {
+                    url: "https://www.jpchateau.com/demo/interactive-image",
+                    label: "Interactive Image Demo"
+                }
+            },
+            {
+                type: "text",
+                title: "Text title",
+                description: "Text item with picture",
+                position: {
+                    left: 500,
+                    top: 50
+                },
+                picturePath: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg"
+            },
+            {
+                type: "text",
+                title: "Text title",
+                description: "Text item with picture and HTTP link",
+                position: {
+                    left: 700,
+                    top: 50
+                },
+                picturePath: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg",
+                link: {
+                    url: "https://www.jpchateau.com/demo/interactive-image",
+                    label: "Interactive Image Demo"
+                }
+            },
+            // Picture items
+            {
+                type: "picture",
+                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                position: {
+                    left: 100,
+                    top: 150
+                }
+            },
+            {
+                type: "picture",
+                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                caption: "Picture legend",
+                position: {
+                    left: 300,
+                    top: 150
+                }
+            },
+            {
+                type: "picture",
+                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                caption: "Picture with link",
+                linkUrl: "https://www.nationalgeographic.com",
+                position: {
+                    left: 500,
+                    top: 150
+                }
+            },
+            // Audio items
+            {
+                type: "audio",
+                path: "http://www.healthfreedomusa.org/downloads/iMovie.app/Contents/Resources/iMovie%20%2708%20Sound%20Effects/Leopard%20Snarl.mp3",
+                position: {
+                    left: 100,
+                    top: 250
+                }
+            },
+            {
+                type: "audio",
+                path: "http://www.bioacoustica.org/gallery/sounds/Panthera_pardus2_threat.wav",
+                caption: "Audio WAVE with caption",
+                position: {
+                    left: 300,
+                    top: 250
+                }
+            },
+            {
+                type: "audio",
+                path: "https://lasonotheque.org/UPLOAD/ogg/0935.ogg",
+                caption: "Audio Ogg with caption",
+                position: {
+                    left: 500,
+                    top: 250
+                }
+            },
+            // Video items
+            {
+                type: "video",
+                path: "https://www.videvo.net/videvo_files/converted/2015_08/videos/Tiger.mp460597.mp4",
+                position: {
+                    left: 100,
+                    top: 350
+                }
+            },
+            {
+                type: "video",
+                path: "https://upload.wikimedia.org/wikipedia/commons/1/11/Le_regard_du_f%C3%A9lin.webm",
+                caption: "Video WebM with caption",
+                position: {
+                    left: 300,
+                    top: 350
+                }
+            },
+            {
+                type: "video",
+                path: "https://www.videvo.net/videvo_files/converted/2015_08/videos/Tiger.mp460597.mp4",
+                caption: "Video with caption and poster",
+                poster: "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwMC8zNDkvb3JpZ2luYWwvc2liZXJpYW4tdGlnZXIuanBn",
+                position: {
+                    left: 500,
+                    top: 350
+                }
+            },
+            // Provider items
+            {
+                type: "provider",
+                providerName: "youtube",
+                parameters: {
+                    videoId: "iPRiQ6SBntQ"
+                },
+                position: {
+                    left: 100,
+                    top: 450
+                },
+                sticky: true,
+            },
+            {
+                type: "provider",
+                providerName: "dailymotion",
+                parameters: {
+                    videoId: "x2y9n70"
+                },
+                position: {
+                    left: 300,
+                    top: 450
+                }
+            }
+        ];
+
+        // Plugin configuration
+        var options = {
+            debug: true,
+            shareBox: true,
+            socialMedia: {
+                url: "https://www.jpchateau.com/demo/interactive-image",
+                text: "Clouded Leopard",
+                hashtags: ["jQuery", "cloudedLeopard"],
+                twitterUsername: "jpchateau",
+            }
+        };
+
+        // Plugin activation
+        $(document).ready(function() {
+            $("#my-interactive-image").interactiveImage(items, options);
+        });
+    </script>
+
+    <!-- Include Interactive Image jQuery plugin JavaScript -->
+</body>
+</html>

@@ -1,4 +1,5 @@
-import BaseItem from "./baseItem";
+import BaseItem from "./baseItem"
+import DomHelper from "../helper/domHelper";
 
 /**
  * @extends BaseItem
@@ -22,21 +23,21 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createTitle() {
-        return this.domHelper.createElement('span', {'class': 'title'}, this.title);
+        return DomHelper.createElement('span', {'class': 'title'}, this.title);
     }
 
     /**
      * @returns {HTMLElement}
      */
     createDescription() {
-        return this.domHelper.createElement('p', {'class': 'description'}, this.description);
+        return DomHelper.createElement('p', {'class': 'description'}, this.description);
     }
 
     /**
      * @returns {HTMLElement}
      */
     createPicture() {
-        const element = this.domHelper.createElement('img', {'class': 'picture'});
+        const element = DomHelper.createElement('img', {'class': 'picture'});
         element.src = this.picturePath;
         element.alt = this.title;
 
@@ -47,7 +48,7 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createLink() {
-        const element = document.createElement('a');
+        const element = DomHelper.createElement('a');
         element.href = this.link.url;
 
         let label;
@@ -67,14 +68,15 @@ export default class TextItem extends BaseItem {
      */
     renderHtml() {
         const element = this.createItemElement();
-        const textElement = this.domHelper.createElement('div', {'class': 'text-item'});
+        const textElement = DomHelper.createElement('div', {'class': 'text-item'});
 
         textElement.appendChild(this.createTitle());
-        textElement.appendChild(this.createDescription());
 
         if ('undefined' !== typeof this.picturePath) {
             textElement.appendChild(this.createPicture());
         }
+
+        textElement.appendChild(this.createDescription());
 
         if ('undefined' !== typeof this.link) {
             textElement.appendChild(this.createLink());

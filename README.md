@@ -2,14 +2,15 @@
 
 > A jQuery plugin to embed interactive images on your website.
 
-[![Demo](./docs/demo.png)](https://www.jpchateau.com/demo/interactive-image)
+[![Demo](./docs/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
 
 See it in action on the [demo page](https://www.jpchateau.com/demo/interactive-image).
 
 ## Features
 
 * Interactive videos, sounds, images and texts over large pictures
-* Support for content providers: Youtube, Dailymotion
+* Support for popular content providers
+* Social media sharing capabilities
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -33,7 +34,7 @@ $ yarn add interactiveimagejs
 **Download**
 
 Download the production or the development version from GitHub.  
-All the files (.js, .css and fonts) are located in the `dist` directory.
+All the plugin files (.js, .css and fonts) are located in the `dist` directory.
 
 ## Usage
 
@@ -62,7 +63,7 @@ Edit the source code of your web page:
   <div id="my-interactive-image"></div>  
   
   <!-- Include jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- Include Interactive Image jQuery plugin JavaScript -->
   <script src="interactive-image.min.js"></script>
@@ -122,7 +123,8 @@ var items = [
     position: {
       left: 600,
       top: 550
-    }
+    },
+    sticky: true
   }
 ];
 
@@ -132,30 +134,59 @@ $(document).ready(function() {
 });
 ```
 
-### Style customization
+More examples can be found in the `examples` directory.
 
-You may want to change the rendering of an item, as for example the background and the front color of text items.  
-Adapt this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
+### Social Media Share
 
-```css
-.interactive-image .text-item {
-  background-color: blue;
-  color: yellow;
+By default, a social media share box is displayed.  
+You can prevent this behavior before activating the plugin:
+```javascript
+var options = {
+  shareBox: false
+};
+
+$("#my-interactive-image").interactiveImage(items, options);
+```
+
+You can customize the social media share properties of your Interactive Image:
+```javascript
+var options = {
+  socialMedia: {
+    url: "https://www.jpchateau.com/demo/interactive-image",
+    text: "Clouded Leopard",
+    hashtags: ["jQuery", "cloudedLeopard"],
+    twitterUsername: "my_twitter_account",
+  }
+}
+
+$("#my-interactive-image").interactiveImage(items, options);
+```
+
+Supported social media: email, [Twitter](https://twitter.com/) and [Facebook](https://www.facebook.com/).  
+In case of email share, the subject of the email is the webpage title.
+
+### Sticky elements
+
+Make some elements to have a sticky behavior:
+
+```javascript
+// item object
+{
+  //...
+  sticky: true
 }
 ```
 
 ### Debugging
 
-In order to display some console messages to see the different steps of the processing, add an `options` object to the app initialization:
+In order to display some console messages to see the different steps of the processing, you can enable the debug mode before activating the plugin:
 
 ```javascript
 var options = {
   debug: true
 };
 
-$(document).ready(function() {
-  $(".interactive-image").interactiveImage(items, options);
-}); 
+$("#my-interactive-image").interactiveImage(items, options);
 ```
 
 ## Configuration
@@ -164,9 +195,22 @@ $(document).ready(function() {
 
 **Options**
 
-| Property | Type    | Example | Required | Default | Purpose                |
-| ---------| ------- | ------- |:--------:| ------- | ---------------------- |
-| debug    | boolean | true    | No       | false   | Enable logs in console |
+| Property    | Type    | Example                  | Required | Default | Purpose                    |
+| ------------| --------| ------------------------ |:--------:| ------- | -------------------------- |
+| debug       | boolean | true                     | No       | false   | Enable logs in console     |
+| shareBox    | boolean | false                    | No       | true    | Enable social media share  |
+| socialMedia | object  | See `SocialMedia` object | No       |         | Social media configuration |
+
+**SocialMedia**
+
+| Property        | Type   | Example                      | Required | Default      | Purpose         |
+| --------------- | ------ | ---------------------------- |:--------:| ------------ | --------------- |
+| url             | string | "http://www.example.com"     | No       | Document URL | URL to share    |
+| text            | string | "Text"                       | No       | Page title   | Text            |
+| hashtags        | array  | ["jQuery", "cloudedLeopard"] | No       |              | Hashtags        |
+| twitterUsername | string | "my_twitter_account"         | No       |              | Twitter account |
+
+You do not need to prefix your Twitter account by "@".
 
 ### Items
 
@@ -175,14 +219,15 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 
 **Text Item**
 
-| Property    | Type   | Example                | Required | Default         | Purpose                       |
-| ----------- | ------ | ---------------------- |:--------:| --------------- | ----------------------------- |
-| type        | string | "text"                 | Yes      |                 | Item type                     |
-| position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
-| title       | string | "My title"             | Yes      |                 | Title                         |
-| description | string | "My description"       | Yes      |                 | Descriptive text              |
-| picturePath | string | "/path/to/picture.png" | No       |                 | Illustration source path      |
-| link        | object | See `Link` object      | No       |                 | HTTP Link                     |
+| Property    | Type    | Example                | Required | Default         | Purpose                       |
+| ----------- | ------- | ---------------------- |:--------:| --------------- | ----------------------------- |
+| type        | string  | "text"                 | Yes      |                 | Item type                     |
+| position    | object  | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene |
+| title       | string  | "My title"             | Yes      |                 | Title                         |
+| description | string  | "My description"       | Yes      |                 | Descriptive text              |
+| picturePath | string  | "/path/to/picture.png" | No       |                 | Illustration source path      |
+| link        | object  | See `Link` object      | No       |                 | HTTP Link                     |
+| sticky      | boolean | true                   | No       | false           | Sticky behavior               |
 
 **Picture Item**
 
@@ -192,6 +237,7 @@ You can add a link and/or a picture to your `text` items, or a caption to your `
 | position    | object | See `Position` object  | No       | {left:0, top:0} | Hotspot position on the scene  |
 | path        | string | "/path/to/picture.png" | Yes      |                 | Illustration source path       |
 | caption     | string | "My caption"           | No       |                 | Illustration short description |
+| sticky      | boolean | true                  | No       | false           | Sticky behavior                |
 
 **Audio Item**
 
@@ -203,6 +249,7 @@ Supported audio formats: mp3, ogg, wav.
 | position    | object | See `Position` object | No       | {left:0, top:0} | Hotspot position on the scene |
 | path        | string | "/path/to/sound.mp3"  | Yes      |                 | Sound source path             |
 | caption     | string | "My caption"          | No       |                 | Sound short description       |
+| sticky      | boolean | true                 | No       | false           | Sticky behavior               |
 
 **Video Item**
 
@@ -215,6 +262,7 @@ Supported video formats: mp4, webm.
 | path        | string | "/path/to/video.mp4"  | Yes      |                 | Video source path                                   |
 | caption     | string | "My caption"          | No       |                 | Video short description                             |
 | poster      | string | "path/to/poster.png"  | No       |                 | An image to be shown while the video is downloading |
+| sticky      | boolean | true                 | No       | false           | Sticky behavior                                     |
 
 **Provider Item**
 
@@ -224,6 +272,7 @@ Supported video formats: mp4, webm.
 | position     | object | See `Position` object   | No       | {left:0, top:0} | Hotspot position on the scene |
 | providerName | string | "youtube\|dailymotion"  | Yes      |                 | Content provider name         |
 | parameters   | object | See `Parameters` object | Yes      |                 | Content parameters            |
+| sticky       | boolean | true                   | No       | false           | Sticky behavior               |
 
 ### Other objects
 
@@ -249,6 +298,18 @@ Supported video formats: mp4, webm.
 
 Please note that only [Youtube](https://www.youtube.com/) and [Dailymotion](https://www.dailymotion.com/) videos are supported.
 
+### Style customization
+
+You may want to change the rendering of an item, as for example the background and the front color of text items.  
+Adapt this CSS snippet to your needs and add it after the `interactive-image` css file is loaded:
+
+```css
+.interactive-image .text-item {
+  background-color: blue;
+  color: yellow;
+}
+```
+
 ## Tests
 
 All builds are unit tested with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).
@@ -264,6 +325,12 @@ $ npm run test
 $ npm run test-with-coverage
 ```
 
+## Browser Support
+
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
+| --- | --- | --- | --- | --- |
+| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
+
 ## Requirements
 
 [jQuery](https://jquery.com/download/) 1.7.2+ is required.
@@ -272,27 +339,22 @@ $ npm run test-with-coverage
 
 * [imagesloaded](https://www.npmjs.com/package/imagesloaded) to detect when images have been loaded
 
-## Browser Support
-
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
-| --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
-
-## Contribute
-
-Feel free to contribute and open some pull requests.  
-This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
-See the complete contributing guidelines [here](CONTRIBUTING.md).
-
 ## Philosophy
 
 This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
 A good code base, following the language good pratices, reduces maintainability issues and could be used as example. 
 
+## Contribute
+
+Feel free to contribute and open some issues or pull requests.  
+This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
+See the complete contributing guidelines [here](CONTRIBUTING.md).
+
 ## Alternatives
 
 * For business:
   * [genially](https://www.genial.ly/)
+  * [ImageMarker](https://www.imagemarker.com/)
   * [ThingLink](https://www.thinglink.com/)
 * Premium:
   * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)

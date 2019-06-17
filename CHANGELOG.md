@@ -1,6 +1,15 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.4.0 (2019-06-17)
+* Sticky behavior available on items
+* Added a social share box to enable content sharing on Facebook, Twitter and by email
+* Description texts are now displayed after each media for a better flow - issue [#3](https://github.com/jpchateau/Interactive-Image/issues/3)
+* Codebase improvements and unit tests
+* Added an editorconfig file to ease contributing
+* Fixed an issue affecting the link over a picture that was not clickable on the caption part, on Picture items
+* Fixed an issue regarding the poster size of HTML video elements
+
 ## 2.3.0 (2019-04-05)
 * Added support of poster attribute for HTML5 video items
 * Added support of Dailymotion videos

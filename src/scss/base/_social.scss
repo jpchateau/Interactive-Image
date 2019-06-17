@@ -1,0 +1,61 @@
+.interactive-image {
+  .social-share-box {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    width: 32px;
+    height: 32px;
+    transition: height .3s;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    cursor: pointer;
+
+    &.expanded {
+      transition: height .3s;
+      height: 128px;
+    }
+
+    .social-button {
+      width: 32px;
+      height: 32px;
+      font-size: 20px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      text-align: center;
+
+      &.mail-colors {
+        font-size: 18px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+      }
+    }
+
+    .share-colors {
+      background: rgba(0, 0, 0, .7);
+      color: white;
+    }
+
+    .facebook-colors {
+      background-color: #1877f2;
+      color: white;
+    }
+
+    .twitter-colors {
+      background-color: #1da1f2;
+      color: #f5f8fa;
+    }
+
+    .mail-colors {
+      background-color: #a1adb3;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      display: block;
+    }
+  }
+}

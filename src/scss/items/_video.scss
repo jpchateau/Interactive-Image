@@ -1,17 +1,19 @@
 .interactive-image {
   .video-item {
-    padding: 15px;
+    padding: 20px;
     text-align: left;
-  }
 
-  .caption {
-    display: block;
-    margin-bottom: 15px;
-  }
+    .caption {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: -4px;
+    }
 
-  video {
-    width: 480px;
-    height: 270px;
-    margin-bottom: -4px;
+    video {
+      width: 480px;
+      height: 270px;
+      margin-bottom: -4px;
+      object-fit: cover;
+    }
   }
 }

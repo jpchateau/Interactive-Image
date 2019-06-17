@@ -1,24 +1,22 @@
+import Behavior from "./event/behavior";
 import DomHelper from "./helper/domHelper";
-import Hover from "./event/hover";
 import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import LogHelper from "./helper/logHelper";
 import Resizer from "./event/resizer";
+import SocialMediaShare from "./service/socialMediaShare";
 
 export default class App {
     /**
-     * @param items
-     * @param {object} settings
      * @param $image
+     * @param {array} items
+     * @param {object} settings
      */
-    constructor(items, settings, $image) {
+    constructor($image, items, settings) {
+        this.$image = $image;
         this.items = items;
         this.settings = settings;
-        this.$image = $image;
-        this.itemFactory = new ItemFactory();
-        this.domHelper = new DomHelper();
-        this.logHelper = new LogHelper(settings.debug);
     }
 
     checkSettings() {
@@ -29,6 +27,14 @@ export default class App {
             if ('boolean' !== typeof this.settings.debug) {
                 this.settings.debug = true;
                 throw Error('Check "debug" plugin option');
+            }
+
+            if ('boolean' !== typeof this.settings.shareBox) {
+                throw Error('Check "shareBox" plugin option');
+            }
+
+            if ('undefined' !== typeof this.settings.socialMedia && 'object' !== typeof this.settings.socialMedia) {
+                throw Error('Check "socialMedia" plugin option');
             }
 
             const end = Date.now();
@@ -49,10 +55,10 @@ export default class App {
             }
 
             // Add message for unsupported screen sizes
-            const unsupportedScreenElement = this.domHelper.createElement(
+            const unsupportedScreenElement = DomHelper.createElement(
                 'div',
                 {class: 'unsupported-screen'},
-                'Interacte with your device first ;)'
+                'Please rotate your device.'
             );
             this.$image.append(unsupportedScreenElement);
 
@@ -69,6 +75,12 @@ export default class App {
      */
     createElement(options) {
         this.logHelper.log(JSON.stringify(options), undefined, 'blue');
+
+        const defaults = {
+            sticky: false
+        };
+
+        options = $.extend(defaults, options);
 
         const type = options.type;
         delete options.type;
@@ -127,15 +139,31 @@ export default class App {
             this.logHelper.log('Starting events binding...');
             const start = Date.now();
 
-            let hover = new Hover(this.$image);
-            hover.bindAll();
+            const behavior = new Behavior(this.$image);
+            behavior.bindAll();
 
-            let resizer = new Resizer(hover);
-            resizer.bind(this.$image);
+            const resizer = new Resizer(behavior);
+            resizer.bind();
 
             const end = Date.now();
             this.logHelper.log('All events have been bound', end - start, 'green');
 
+            resolve();
+        });
+    }
+
+    processShareCapabilities() {
+        return new Promise((resolve) => {
+            this.logHelper.log('Starting to evaluate social media share capabilities...');
+            const start = Date.now();
+
+            if (true === this.settings.shareBox) {
+                const socialMediaShare = new SocialMediaShare(this.$image);
+                socialMediaShare.buildShareBox(this.settings.socialMedia || {});
+            }
+
+            const end = Date.now();
+            this.logHelper.log('Social media share capabilities executed', end - start, 'green');
             resolve();
         });
     }
@@ -164,6 +192,9 @@ export default class App {
     execute() {
         const start = Date.now();
 
+        this.logHelper = new LogHelper(this.settings.debug);
+        this.itemFactory = new ItemFactory();
+
         this
             .checkSettings()
             .then(() => {
@@ -180,6 +211,9 @@ export default class App {
             })
             .then(() => {
                 return this.bindEvents();
+            })
+            .then(() => {
+                return this.processShareCapabilities();
             })
             .catch((exception) => {
                 this.logHelper.log(exception.message, undefined, 'red');

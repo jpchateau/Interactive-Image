@@ -1,7 +1,7 @@
 .interactive-image {
   font-family: Arial, sans-serif;
   position: relative;
-  z-index: 8;
+  z-index: 0;
   caret-color: transparent;
   cursor: default;
 
@@ -11,7 +11,7 @@
     margin: 20px auto;
     padding: 20px;
     color: $black-small-text;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .6);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .7);
     font-size: 13px;
   }
 
@@ -27,7 +27,7 @@
 
   .hotspot {
     position: absolute;
-    z-index: 16;
+    z-index: 8;
     width: 30px;
     height: 30px;
     color: white;
@@ -47,7 +47,7 @@
 
   .item {
     position: absolute;
-    z-index: 32;
+    z-index: 16;
     background-color: white;
     color: $black-small-text;
     min-width: 100px;
@@ -56,7 +56,7 @@
     display: none;
     text-align: center;
     border-radius: 2px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .6);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .7);
 
     &::after,
     &::before {
@@ -75,5 +75,80 @@
       border-width: $arrow-width;
       margin-left: -$arrow-width;
     }
+  }
+
+  .close-button {
+    display: block;
+    width: 19px;
+    height: 17px;
+    color: $black-heading-text;
+    position: absolute;
+    top: 3px;
+    right: 1px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+  }
+}
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?g75a02') format('truetype'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?g75a02') format('woff'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?g75a02##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  // use !important to prevent issues with browser extensions that change fonts
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  // Better Font Rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-envelop {
+  &::before {
+    content: $icon-envelop;
+  }
+}
+
+.icon-cancel-circle {
+  &::before {
+    content: $icon-cancel-circle;
+  }
+}
+
+.icon-radio-checked {
+  &::before {
+    content: $icon-radio-checked;
+  }
+}
+
+.icon-share2 {
+  &::before {
+    content: $icon-share2;
+  }
+}
+
+.icon-facebook {
+  &::before {
+    content: $icon-facebook;
+  }
+}
+
+.icon-twitter {
+  &::before {
+    content: $icon-twitter;
   }
 }

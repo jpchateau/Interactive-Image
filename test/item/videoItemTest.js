@@ -26,12 +26,7 @@ describe('Video Item', function() {
             expect(videoContainerElement.nodeName).to.equal('DIV');
             expect(videoContainerElement.getAttribute('class')).to.equal('video-item');
 
-            let captionElement = videoContainerElement.childNodes[0];
-            expect(captionElement.nodeName).to.equal('SPAN');
-            expect(captionElement.getAttribute('class')).to.equal('caption');
-            expect(captionElement.textContent).to.equal('my test caption');
-
-            let videoElement = videoContainerElement.childNodes[1];
+            let videoElement = videoContainerElement.childNodes[0];
             expect(videoElement.nodeName).to.equal('VIDEO');
             expect(videoElement.getAttribute('class')).to.equal('genuine-theme');
             expect(videoElement.hasAttribute('controls')).to.be.true;
@@ -44,6 +39,11 @@ describe('Video Item', function() {
             expect(sourceElement.nodeName).to.equal('SOURCE');
             expect(sourceElement.getAttribute('src')).to.equal('test.mp4');
             expect(sourceElement.getAttribute('type')).to.equal('video/mp4');
+
+            let captionElement = videoContainerElement.childNodes[1];
+            expect(captionElement.nodeName).to.equal('SPAN');
+            expect(captionElement.getAttribute('class')).to.equal('caption');
+            expect(captionElement.textContent).to.equal('my test caption');
         });
     });
 });

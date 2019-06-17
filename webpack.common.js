@@ -17,13 +17,6 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-                test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader'
-                ]
-            },
-            {
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -46,8 +39,11 @@ module.exports = {
             jQuery: 'jquery'
         }),
         new HtmlWebPackPlugin({
-            template: './src/demo.html',
-            filename: './demo.html'
+            template: './src/index.html',
+            filename: '../examples/index.html'
+        }),
+        new webpack.BannerPlugin({
+            banner: '[name] v2.4.0\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],
     externals: {
