@@ -894,7 +894,7 @@ var App = function () {
 }();
 
 exports.default = App;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1015,7 +1015,7 @@ var Behavior = function () {
 }();
 
 exports.default = Behavior;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1076,7 +1076,7 @@ var Resizer = function () {
 }();
 
 exports.default = Resizer;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1165,7 +1165,7 @@ var DomHelper = function () {
 }();
 
 exports.default = DomHelper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1227,7 +1227,7 @@ var FileHelper = function () {
 }();
 
 exports.default = FileHelper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1288,7 +1288,7 @@ var ItemHelper = function () {
 }();
 
 exports.default = ItemHelper;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1348,7 +1348,7 @@ var LogHelper = function () {
 }();
 
 exports.default = LogHelper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1527,7 +1527,7 @@ var AudioItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = AudioItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1629,7 +1629,7 @@ var BaseItem = function () {
 }();
 
 exports.default = BaseItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1717,7 +1717,7 @@ var Factory = function () {
 }();
 
 exports.default = Factory;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1828,7 +1828,7 @@ var PictureItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = PictureItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1963,7 +1963,7 @@ var ProviderItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = ProviderItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2111,7 +2111,7 @@ var TextItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = TextItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2257,7 +2257,7 @@ var VideoItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = VideoItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2434,7 +2434,7 @@ var SocialMediaShare = function () {
 }();
 
 exports.default = SocialMediaShare;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2493,7 +2493,7 @@ var UniqueId = function () {
 }();
 
 exports.default = UniqueId;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
