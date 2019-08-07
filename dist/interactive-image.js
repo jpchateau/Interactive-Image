@@ -1143,6 +1143,11 @@ var DomHelper = function () {
         value: function hideElement($element) {
             if ($element.css('display') === 'block') {
                 $element.hide();
+
+                var $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
+                if ($mediaItem.length !== 0) {
+                    DomHelper.stopMedia($element);
+                }
             }
         }
 
@@ -1157,6 +1162,31 @@ var DomHelper = function () {
         value: function showElement($element) {
             if ($element.css('display') !== 'block') {
                 $element.show();
+            }
+        }
+
+        /**
+         * Stop a Media Element from playing and reinitialize it
+         *
+         * @param {jQuery} $element
+         */
+
+    }, {
+        key: 'stopMedia',
+        value: function stopMedia($element) {
+            var selector = "div[data-id='" + $element.data('id') + "'] ";
+            var htmlMedia = document.querySelector(selector + 'audio, ' + selector + 'video');
+            if (null !== htmlMedia) {
+                htmlMedia.pause();
+                htmlMedia.currentTime = 0;
+
+                return;
+            }
+
+            var providerMedia = document.querySelector(selector + 'iframe');
+            if (null !== providerMedia) {
+                var source = providerMedia.src;
+                providerMedia.src = source;
             }
         }
     }]);
