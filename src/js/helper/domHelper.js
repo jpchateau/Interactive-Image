@@ -2,24 +2,26 @@ export default class DomHelper {
     /**
      * Create a DOM element
      *
-     * @param {string} name
-     * @param {?object} attributes
-     * @param {?string} text
+     * @param {string} name         - tag name
+     * @param {object} [attributes] - html attributes
+     * @param {string} [text]       - text
      * @returns {HTMLElement}
      */
     static createElement(name, attributes, text) {
         const node = document.createElement(name);
 
-        if ('undefined' !== typeof attributes) {
-            for (let attribute in attributes) {
-                if (attributes.hasOwnProperty(attribute)) {
-                    node.setAttribute(attribute, attributes[attribute]);
-                }
-            }
-        }
-
         if ('undefined' !== typeof text) {
             node.appendChild(document.createTextNode(text));
+        }
+
+        if ('undefined' === typeof attributes) {
+            return node;
+        }
+
+        for (let attribute in attributes) {
+            if (attributes.hasOwnProperty(attribute)) {
+                node.setAttribute(attribute, attributes[attribute]);
+            }
         }
 
         return node;

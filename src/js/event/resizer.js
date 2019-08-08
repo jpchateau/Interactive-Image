@@ -6,20 +6,30 @@ export default class Resizer {
         this.behavior = behavior;
     }
 
+    enable() {
+        if (this.behavior.enabled === false) {
+            this.behavior.bindAll();
+        }
+    }
+
+    disable() {
+        if (this.behavior.enabled === true) {
+            this.behavior.unbindAll();
+        }
+    }
+
     bind() {
         let resizeTimer;
         let that = this;
 
         let enableEffects = () => {
             if (window.innerWidth <= 320) {
-                if (that.behavior.enabled === true) {
-                    that.behavior.unbindAll();
-                }
-            } else {
-                if (that.behavior.enabled === false) {
-                    that.behavior.bindAll();
-                }
+                that.disable();
+
+                return;
             }
+
+            that.enable();
         };
 
         $(window).on('resize', function() {

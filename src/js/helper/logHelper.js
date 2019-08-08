@@ -1,18 +1,22 @@
 export default class LogHelper {
-    /**
-     * @param {boolean} debug
-     */
-    constructor(debug) {
-        this.debug = debug;
+    constructor() {
+        this.enable = false;
     }
 
     /**
-     * @param {string}         message
-     * @param {number}         milliseconds
-     * @param {string='black'} color
+     * @param {boolean} value
      */
-    log(message, milliseconds, color = 'black') {
-        if (!window.console || !window.console.log || false === this.debug) {
+    set debug(value) {
+        this.enable = value;
+    }
+
+    /**
+     * @param {string} message        - message to display in console
+     * @param {number} [milliseconds] - time
+     * @param {string} [color=black]  - message color
+     */
+    log(message, milliseconds = null, color = 'black') {
+        if (!window.console || !window.console.log || false === this.enable) {
             return;
         }
 

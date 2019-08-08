@@ -2,7 +2,7 @@ import DomHelper from "../helper/domHelper";
 
 export default class Behavior {
     /**
-     * @param $image
+     * @param {jQuery} $image
      */
     constructor($image) {
         this.$image = $image;

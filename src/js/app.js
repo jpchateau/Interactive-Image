@@ -9,14 +9,22 @@ import SocialMediaShare from "./service/socialMediaShare";
 
 export default class App {
     /**
-     * @param $image
-     * @param {array} items
+     * @param {jQuery} $image
+     * @param {array}  items
      * @param {object} settings
      */
     constructor($image, items, settings) {
         this.$image = $image;
         this.items = items;
         this.settings = settings;
+        this.itemFactory = new ItemFactory();
+
+        if ('boolean' !== typeof this.settings.debug) {
+            throw Error('Check the "debug" option. Allowed type: boolean.');
+        }
+
+        this.logHelper = new LogHelper();
+        this.logHelper.debug = this.settings.debug;
     }
 
     checkSettings() {
@@ -24,17 +32,12 @@ export default class App {
             this.logHelper.log('Starting settings check...');
             const start = Date.now();
 
-            if ('boolean' !== typeof this.settings.debug) {
-                this.settings.debug = true;
-                throw Error('Check "debug" plugin option');
-            }
-
             if ('boolean' !== typeof this.settings.shareBox) {
-                throw Error('Check "shareBox" plugin option');
+                throw Error('Check the "shareBox" option. Allowed type: boolean.');
             }
 
             if ('undefined' !== typeof this.settings.socialMedia && 'object' !== typeof this.settings.socialMedia) {
-                throw Error('Check "socialMedia" plugin option');
+                throw Error('Check the "socialMedia" option.');
             }
 
             const end = Date.now();
@@ -88,7 +91,7 @@ export default class App {
         const element = this.itemFactory.create(type, options);
         this.$image.append(element.createHotspotElement());
 
-        this.logHelper.log('Item (' + type + ') created');
+        this.logHelper.log('Item (' + type + ') created.');
 
         return $(element.renderHtml());
     }
@@ -192,35 +195,23 @@ export default class App {
     execute() {
         const start = Date.now();
 
-        this.logHelper = new LogHelper(this.settings.debug);
-        this.itemFactory = new ItemFactory();
-
-        this
-            .checkSettings()
-            .then(() => {
-                return this.consolidateDOM();
-            })
-            .then(() => {
-                return this.createElements();
-            })
-            .then(() => {
-                return this.loadImages();
-            })
-            .then(() => {
-                return this.positionItems();
-            })
-            .then(() => {
-                return this.bindEvents();
-            })
-            .then(() => {
-                return this.processShareCapabilities();
-            })
-            .catch((exception) => {
-                this.logHelper.log(exception.message, undefined, 'red');
-            })
-            .finally( () => {
-                const end = Date.now();
-                this.logHelper.log('Execution completed', end - start, 'green');
-            });
+        this.checkSettings().then(() => {
+            return this.consolidateDOM();
+        }).then(() => {
+            return this.createElements();
+        }).then(() => {
+            return this.loadImages();
+        }).then(() => {
+            return this.positionItems();
+        }).then(() => {
+            return this.bindEvents();
+        }) .then(() => {
+            return this.processShareCapabilities();
+        }).catch((exception) => {
+            this.logHelper.log(exception.message, undefined, 'red');
+        }).finally( () => {
+            const end = Date.now();
+            this.logHelper.log('Execution completed', end - start, 'green');
+        });
     }
 }

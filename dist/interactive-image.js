@@ -651,8 +651,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var App = function () {
     /**
-     * @param $image
-     * @param {array} items
+     * @param {jQuery} $image
+     * @param {array}  items
      * @param {object} settings
      */
     function App($image, items, settings) {
@@ -661,6 +661,14 @@ var App = function () {
         this.$image = $image;
         this.items = items;
         this.settings = settings;
+        this.itemFactory = new _factory2.default();
+
+        if ('boolean' !== typeof this.settings.debug) {
+            throw Error('Check the "debug" option. Allowed type: boolean.');
+        }
+
+        this.logHelper = new _logHelper2.default();
+        this.logHelper.debug = this.settings.debug;
     }
 
     _createClass(App, [{
@@ -672,17 +680,12 @@ var App = function () {
                 _this.logHelper.log('Starting settings check...');
                 var start = Date.now();
 
-                if ('boolean' !== typeof _this.settings.debug) {
-                    _this.settings.debug = true;
-                    throw Error('Check "debug" plugin option');
-                }
-
                 if ('boolean' !== typeof _this.settings.shareBox) {
-                    throw Error('Check "shareBox" plugin option');
+                    throw Error('Check the "shareBox" option. Allowed type: boolean.');
                 }
 
                 if ('undefined' !== typeof _this.settings.socialMedia && 'object' !== _typeof(_this.settings.socialMedia)) {
-                    throw Error('Check "socialMedia" plugin option');
+                    throw Error('Check the "socialMedia" option.');
                 }
 
                 var end = Date.now();
@@ -738,7 +741,7 @@ var App = function () {
             var element = this.itemFactory.create(type, options);
             this.$image.append(element.createHotspotElement());
 
-            this.logHelper.log('Item (' + type + ') created');
+            this.logHelper.log('Item (' + type + ') created.');
 
             return $(element.renderHtml());
         }
@@ -866,9 +869,6 @@ var App = function () {
 
             var start = Date.now();
 
-            this.logHelper = new _logHelper2.default(this.settings.debug);
-            this.itemFactory = new _factory2.default();
-
             this.checkSettings().then(function () {
                 return _this8.consolidateDOM();
             }).then(function () {
@@ -924,7 +924,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Behavior = function () {
     /**
-     * @param $image
+     * @param {jQuery} $image
      */
     function Behavior($image) {
         _classCallCheck(this, Behavior);
@@ -1048,6 +1048,20 @@ var Resizer = function () {
     }
 
     _createClass(Resizer, [{
+        key: 'enable',
+        value: function enable() {
+            if (this.behavior.enabled === false) {
+                this.behavior.bindAll();
+            }
+        }
+    }, {
+        key: 'disable',
+        value: function disable() {
+            if (this.behavior.enabled === true) {
+                this.behavior.unbindAll();
+            }
+        }
+    }, {
         key: 'bind',
         value: function bind() {
             var resizeTimer = void 0;
@@ -1055,14 +1069,12 @@ var Resizer = function () {
 
             var enableEffects = function enableEffects() {
                 if (window.innerWidth <= 320) {
-                    if (that.behavior.enabled === true) {
-                        that.behavior.unbindAll();
-                    }
-                } else {
-                    if (that.behavior.enabled === false) {
-                        that.behavior.bindAll();
-                    }
+                    that.disable();
+
+                    return;
                 }
+
+                that.enable();
             };
 
             $(window).on('resize', function () {
@@ -1109,24 +1121,26 @@ var DomHelper = function () {
         /**
          * Create a DOM element
          *
-         * @param {string} name
-         * @param {?object} attributes
-         * @param {?string} text
+         * @param {string} name         - tag name
+         * @param {object} [attributes] - html attributes
+         * @param {string} [text]       - text
          * @returns {HTMLElement}
          */
         value: function createElement(name, attributes, text) {
             var node = document.createElement(name);
 
-            if ('undefined' !== typeof attributes) {
-                for (var attribute in attributes) {
-                    if (attributes.hasOwnProperty(attribute)) {
-                        node.setAttribute(attribute, attributes[attribute]);
-                    }
-                }
-            }
-
             if ('undefined' !== typeof text) {
                 node.appendChild(document.createTextNode(text));
+            }
+
+            if ('undefined' === typeof attributes) {
+                return node;
+            }
+
+            for (var attribute in attributes) {
+                if (attributes.hasOwnProperty(attribute)) {
+                    node.setAttribute(attribute, attributes[attribute]);
+                }
             }
 
             return node;
@@ -1341,28 +1355,31 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var LogHelper = function () {
-    /**
-     * @param {boolean} debug
-     */
-    function LogHelper(debug) {
+    function LogHelper() {
         _classCallCheck(this, LogHelper);
 
-        this.debug = debug;
+        this.enable = false;
     }
 
     /**
-     * @param {string}         message
-     * @param {number}         milliseconds
-     * @param {string='black'} color
+     * @param {boolean} value
      */
 
 
     _createClass(LogHelper, [{
         key: 'log',
-        value: function log(message, milliseconds) {
+
+
+        /**
+         * @param {string} message        - message to display in console
+         * @param {number} [milliseconds] - time
+         * @param {string} [color=black]  - message color
+         */
+        value: function log(message) {
+            var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
 
-            if (!window.console || !window.console.log || false === this.debug) {
+            if (!window.console || !window.console.log || false === this.enable) {
                 return;
             }
 
@@ -1371,6 +1388,11 @@ var LogHelper = function () {
             }
 
             window.console.log('%c' + message, 'color:' + color);
+        }
+    }, {
+        key: 'debug',
+        set: function set(value) {
+            this.enable = value;
         }
     }]);
 
@@ -2319,7 +2341,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var SocialMediaShare = function () {
     /**
-     * @param $image
+     * @param {jQuery} $image
      */
     function SocialMediaShare($image) {
         _classCallCheck(this, SocialMediaShare);
