@@ -61,3 +61,7 @@ Check out for the results of the different builds on [Travis CI](https://travis-
 | `npm run test`               | Run unit tests                                          |
 | `npm run test-with-coverage` | Run unit tests and display code coverage                |
 | `npm run watch`              | Run the watcher for local development                   |
+
+## Documentation
+
+Sphinx
