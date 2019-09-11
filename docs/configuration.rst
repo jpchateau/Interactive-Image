@@ -58,4 +58,80 @@ position object See ``Position`` object No       {left:0, top:0} Hotspot positio
 path     string "/path/to/picture.png"
 ======== ====== ======================= ======== =============== =============================
 
+**Audio Item**
+
+Supported audio formats: mp3, ogg, wav.
+
+======== ======= ======================= ======== =============== =============================
+Property Type    Example                 Required Default         Purpose
+======== ======= ======================= ======== =============== =============================
+type     string  "audio"                 Yes                      Item type
+position object  See ``Position`` object No       {left:0, top:0} Hotspot position on the scene
+path     string  "/path/to/sound.mp3"    Yes                      Sound source path
+caption  string  "My caption"            No                       Sound short description
+sticky   boolean true                    No       false           Sticky behavior
+======== ======= ======================= ======== =============== =============================
+
+**Video Item**
+
+Supported video formats: mp4, webm.
+
+======== ======= ======================= ======== =============== ===================================================
+Property Type    Example                 Required Default         Purpose
+======== ======= ======================= ======== =============== ===================================================
+type     string  "video"                 Yes                      Item type
+position object  See ``Position`` object No       {left:0, top:0} Hotspot position on the scene
+path     string  "/path/to/video.mp4"    Yes                      Video source path
+caption  string  "My caption"            No                       Video short description
+poster   string  "path/to/poster.png"    No                       An image to be shown while the video is downloading
+sticky   boolean true                    No       false           Sticky behavior
+======== ======= ======================= ======== =============== ===================================================
+
+**Provider Item**
+
+============ ======= ========================= ======== =============== =============================
+Property     Type    Example                   Required Default         Purpose
+============ ======= ========================= ======== =============== =============================
+type         string  "provider"                Yes                      Item type
+position     object  See ``Position`` object   No       {left:0, top:0} Hotspot position on the scene
+providerName string  "youtube|dailymotion"     Yes                      Content provider name
+parameters   object  See ``Parameters`` object Yes                      Content parameters
+sticky       boolean true                      No       false           Sticky behavior
+============ ======= ========================= ======== =============== =============================
+
+Other objects
+~~~~~~~~~~~~~
+
+**Position**
+
+======== ======= ======= ======== ======= ================
+Property Type    Example Required Default Purpose
+======== ======= ======= ======== ======= ================
+left     integer 200     Yes              X absolute value
+top      integer 50      Yes              Y absolute value
+======== ======= ======= ======== ======= ================
+
+**Link**
+
+======== ====== =========================== ======== ============= ===================
+Property Type   Example                     Required Default       Purpose
+======== ====== =========================== ======== ============= ===================
+url      string "`https://www.github.com`_" Yes                    href attribute
+label    string "My webpage"                No       ``url`` value Name of the webpage
+======== ====== =========================== ======== ============= ===================
+
+**Parameters**
+
+======== ====== =========== ======== ======= ================
+Property Type   Example     Required Default Purpose
+======== ====== =========== ======== ======= ================
+videoId  string "xxxYYY123" Yes              Video identifier
+======== ====== =========== ======== ======= ================
+
+Please note that only `Youtube`_ and `Dailymotion`_ videos are
+supported.
+
 .. _`http://www.example.com`: http://www.example.com
+.. _`https://www.github.com`: https://www.github.com
+.. _Youtube: https://www.youtube.com/
+.. _Dailymotion: https://www.dailymotion.com/

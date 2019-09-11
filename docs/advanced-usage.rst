@@ -15,8 +15,7 @@ behavior before activating the plugin:
 
    $("#my-interactive-image").interactiveImage(items, options);
 
-You can customize the social media share properties of your Interactive
-Image:
+You can customize the social media share properties of your Interactive Image:
 
 .. code:: javascript
 
@@ -61,6 +60,22 @@ plugin:
    };
 
    $("#my-interactive-image").interactiveImage(items, options);
+
+Style customization
+~~~~~~~~~~~~~~~~~~~
+
+| You may want to change the rendering of an item, as for example the
+  background and the front color of text items.
+| Adapt this CSS snippet to your needs and add it after the
+  ``interactive-image`` css file is loaded:
+
+.. code:: css
+
+   .interactive-image .text-item {
+     background-color: blue;
+     color: yellow;
+   }
+
 
 .. _Twitter: https://twitter.com/
 .. _Facebook: https://www.facebook.com/

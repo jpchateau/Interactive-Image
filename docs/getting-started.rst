@@ -1,6 +1,9 @@
 Getting started
 ---------------
 
+Install
+~~~~~~~
+
 **npm**
 
 .. code:: sh
@@ -19,11 +22,9 @@ Getting started
 | All the plugin files (.js, .css and fonts) are located in the ``dist``
   directory.
 
-Usage
------
 
-How to use it
-~~~~~~~~~~~~~
+Usage
+~~~~~
 
 Edit the source code of your web page:
 
@@ -119,5 +120,3 @@ paths of the fonts.
    $(document).ready(function() {
      $("#my-interactive-image").interactiveImage(items);
    });
-
-More examples can be found in the ``examples`` directory.
