@@ -1,30 +1,5 @@
-Getting started
----------------
-
-Install
-~~~~~~~
-
-**npm**
-
-.. code:: sh
-
-   $ npm install --save interactiveimagejs
-
-**Yarn**
-
-.. code:: sh
-
-   $ yarn add interactiveimagejs
-
-**Download**
-
-| Download the production or the development version from GitHub.
-| All the plugin files (.js, .css and fonts) are located in the ``dist``
-  directory.
-
-
-Usage
-~~~~~
+Basic usage
+-----------
 
 Edit the source code of your web page:
 
@@ -60,6 +35,9 @@ Edit the source code of your web page:
 paths of the fonts.
 
 **JavaScript**
+
+This code block is showing 5 items: each one represents a text, a picture,
+a sound, a video, and a content provided by a tier.
 
 .. code:: javascript
 

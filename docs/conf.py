@@ -66,7 +66,7 @@ language = None
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -81,7 +81,9 @@ html_theme = 'sphinx_rtd_theme'
 # documentation.
 #
 html_theme_options = {
-  'collapse_navigation': False
+  'analytics_id': 'UA-36150527-2',
+  'collapse_navigation': False,
+  'navigation_depth': 2,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

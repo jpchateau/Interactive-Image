@@ -2,7 +2,7 @@
 
 > A jQuery plugin to embed interactive images on your website.
 
-[![Demo](./docs/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
+[![Demo](docs/_static/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
 
 [Online Demo](https://www.jpchateau.com/demo/interactive-image).
 
@@ -19,22 +19,7 @@
 
 ## Documentation
 
-The technical documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).
-
-## Tests
-
-All builds are unit tested with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).
-Check it out on [Travis CI](https://travis-ci.org/jpchateau/Interactive-Image)!
-
-### Run all unit tests
-```sh
-$ npm run test
-```
-
-### Run all unit tests and display code coverage
-```sh
-$ npm run test-with-coverage
-```
+The complete technical documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).
 
 ## Browser Support
 
@@ -45,7 +30,6 @@ $ npm run test-with-coverage
 ## Philosophy
 
 This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
-A good code base, following the language good pratices, reduces maintainability issues and could be used as example. 
 
 ## Contribute
 

@@ -61,3 +61,8 @@ Check out for the results of the different builds on [Travis CI](https://travis-
 | `npm run test`               | Run unit tests                                          |
 | `npm run test-with-coverage` | Run unit tests and display code coverage                |
 | `npm run watch`              | Run the watcher for local development                   |
+
+## Documentation
+
+The technical documentation is built with [Sphinx](http://www.sphinx-doc.org/en/master/) and hosted at [Read the docs](https://interactive-image.readthedocs.io).
+It makes use of reStructuredText format.

@@ -1,40 +1,51 @@
+.. meta::
+   :description: Interactive Image documentation
+   :keywords: interactive-image, storytelling, rich content, javascript, jquery-plugin
+
 Interactive Image
 =================
 
-A jQuery plugin to embed interactive images on your website.
+Interactive Image is a JavaScript library that eases the creation of media experiences.
+
+.. image:: _static/demo.jpg
+   :height: 482px
+   :width: 730px
+   :alt: Interactive Image demo
+   :align: center
+   :target: https://www.jpchateau.com/demo/interactive-image
 
 `Online Demo <https://www.jpchateau.com/demo/interactive-image>`_.
 
-Requirements
-------------
-
-`jQuery`_ 1.7.2+ is required.
-
-Dependencies
-------------
-
--  `imagesloaded`_ to detect when images have been loaded
-
-
-The main documentation is organized into the following sections:
+This documentation is organized into the following sections:
 
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
 
-   getting-started/
+   getting-started/setup
+   getting-started/basic-usage
 
 .. toctree::
    :maxdepth: 2
-   :caption: Advanced usage
+   :caption: Advanced features
 
-   advanced-usage/
+   advanced-features/social-media-share
+   advanced-features/sticky-items
+   advanced-features/style-customization
+   advanced-features/debug
 
 .. toctree::
    :maxdepth: 2
-   :caption: Configuration
+   :caption: API Reference
 
-   configuration
+   api-reference/options
+   api-reference/items
+   api-reference/other-objects
 
-.. _jQuery: https://jquery.com/download/
-.. _imagesloaded: https://www.npmjs.com/package/imagesloaded
+.. toctree::
+   :maxdepth: 2
+   :caption: Development
+
+   development/requirements
+   development/dependencies
+   development/tests
