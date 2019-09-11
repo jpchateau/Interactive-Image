@@ -1,4 +1,4 @@
-# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image)
+# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image) [![Known Vulnerabilities](https://snyk.io//test/github/jpchateau/Interactive-Image/badge.svg?targetFile=package.json)](https://snyk.io//test/github/jpchateau/Interactive-Image?targetFile=package.json)
 
 > A jQuery plugin to embed interactive images on your website.
 
@@ -27,10 +27,6 @@ The complete technical documentation is hosted at [Read the docs](https://intera
 | --- | --- | --- | --- | --- |
 | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
 
-## Philosophy
-
-This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
-
 ## Contribute
 
 Feel free to contribute and open some issues or pull requests.  
@@ -47,6 +43,10 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
   * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
 * Free:
   * [jquery.hotspot.js](https://github.com/skypluto/jquery.hotspot.js)
+
+## Philosophy
+
+This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
 
 ## License
 
