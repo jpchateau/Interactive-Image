@@ -10,11 +10,10 @@
 
 * Interactive videos, sounds, images and texts over large pictures
 * Support for popular content providers
-* Social media sharing capabilities
+* Social Media sharing capabilities
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
-* Installable via package managers
 * No restriction on commercial use
 
 ## Documentation
@@ -30,7 +29,6 @@ The complete technical documentation is hosted at [Read the docs](https://intera
 ## Contribute
 
 Feel free to contribute and open some issues or pull requests.  
-This jQuery plugin uses [npm](https://www.npmjs.com/) to manage dependencies and [webpack](https://webpack.js.org/) as bundler.  
 See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 ## Alternatives
@@ -46,7 +44,7 @@ See the complete contributing guidelines [here](CONTRIBUTING.md).
 
 ## Philosophy
 
-This tool is not just a means to create rich media contents. It focuses on code quality and cares about web performances.  
+This library is not just a means to create rich media contents. It focuses on code quality and cares about web performances.
 
 ## License
 
