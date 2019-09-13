@@ -31,7 +31,7 @@
             {
                 type: "text",
                 title: "Text title",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
+                description: "<b>Lorem ipsum</b> <i>dolor sit amet</i>, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
                 "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
                 "dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
@@ -114,7 +114,8 @@
                 position: {
                     left: 100,
                     top: 250
-                }
+                },
+                sticky: true
             },
             {
                 type: "audio",
@@ -123,7 +124,8 @@
                 position: {
                     left: 300,
                     top: 250
-                }
+                },
+                sticky: true
             },
             {
                 type: "audio",
@@ -132,7 +134,8 @@
                 position: {
                     left: 500,
                     top: 250
-                }
+                },
+                sticky: true
             },
             // Video items
             {
@@ -141,7 +144,8 @@
                 position: {
                     left: 100,
                     top: 350
-                }
+                },
+                sticky: true
             },
             {
                 type: "video",
@@ -150,7 +154,8 @@
                 position: {
                     left: 300,
                     top: 350
-                }
+                },
+                sticky: true
             },
             {
                 type: "video",
@@ -160,7 +165,8 @@
                 position: {
                     left: 500,
                     top: 350
-                }
+                },
+                sticky: true
             },
             // Provider items
             {
@@ -173,18 +179,19 @@
                     left: 100,
                     top: 450
                 },
-                sticky: true,
+                sticky: true
             },
             {
                 type: "provider",
                 providerName: "dailymotion",
                 parameters: {
-                    videoId: "x2y9n70"
+                    videoId: "x4i697s"
                 },
                 position: {
                     left: 300,
                     top: 450
-                }
+                },
+                sticky: true
             }
         ];
 
@@ -192,6 +199,7 @@
         var options = {
             debug: true,
             shareBox: true,
+            allowHtml: true,
             socialMedia: {
                 url: "https://www.jpchateau.com/demo/interactive-image",
                 text: "Clouded Leopard",

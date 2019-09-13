@@ -5,15 +5,24 @@ export default class DomHelper {
      * @param {string} name         - tag name
      * @param {object} [attributes] - html attributes
      * @param {string} [text]       - text
+     * @param {?boolean} allowHtml  - allow HTML markup
      * @returns {HTMLElement}
      */
-    static createElement(name, attributes, text) {
-        const node = document.createElement(name);
+    static createElement(name, attributes, text, allowHtml = false) {
+        let node = document.createElement(name);
 
-        if ('undefined' !== typeof text) {
-            node.appendChild(document.createTextNode(text));
-        }
+        node = DomHelper.addAttributes(node, attributes);
+        node = DomHelper.addText(node, allowHtml, text);
 
+        return node;
+    }
+
+    /**
+     * @param {HTMLElement} node
+     * @param {object} [attributes]
+     * @returns {HTMLElement}
+     */
+    static addAttributes(node, attributes) {
         if ('undefined' === typeof attributes) {
             return node;
         }
@@ -22,6 +31,26 @@ export default class DomHelper {
             if (attributes.hasOwnProperty(attribute)) {
                 node.setAttribute(attribute, attributes[attribute]);
             }
+        }
+
+        return node;
+    }
+
+    /**
+     * @param {HTMLElement} node
+     * @param {boolean} allowHtml
+     * @param {string} text
+     * @returns {HTMLElement}
+     */
+    static addText(node, allowHtml, text) {
+        if ('undefined' === typeof text) {
+            return node;
+        }
+
+        if (false === allowHtml) {
+            node.textContent = text;
+        } else {
+            node.innerHTML = text;
         }
 
         return node;

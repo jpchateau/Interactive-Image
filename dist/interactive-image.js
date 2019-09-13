@@ -680,6 +680,10 @@ var App = function () {
                 _this.logHelper.log('Starting settings check...');
                 var start = Date.now();
 
+                if ('boolean' !== typeof _this.settings.allowHtml) {
+                    throw Error('Check the "allowHtml" option. Allowed type: boolean.');
+                }
+
                 if ('boolean' !== typeof _this.settings.shareBox) {
                     throw Error('Check the "shareBox" option. Allowed type: boolean.');
                 }
@@ -733,6 +737,7 @@ var App = function () {
             delete options.type;
 
             var element = this.itemFactory.create(type, options);
+            element.applicationSettings = this.settings;
             this.$image.append(element.createHotspotElement());
 
             this.logHelper.log('Item (' + type + ') created.');
@@ -1118,15 +1123,29 @@ var DomHelper = function () {
          * @param {string} name         - tag name
          * @param {object} [attributes] - html attributes
          * @param {string} [text]       - text
+         * @param {?boolean} allowHtml  - allow HTML markup
          * @returns {HTMLElement}
          */
         value: function createElement(name, attributes, text) {
+            var allowHtml = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
             var node = document.createElement(name);
 
-            if ('undefined' !== typeof text) {
-                node.appendChild(document.createTextNode(text));
-            }
+            node = DomHelper.addAttributes(node, attributes);
+            node = DomHelper.addText(node, allowHtml, text);
 
+            return node;
+        }
+
+        /**
+         * @param {HTMLElement} node
+         * @param {object} [attributes]
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'addAttributes',
+        value: function addAttributes(node, attributes) {
             if ('undefined' === typeof attributes) {
                 return node;
             }
@@ -1135,6 +1154,29 @@ var DomHelper = function () {
                 if (attributes.hasOwnProperty(attribute)) {
                     node.setAttribute(attribute, attributes[attribute]);
                 }
+            }
+
+            return node;
+        }
+
+        /**
+         * @param {HTMLElement} node
+         * @param {boolean} allowHtml
+         * @param {string} text
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'addText',
+        value: function addText(node, allowHtml, text) {
+            if ('undefined' === typeof text) {
+                return node;
+            }
+
+            if (false === allowHtml) {
+                node.textContent = text;
+            } else {
+                node.innerHTML = text;
             }
 
             return node;
@@ -1365,9 +1407,9 @@ var LogHelper = function () {
 
 
         /**
-         * @param {string} message        - message to display in console
-         * @param {number} [milliseconds] - time
-         * @param {string} [color=black]  - message color
+         * @param {string} message         - message to display in console
+         * @param {?number} [milliseconds] - time
+         * @param {string} [color=black]   - message color
          */
         value: function log(message) {
             var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -1422,6 +1464,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
         var defaults = {
             debug: false,
+            allowHtml: false,
             shareBox: true
         };
 
@@ -1559,7 +1602,7 @@ var AudioItem = function (_BaseItem) {
             audioItem.appendChild(this.createAudio());
 
             if ('undefined' !== typeof this.caption) {
-                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption);
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption, this.globalSettings.allowHtml);
                 audioItem.appendChild(caption);
             }
 
@@ -1629,7 +1672,13 @@ var BaseItem = function () {
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
         this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
         this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
+        this.globalSettings = null;
     }
+
+    /**
+     * @param {object} settings
+     */
+
 
     _createClass(BaseItem, [{
         key: "checkRequiredParameters",
@@ -1686,6 +1735,11 @@ var BaseItem = function () {
         key: "renderHtml",
         value: function renderHtml() {
             throw Error('Render method not implemented');
+        }
+    }, {
+        key: "applicationSettings",
+        set: function set(settings) {
+            this.globalSettings = settings;
         }
     }]);
 
@@ -2104,7 +2158,7 @@ var TextItem = function (_BaseItem) {
     }, {
         key: "createDescription",
         value: function createDescription() {
-            return _domHelper2.default.createElement('p', { 'class': 'description' }, this.description);
+            return _domHelper2.default.createElement('p', { 'class': 'description' }, this.description, this.globalSettings.allowHtml);
         }
 
         /**
@@ -2307,7 +2361,7 @@ var VideoItem = function (_BaseItem) {
             videoItem.appendChild(this.createVideo());
 
             if ('undefined' !== typeof this.caption) {
-                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption);
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption, this.globalSettings.allowHtml);
                 videoItem.appendChild(caption);
             }
 

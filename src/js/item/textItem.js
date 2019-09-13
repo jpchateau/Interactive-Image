@@ -30,7 +30,7 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createDescription() {
-        return DomHelper.createElement('p', {'class': 'description'}, this.description);
+        return DomHelper.createElement('p', {'class': 'description'}, this.description, this.globalSettings.allowHtml);
     }
 
     /**

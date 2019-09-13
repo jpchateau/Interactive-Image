@@ -32,6 +32,10 @@ export default class App {
             this.logHelper.log('Starting settings check...');
             const start = Date.now();
 
+            if ('boolean' !== typeof this.settings.allowHtml) {
+                throw Error('Check the "allowHtml" option. Allowed type: boolean.');
+            }
+
             if ('boolean' !== typeof this.settings.shareBox) {
                 throw Error('Check the "shareBox" option. Allowed type: boolean.');
             }
@@ -83,6 +87,7 @@ export default class App {
         delete options.type;
 
         const element = this.itemFactory.create(type, options);
+        element.applicationSettings = this.settings;
         this.$image.append(element.createHotspotElement());
 
         this.logHelper.log('Item (' + type + ') created.');

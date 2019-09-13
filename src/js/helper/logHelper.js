@@ -11,9 +11,9 @@ export default class LogHelper {
     }
 
     /**
-     * @param {string} message        - message to display in console
-     * @param {number} [milliseconds] - time
-     * @param {string} [color=black]  - message color
+     * @param {string} message         - message to display in console
+     * @param {?number} [milliseconds] - time
+     * @param {string} [color=black]   - message color
      */
     log(message, milliseconds = null, color = 'black') {
         if (!window.console || !window.console.log || false === this.enable) {
