@@ -79,12 +79,6 @@ export default class App {
     createElement(options) {
         this.logHelper.log(JSON.stringify(options), undefined, 'blue');
 
-        const defaults = {
-            sticky: false
-        };
-
-        options = $.extend(defaults, options);
-
         const type = options.type;
         delete options.type;
 

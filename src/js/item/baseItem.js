@@ -3,12 +3,20 @@ import UniqueId from "../service/uniqueId";
 
 export default class BaseItem {
     /**
+     * @returns {string}
+     */
+    static stickyClassName() {
+        return 'behavior-sticky';
+    }
+
+    /**
      * @param {object} parameters
      */
     constructor(parameters) {
         this.identifier = UniqueId.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
-        this.sticky = parameters.sticky;
+        this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
+        this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
     }
 
     checkRequiredParameters(parameters, requiredParameters) {
@@ -37,7 +45,11 @@ export default class BaseItem {
     createItemElement() {
         let itemClass = 'item';
         if (this.sticky === true) {
-            itemClass += ' behavior-sticky';
+            itemClass += ' ' + BaseItem.stickyClassName();
+        }
+
+        if (typeof this.customClassName === 'string') {
+            itemClass += ' ' + this.customClassName;
         }
 
         const element = DomHelper.createElement('div', {'class': itemClass});

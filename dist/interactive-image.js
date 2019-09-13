@@ -729,12 +729,6 @@ var App = function () {
         value: function createElement(options) {
             this.logHelper.log(JSON.stringify(options), undefined, 'blue');
 
-            var defaults = {
-                sticky: false
-            };
-
-            options = $.extend(defaults, options);
-
             var type = options.type;
             delete options.type;
 
@@ -1612,15 +1606,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BaseItem = function () {
-    /**
-     * @param {object} parameters
-     */
+    _createClass(BaseItem, null, [{
+        key: "stickyClassName",
+
+        /**
+         * @returns {string}
+         */
+        value: function stickyClassName() {
+            return 'behavior-sticky';
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
     function BaseItem(parameters) {
         _classCallCheck(this, BaseItem);
 
         this.identifier = _uniqueId2.default.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
-        this.sticky = parameters.sticky;
+        this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
+        this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
     }
 
     _createClass(BaseItem, [{
@@ -1657,7 +1665,11 @@ var BaseItem = function () {
         value: function createItemElement() {
             var itemClass = 'item';
             if (this.sticky === true) {
-                itemClass += ' behavior-sticky';
+                itemClass += ' ' + BaseItem.stickyClassName();
+            }
+
+            if (typeof this.customClassName === 'string') {
+                itemClass += ' ' + this.customClassName;
             }
 
             var element = _domHelper2.default.createElement('div', { 'class': itemClass });
