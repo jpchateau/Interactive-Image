@@ -983,29 +983,82 @@ var Behavior = function () {
         value: function bindItemsEvents() {
             var that = this;
 
+            var bindHostpotMouseLeave = function bindHostpotMouseLeave($hotspot) {
+                $hotspot.on('mouseleave', function (event) {
+                    var $relatedTarget = $(event.relatedTarget);
+                    // if parent has class item, it enters container so there is no need to hide it
+                    if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
+                        return;
+                    }
+                    var $container = $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+                    _domHelper2.default.hideElement($container);
+                });
+            };
+
+            var unbindHotspotMouseLeave = function unbindHotspotMouseLeave($hotspot) {
+                $hotspot.off('mouseleave');
+            };
+
+            // Initialize events on each hotspots and items
+            that.$image.find('.hotspot').each(function () {
+                var $hotspot = $(this);
+                var $container = $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+
+                if ($container.hasClass('behavior-sticky')) {
+                    return;
+                }
+
+                bindHostpotMouseLeave($hotspot);
+
+                $container.on('mouseenter', function () {
+                    unbindHotspotMouseLeave($hotspot);
+                });
+
+                // Bind event to hide the related container when mouse leaves it
+                $container.on('mouseleave', function (event) {
+                    var $relatedTarget = $(event.relatedTarget);
+                    // if related target has class hotpost, it enters hotspot so there is no need to hide the container
+                    if ($relatedTarget.hasClass('hotspot')) {
+                        return;
+                    }
+                    _domHelper2.default.hideElement($(this));
+                    bindHostpotMouseLeave($hotspot);
+                });
+            });
+
+            // Bind event on sticky containers
+            that.$image.find('.item').each(function () {
+                var $container = $(this);
+                if (!$container.hasClass('behavior-sticky')) {
+                    return;
+                }
+
+                // Bind event to hide the related container when close button is clicked
+                $container.on('click', '.close-button', function () {
+                    _domHelper2.default.hideElement($container);
+                });
+            });
+
             // Mouse enters a hotspot
-            that.$image.on('mouseenter', '.hotspot', function () {
+            that.$image.on('mouseenter', '.hotspot', function (event) {
+                var $hotspot = $(this);
+                var $relatedTarget = $(event.relatedTarget);
+                if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
+                    // if parent has class item, it only re-enters from item
+                    return bindHostpotMouseLeave($hotspot);
+                }
+
+                // Retrieve the related item
+                var $container = $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+
                 // Hide all other containers that are not sticky
                 var $containers = that.$image.find('.item').not('.behavior-sticky');
                 $.each($containers, function () {
                     _domHelper2.default.hideElement($(this));
                 });
 
-                // Show the related container
-                var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
+                // Finally, show the related item
                 _domHelper2.default.showElement($container);
-
-                if ($container.hasClass('behavior-sticky')) {
-                    // Bind event to hide the related container when close button is clicked
-                    $container.on('click', '.close-button', function () {
-                        _domHelper2.default.hideElement($container);
-                    });
-                } else {
-                    // Bind event to hide the related container when mouse leaves it
-                    $container.on('mouseleave', function () {
-                        _domHelper2.default.hideElement($(this));
-                    });
-                }
             });
         }
     }]);
@@ -1346,7 +1399,8 @@ var ItemHelper = function () {
          * @returns {*[]}
          */
         value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
-            return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
+            return [hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot divided by 2
+            hotspotTop + 40];
         }
 
         /**
@@ -1699,7 +1753,7 @@ var BaseItem = function () {
         value: function createHotspotElement() {
             var element = _domHelper2.default.createElement('div', { 'class': 'hotspot icon-radio-checked' });
             element.setAttribute('data-for', this.identifier);
-            element.style.left = this.position.left + 'px';
+            element.style.left = this.position.left - 10 + 'px'; // 10 is the offset introduced by a larger hotspot (20px larger, divided by 2)
             element.style.top = this.position.top + 'px';
 
             return element;

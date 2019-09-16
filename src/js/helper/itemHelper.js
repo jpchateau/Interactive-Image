@@ -9,7 +9,7 @@ export default class ItemHelper {
      */
     static calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
         return [
-            hotspotLeft + 15 - width / 2,
+            hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot divided by 2
             hotspotTop + 40
         ];
     }
