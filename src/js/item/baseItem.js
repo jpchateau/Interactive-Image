@@ -17,7 +17,9 @@ export default class BaseItem {
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
         this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
         this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
-        this.globalSettings = null;
+        this.globalSettings = {
+            allowHtml: false
+        }
     }
 
     /**
