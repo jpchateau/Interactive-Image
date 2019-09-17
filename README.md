@@ -14,7 +14,6 @@
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
-* No restriction on commercial use
 
 ## Documentation
 

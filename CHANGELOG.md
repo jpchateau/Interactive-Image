@@ -1,6 +1,18 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.5.0
+* Support for HTML markup into items descriptions
+* Better user experience about the way items are displayed and hidden
+* Videos and sounds that are playing are now stopped when the mouse leaves the scene
+* Fixed an issue related to links labels on Text items
+* Codebase improvements and more unit tests
+* Added a "className" property for better style customization of items
+* Added a badge to show packages vulnerabilities (snyk)
+* Code coverage is displayed at Code Climate
+* Main documentation has moved to Read The Docs
+* Code examples have been improved and separated by item type
+
 ## 2.4.0 (2019-06-17)
 * Sticky behavior available on items
 * Added a social share box to enable content sharing on Facebook, Twitter and by email
@@ -37,7 +49,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The possibility to customize items styles in JS has been removed
 * Upgraded to Webpack 4
 * Now uses Sass as CSS preprocessor
-
 
 ## 1.0.0 (2018-04-05)
 * First stable release
