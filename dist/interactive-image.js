@@ -1726,7 +1726,9 @@ var BaseItem = function () {
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
         this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
         this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
-        this.globalSettings = null;
+        this.globalSettings = {
+            allowHtml: false
+        };
     }
 
     /**
@@ -2243,7 +2245,7 @@ var TextItem = function (_BaseItem) {
             if ('undefined' !== typeof this.link.label) {
                 label = this.link.label;
             } else {
-                label = this.link.href;
+                label = this.link.url;
             }
 
             element.appendChild(document.createTextNode(label));

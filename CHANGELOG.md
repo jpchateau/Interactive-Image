@@ -6,12 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Better user experience about the way items are displayed and hidden
 * Videos and sounds that are playing are now stopped when the mouse leaves the scene
 * Fixed an issue related to links labels on Text items
-* Codebase improvements and more unit tests
-* Added a "className" property for better style customization of items
-* Added a badge to show packages vulnerabilities (snyk)
-* Code coverage is displayed at Code Climate
-* Main documentation has moved to Read The Docs
-* Code examples have been improved and separated by item type
+* Codebase improvements and unit tests
+* Added a "customClassName" property on items for better style customization
 
 ## 2.4.0 (2019-06-17)
 * Sticky behavior available on items

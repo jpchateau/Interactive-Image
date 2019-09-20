@@ -17,7 +17,7 @@
 
 ## Documentation
 
-The complete technical documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).
+The complete documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).
 
 ## Browser Support
 
@@ -25,10 +25,14 @@ The complete technical documentation is hosted at [Read the docs](https://intera
 | --- | --- | --- | --- | --- |
 | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
 
+## Changelog
+
+See the ful changelog [here](CHANGELOG.md).
+
 ## Contribute
 
 Feel free to contribute and open some issues or pull requests.  
-See the complete contributing guidelines [here](CONTRIBUTING.md).
+See the contributing guidelines [here](CONTRIBUTING.md).
 
 ## Alternatives
 
