@@ -1,5 +1,5 @@
 /*!
- * interactive-image v2.4.0
+ * interactive-image v2.5.0
  * https://github.com/jpchateau
  * Jean-Philippe Chateau - <contact@jpchateau.com>
  * MIT License
