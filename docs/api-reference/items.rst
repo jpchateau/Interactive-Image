@@ -1,9 +1,9 @@
 Items
 -----
 
-Each item has several possibilities of configuration. You can add a link
-and/or a picture to your ``text`` items, or a caption to your
-``picture``, ``audio`` or ``video`` items.
+| Each item has several possibilities of configuration. You can add a link
+  and/or a picture to your ``text`` items, or a caption to your
+  ``picture``, ``audio`` or ``video`` items.
 
 Text Item
 ~~~~~~~~~
@@ -36,9 +36,9 @@ customClassName string "my-css-class"          No       --              Custom C
 Audio Item
 ~~~~~~~~~~
 
-Supported audio formats: MP3, Ogg, WAVE.
-For more information about browser support of audio formats,
-please refer to `Media formats for HTML audio and video <https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats>`_.
+| Supported audio formats: MP3, Ogg, WAVE.
+| For more information about browser support of audio formats,
+  please refer to `Media formats for HTML audio and video <https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats>`_.
 
 =============== ======= ======================= ======== =============== =============================
 Property        Type    Example                 Required Default         Purpose
@@ -54,9 +54,9 @@ customClassName string  "my-css-class"          No       --              Custom 
 Video Item
 ~~~~~~~~~~
 
-Supported video formats: MP4, WebM.
-For more information about browser support of video formats,
-please refer to `Media formats for HTML audio and video <https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats>`_.
+| Supported video formats: MP4, WebM.
+| For more information about browser support of video formats,
+  please refer to `Media formats for HTML audio and video <https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats>`_.
 
 =============== ======= ======================= ======== =============== ===================================================
 Property        Type    Example                 Required Default         Purpose

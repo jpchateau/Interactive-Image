@@ -30,7 +30,7 @@ Property Type   Example     Required Default Purpose
 videoId  string "xxxYYY123" Yes      --      Video identifier
 ======== ====== =========== ======== ======= ================
 
-Please note that only `Youtube`_ and `Dailymotion`_ videos are supported.
+| Please note that only `Youtube`_ and `Dailymotion`_ videos are supported.
 
 .. _`https://www.github.com`: https://www.github.com
 .. _Youtube: https://www.youtube.com/

@@ -27,7 +27,7 @@ The complete documentation is hosted at [Read the docs](https://interactive-imag
 
 ## Changelog
 
-See the ful changelog [here](CHANGELOG.md).
+See the full changelog [here](CHANGELOG.md).
 
 ## Contribute
 

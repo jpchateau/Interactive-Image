@@ -36,7 +36,7 @@ Download
 ~~~~~~~~
 
 | Or download the production / development files from GitHub.
-  All the files (.js, .css and fonts) are located in the ``dist`` directory.
+| All the files (.js, .css and fonts) are located in the ``dist`` directory.
 
 The latest Zip archive is available at `Github <https://github.com/jpchateau/Interactive-Image/archive/master.zip>`_,
 and you can browse all the releases `here <https://github.com/jpchateau/Interactive-Image/releases>`_.

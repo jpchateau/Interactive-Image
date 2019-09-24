@@ -25,6 +25,6 @@ hashtags        array  ["jQuery", "cloudedLeopard"] No       --           Hashta
 twitterUsername string "my_twitter_account"         No       --           Twitter account
 =============== ====== ============================ ======== ============ ===============
 
-You do not need to prefix your Twitter account by "@".
+| You do not need to prefix your Twitter account by ``@``.
 
 .. _`http://www.example.com`: http://www.example.com

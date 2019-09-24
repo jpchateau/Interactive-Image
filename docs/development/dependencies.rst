@@ -1,7 +1,7 @@
 Dependencies
 ------------
 
-1 dependency comes with this library:
+1 dependency comes with Interactive Image package:
 
 -  `imagesloaded`_ to detect when images have been loaded
 

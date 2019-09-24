@@ -5,10 +5,10 @@
 Interactive Image
 =================
 
-Interactive Image is a JavaScript library that eases the creation of media experiences.
+Interactive Image is a jQuery plugin that eases the creation of media experiences.
 
 .. image:: _static/demo.jpg
-   :height: 482px
+   :width: 100%
    :alt: Interactive Image demo
    :align: center
    :target: https://www.jpchateau.com/demo/interactive-image

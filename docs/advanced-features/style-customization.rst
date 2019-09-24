@@ -2,7 +2,7 @@ Style customization
 -------------------
 
 | You may want to change the rendering of a specific item.
-  Fill the ``customClassName`` property:
+| Fill the ``customClassName`` property:
 
 .. code:: javascript
 
@@ -26,8 +26,13 @@ Style customization
    }
 
 Available Item classes:
-- ``text-item``
-- ``picture-item``
-- ``audio-item``
-- ``video-item``
-- ``provider-item``
+
+* ``text-item``
+
+* ``picture-item``
+
+* ``audio-item``
+
+* ``video-item``
+
+* ``provider-item``
