@@ -2487,11 +2487,7 @@ var SocialMediaShare = function () {
          * @returns {HTMLElement}
          */
         value: function buildFacebookButton(options) {
-            var facebookLink = _domHelper2.default.createElement('a', { 'class': 'social-button facebook-colors icon-facebook' });
-            facebookLink.setAttribute('target', '_blank');
-            facebookLink.setAttribute('href', SocialMediaShare.buildFacebookUrl(options));
-
-            return facebookLink;
+            return SocialMediaShare.buildButton('social-button facebook-colors icon-facebook', SocialMediaShare.buildFacebookUrl(options));
         }
 
         /**
@@ -2502,11 +2498,7 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildTwitterButton',
         value: function buildTwitterButton(options) {
-            var twitterLink = _domHelper2.default.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
-            twitterLink.setAttribute('target', '_blank');
-            twitterLink.setAttribute('href', SocialMediaShare.buildTwitterUrl(options));
-
-            return twitterLink;
+            return SocialMediaShare.buildButton('social-button twitter-colors icon-twitter', SocialMediaShare.buildTwitterUrl(options));
         }
 
         /**
@@ -2517,11 +2509,7 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildMailButton',
         value: function buildMailButton(options) {
-            var mailLink = _domHelper2.default.createElement('a', { 'class': 'social-button mail-colors icon-envelop' });
-            mailLink.setAttribute('target', '_blank');
-            mailLink.setAttribute('href', SocialMediaShare.buildMailUrl(options));
-
-            return mailLink;
+            return SocialMediaShare.buildButton('social-button mail-colors icon-envelop', SocialMediaShare.buildMailUrl(options));
         }
 
         /**
@@ -2602,6 +2590,23 @@ var SocialMediaShare = function () {
             };
 
             return 'mailto:?' + $.param(parameters);
+        }
+
+        /**
+         *
+         * @param {string} classes
+         * @param {string} href
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'buildButton',
+        value: function buildButton(classes, href) {
+            var link = _domHelper2.default.createElement('a', { 'class': classes });
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', href);
+
+            return link;
         }
     }]);
 

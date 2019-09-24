@@ -55,15 +55,25 @@ export default class SocialMediaShare {
     }
 
     /**
+     *
+     * @param {string} classes
+     * @param {string} href
+     * @returns {HTMLElement}
+     */
+    static buildButton(classes, href) {
+        const link = DomHelper.createElement('a', {'class': classes});
+        link.setAttribute('target', '_blank');
+        link.setAttribute('href', href);
+
+        return link;
+    }
+
+    /**
      * @param {object} options
      * @returns {HTMLElement}
      */
     buildFacebookButton(options) {
-        const facebookLink = DomHelper.createElement('a', {'class': 'social-button facebook-colors icon-facebook'});
-        facebookLink.setAttribute('target', '_blank');
-        facebookLink.setAttribute('href', SocialMediaShare.buildFacebookUrl(options));
-
-        return facebookLink;
+        return SocialMediaShare.buildButton('social-button facebook-colors icon-facebook', SocialMediaShare.buildFacebookUrl(options));
     }
 
     /**
@@ -71,11 +81,7 @@ export default class SocialMediaShare {
      * @returns {HTMLElement}
      */
     buildTwitterButton(options) {
-        const twitterLink = DomHelper.createElement('a', {'class': 'social-button twitter-colors icon-twitter'});
-        twitterLink.setAttribute('target', '_blank');
-        twitterLink.setAttribute('href', SocialMediaShare.buildTwitterUrl(options));
-
-        return twitterLink;
+        return SocialMediaShare.buildButton('social-button twitter-colors icon-twitter', SocialMediaShare.buildTwitterUrl(options));
     }
 
     /**
@@ -83,11 +89,7 @@ export default class SocialMediaShare {
      * @returns {HTMLElement}
      */
     buildMailButton(options) {
-        const mailLink = DomHelper.createElement('a', {'class': 'social-button mail-colors icon-envelop'});
-        mailLink.setAttribute('target', '_blank');
-        mailLink.setAttribute('href', SocialMediaShare.buildMailUrl(options));
-
-        return mailLink;
+        return SocialMediaShare.buildButton('social-button mail-colors icon-envelop', SocialMediaShare.buildMailUrl(options));
     }
 
     /**
