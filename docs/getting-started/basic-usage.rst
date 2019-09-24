@@ -36,7 +36,7 @@ paths of the fonts.
 
 **JavaScript**
 
-This code block is showing 5 items: each one represents a text, a picture,
+This code block describes the 5 types of items: a simple text, a picture,
 a sound, a video, and a content provided by a tier.
 
 .. code:: javascript
@@ -98,3 +98,5 @@ a sound, a video, and a content provided by a tier.
    $(document).ready(function() {
      $("#my-interactive-image").interactiveImage(items);
    });
+
+You can see a full working example including all types of items in the ``examples`` directory.

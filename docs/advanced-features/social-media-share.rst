@@ -1,8 +1,8 @@
 Social Media Share
 ------------------
 
-By default, a social media share box is displayed. You can prevent this
-behavior before activating the plugin:
+| By default, a social media share box is displayed at the bottom right of the scene.
+  You can prevent this behavior before activating the plugin:
 
 .. code:: javascript
 
@@ -12,7 +12,7 @@ behavior before activating the plugin:
 
    $("#my-interactive-image").interactiveImage(items, options);
 
-You can customize the social media share properties of your Interactive Image:
+You can also customize the social media share properties of your Interactive Image:
 
 .. code:: javascript
 

@@ -9,7 +9,6 @@ Interactive Image is a JavaScript library that eases the creation of media exper
 
 .. image:: _static/demo.jpg
    :height: 482px
-   :width: 730px
    :alt: Interactive Image demo
    :align: center
    :target: https://www.jpchateau.com/demo/interactive-image
@@ -22,17 +21,18 @@ This documentation is organized into the following sections:
    :maxdepth: 2
    :caption: Getting Started
 
-   getting-started/setup
+   getting-started/installation
    getting-started/basic-usage
 
 .. toctree::
    :maxdepth: 2
    :caption: Advanced features
 
+   advanced-features/allow-html
    advanced-features/social-media-share
    advanced-features/sticky-items
    advanced-features/style-customization
-   advanced-features/debug
+   advanced-features/debugging
 
 .. toctree::
    :maxdepth: 2
@@ -40,7 +40,7 @@ This documentation is organized into the following sections:
 
    api-reference/options
    api-reference/items
-   api-reference/other-objects
+   api-reference/items-special-properties
 
 .. toctree::
    :maxdepth: 2

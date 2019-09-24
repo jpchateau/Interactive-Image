@@ -1,7 +1,8 @@
 Tests
 -----
 
-All builds are unit tested with `Mocha`_ and `Chai`_. Check it out on `Travis CI`_!
+| All builds are unit tested with `Mocha`_ and `Chai`_.
+  Check it out on `Travis CI`_!
 
 **Run all unit tests**
 
