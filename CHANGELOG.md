@@ -1,7 +1,7 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.5.0 (2019-09-24)
+## 2.5.0 (2019-09-25)
 * Support for HTML markup into items descriptions
 * Better user experience about the way items are displayed and hidden
 * Videos and sounds that are playing are now stopped when the mouse leaves the scene
