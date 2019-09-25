@@ -9,8 +9,8 @@ export default class ItemHelper {
      */
     static calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
         return [
-            hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot divided by 2
-            hotspotTop + 40
+            (hotspotLeft + 25) - width / 2, // 25 is the width of the hotspot (50px) divided by 2
+            hotspotTop + 40 // 40 is the offset to position the container below the hotspot
         ];
     }
 

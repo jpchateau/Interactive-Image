@@ -775,17 +775,11 @@ var App = function () {
                 var $items = _this4.$image.find('.item');
                 $.each($items, function () {
                     var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
-                    var width = $(this).width();
-                    var left = void 0;
-                    var top = void 0;
 
-                    var _ItemHelper$calculate = _itemHelper2.default.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
-
-                    var _ItemHelper$calculate2 = _slicedToArray(_ItemHelper$calculate, 2);
-
-                    left = _ItemHelper$calculate2[0];
-                    top = _ItemHelper$calculate2[1];
-
+                    var _ItemHelper$calculate = _itemHelper2.default.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), $(this).width()),
+                        _ItemHelper$calculate2 = _slicedToArray(_ItemHelper$calculate, 2),
+                        left = _ItemHelper$calculate2[0],
+                        top = _ItemHelper$calculate2[1];
 
                     $(this).css('left', left);
                     $(this).css('top', top);
@@ -986,11 +980,16 @@ var Behavior = function () {
             var bindHostpotMouseLeave = function bindHostpotMouseLeave($hotspot) {
                 $hotspot.on('mouseleave', function (event) {
                     var $relatedTarget = $(event.relatedTarget);
-                    // if parent has class item, it enters container so there is no need to hide it
+                    // If parent has class "item", it enters container so there is no need to hide it
                     if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
                         return;
                     }
-                    var $container = $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+
+                    var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
+                    if ($container.hasClass('behavior-sticky')) {
+                        return;
+                    }
+
                     _domHelper2.default.hideElement($container);
                 });
             };
@@ -1002,14 +1001,13 @@ var Behavior = function () {
             // Initialize events on each hotspots and items
             that.$image.find('.hotspot').each(function () {
                 var $hotspot = $(this);
-                var $container = $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+                var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
 
                 if ($container.hasClass('behavior-sticky')) {
                     return;
                 }
 
                 bindHostpotMouseLeave($hotspot);
-
                 $container.on('mouseenter', function () {
                     unbindHotspotMouseLeave($hotspot);
                 });
@@ -1017,16 +1015,17 @@ var Behavior = function () {
                 // Bind event to hide the related container when mouse leaves it
                 $container.on('mouseleave', function (event) {
                     var $relatedTarget = $(event.relatedTarget);
-                    // if related target has class hotpost, it enters hotspot so there is no need to hide the container
+                    // If related target has class "hotpost", it enters hotspot so there is no need to hide the container
                     if ($relatedTarget.hasClass('hotspot')) {
                         return;
                     }
+
                     _domHelper2.default.hideElement($(this));
                     bindHostpotMouseLeave($hotspot);
                 });
             });
 
-            // Bind event on sticky containers
+            // Bind event on each sticky item
             that.$image.find('.item').each(function () {
                 var $container = $(this);
                 if (!$container.hasClass('behavior-sticky')) {
@@ -1044,12 +1043,9 @@ var Behavior = function () {
                 var $hotspot = $(this);
                 var $relatedTarget = $(event.relatedTarget);
                 if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
-                    // if parent has class item, it only re-enters from item
+                    // If parent has class "item", it only re-enters from item
                     return bindHostpotMouseLeave($hotspot);
                 }
-
-                // Retrieve the related item
-                var $container = $('div[data-id="' + $hotspot.attr('data-for') + '"]');
 
                 // Hide all other containers that are not sticky
                 var $containers = that.$image.find('.item').not('.behavior-sticky');
@@ -1058,6 +1054,7 @@ var Behavior = function () {
                 });
 
                 // Finally, show the related item
+                var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
                 _domHelper2.default.showElement($container);
             });
         }
@@ -1269,6 +1266,17 @@ var DomHelper = function () {
         }
 
         /**
+         * @param {jQuery} $hotspot
+         * @returns {jQuery}
+         */
+
+    }, {
+        key: 'retrieveContainerFromHotspot',
+        value: function retrieveContainerFromHotspot($hotspot) {
+            return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+        }
+
+        /**
          * Stop a Media Element from playing and reinitialize it
          *
          * @param {jQuery} $element
@@ -1399,8 +1407,9 @@ var ItemHelper = function () {
          * @returns {*[]}
          */
         value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
-            return [hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot divided by 2
-            hotspotTop + 40];
+            return [hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot (50px) divided by 2
+            hotspotTop + 40 // 40 is the offset to position the container below the hotspot
+            ];
         }
 
         /**
@@ -1755,7 +1764,7 @@ var BaseItem = function () {
         value: function createHotspotElement() {
             var element = _domHelper2.default.createElement('div', { 'class': 'hotspot icon-radio-checked' });
             element.setAttribute('data-for', this.identifier);
-            element.style.left = this.position.left - 10 + 'px'; // 10 is the offset introduced by a larger hotspot (20px larger, divided by 2)
+            element.style.left = this.position.left + 'px';
             element.style.top = this.position.top + 'px';
 
             return element;

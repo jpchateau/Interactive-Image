@@ -38,9 +38,6 @@
     text-align: center; }
     .interactive-image .hotspot:hover {
       text-shadow: 0 0 3px white; }
-  .interactive-image .picture {
-    max-width: 200px;
-    max-height: 200px; }
   .interactive-image .item {
     position: absolute;
     z-index: 16;
@@ -188,6 +185,8 @@
   .interactive-image .picture-item.with-caption::before {
     padding: 5px; }
   .interactive-image .picture-item .picture {
+    max-width: 210px;
+    max-height: 210px;
     margin-bottom: -4px; }
 
 .interactive-image .provider-item {
@@ -216,6 +215,8 @@
     margin-top: 10px;
     margin-bottom: 0; }
   .interactive-image .text-item .picture {
+    max-width: 210px;
+    max-height: 210px;
     margin-top: 10px; }
   .interactive-image .text-item a {
     text-decoration: underline;

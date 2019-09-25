@@ -119,11 +119,7 @@ export default class App {
             const $items = this.$image.find('.item');
             $.each($items, function() {
                 const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
-                const width = $(this).width();
-                let left;
-                let top;
-
-                [left, top] = ItemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
+                let [left, top] = ItemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), $(this).width());
 
                 $(this).css('left', left);
                 $(this).css('top', top);

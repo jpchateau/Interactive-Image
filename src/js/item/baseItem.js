@@ -43,7 +43,7 @@ export default class BaseItem {
     createHotspotElement() {
         const element = DomHelper.createElement('div', {'class': 'hotspot icon-radio-checked'});
         element.setAttribute('data-for', this.identifier);
-        element.style.left = (this.position.left - 10) + 'px'; // 10 is the offset introduced by a larger hotspot (20px larger, divided by 2)
+        element.style.left = (this.position.left) + 'px';
         element.style.top = this.position.top + 'px';
 
         return element;

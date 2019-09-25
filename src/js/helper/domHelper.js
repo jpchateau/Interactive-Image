@@ -84,6 +84,14 @@ export default class DomHelper {
     }
 
     /**
+     * @param {jQuery} $hotspot
+     * @returns {jQuery}
+     */
+    static retrieveContainerFromHotspot($hotspot) {
+        return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+    }
+
+    /**
      * Stop a Media Element from playing and reinitialize it
      *
      * @param {jQuery} $element
