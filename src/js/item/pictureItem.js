@@ -43,6 +43,7 @@ export default class PictureItem extends BaseItem {
 
         if ('undefined' !== typeof this.caption) {
             pictureItem.setAttribute('data-caption', this.caption);
+            pictureItem.classList.add("with-caption");
         }
 
         if ('undefined' !== typeof this.linkUrl) {

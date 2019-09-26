@@ -27,10 +27,6 @@ module.exports = {
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: 'file-loader?name=fonts/[name].[ext]'
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader'
             }
         ],
     },
@@ -43,7 +39,7 @@ module.exports = {
             filename: '../examples/index.html'
         }),
         new webpack.BannerPlugin({
-            banner: '[name] v2.4.0\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
+            banner: '[name] v2.5.0\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],
     externals: {

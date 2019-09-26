@@ -23,7 +23,7 @@ describe('Picture Item', function() {
 
             let pictureContainerElement = containerElement.childNodes[0];
             expect(pictureContainerElement.nodeName).to.equal('DIV');
-            expect(pictureContainerElement.getAttribute('class')).to.equal('picture-item');
+            expect(pictureContainerElement.getAttribute('class')).to.equal('picture-item with-caption');
             expect(pictureContainerElement.getAttribute('data-caption')).to.equal('my test caption');
 
             let pictureElement = pictureContainerElement.childNodes[0];

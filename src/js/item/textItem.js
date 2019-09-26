@@ -30,7 +30,7 @@ export default class TextItem extends BaseItem {
      * @returns {HTMLElement}
      */
     createDescription() {
-        return DomHelper.createElement('p', {'class': 'description'}, this.description);
+        return DomHelper.createElement('p', {'class': 'description'}, this.description, this.globalSettings.allowHtml);
     }
 
     /**
@@ -55,7 +55,7 @@ export default class TextItem extends BaseItem {
         if ('undefined' !== typeof this.link.label) {
             label = this.link.label;
         } else {
-            label = this.link.href;
+            label = this.link.url;
         }
 
         element.appendChild(document.createTextNode(label));

@@ -68,7 +68,7 @@ export default class AudioItem extends BaseItem {
         audioItem.appendChild(this.createAudio());
 
         if ('undefined' !== typeof this.caption) {
-            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption);
+            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption, this.globalSettings.allowHtml);
             audioItem.appendChild(caption);
         }
 

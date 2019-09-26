@@ -73,7 +73,7 @@ export default class VideoItem extends BaseItem {
         videoItem.appendChild(this.createVideo());
 
         if ('undefined' !== typeof this.caption) {
-            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption);
+            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption, this.globalSettings.allowHtml);
             videoItem.appendChild(caption);
         }
 

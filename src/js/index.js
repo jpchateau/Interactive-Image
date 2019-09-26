@@ -5,6 +5,7 @@ import App from "./app";
     $.fn.interactiveImage = function(items, options) {
         const defaults = {
             debug: false,
+            allowHtml: false,
             shareBox: true
         };
 

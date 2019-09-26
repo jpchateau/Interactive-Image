@@ -73,5 +73,4 @@ export default class ProviderItem extends BaseItem {
 
         return urlSplit[0] + "//" + urlSplit[2];
     }
-
 }

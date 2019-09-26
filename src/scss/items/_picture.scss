@@ -10,7 +10,6 @@
       position: absolute;
       background: rgba(0, 0, 0, .7);
       color: white;
-      padding: 5px;
       right: 0;
       bottom: 0;
       left: 0;
@@ -19,7 +18,15 @@
       pointer-events: none;
     }
 
+    &.with-caption {
+      &::before {
+        padding: 5px;
+      }
+    }
+
     .picture {
+      max-width: 210px;
+      max-height: 210px;
       margin-bottom: -4px;
     }
   }

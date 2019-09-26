@@ -1,5 +1,5 @@
 /*!
- * interactive-image v2.4.0
+ * interactive-image v2.5.0
  * https://github.com/jpchateau
  * Jean-Philippe Chateau - <contact@jpchateau.com>
  * MIT License
@@ -651,8 +651,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var App = function () {
     /**
-     * @param $image
-     * @param {array} items
+     * @param {jQuery} $image
+     * @param {array}  items
      * @param {object} settings
      */
     function App($image, items, settings) {
@@ -661,6 +661,14 @@ var App = function () {
         this.$image = $image;
         this.items = items;
         this.settings = settings;
+        this.itemFactory = new _factory2.default();
+
+        if ('boolean' !== typeof this.settings.debug) {
+            throw Error('Check the "debug" option. Allowed type: boolean.');
+        }
+
+        this.logHelper = new _logHelper2.default();
+        this.logHelper.debug = this.settings.debug;
     }
 
     _createClass(App, [{
@@ -672,17 +680,16 @@ var App = function () {
                 _this.logHelper.log('Starting settings check...');
                 var start = Date.now();
 
-                if ('boolean' !== typeof _this.settings.debug) {
-                    _this.settings.debug = true;
-                    throw Error('Check "debug" plugin option');
+                if ('boolean' !== typeof _this.settings.allowHtml) {
+                    throw Error('Check the "allowHtml" option. Allowed type: boolean.');
                 }
 
                 if ('boolean' !== typeof _this.settings.shareBox) {
-                    throw Error('Check "shareBox" plugin option');
+                    throw Error('Check the "shareBox" option. Allowed type: boolean.');
                 }
 
                 if ('undefined' !== typeof _this.settings.socialMedia && 'object' !== _typeof(_this.settings.socialMedia)) {
-                    throw Error('Check "socialMedia" plugin option');
+                    throw Error('Check the "socialMedia" option.');
                 }
 
                 var end = Date.now();
@@ -726,19 +733,14 @@ var App = function () {
         value: function createElement(options) {
             this.logHelper.log(JSON.stringify(options), undefined, 'blue');
 
-            var defaults = {
-                sticky: false
-            };
-
-            options = $.extend(defaults, options);
-
             var type = options.type;
             delete options.type;
 
             var element = this.itemFactory.create(type, options);
+            element.applicationSettings = this.settings;
             this.$image.append(element.createHotspotElement());
 
-            this.logHelper.log('Item (' + type + ') created');
+            this.logHelper.log('Item (' + type + ') created.');
 
             return $(element.renderHtml());
         }
@@ -773,17 +775,11 @@ var App = function () {
                 var $items = _this4.$image.find('.item');
                 $.each($items, function () {
                     var $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
-                    var width = $(this).width();
-                    var left = void 0;
-                    var top = void 0;
 
-                    var _ItemHelper$calculate = _itemHelper2.default.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), width);
-
-                    var _ItemHelper$calculate2 = _slicedToArray(_ItemHelper$calculate, 2);
-
-                    left = _ItemHelper$calculate2[0];
-                    top = _ItemHelper$calculate2[1];
-
+                    var _ItemHelper$calculate = _itemHelper2.default.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), $(this).width()),
+                        _ItemHelper$calculate2 = _slicedToArray(_ItemHelper$calculate, 2),
+                        left = _ItemHelper$calculate2[0],
+                        top = _ItemHelper$calculate2[1];
 
                     $(this).css('left', left);
                     $(this).css('top', top);
@@ -866,9 +862,6 @@ var App = function () {
 
             var start = Date.now();
 
-            this.logHelper = new _logHelper2.default(this.settings.debug);
-            this.itemFactory = new _factory2.default();
-
             this.checkSettings().then(function () {
                 return _this8.consolidateDOM();
             }).then(function () {
@@ -894,7 +887,7 @@ var App = function () {
 }();
 
 exports.default = App;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -924,7 +917,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Behavior = function () {
     /**
-     * @param $image
+     * @param {jQuery} $image
      */
     function Behavior($image) {
         _classCallCheck(this, Behavior);
@@ -984,29 +977,85 @@ var Behavior = function () {
         value: function bindItemsEvents() {
             var that = this;
 
+            var bindHostpotMouseLeave = function bindHostpotMouseLeave($hotspot) {
+                $hotspot.on('mouseleave', function (event) {
+                    var $relatedTarget = $(event.relatedTarget);
+                    // If parent has class "item", it enters container so there is no need to hide it
+                    if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
+                        return;
+                    }
+
+                    var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
+                    if ($container.hasClass('behavior-sticky')) {
+                        return;
+                    }
+
+                    _domHelper2.default.hideElement($container);
+                });
+            };
+
+            var unbindHotspotMouseLeave = function unbindHotspotMouseLeave($hotspot) {
+                $hotspot.off('mouseleave');
+            };
+
+            // Initialize events on each hotspots and items
+            that.$image.find('.hotspot').each(function () {
+                var $hotspot = $(this);
+                var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
+
+                if ($container.hasClass('behavior-sticky')) {
+                    return;
+                }
+
+                bindHostpotMouseLeave($hotspot);
+                $container.on('mouseenter', function () {
+                    unbindHotspotMouseLeave($hotspot);
+                });
+
+                // Bind event to hide the related container when mouse leaves it
+                $container.on('mouseleave', function (event) {
+                    var $relatedTarget = $(event.relatedTarget);
+                    // If related target has class "hotpost", it enters hotspot so there is no need to hide the container
+                    if ($relatedTarget.hasClass('hotspot')) {
+                        return;
+                    }
+
+                    _domHelper2.default.hideElement($(this));
+                    bindHostpotMouseLeave($hotspot);
+                });
+            });
+
+            // Bind event on each sticky item
+            that.$image.find('.item').each(function () {
+                var $container = $(this);
+                if (!$container.hasClass('behavior-sticky')) {
+                    return;
+                }
+
+                // Bind event to hide the related container when close button is clicked
+                $container.on('click', '.close-button', function () {
+                    _domHelper2.default.hideElement($container);
+                });
+            });
+
             // Mouse enters a hotspot
-            that.$image.on('mouseenter', '.hotspot', function () {
+            that.$image.on('mouseenter', '.hotspot', function (event) {
+                var $hotspot = $(this);
+                var $relatedTarget = $(event.relatedTarget);
+                if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
+                    // If parent has class "item", it only re-enters from item
+                    return bindHostpotMouseLeave($hotspot);
+                }
+
                 // Hide all other containers that are not sticky
                 var $containers = that.$image.find('.item').not('.behavior-sticky');
                 $.each($containers, function () {
                     _domHelper2.default.hideElement($(this));
                 });
 
-                // Show the related container
-                var $container = $('div[data-id="' + $(this).attr('data-for') + '"]');
+                // Finally, show the related item
+                var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
                 _domHelper2.default.showElement($container);
-
-                if ($container.hasClass('behavior-sticky')) {
-                    // Bind event to hide the related container when close button is clicked
-                    $container.on('click', '.close-button', function () {
-                        _domHelper2.default.hideElement($container);
-                    });
-                } else {
-                    // Bind event to hide the related container when mouse leaves it
-                    $container.on('mouseleave', function () {
-                        _domHelper2.default.hideElement($(this));
-                    });
-                }
             });
         }
     }]);
@@ -1015,7 +1064,7 @@ var Behavior = function () {
 }();
 
 exports.default = Behavior;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1048,6 +1097,20 @@ var Resizer = function () {
     }
 
     _createClass(Resizer, [{
+        key: 'enable',
+        value: function enable() {
+            if (this.behavior.enabled === false) {
+                this.behavior.bindAll();
+            }
+        }
+    }, {
+        key: 'disable',
+        value: function disable() {
+            if (this.behavior.enabled === true) {
+                this.behavior.unbindAll();
+            }
+        }
+    }, {
         key: 'bind',
         value: function bind() {
             var resizeTimer = void 0;
@@ -1055,14 +1118,12 @@ var Resizer = function () {
 
             var enableEffects = function enableEffects() {
                 if (window.innerWidth <= 320) {
-                    if (that.behavior.enabled === true) {
-                        that.behavior.unbindAll();
-                    }
-                } else {
-                    if (that.behavior.enabled === false) {
-                        that.behavior.bindAll();
-                    }
+                    that.disable();
+
+                    return;
                 }
+
+                that.enable();
             };
 
             $(window).on('resize', function () {
@@ -1076,7 +1137,7 @@ var Resizer = function () {
 }();
 
 exports.default = Resizer;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1109,24 +1170,63 @@ var DomHelper = function () {
         /**
          * Create a DOM element
          *
-         * @param {string} name
-         * @param {?object} attributes
-         * @param {?string} text
+         * @param {string} name         - tag name
+         * @param {object} [attributes] - html attributes
+         * @param {string} [text]       - text
+         * @param {?boolean} allowHtml  - allow HTML markup
          * @returns {HTMLElement}
          */
         value: function createElement(name, attributes, text) {
+            var allowHtml = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
             var node = document.createElement(name);
 
-            if ('undefined' !== typeof attributes) {
-                for (var attribute in attributes) {
-                    if (attributes.hasOwnProperty(attribute)) {
-                        node.setAttribute(attribute, attributes[attribute]);
-                    }
+            node = DomHelper.addAttributes(node, attributes);
+            node = DomHelper.addText(node, allowHtml, text);
+
+            return node;
+        }
+
+        /**
+         * @param {HTMLElement} node
+         * @param {object} [attributes]
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'addAttributes',
+        value: function addAttributes(node, attributes) {
+            if ('undefined' === typeof attributes) {
+                return node;
+            }
+
+            for (var attribute in attributes) {
+                if (attributes.hasOwnProperty(attribute)) {
+                    node.setAttribute(attribute, attributes[attribute]);
                 }
             }
 
-            if ('undefined' !== typeof text) {
-                node.appendChild(document.createTextNode(text));
+            return node;
+        }
+
+        /**
+         * @param {HTMLElement} node
+         * @param {boolean} allowHtml
+         * @param {string} text
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'addText',
+        value: function addText(node, allowHtml, text) {
+            if ('undefined' === typeof text) {
+                return node;
+            }
+
+            if (false === allowHtml) {
+                node.textContent = text;
+            } else {
+                node.innerHTML = text;
             }
 
             return node;
@@ -1143,6 +1243,11 @@ var DomHelper = function () {
         value: function hideElement($element) {
             if ($element.css('display') === 'block') {
                 $element.hide();
+
+                var $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
+                if ($mediaItem.length !== 0) {
+                    DomHelper.stopMedia($element);
+                }
             }
         }
 
@@ -1159,13 +1264,49 @@ var DomHelper = function () {
                 $element.show();
             }
         }
+
+        /**
+         * @param {jQuery} $hotspot
+         * @returns {jQuery}
+         */
+
+    }, {
+        key: 'retrieveContainerFromHotspot',
+        value: function retrieveContainerFromHotspot($hotspot) {
+            return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+        }
+
+        /**
+         * Stop a Media Element from playing and reinitialize it
+         *
+         * @param {jQuery} $element
+         */
+
+    }, {
+        key: 'stopMedia',
+        value: function stopMedia($element) {
+            var selector = "div[data-id='" + $element.data('id') + "'] ";
+            var htmlMedia = document.querySelector(selector + 'audio, ' + selector + 'video');
+            if (null !== htmlMedia) {
+                htmlMedia.pause();
+                htmlMedia.currentTime = 0;
+
+                return;
+            }
+
+            var providerMedia = document.querySelector(selector + 'iframe');
+            if (null !== providerMedia) {
+                var source = providerMedia.src;
+                providerMedia.src = source;
+            }
+        }
     }]);
 
     return DomHelper;
 }();
 
 exports.default = DomHelper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1227,7 +1368,7 @@ var FileHelper = function () {
 }();
 
 exports.default = FileHelper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1266,7 +1407,9 @@ var ItemHelper = function () {
          * @returns {*[]}
          */
         value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
-            return [hotspotLeft + 15 - width / 2, hotspotTop + 40];
+            return [hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot (50px) divided by 2
+            hotspotTop + 40 // 40 is the offset to position the container below the hotspot
+            ];
         }
 
         /**
@@ -1288,7 +1431,7 @@ var ItemHelper = function () {
 }();
 
 exports.default = ItemHelper;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1311,28 +1454,31 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var LogHelper = function () {
-    /**
-     * @param {boolean} debug
-     */
-    function LogHelper(debug) {
+    function LogHelper() {
         _classCallCheck(this, LogHelper);
 
-        this.debug = debug;
+        this.enable = false;
     }
 
     /**
-     * @param {string}         message
-     * @param {number}         milliseconds
-     * @param {string='black'} color
+     * @param {boolean} value
      */
 
 
     _createClass(LogHelper, [{
         key: 'log',
-        value: function log(message, milliseconds) {
+
+
+        /**
+         * @param {string} message         - message to display in console
+         * @param {?number} [milliseconds] - time
+         * @param {string} [color=black]   - message color
+         */
+        value: function log(message) {
+            var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
 
-            if (!window.console || !window.console.log || false === this.debug) {
+            if (!window.console || !window.console.log || false === this.enable) {
                 return;
             }
 
@@ -1342,13 +1488,18 @@ var LogHelper = function () {
 
             window.console.log('%c' + message, 'color:' + color);
         }
+    }, {
+        key: 'debug',
+        set: function set(value) {
+            this.enable = value;
+        }
     }]);
 
     return LogHelper;
 }();
 
 exports.default = LogHelper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1376,6 +1527,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
         var defaults = {
             debug: false,
+            allowHtml: false,
             shareBox: true
         };
 
@@ -1513,7 +1665,7 @@ var AudioItem = function (_BaseItem) {
             audioItem.appendChild(this.createAudio());
 
             if ('undefined' !== typeof this.caption) {
-                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption);
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption, this.globalSettings.allowHtml);
                 audioItem.appendChild(caption);
             }
 
@@ -1527,7 +1679,7 @@ var AudioItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = AudioItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1560,16 +1712,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BaseItem = function () {
-    /**
-     * @param {object} parameters
-     */
+    _createClass(BaseItem, null, [{
+        key: "stickyClassName",
+
+        /**
+         * @returns {string}
+         */
+        value: function stickyClassName() {
+            return 'behavior-sticky';
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
     function BaseItem(parameters) {
         _classCallCheck(this, BaseItem);
 
         this.identifier = _uniqueId2.default.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
-        this.sticky = parameters.sticky;
+        this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
+        this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
+        this.globalSettings = {
+            allowHtml: false
+        };
     }
+
+    /**
+     * @param {object} settings
+     */
+
 
     _createClass(BaseItem, [{
         key: "checkRequiredParameters",
@@ -1605,7 +1779,11 @@ var BaseItem = function () {
         value: function createItemElement() {
             var itemClass = 'item';
             if (this.sticky === true) {
-                itemClass += ' behavior-sticky';
+                itemClass += ' ' + BaseItem.stickyClassName();
+            }
+
+            if (typeof this.customClassName === 'string') {
+                itemClass += ' ' + this.customClassName;
             }
 
             var element = _domHelper2.default.createElement('div', { 'class': itemClass });
@@ -1623,13 +1801,18 @@ var BaseItem = function () {
         value: function renderHtml() {
             throw Error('Render method not implemented');
         }
+    }, {
+        key: "applicationSettings",
+        set: function set(settings) {
+            this.globalSettings = settings;
+        }
     }]);
 
     return BaseItem;
 }();
 
 exports.default = BaseItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1717,7 +1900,7 @@ var Factory = function () {
 }();
 
 exports.default = Factory;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1807,6 +1990,7 @@ var PictureItem = function (_BaseItem) {
 
             if ('undefined' !== typeof this.caption) {
                 pictureItem.setAttribute('data-caption', this.caption);
+                pictureItem.classList.add("with-caption");
             }
 
             if ('undefined' !== typeof this.linkUrl) {
@@ -1828,7 +2012,7 @@ var PictureItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = PictureItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -1963,7 +2147,7 @@ var ProviderItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = ProviderItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2040,7 +2224,7 @@ var TextItem = function (_BaseItem) {
     }, {
         key: "createDescription",
         value: function createDescription() {
-            return _domHelper2.default.createElement('p', { 'class': 'description' }, this.description);
+            return _domHelper2.default.createElement('p', { 'class': 'description' }, this.description, this.globalSettings.allowHtml);
         }
 
         /**
@@ -2071,7 +2255,7 @@ var TextItem = function (_BaseItem) {
             if ('undefined' !== typeof this.link.label) {
                 label = this.link.label;
             } else {
-                label = this.link.href;
+                label = this.link.url;
             }
 
             element.appendChild(document.createTextNode(label));
@@ -2111,7 +2295,7 @@ var TextItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = TextItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2243,7 +2427,7 @@ var VideoItem = function (_BaseItem) {
             videoItem.appendChild(this.createVideo());
 
             if ('undefined' !== typeof this.caption) {
-                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption);
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption, this.globalSettings.allowHtml);
                 videoItem.appendChild(caption);
             }
 
@@ -2257,7 +2441,7 @@ var VideoItem = function (_BaseItem) {
 }(_baseItem2.default);
 
 exports.default = VideoItem;
-module.exports = exports["default"];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2289,7 +2473,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var SocialMediaShare = function () {
     /**
-     * @param $image
+     * @param {jQuery} $image
      */
     function SocialMediaShare($image) {
         _classCallCheck(this, SocialMediaShare);
@@ -2312,11 +2496,7 @@ var SocialMediaShare = function () {
          * @returns {HTMLElement}
          */
         value: function buildFacebookButton(options) {
-            var facebookLink = _domHelper2.default.createElement('a', { 'class': 'social-button facebook-colors icon-facebook' });
-            facebookLink.setAttribute('target', '_blank');
-            facebookLink.setAttribute('href', SocialMediaShare.buildFacebookUrl(options));
-
-            return facebookLink;
+            return SocialMediaShare.buildButton('social-button facebook-colors icon-facebook', SocialMediaShare.buildFacebookUrl(options));
         }
 
         /**
@@ -2327,11 +2507,7 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildTwitterButton',
         value: function buildTwitterButton(options) {
-            var twitterLink = _domHelper2.default.createElement('a', { 'class': 'social-button twitter-colors icon-twitter' });
-            twitterLink.setAttribute('target', '_blank');
-            twitterLink.setAttribute('href', SocialMediaShare.buildTwitterUrl(options));
-
-            return twitterLink;
+            return SocialMediaShare.buildButton('social-button twitter-colors icon-twitter', SocialMediaShare.buildTwitterUrl(options));
         }
 
         /**
@@ -2342,11 +2518,7 @@ var SocialMediaShare = function () {
     }, {
         key: 'buildMailButton',
         value: function buildMailButton(options) {
-            var mailLink = _domHelper2.default.createElement('a', { 'class': 'social-button mail-colors icon-envelop' });
-            mailLink.setAttribute('target', '_blank');
-            mailLink.setAttribute('href', SocialMediaShare.buildMailUrl(options));
-
-            return mailLink;
+            return SocialMediaShare.buildButton('social-button mail-colors icon-envelop', SocialMediaShare.buildMailUrl(options));
         }
 
         /**
@@ -2428,13 +2600,30 @@ var SocialMediaShare = function () {
 
             return 'mailto:?' + $.param(parameters);
         }
+
+        /**
+         *
+         * @param {string} classes
+         * @param {string} href
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: 'buildButton',
+        value: function buildButton(classes, href) {
+            var link = _domHelper2.default.createElement('a', { 'class': classes });
+            link.setAttribute('target', '_blank');
+            link.setAttribute('href', href);
+
+            return link;
+        }
     }]);
 
     return SocialMediaShare;
 }();
 
 exports.default = SocialMediaShare;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 
@@ -2493,7 +2682,7 @@ var UniqueId = function () {
 }();
 
 exports.default = UniqueId;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 /***/ }),
 

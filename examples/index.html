@@ -9,14 +9,14 @@
     <style>
         .interactive-image {
             margin: auto;
-            width: 1024px;
-            height: 680px;
-            background-image: url('https://c2.staticflickr.com/8/7369/27165702821_ece3549805_b.jpg');
+            width: 800px;
+            height: 600px;
+            background-image: url('../docs/_static/background.jpg');
         }
     </style>
 
     <!-- Include Interactive Image jQuery plugin Styles -->
-<link href="../dist/interactive-image.css" rel="stylesheet"></head>
+<link href="../dist/interactive-image.min.css" rel="stylesheet"></head>
 <body>
     <!-- Main container of a scene -->
     <div id="my-interactive-image"></div>
@@ -31,20 +31,18 @@
             {
                 type: "text",
                 title: "Text title",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-                "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
-                "dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
-                "deserunt mollit anim id est laborum.",
+                description: "<b>Text item</b> with description. It has a <i>custom class name</i> " +
+                    "and the plugin option to allow <i>HTML markup</i>",
                 position: {
                     left: 100,
                     top: 50
-                }
+                },
+                customClassName: "custom-text"
             },
             {
                 type: "text",
                 title: "Text title",
-                description: "Text item with HTTP link",
+                description: "Text item with HTTP link and its label",
                 position: {
                     left: 300,
                     top: 50
@@ -76,12 +74,13 @@
                 link: {
                     url: "https://www.jpchateau.com/demo/interactive-image",
                     label: "Interactive Image Demo"
-                }
+                },
+                sticky: true
             },
             // Picture items
             {
                 type: "picture",
-                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                path: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg",
                 position: {
                     left: 100,
                     top: 150
@@ -89,8 +88,8 @@
             },
             {
                 type: "picture",
-                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
-                caption: "Picture legend",
+                path: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg",
+                caption: "Picture with legend",
                 position: {
                     left: 300,
                     top: 150
@@ -98,13 +97,14 @@
             },
             {
                 type: "picture",
-                path: "https://www.nationalgeographic.com/content/dam/animals/pictures/mammals/c/clouded-leopard/clouded-leopard_02.ngsversion.1484060723076.adapt.676.1.JPG",
+                path: "https://www.jpchateau.com/bundles/jpcjpchateau/images/demo/interactive-image/clouded-leopard-head.jpg",
                 caption: "Picture with link",
                 linkUrl: "https://www.nationalgeographic.com",
                 position: {
                     left: 500,
                     top: 150
-                }
+                },
+                sticky: true
             },
             // Audio items
             {
@@ -118,7 +118,7 @@
             {
                 type: "audio",
                 path: "http://www.bioacoustica.org/gallery/sounds/Panthera_pardus2_threat.wav",
-                caption: "Audio WAVE with caption",
+                caption: "Audio WAVE with caption and <i>not sticky</i> behavior",
                 position: {
                     left: 300,
                     top: 250
@@ -127,11 +127,12 @@
             {
                 type: "audio",
                 path: "https://lasonotheque.org/UPLOAD/ogg/0935.ogg",
-                caption: "Audio Ogg with caption",
+                caption: "Audio Ogg with caption and <i>sticky</i> behavior",
                 position: {
                     left: 500,
                     top: 250
-                }
+                },
+                sticky: true
             },
             // Video items
             {
@@ -145,21 +146,23 @@
             {
                 type: "video",
                 path: "https://upload.wikimedia.org/wikipedia/commons/1/11/Le_regard_du_f%C3%A9lin.webm",
-                caption: "Video WebM with caption",
+                caption: "Video WebM with caption and <i>sticky</i> behavior",
                 position: {
                     left: 300,
                     top: 350
-                }
+                },
+                sticky: true
             },
             {
                 type: "video",
                 path: "https://www.videvo.net/videvo_files/converted/2015_08/videos/Tiger.mp460597.mp4",
-                caption: "Video with caption and poster",
-                poster: "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwMC8zNDkvb3JpZ2luYWwvc2liZXJpYW4tdGlnZXIuanBn",
+                caption: "Video with caption and poster and <i>sticky</i> behavior and a large description",
+                poster: "../docs/_static/poster.jpg",
                 position: {
                     left: 500,
                     top: 350
-                }
+                },
+                sticky: true
             },
             // Provider items
             {
@@ -171,27 +174,28 @@
                 position: {
                     left: 100,
                     top: 450
-                },
-                sticky: true,
+                }
             },
             {
                 type: "provider",
                 providerName: "dailymotion",
                 parameters: {
-                    videoId: "x2y9n70"
+                    videoId: "x4i697s"
                 },
                 position: {
                     left: 300,
                     top: 450
-                }
+                },
+                sticky: true
             }
         ];
 
         // Plugin configuration
         var options = {
-            debug: true,
-            shareBox: true,
-            socialMedia: {
+            debug: true,     // console logs
+            allowHtml: true, // allow HTML markup
+            shareBox: true,  // display the social media share box
+            socialMedia: {   // configuration of the social media share box
                 url: "https://www.jpchateau.com/demo/interactive-image",
                 text: "Clouded Leopard",
                 hashtags: ["jQuery", "cloudedLeopard"],
@@ -206,5 +210,5 @@
     </script>
 
     <!-- Include Interactive Image jQuery plugin JavaScript -->
-<script type="text/javascript" src="../dist/interactive-image.js"></script></body>
+<script type="text/javascript" src="../dist/interactive-image.min.js"></script></body>
 </html>
