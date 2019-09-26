@@ -1,14 +1,14 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.5.0 (2019-09-25)
+## 2.5.0 (2019-09-26)
 * Support for HTML markup into items descriptions
 * Better user experience about the way items are displayed and hidden
 * Videos and sounds that are playing are now stopped when the mouse leaves the scene
-* Fixed an issue related to links labels on Text items
-* Fixed an issue related to Audio and Video items width
-* Codebase improvements and unit tests
 * Added a customClassName property on items for better style customization
+* Codebase improvements and unit tests
+* Fixed an issue related to links labels on Text items
+* Fixed an issue related to items width
 
 ## 2.4.0 (2019-06-17)
 * Sticky behavior available on items
