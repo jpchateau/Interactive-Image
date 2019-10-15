@@ -1,3 +1,4 @@
-dist/*.map
 .nyc_output/
+coverage/
+dist/*.map
 docs/_build
