@@ -11,8 +11,8 @@ export default class DomHelper {
     static createElement(name, attributes, text, allowHtml = false) {
         let node = document.createElement(name);
 
-        node = DomHelper.addAttributes(node, attributes);
-        node = DomHelper.addText(node, allowHtml, text);
+        DomHelper.addAttributes(node, attributes);
+        DomHelper.addText(node, allowHtml, text);
 
         return node;
     }
@@ -20,11 +20,10 @@ export default class DomHelper {
     /**
      * @param {HTMLElement} node
      * @param {object} [attributes]
-     * @returns {HTMLElement}
      */
     static addAttributes(node, attributes) {
         if ('undefined' === typeof attributes) {
-            return node;
+            return;
         }
 
         for (let attribute in attributes) {
@@ -32,28 +31,25 @@ export default class DomHelper {
                 node.setAttribute(attribute, attributes[attribute]);
             }
         }
-
-        return node;
     }
 
     /**
      * @param {HTMLElement} node
      * @param {boolean} allowHtml
      * @param {string} text
-     * @returns {HTMLElement}
      */
     static addText(node, allowHtml, text) {
         if ('undefined' === typeof text) {
-            return node;
+            return;
         }
 
         if (false === allowHtml) {
             node.textContent = text;
-        } else {
-            node.innerHTML = text;
+
+            return;
         }
 
-        return node;
+        node.innerHTML = text;
     }
 
     /**
@@ -65,8 +61,7 @@ export default class DomHelper {
         if ($element.css('display') === 'block') {
             $element.hide();
 
-            const $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
-            if ($mediaItem.length !== 0) {
+            if (DomHelper.elementContainsMediaItem($element) === true) {
                 DomHelper.stopMedia($element);
             }
         }
@@ -89,6 +84,16 @@ export default class DomHelper {
      */
     static retrieveContainerFromHotspot($hotspot) {
         return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+    }
+
+    /**
+     * @param {jQuery} $element
+     * @returns {boolean}
+     */
+    static elementContainsMediaItem($element) {
+        const $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
+
+        return $mediaItem.length !== 0;
     }
 
     /**

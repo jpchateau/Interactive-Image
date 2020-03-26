@@ -1181,8 +1181,8 @@ var DomHelper = function () {
 
             var node = document.createElement(name);
 
-            node = DomHelper.addAttributes(node, attributes);
-            node = DomHelper.addText(node, allowHtml, text);
+            DomHelper.addAttributes(node, attributes);
+            DomHelper.addText(node, allowHtml, text);
 
             return node;
         }
@@ -1190,14 +1190,13 @@ var DomHelper = function () {
         /**
          * @param {HTMLElement} node
          * @param {object} [attributes]
-         * @returns {HTMLElement}
          */
 
     }, {
         key: 'addAttributes',
         value: function addAttributes(node, attributes) {
             if ('undefined' === typeof attributes) {
-                return node;
+                return;
             }
 
             for (var attribute in attributes) {
@@ -1205,31 +1204,28 @@ var DomHelper = function () {
                     node.setAttribute(attribute, attributes[attribute]);
                 }
             }
-
-            return node;
         }
 
         /**
          * @param {HTMLElement} node
          * @param {boolean} allowHtml
          * @param {string} text
-         * @returns {HTMLElement}
          */
 
     }, {
         key: 'addText',
         value: function addText(node, allowHtml, text) {
             if ('undefined' === typeof text) {
-                return node;
+                return;
             }
 
             if (false === allowHtml) {
                 node.textContent = text;
-            } else {
-                node.innerHTML = text;
+
+                return;
             }
 
-            return node;
+            node.innerHTML = text;
         }
 
         /**
@@ -1244,8 +1240,7 @@ var DomHelper = function () {
             if ($element.css('display') === 'block') {
                 $element.hide();
 
-                var $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
-                if ($mediaItem.length !== 0) {
+                if (DomHelper.elementContainsMediaItem($element) === true) {
                     DomHelper.stopMedia($element);
                 }
             }
@@ -1274,6 +1269,19 @@ var DomHelper = function () {
         key: 'retrieveContainerFromHotspot',
         value: function retrieveContainerFromHotspot($hotspot) {
             return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+        }
+
+        /**
+         * @param {jQuery} $element
+         * @returns {boolean}
+         */
+
+    }, {
+        key: 'elementContainsMediaItem',
+        value: function elementContainsMediaItem($element) {
+            var $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
+
+            return $mediaItem.length !== 0;
         }
 
         /**
