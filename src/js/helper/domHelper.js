@@ -53,56 +53,56 @@ export default class DomHelper {
     }
 
     /**
-     * Hide a jQuery wrapped DOM element
+     * Hide a DOM element
      *
-     * @param {jQuery} $element
+     * @param {HTMLElement} element
      */
-    static hideElement($element) {
-        if ($element.css('display') === 'block') {
-            $element.hide();
+    static hideElement(element) {
+        if (element.style.display === 'block') {
+            element.style.display = 'none';
 
-            if (DomHelper.elementContainsMediaItem($element) === true) {
-                DomHelper.stopMedia($element);
+            if (DomHelper.elementContainsMediaItem(element) === true) {
+                DomHelper.stopMedia(element);
             }
         }
     }
 
     /**
-     * Show a jQuery wrapped DOM element
+     * Show a DOM element
      *
-     * @param {jQuery} $element
+     * @param {HTMLElement} element
      */
-    static showElement($element) {
-        if ($element.css('display') !== 'block') {
-            $element.show();
+    static showElement(element) {
+        if (element.style.display !== 'block') {
+            element.style.display = 'block';
         }
     }
 
     /**
-     * @param {jQuery} $hotspot
-     * @returns {jQuery}
+     * @param {HTMLElement} hotspot
+     * @returns {HTMLElement}
      */
-    static retrieveContainerFromHotspot($hotspot) {
-        return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+    static retrieveContainerFromHotspot(hotspot) {
+        return document.querySelector('div[data-id="' + hotspot.getAttribute('data-for') + '"]');
     }
 
     /**
-     * @param {jQuery} $element
+     * Detect if an item contains media
+     *
+     * @param {HTMLElement} element
      * @returns {boolean}
      */
-    static elementContainsMediaItem($element) {
-        const $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
-
-        return $mediaItem.length !== 0;
+    static elementContainsMediaItem(element) {
+        return element.querySelectorAll('.audio-item, .video-item, .provider-item').length !== 0;
     }
 
     /**
      * Stop a Media Element from playing and reinitialize it
      *
-     * @param {jQuery} $element
+     * @param {HTMLElement} element
      */
-    static stopMedia($element) {
-        const selector = "div[data-id='" + $element.data('id') + "'] ";
+    static stopMedia(element) {
+        const selector = "div[data-id='" + element.getAttribute('data-id') + "'] ";
         const htmlMedia = document.querySelector(selector + 'audio, ' + selector + 'video');
         if (null !== htmlMedia) {
             htmlMedia.pause();

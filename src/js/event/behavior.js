@@ -44,11 +44,11 @@ export default class Behavior {
         this.$image.on('mouseleave', function() {
             const $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
-                DomHelper.hideElement($(this));
+                DomHelper.hideElement($(this)[0]);
             });
 
             const $shareBox = $(this).find('.social-share-box');
-            $shareBox.hide();
+            DomHelper.hideElement($shareBox[0]);
         });
     }
 
@@ -63,12 +63,12 @@ export default class Behavior {
                     return;
                 }
 
-                const $container = DomHelper.retrieveContainerFromHotspot($hotspot);
-                if ($container.hasClass('behavior-sticky')) {
+                const container = DomHelper.retrieveContainerFromHotspot($hotspot[0]);
+                if (container.classList.contains('behavior-sticky')) {
                     return;
                 }
 
-                DomHelper.hideElement($container);
+                DomHelper.hideElement(container);
             });
         };
 
@@ -79,9 +79,9 @@ export default class Behavior {
         // Initialize events on each hotspots and items
         that.$image.find('.hotspot').each(function() {
             const $hotspot = $(this);
-            const $container = DomHelper.retrieveContainerFromHotspot($hotspot);
+            const $container = $(DomHelper.retrieveContainerFromHotspot($hotspot[0]));
 
-            if ($container.hasClass('behavior-sticky')) {
+            if ($container[0].classList.contains('behavior-sticky')) {
                 return;
             }
 
@@ -98,7 +98,7 @@ export default class Behavior {
                     return;
                 }
 
-                DomHelper.hideElement($(this));
+                DomHelper.hideElement($(this)[0]);
                 bindHostpotMouseLeave($hotspot);
             });
         });
@@ -106,13 +106,13 @@ export default class Behavior {
         // Bind event on each sticky item
         that.$image.find('.item').each(function() {
             let $container = $(this);
-            if (!$container.hasClass('behavior-sticky')) {
+            if (!$container[0].classList.contains('behavior-sticky')) {
                 return;
             }
 
             // Bind event to hide the related container when close button is clicked
             $container.on('click', '.close-button' , function() {
-                DomHelper.hideElement($container);
+                DomHelper.hideElement($container[0]);
             });
         });
 
@@ -128,12 +128,12 @@ export default class Behavior {
             // Hide all other containers that are not sticky
             const $containers = that.$image.find('.item').not('.behavior-sticky');
             $.each($containers, function() {
-                DomHelper.hideElement($(this));
+                DomHelper.hideElement($(this)[0]);
             });
 
             // Finally, show the related item
-            const $container = DomHelper.retrieveContainerFromHotspot($hotspot);
-            DomHelper.showElement($container);
+            const container = DomHelper.retrieveContainerFromHotspot($hotspot[0]);
+            DomHelper.showElement(container);
         });
     }
 }

@@ -965,11 +965,11 @@ var Behavior = function () {
             this.$image.on('mouseleave', function () {
                 var $elements = $(this).find('.hotspot, .item');
                 $.each($elements, function () {
-                    _domHelper2.default.hideElement($(this));
+                    _domHelper2.default.hideElement($(this)[0]);
                 });
 
                 var $shareBox = $(this).find('.social-share-box');
-                $shareBox.hide();
+                _domHelper2.default.hideElement($shareBox[0]);
             });
         }
     }, {
@@ -985,12 +985,12 @@ var Behavior = function () {
                         return;
                     }
 
-                    var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
-                    if ($container.hasClass('behavior-sticky')) {
+                    var container = _domHelper2.default.retrieveContainerFromHotspot($hotspot[0]);
+                    if (container.classList.contains('behavior-sticky')) {
                         return;
                     }
 
-                    _domHelper2.default.hideElement($container);
+                    _domHelper2.default.hideElement(container);
                 });
             };
 
@@ -1001,9 +1001,9 @@ var Behavior = function () {
             // Initialize events on each hotspots and items
             that.$image.find('.hotspot').each(function () {
                 var $hotspot = $(this);
-                var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
+                var $container = $(_domHelper2.default.retrieveContainerFromHotspot($hotspot[0]));
 
-                if ($container.hasClass('behavior-sticky')) {
+                if ($container[0].classList.contains('behavior-sticky')) {
                     return;
                 }
 
@@ -1020,7 +1020,7 @@ var Behavior = function () {
                         return;
                     }
 
-                    _domHelper2.default.hideElement($(this));
+                    _domHelper2.default.hideElement($(this)[0]);
                     bindHostpotMouseLeave($hotspot);
                 });
             });
@@ -1028,13 +1028,13 @@ var Behavior = function () {
             // Bind event on each sticky item
             that.$image.find('.item').each(function () {
                 var $container = $(this);
-                if (!$container.hasClass('behavior-sticky')) {
+                if (!$container[0].classList.contains('behavior-sticky')) {
                     return;
                 }
 
                 // Bind event to hide the related container when close button is clicked
                 $container.on('click', '.close-button', function () {
-                    _domHelper2.default.hideElement($container);
+                    _domHelper2.default.hideElement($container[0]);
                 });
             });
 
@@ -1050,12 +1050,12 @@ var Behavior = function () {
                 // Hide all other containers that are not sticky
                 var $containers = that.$image.find('.item').not('.behavior-sticky');
                 $.each($containers, function () {
-                    _domHelper2.default.hideElement($(this));
+                    _domHelper2.default.hideElement($(this)[0]);
                 });
 
                 // Finally, show the related item
-                var $container = _domHelper2.default.retrieveContainerFromHotspot($hotspot);
-                _domHelper2.default.showElement($container);
+                var container = _domHelper2.default.retrieveContainerFromHotspot($hotspot[0]);
+                _domHelper2.default.showElement(container);
             });
         }
     }]);
@@ -1229,71 +1229,72 @@ var DomHelper = function () {
         }
 
         /**
-         * Hide a jQuery wrapped DOM element
+         * Hide a DOM element
          *
-         * @param {jQuery} $element
+         * @param {HTMLElement} element
          */
 
     }, {
         key: 'hideElement',
-        value: function hideElement($element) {
-            if ($element.css('display') === 'block') {
-                $element.hide();
+        value: function hideElement(element) {
+            if (element.style.display === 'block') {
+                element.style.display = 'none';
 
-                if (DomHelper.elementContainsMediaItem($element) === true) {
-                    DomHelper.stopMedia($element);
+                if (DomHelper.elementContainsMediaItem(element) === true) {
+                    DomHelper.stopMedia(element);
                 }
             }
         }
 
         /**
-         * Show a jQuery wrapped DOM element
+         * Show a DOM element
          *
-         * @param {jQuery} $element
+         * @param {HTMLElement} element
          */
 
     }, {
         key: 'showElement',
-        value: function showElement($element) {
-            if ($element.css('display') !== 'block') {
-                $element.show();
+        value: function showElement(element) {
+            if (element.style.display !== 'block') {
+                element.style.display = 'block';
             }
         }
 
         /**
-         * @param {jQuery} $hotspot
-         * @returns {jQuery}
+         * @param {HTMLElement} hotspot
+         * @returns {HTMLElement}
          */
 
     }, {
         key: 'retrieveContainerFromHotspot',
-        value: function retrieveContainerFromHotspot($hotspot) {
-            return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+        value: function retrieveContainerFromHotspot(hotspot) {
+            console.log(hotspot.getAttribute('data-for'));
+            return document.querySelector('div[data-id="' + hotspot.getAttribute('data-for') + '"]');
         }
 
         /**
-         * @param {jQuery} $element
+         * Detect if an item contains media
+         *
+         * @param {HTMLElement} element
          * @returns {boolean}
          */
 
     }, {
         key: 'elementContainsMediaItem',
-        value: function elementContainsMediaItem($element) {
-            var $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
-
-            return $mediaItem.length !== 0;
+        value: function elementContainsMediaItem(element) {
+            return element.querySelectorAll('.audio-item, .video-item, .provider-item').length !== 0;
         }
 
         /**
          * Stop a Media Element from playing and reinitialize it
          *
-         * @param {jQuery} $element
+         * @param {HTMLElement} element
          */
 
     }, {
         key: 'stopMedia',
-        value: function stopMedia($element) {
-            var selector = "div[data-id='" + $element.data('id') + "'] ";
+        value: function stopMedia(element) {
+            var selector = "div[data-id='" + element.getAttribute('data-id') + "'] ";
             var htmlMedia = document.querySelector(selector + 'audio, ' + selector + 'video');
             if (null !== htmlMedia) {
                 htmlMedia.pause();
