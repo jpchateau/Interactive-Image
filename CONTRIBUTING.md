@@ -81,3 +81,7 @@ It uses the reStructuredText format.
 | `npm run test`               | Run unit tests                                          |
 | `npm run test-with-coverage` | Run unit tests and display code coverage                |
 | `npm run watch`              | Run the watcher for local development                   |
+
+## Interactive Image Tester
+
+[Here](https://github.com/jpchateau/interactive-image-tester), a repository made to test `Interactive Image` in different contexts.
