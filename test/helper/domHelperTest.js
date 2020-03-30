@@ -1,7 +1,7 @@
 const DomHelper = require('./../../src/js/helper/domHelper');
 const expect = require('chai').expect;
 
-describe('DOM Helper', function() {
+describe('DOMHelper', function() {
     describe('createElement', function() {
         it('should return a simple tag', function() {
             expect(DomHelper.createElement('span').nodeName).to.equal('SPAN');

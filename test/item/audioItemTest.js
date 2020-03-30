@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const AudioItem = require('./../../src/js/item/audioItem');
 
-describe('Audio Item', function() {
+describe('AudioItem', function() {
     describe('renderHtml', function() {
         it('should return a complete audio item', function() {
             let parameters = {

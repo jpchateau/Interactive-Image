@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const ItemFactory = require('./../../src/js/item/factory');
 
-describe('Item objects construction', function() {
-    describe('Constructor', function() {
+describe('Factory', function() {
+    describe('constructor', function() {
         it('should return a valid TextItem object when given valid type and parameters', function() {
             let parameters = {
                 title: "test",

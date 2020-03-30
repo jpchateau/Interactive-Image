@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const ProviderItem = require('./../../src/js/item/providerItem');
 
-describe('Provider Item', function() {
+describe('ProviderItem', function() {
     describe('renderHtml', function() {
         it('should return a complete provider item', function() {
             let parameters = {

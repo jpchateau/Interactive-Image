@@ -1268,7 +1268,6 @@ var DomHelper = function () {
     }, {
         key: 'retrieveContainerFromHotspot',
         value: function retrieveContainerFromHotspot(hotspot) {
-            console.log(hotspot.getAttribute('data-for'));
             return document.querySelector('div[data-id="' + hotspot.getAttribute('data-for') + '"]');
         }
 
@@ -1508,6 +1507,46 @@ var LogHelper = function () {
 }();
 
 exports.default = LogHelper;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./src/js/helper/stringHelper.js":
+/*!***************************************!*\
+  !*** ./src/js/helper/stringHelper.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var StringHelper = function () {
+    function StringHelper() {
+        _classCallCheck(this, StringHelper);
+    }
+
+    _createClass(StringHelper, null, [{
+        key: "param",
+        value: function param(parameters) {
+            var urlParams = new URLSearchParams(Object.entries(parameters));
+
+            return urlParams.toString();
+        }
+    }]);
+
+    return StringHelper;
+}();
+
+exports.default = StringHelper;
 module.exports = exports.default;
 
 /***/ }),
@@ -2476,6 +2515,10 @@ var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
 
+var _stringHelper = __webpack_require__(/*! ../helper/stringHelper */ "./src/js/helper/stringHelper.js");
+
+var _stringHelper2 = _interopRequireDefault(_stringHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2497,7 +2540,7 @@ var SocialMediaShare = function () {
 
 
     _createClass(SocialMediaShare, [{
-        key: 'buildFacebookButton',
+        key: "buildFacebookButton",
 
 
         /**
@@ -2514,7 +2557,7 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: 'buildTwitterButton',
+        key: "buildTwitterButton",
         value: function buildTwitterButton(options) {
             return SocialMediaShare.buildButton('social-button twitter-colors icon-twitter', SocialMediaShare.buildTwitterUrl(options));
         }
@@ -2525,7 +2568,7 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: 'buildMailButton',
+        key: "buildMailButton",
         value: function buildMailButton(options) {
             return SocialMediaShare.buildButton('social-button mail-colors icon-envelop', SocialMediaShare.buildMailUrl(options));
         }
@@ -2535,7 +2578,7 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: 'buildShareBox',
+        key: "buildShareBox",
         value: function buildShareBox(socialMediaOptions) {
             var elementBox = _domHelper2.default.createElement('div', { 'class': 'social-share-box' });
             var elementShareButton = _domHelper2.default.createElement('div', { 'class': 'social-button share-colors icon-share2' });
@@ -2550,7 +2593,7 @@ var SocialMediaShare = function () {
             this.bindEvents();
         }
     }, {
-        key: 'bindEvents',
+        key: "bindEvents",
         value: function bindEvents() {
             $('.social-button.share-colors').on('mouseenter', function () {
                 $(this).parent().addClass('expanded');
@@ -2561,13 +2604,13 @@ var SocialMediaShare = function () {
             });
         }
     }], [{
-        key: 'buildFacebookUrl',
+        key: "buildFacebookUrl",
         value: function buildFacebookUrl(options) {
             var parameters = {
                 u: options.url || window.location.href
             };
 
-            return 'https://www.facebook.com/sharer.php?' + $.param(parameters);
+            return 'https://www.facebook.com/sharer.php?' + _stringHelper2.default.param(parameters);
         }
 
         /**
@@ -2576,7 +2619,7 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: 'buildTwitterUrl',
+        key: "buildTwitterUrl",
         value: function buildTwitterUrl(options) {
             var parameters = {
                 url: options.url || window.location.href,
@@ -2591,7 +2634,7 @@ var SocialMediaShare = function () {
                 parameters.hashtags = options.hashtags.join(',');
             }
 
-            return 'https://twitter.com/intent/tweet?' + $.param(parameters);
+            return 'https://twitter.com/intent/tweet?' + _stringHelper2.default.param(parameters);
         }
 
         /**
@@ -2600,14 +2643,14 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: 'buildMailUrl',
+        key: "buildMailUrl",
         value: function buildMailUrl(options) {
             var parameters = {
                 subject: window.document.title,
                 body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
             };
 
-            return 'mailto:?' + $.param(parameters);
+            return 'mailto:?' + _stringHelper2.default.param(parameters);
         }
 
         /**
@@ -2618,7 +2661,7 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: 'buildButton',
+        key: "buildButton",
         value: function buildButton(classes, href) {
             var link = _domHelper2.default.createElement('a', { 'class': classes });
             link.setAttribute('target', '_blank');
