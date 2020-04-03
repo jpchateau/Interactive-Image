@@ -3,7 +3,7 @@ import DomHelper from "./helper/domHelper";
 import ImagesLoaded from "imagesloaded";
 import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
-import LogHelper from "./helper/logHelper";
+import Logger from "./service/logger";
 import Resizer from "./event/resizer";
 import SocialMediaShare from "./service/socialMediaShare";
 
@@ -23,13 +23,13 @@ export default class App {
             throw Error('Check the "debug" option. Allowed type: boolean.');
         }
 
-        this.logHelper = new LogHelper();
-        this.logHelper.debug = this.settings.debug;
+        this.logger = new Logger();
+        this.logger.debug = this.settings.debug;
     }
 
     checkSettings() {
         return new Promise((resolve, reject) => {
-            this.logHelper.log('Starting settings check...');
+            this.logger.log('Starting settings check...');
             const start = Date.now();
 
             if ('boolean' !== typeof this.settings.allowHtml) {
@@ -45,7 +45,7 @@ export default class App {
             }
 
             const end = Date.now();
-            this.logHelper.log('Options checked', end - start, 'green');
+            this.logger.log('Options checked', end - start, 'green');
 
             resolve();
         });
@@ -53,7 +53,7 @@ export default class App {
 
     consolidateDOM() {
         return new Promise((resolve, reject) => {
-            this.logHelper.log('Starting DOM consolidation...');
+            this.logger.log('Starting DOM consolidation...');
             const start = Date.now();
 
             // Add interactive-image class on the main scene
@@ -70,7 +70,7 @@ export default class App {
             this.$image.append(unsupportedScreenElement);
 
             const end = Date.now();
-            this.logHelper.log('DOM consolidated', end - start, 'green');
+            this.logger.log('DOM consolidated', end - start, 'green');
 
             resolve();
         });
@@ -81,7 +81,7 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        this.logHelper.log(JSON.stringify(options), undefined, 'blue');
+        this.logger.log(JSON.stringify(options), undefined, 'blue');
 
         const type = options.type;
         delete options.type;
@@ -90,14 +90,14 @@ export default class App {
         element.applicationSettings = this.settings;
         this.$image.append(element.createHotspotElement());
 
-        this.logHelper.log('Item (' + type + ') created.');
+        this.logger.log('Item (' + type + ') created.');
 
         return $(element.renderHtml());
     }
 
     createElements() {
         return new Promise((resolve) => {
-            this.logHelper.log('Starting elements creation...');
+            this.logger.log('Starting elements creation...');
             const start = Date.now();
 
             this.items.forEach((item) => {
@@ -105,7 +105,7 @@ export default class App {
             });
 
             const end = Date.now();
-            this.logHelper.log('All items have been created', end - start, 'green');
+            this.logger.log('All items have been created', end - start, 'green');
 
             resolve();
         });
@@ -113,7 +113,7 @@ export default class App {
 
     positionItems() {
         return new Promise((resolve) => {
-            this.logHelper.log('Starting items positioning...');
+            this.logger.log('Starting items positioning...');
             const start = Date.now();
 
             const $items = this.$image.find('.item');
@@ -126,7 +126,7 @@ export default class App {
             });
 
             const end = Date.now();
-            this.logHelper.log('All items have been positioned', end - start, 'green');
+            this.logger.log('All items have been positioned', end - start, 'green');
 
             resolve();
         });
@@ -134,7 +134,7 @@ export default class App {
 
     bindEvents() {
         return new Promise((resolve) => {
-            this.logHelper.log('Starting events binding...');
+            this.logger.log('Starting events binding...');
             const start = Date.now();
 
             const behavior = new Behavior(this.$image);
@@ -144,7 +144,7 @@ export default class App {
             resizer.bind();
 
             const end = Date.now();
-            this.logHelper.log('All events have been bound', end - start, 'green');
+            this.logger.log('All events have been bound', end - start, 'green');
 
             resolve();
         });
@@ -152,7 +152,7 @@ export default class App {
 
     processShareCapabilities() {
         return new Promise((resolve) => {
-            this.logHelper.log('Starting to evaluate social media share capabilities...');
+            this.logger.log('Starting to evaluate social media share capabilities...');
             const start = Date.now();
 
             if (true === this.settings.shareBox) {
@@ -161,26 +161,26 @@ export default class App {
             }
 
             const end = Date.now();
-            this.logHelper.log('Social media share capabilities executed', end - start, 'green');
+            this.logger.log('Social media share capabilities executed', end - start, 'green');
             resolve();
         });
     }
 
     loadImages() {
         return new Promise((resolve) => {
-            this.logHelper.log('Starting images loading...');
+            this.logger.log('Starting images loading...');
             const start = Date.now();
 
             if (this.$image.find('img').length) {
                 ImagesLoaded(this.$image, () => {
                     const end = Date.now();
-                    this.logHelper.log('All images have been detected and loaded', end - start, 'green');
+                    this.logger.log('All images have been detected and loaded', end - start, 'green');
 
                     resolve();
                 });
             } else {
                 const end = Date.now();
-                this.logHelper.log('No image detected', end - start, 'green');
+                this.logger.log('No image detected', end - start, 'green');
 
                 resolve();
             }
@@ -203,10 +203,10 @@ export default class App {
         }) .then(() => {
             return this.processShareCapabilities();
         }).catch((exception) => {
-            this.logHelper.log(exception.message, undefined, 'red');
+            this.logger.log(exception.message, undefined, 'red');
         }).finally( () => {
             const end = Date.now();
-            this.logHelper.log('Execution completed', end - start, 'green');
+            this.logger.log('Execution completed', end - start, 'green');
         });
     }
 }

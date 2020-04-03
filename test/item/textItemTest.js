@@ -165,5 +165,44 @@ describe('TextItem', function() {
             expect(linkElement.getAttribute('href')).to.equal('https://www.jpchateau.com/demo/interactive-image');
             expect(linkElement.textContent).to.equal('https://www.jpchateau.com/demo/interactive-image');
         });
+
+        it('should return a Text item with a custom class and a sticky behavior', function () {
+            let parameters = {
+                title: "my title 5",
+                description: "my description 5",
+                position: {
+                    top: 100,
+                    left: 100
+                },
+                customClassName: "custom-class",
+                sticky: true
+            };
+
+            let item = new TextItem(parameters);
+            expect(item.constructor.name).to.equal('TextItem');
+
+            let containerElement = item.renderHtml();
+            expect(containerElement.nodeName).to.equal('DIV');
+            expect(containerElement.getAttribute('class')).to.equal('item behavior-sticky custom-class');
+            expect(containerElement.hasAttribute('data-id')).to.be.true;
+
+            let closeButton = containerElement.childNodes[0];
+            expect(closeButton.nodeName).to.equal('DIV');
+            expect(closeButton.getAttribute('class')).to.equal('close-button icon-cancel-circle');
+
+            let textContainerElement = containerElement.childNodes[1];
+            expect(textContainerElement.nodeName).to.equal('DIV');
+            expect(textContainerElement.getAttribute('class')).to.equal('text-item');
+
+            let titleElement = textContainerElement.childNodes[0];
+            expect(titleElement.nodeName).to.equal('SPAN');
+            expect(titleElement.getAttribute('class')).to.equal('title');
+            expect(titleElement.textContent).to.equal('my title 5');
+
+            let descriptionElement = textContainerElement.childNodes[1];
+            expect(descriptionElement.nodeName).to.equal('P');
+            expect(descriptionElement.getAttribute('class')).to.equal('description');
+            expect(descriptionElement.textContent).to.equal('my description 5');
+        });
     });
 });

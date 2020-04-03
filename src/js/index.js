@@ -9,10 +9,10 @@ import App from "./app";
             shareBox: true
         };
 
-        options = $.extend(defaults, options);
+        let settings = Object.assign(defaults, options);
 
         return this.each(() => {
-            new App($(this), items, options).execute();
+            new App($(this), items, settings).execute();
         });
     };
 })(jQuery, window, document);

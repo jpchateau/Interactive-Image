@@ -1,4 +1,4 @@
-export default class LogHelper {
+export default class Logger {
     constructor() {
         this.enable = false;
     }

@@ -1,5 +1,5 @@
 import DomHelper from "../helper/domHelper";
-import StringHelper from "../helper/stringHelper";
+import Utils from "../service/utils";
 
 export default class SocialMediaShare {
     /**
@@ -18,7 +18,7 @@ export default class SocialMediaShare {
             u: options.url || window.location.href
         };
 
-        return 'https://www.facebook.com/sharer.php?' + StringHelper.param(parameters);
+        return 'https://www.facebook.com/sharer.php?' + Utils.param(parameters);
     }
 
     /**
@@ -39,7 +39,7 @@ export default class SocialMediaShare {
             parameters.hashtags = options.hashtags.join(',');
         }
 
-        return 'https://twitter.com/intent/tweet?' + StringHelper.param(parameters);
+        return 'https://twitter.com/intent/tweet?' + Utils.param(parameters);
     }
 
     /**
@@ -52,7 +52,7 @@ export default class SocialMediaShare {
             body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
         };
 
-        return 'mailto:?' + StringHelper.param(parameters);
+        return 'mailto:?' + Utils.param(parameters);
     }
 
     /**

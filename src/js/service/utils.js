@@ -1,4 +1,4 @@
-export default class StringHelper {
+export default class Utils {
     static param(parameters) {
         const urlParams = new URLSearchParams(Object.entries(parameters));
 

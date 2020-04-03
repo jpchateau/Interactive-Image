@@ -633,9 +633,9 @@ var _itemHelper = __webpack_require__(/*! ./helper/itemHelper */ "./src/js/helpe
 
 var _itemHelper2 = _interopRequireDefault(_itemHelper);
 
-var _logHelper = __webpack_require__(/*! ./helper/logHelper */ "./src/js/helper/logHelper.js");
+var _logger = __webpack_require__(/*! ./service/logger */ "./src/js/service/logger.js");
 
-var _logHelper2 = _interopRequireDefault(_logHelper);
+var _logger2 = _interopRequireDefault(_logger);
 
 var _resizer = __webpack_require__(/*! ./event/resizer */ "./src/js/event/resizer.js");
 
@@ -667,8 +667,8 @@ var App = function () {
             throw Error('Check the "debug" option. Allowed type: boolean.');
         }
 
-        this.logHelper = new _logHelper2.default();
-        this.logHelper.debug = this.settings.debug;
+        this.logger = new _logger2.default();
+        this.logger.debug = this.settings.debug;
     }
 
     _createClass(App, [{
@@ -677,7 +677,7 @@ var App = function () {
             var _this = this;
 
             return new Promise(function (resolve, reject) {
-                _this.logHelper.log('Starting settings check...');
+                _this.logger.log('Starting settings check...');
                 var start = Date.now();
 
                 if ('boolean' !== typeof _this.settings.allowHtml) {
@@ -693,7 +693,7 @@ var App = function () {
                 }
 
                 var end = Date.now();
-                _this.logHelper.log('Options checked', end - start, 'green');
+                _this.logger.log('Options checked', end - start, 'green');
 
                 resolve();
             });
@@ -704,7 +704,7 @@ var App = function () {
             var _this2 = this;
 
             return new Promise(function (resolve, reject) {
-                _this2.logHelper.log('Starting DOM consolidation...');
+                _this2.logger.log('Starting DOM consolidation...');
                 var start = Date.now();
 
                 // Add interactive-image class on the main scene
@@ -717,7 +717,7 @@ var App = function () {
                 _this2.$image.append(unsupportedScreenElement);
 
                 var end = Date.now();
-                _this2.logHelper.log('DOM consolidated', end - start, 'green');
+                _this2.logger.log('DOM consolidated', end - start, 'green');
 
                 resolve();
             });
@@ -731,7 +731,7 @@ var App = function () {
     }, {
         key: "createElement",
         value: function createElement(options) {
-            this.logHelper.log(JSON.stringify(options), undefined, 'blue');
+            this.logger.log(JSON.stringify(options), undefined, 'blue');
 
             var type = options.type;
             delete options.type;
@@ -740,7 +740,7 @@ var App = function () {
             element.applicationSettings = this.settings;
             this.$image.append(element.createHotspotElement());
 
-            this.logHelper.log('Item (' + type + ') created.');
+            this.logger.log('Item (' + type + ') created.');
 
             return $(element.renderHtml());
         }
@@ -750,7 +750,7 @@ var App = function () {
             var _this3 = this;
 
             return new Promise(function (resolve) {
-                _this3.logHelper.log('Starting elements creation...');
+                _this3.logger.log('Starting elements creation...');
                 var start = Date.now();
 
                 _this3.items.forEach(function (item) {
@@ -758,7 +758,7 @@ var App = function () {
                 });
 
                 var end = Date.now();
-                _this3.logHelper.log('All items have been created', end - start, 'green');
+                _this3.logger.log('All items have been created', end - start, 'green');
 
                 resolve();
             });
@@ -769,7 +769,7 @@ var App = function () {
             var _this4 = this;
 
             return new Promise(function (resolve) {
-                _this4.logHelper.log('Starting items positioning...');
+                _this4.logger.log('Starting items positioning...');
                 var start = Date.now();
 
                 var $items = _this4.$image.find('.item');
@@ -786,7 +786,7 @@ var App = function () {
                 });
 
                 var end = Date.now();
-                _this4.logHelper.log('All items have been positioned', end - start, 'green');
+                _this4.logger.log('All items have been positioned', end - start, 'green');
 
                 resolve();
             });
@@ -797,7 +797,7 @@ var App = function () {
             var _this5 = this;
 
             return new Promise(function (resolve) {
-                _this5.logHelper.log('Starting events binding...');
+                _this5.logger.log('Starting events binding...');
                 var start = Date.now();
 
                 var behavior = new _behavior2.default(_this5.$image);
@@ -807,7 +807,7 @@ var App = function () {
                 resizer.bind();
 
                 var end = Date.now();
-                _this5.logHelper.log('All events have been bound', end - start, 'green');
+                _this5.logger.log('All events have been bound', end - start, 'green');
 
                 resolve();
             });
@@ -818,7 +818,7 @@ var App = function () {
             var _this6 = this;
 
             return new Promise(function (resolve) {
-                _this6.logHelper.log('Starting to evaluate social media share capabilities...');
+                _this6.logger.log('Starting to evaluate social media share capabilities...');
                 var start = Date.now();
 
                 if (true === _this6.settings.shareBox) {
@@ -827,7 +827,7 @@ var App = function () {
                 }
 
                 var end = Date.now();
-                _this6.logHelper.log('Social media share capabilities executed', end - start, 'green');
+                _this6.logger.log('Social media share capabilities executed', end - start, 'green');
                 resolve();
             });
         }
@@ -837,19 +837,19 @@ var App = function () {
             var _this7 = this;
 
             return new Promise(function (resolve) {
-                _this7.logHelper.log('Starting images loading...');
+                _this7.logger.log('Starting images loading...');
                 var start = Date.now();
 
                 if (_this7.$image.find('img').length) {
                     (0, _imagesloaded2.default)(_this7.$image, function () {
                         var end = Date.now();
-                        _this7.logHelper.log('All images have been detected and loaded', end - start, 'green');
+                        _this7.logger.log('All images have been detected and loaded', end - start, 'green');
 
                         resolve();
                     });
                 } else {
                     var end = Date.now();
-                    _this7.logHelper.log('No image detected', end - start, 'green');
+                    _this7.logger.log('No image detected', end - start, 'green');
 
                     resolve();
                 }
@@ -875,10 +875,10 @@ var App = function () {
             }).then(function () {
                 return _this8.processShareCapabilities();
             }).catch(function (exception) {
-                _this8.logHelper.log(exception.message, undefined, 'red');
+                _this8.logger.log(exception.message, undefined, 'red');
             }).finally(function () {
                 var end = Date.now();
-                _this8.logHelper.log('Execution completed', end - start, 'green');
+                _this8.logger.log('Execution completed', end - start, 'green');
             });
         }
     }]);
@@ -1443,114 +1443,6 @@ module.exports = exports.default;
 
 /***/ }),
 
-/***/ "./src/js/helper/logHelper.js":
-/*!************************************!*\
-  !*** ./src/js/helper/logHelper.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var LogHelper = function () {
-    function LogHelper() {
-        _classCallCheck(this, LogHelper);
-
-        this.enable = false;
-    }
-
-    /**
-     * @param {boolean} value
-     */
-
-
-    _createClass(LogHelper, [{
-        key: 'log',
-
-
-        /**
-         * @param {string} message         - message to display in console
-         * @param {?number} [milliseconds] - time
-         * @param {string} [color=black]   - message color
-         */
-        value: function log(message) {
-            var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-            var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
-
-            if (!window.console || !window.console.log || false === this.enable) {
-                return;
-            }
-
-            if ('number' === typeof milliseconds) {
-                message += ' in ' + milliseconds.toFixed(0) + ' ms';
-            }
-
-            window.console.log('%c' + message, 'color:' + color);
-        }
-    }, {
-        key: 'debug',
-        set: function set(value) {
-            this.enable = value;
-        }
-    }]);
-
-    return LogHelper;
-}();
-
-exports.default = LogHelper;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./src/js/helper/stringHelper.js":
-/*!***************************************!*\
-  !*** ./src/js/helper/stringHelper.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var StringHelper = function () {
-    function StringHelper() {
-        _classCallCheck(this, StringHelper);
-    }
-
-    _createClass(StringHelper, null, [{
-        key: "param",
-        value: function param(parameters) {
-            var urlParams = new URLSearchParams(Object.entries(parameters));
-
-            return urlParams.toString();
-        }
-    }]);
-
-    return StringHelper;
-}();
-
-exports.default = StringHelper;
-module.exports = exports.default;
-
-/***/ }),
-
 /***/ "./src/js/index.js":
 /*!*************************!*\
   !*** ./src/js/index.js ***!
@@ -1579,10 +1471,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
             shareBox: true
         };
 
-        options = $.extend(defaults, options);
+        var settings = Object.assign(defaults, options);
 
         return this.each(function () {
-            new _app2.default($(_this), items, options).execute();
+            new _app2.default($(_this), items, settings).execute();
         });
     };
 })(jQuery, window, document);
@@ -2493,6 +2385,74 @@ module.exports = exports.default;
 
 /***/ }),
 
+/***/ "./src/js/service/logger.js":
+/*!**********************************!*\
+  !*** ./src/js/service/logger.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Logger = function () {
+    function Logger() {
+        _classCallCheck(this, Logger);
+
+        this.enable = false;
+    }
+
+    /**
+     * @param {boolean} value
+     */
+
+
+    _createClass(Logger, [{
+        key: 'log',
+
+
+        /**
+         * @param {string} message         - message to display in console
+         * @param {?number} [milliseconds] - time
+         * @param {string} [color=black]   - message color
+         */
+        value: function log(message) {
+            var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
+
+            if (!window.console || !window.console.log || false === this.enable) {
+                return;
+            }
+
+            if ('number' === typeof milliseconds) {
+                message += ' in ' + milliseconds.toFixed(0) + ' ms';
+            }
+
+            window.console.log('%c' + message, 'color:' + color);
+        }
+    }, {
+        key: 'debug',
+        set: function set(value) {
+            this.enable = value;
+        }
+    }]);
+
+    return Logger;
+}();
+
+exports.default = Logger;
+module.exports = exports.default;
+
+/***/ }),
+
 /***/ "./src/js/service/socialMediaShare.js":
 /*!********************************************!*\
   !*** ./src/js/service/socialMediaShare.js ***!
@@ -2515,9 +2475,9 @@ var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
 
-var _stringHelper = __webpack_require__(/*! ../helper/stringHelper */ "./src/js/helper/stringHelper.js");
+var _utils = __webpack_require__(/*! ../service/utils */ "./src/js/service/utils.js");
 
-var _stringHelper2 = _interopRequireDefault(_stringHelper);
+var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2610,7 +2570,7 @@ var SocialMediaShare = function () {
                 u: options.url || window.location.href
             };
 
-            return 'https://www.facebook.com/sharer.php?' + _stringHelper2.default.param(parameters);
+            return 'https://www.facebook.com/sharer.php?' + _utils2.default.param(parameters);
         }
 
         /**
@@ -2634,7 +2594,7 @@ var SocialMediaShare = function () {
                 parameters.hashtags = options.hashtags.join(',');
             }
 
-            return 'https://twitter.com/intent/tweet?' + _stringHelper2.default.param(parameters);
+            return 'https://twitter.com/intent/tweet?' + _utils2.default.param(parameters);
         }
 
         /**
@@ -2650,7 +2610,7 @@ var SocialMediaShare = function () {
                 body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
             };
 
-            return 'mailto:?' + _stringHelper2.default.param(parameters);
+            return 'mailto:?' + _utils2.default.param(parameters);
         }
 
         /**
@@ -2734,6 +2694,46 @@ var UniqueId = function () {
 }();
 
 exports.default = UniqueId;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./src/js/service/utils.js":
+/*!*********************************!*\
+  !*** ./src/js/service/utils.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Utils = function () {
+    function Utils() {
+        _classCallCheck(this, Utils);
+    }
+
+    _createClass(Utils, null, [{
+        key: "param",
+        value: function param(parameters) {
+            var urlParams = new URLSearchParams(Object.entries(parameters));
+
+            return urlParams.toString();
+        }
+    }]);
+
+    return Utils;
+}();
+
+exports.default = Utils;
 module.exports = exports.default;
 
 /***/ }),
