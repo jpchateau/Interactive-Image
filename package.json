@@ -3,7 +3,8 @@
   "version": "2.5.0",
   "description": "A jQuery plugin to embed interactive images on your website",
   "author": "Jean-Philippe Chateau",
-  "main": "./src/js/index.js",
+  "browser": "./src/js/index.js",
+  "license": "MIT",
   "scripts": {
     "build": "webpack --progress --colors --config webpack.prod.js",
     "dev": "webpack --progress --colors --config webpack.dev.js",
@@ -90,6 +91,5 @@
     ],
     "sourceMap": false,
     "instrument": false
-  },
-  "license": "MIT"
+  }
 }

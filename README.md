@@ -53,5 +53,5 @@ The API and documentation have to be simple and clear as well.
 
 ## License
 
-Copyright (c) 2020 Jean-Philippe Chateau.  
-This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
+Copyright © 2020 [Jean-Philippe Chateau](https://github.com/jpchateau/).  
+This content is released under the [MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
