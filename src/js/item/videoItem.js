@@ -1,23 +1,10 @@
-import BaseItem from "./baseItem";
 import DomHelper from "../helper/domHelper";
-import FileHelper from "./../helper/fileHelper";
+import MediaItem from "./mediaItem";
 
 /**
- * @extends BaseItem
+ * @extends MediaItem
  */
-export default class VideoItem extends BaseItem {
-    /**
-     * Allowed file extensions
-     *
-     * @returns {{mp4: string, webm: string}}
-     */
-    static supportedFileFormats() {
-        return {
-            'mp4': 'video/mp4',
-            'webm': 'video/webm'
-        };
-    }
-
+export default class VideoItem extends MediaItem {
     /**
      * @returns {string}
      */
@@ -31,34 +18,35 @@ export default class VideoItem extends BaseItem {
     constructor(parameters) {
         super(parameters);
 
-        this.checkRequiredParameters(parameters, ['path']);
-
-        this.path = parameters.path;
-        this.caption = parameters.caption;
         this.poster = parameters.poster;
-        this.fileExtension = FileHelper.guessExtension(this.path);
+    }
 
-        FileHelper.checkFileFormat(this.fileExtension, VideoItem.supportedFileFormats());
+    /**
+     * Allowed file extensions
+     *
+     * @returns {{mp4: string, webm: string}}
+     */
+    supportedFileFormats() {
+        return {
+            'mp4': 'video/mp4',
+            'webm': 'video/webm'
+        };
     }
 
     /**
      * @returns {HTMLElement}
      */
-    createVideo() {
+    createMedia() {
         const video = DomHelper.createElement('video', {'class': 'genuine-theme'}, VideoItem.unsupportedTagMessage());
         video.setAttribute('controls', '');
         video.setAttribute('controlsList', 'nodownload');
         video.setAttribute('preload', 'metadata');
 
-        const source = DomHelper.createElement('source');
-        source.setAttribute('src', this.path);
-        source.setAttribute('type', VideoItem.supportedFileFormats()[this.fileExtension]);
-
         if ('undefined' !== typeof this.poster) {
             video.setAttribute('poster', this.poster);
         }
 
-        video.appendChild(source);
+        video.appendChild(this.createSource());
 
         return video;
     }
@@ -67,18 +55,6 @@ export default class VideoItem extends BaseItem {
      * @returns {HTMLElement}
      */
     renderHtml() {
-        const element = this.createItemElement();
-        const videoItem = DomHelper.createElement('div', {'class': 'video-item'});
-
-        videoItem.appendChild(this.createVideo());
-
-        if ('undefined' !== typeof this.caption) {
-            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption, this.globalSettings.allowHtml);
-            videoItem.appendChild(caption);
-        }
-
-        element.appendChild(videoItem);
-
-        return element;
+        return this.createItem('video-item');
     }
 }

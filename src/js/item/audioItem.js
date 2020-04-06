@@ -1,24 +1,10 @@
-import BaseItem from "./baseItem";
 import DomHelper from "../helper/domHelper";
-import FileHelper from "./../helper/fileHelper";
+import MediaItem from "./mediaItem";
 
 /**
- * @extends BaseItem
+ * @extends MediaItem
  */
-export default class AudioItem extends BaseItem {
-    /**
-     * Allowed file extensions
-     *
-     * @returns {{mp3: string, wav: string, ogg: string}}
-     */
-    static supportedFileFormats() {
-        return {
-            'mp3': 'audio/mpeg',
-            'ogg': 'audio/ogg',
-            'wav': 'audio/wav'
-        };
-    }
-
+export default class AudioItem extends MediaItem {
     /**
      * @returns {string}
      */
@@ -31,29 +17,30 @@ export default class AudioItem extends BaseItem {
      */
     constructor(parameters) {
         super(parameters);
+    }
 
-        this.checkRequiredParameters(parameters, ['path']);
-
-        this.path = parameters.path;
-        this.caption = parameters.caption;
-        this.fileExtension = FileHelper.guessExtension(this.path);
-
-        FileHelper.checkFileFormat(this.fileExtension, AudioItem.supportedFileFormats());
+    /**
+     * Allowed file extensions
+     *
+     * @returns {{mp3: string, wav: string, ogg: string}}
+     */
+    supportedFileFormats() {
+        return {
+            'mp3': 'audio/mpeg',
+            'ogg': 'audio/ogg',
+            'wav': 'audio/wav'
+        };
     }
 
     /**
      * @returns {HTMLElement}
      */
-    createAudio() {
+    createMedia() {
         const audio = DomHelper.createElement('audio', {'class': 'genuine-theme'}, AudioItem.unsupportedTagMessage());
         audio.setAttribute('controls', '');
         audio.setAttribute('preload', 'metadata');
 
-        const source = DomHelper.createElement('source');
-        source.setAttribute('src', this.path);
-        source.setAttribute('type', AudioItem.supportedFileFormats()[this.fileExtension]);
-
-        audio.appendChild(source);
+        audio.appendChild(this.createSource());
 
         return audio;
     }
@@ -62,18 +49,6 @@ export default class AudioItem extends BaseItem {
      * @returns {HTMLElement}
      */
     renderHtml() {
-        const element = this.createItemElement();
-        const audioItem = DomHelper.createElement('div', {'class': 'audio-item'});
-
-        audioItem.appendChild(this.createAudio());
-
-        if ('undefined' !== typeof this.caption) {
-            const caption = DomHelper.createElement('span', {'class': 'caption'}, this.caption, this.globalSettings.allowHtml);
-            audioItem.appendChild(caption);
-        }
-
-        element.appendChild(audioItem);
-
-        return element;
+        return this.createItem('audio-item');
     }
 }
