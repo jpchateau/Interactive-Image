@@ -58,7 +58,7 @@ export default class DomHelper {
      * @param {HTMLElement} element
      */
     static hideElement(element) {
-        if (element.style.display === 'block') {
+        if (element.style.display === 'block' || element.style.display === 'flex') {
             element.style.display = 'none';
 
             if (DomHelper.elementContainsMediaItem(element) === true) {

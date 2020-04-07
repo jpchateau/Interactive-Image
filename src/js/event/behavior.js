@@ -48,7 +48,7 @@ export default class Behavior {
      * @param {HTMLElement} hotspot
      */
     unbindHotspotMouseLeave(hotspot) {
-        hotspot.removeEventListener('mouseleave');
+        hotspot.removeEventListener('mouseleave', function() {});
     }
 
     bindSceneEvents() {

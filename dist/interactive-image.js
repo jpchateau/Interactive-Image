@@ -973,7 +973,7 @@ var Behavior = function () {
     }, {
         key: 'unbindHotspotMouseLeave',
         value: function unbindHotspotMouseLeave(hotspot) {
-            hotspot.removeEventListener('mouseleave');
+            hotspot.removeEventListener('mouseleave', function () {});
         }
     }, {
         key: 'bindSceneEvents',
@@ -1263,7 +1263,7 @@ var DomHelper = function () {
     }, {
         key: 'hideElement',
         value: function hideElement(element) {
-            if (element.style.display === 'block') {
+            if (element.style.display === 'block' || element.style.display === 'flex') {
                 element.style.display = 'none';
 
                 if (DomHelper.elementContainsMediaItem(element) === true) {
@@ -2123,7 +2123,7 @@ var ProviderItem = function (_BaseItem) {
          * @returns {string[]}
          */
         value: function supportedProviders() {
-            return ['dailymotion', 'vimeo', 'youtube'];
+            return Object.keys(ProviderItem.providersUrls());
         }
 
         /**
@@ -2187,7 +2187,6 @@ var ProviderItem = function (_BaseItem) {
             var providerItem = _domHelper2.default.createElement('div', { 'class': 'provider-item' });
 
             providerItem.appendChild(this.createIframe());
-
             element.appendChild(providerItem);
 
             return element;

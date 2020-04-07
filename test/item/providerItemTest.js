@@ -2,6 +2,13 @@ const expect = require('chai').expect;
 const ProviderItem = require('./../../src/js/item/providerItem');
 
 describe('ProviderItem', function() {
+    describe('supportedProviders', function() {
+        it('should return an array of supported providers names', function() {
+            expect(ProviderItem.supportedProviders()).to.be.an('array');
+            expect(ProviderItem.supportedProviders()).to.deep.equal(['dailymotion', 'vimeo', 'youtube']);
+        });
+    });
+
     describe('renderHtml', function() {
         it('should return a complete provider item', function() {
             let parameters = {

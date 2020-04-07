@@ -9,7 +9,7 @@ export default class ProviderItem extends BaseItem {
      * @returns {string[]}
      */
     static supportedProviders() {
-        return ['dailymotion', 'vimeo', 'youtube'];
+        return Object.keys(ProviderItem.providersUrls());
     }
 
     /**
@@ -60,7 +60,6 @@ export default class ProviderItem extends BaseItem {
         const providerItem = DomHelper.createElement('div', {'class': 'provider-item'});
 
         providerItem.appendChild(this.createIframe());
-
         element.appendChild(providerItem);
 
         return element;
