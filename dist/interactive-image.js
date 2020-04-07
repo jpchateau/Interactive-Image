@@ -641,9 +641,9 @@ var _resizer = __webpack_require__(/*! ./event/resizer */ "./src/js/event/resize
 
 var _resizer2 = _interopRequireDefault(_resizer);
 
-var _socialMediaShare = __webpack_require__(/*! ./service/socialMediaShare */ "./src/js/service/socialMediaShare.js");
+var _shareBox = __webpack_require__(/*! ./service/shareBox */ "./src/js/service/shareBox.js");
 
-var _socialMediaShare2 = _interopRequireDefault(_socialMediaShare);
+var _shareBox2 = _interopRequireDefault(_shareBox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -813,21 +813,22 @@ var App = function () {
             });
         }
     }, {
-        key: "processShareCapabilities",
-        value: function processShareCapabilities() {
+        key: "processShareBox",
+        value: function processShareBox() {
             var _this6 = this;
 
             return new Promise(function (resolve) {
-                _this6.logger.log('Starting to evaluate social media share capabilities...');
+                _this6.logger.log('Starting to build ShareBox...');
                 var start = Date.now();
 
                 if (true === _this6.settings.shareBox) {
-                    var socialMediaShare = new _socialMediaShare2.default(_this6.$image);
-                    socialMediaShare.buildShareBox(_this6.settings.socialMedia || {});
+                    var shareBox = new _shareBox2.default(_this6.$image[0]);
+                    shareBox.build(_this6.settings.socialMedia || {});
+                    shareBox.bindEvents();
                 }
 
                 var end = Date.now();
-                _this6.logger.log('Social media share capabilities executed', end - start, 'green');
+                _this6.logger.log('ShareBox built', end - start, 'green');
                 resolve();
             });
         }
@@ -873,7 +874,7 @@ var App = function () {
             }).then(function () {
                 return _this8.bindEvents();
             }).then(function () {
-                return _this8.processShareCapabilities();
+                return _this8.processShareBox();
             }).catch(function (exception) {
                 _this8.logger.log(exception.message, undefined, 'red');
             }).finally(function () {
@@ -2547,10 +2548,10 @@ module.exports = exports.default;
 
 /***/ }),
 
-/***/ "./src/js/service/socialMediaShare.js":
-/*!********************************************!*\
-  !*** ./src/js/service/socialMediaShare.js ***!
-  \********************************************/
+/***/ "./src/js/service/shareBox.js":
+/*!************************************!*\
+  !*** ./src/js/service/shareBox.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2577,14 +2578,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SocialMediaShare = function () {
+var ShareBox = function () {
     /**
-     * @param {jQuery} $image
+     * @param {HTMLElement} scene
      */
-    function SocialMediaShare($image) {
-        _classCallCheck(this, SocialMediaShare);
+    function ShareBox(scene) {
+        _classCallCheck(this, ShareBox);
 
-        this.$image = $image;
+        this.scene = scene;
     }
 
     /**
@@ -2593,7 +2594,7 @@ var SocialMediaShare = function () {
      */
 
 
-    _createClass(SocialMediaShare, [{
+    _createClass(ShareBox, [{
         key: "buildFacebookButton",
 
 
@@ -2602,7 +2603,7 @@ var SocialMediaShare = function () {
          * @returns {HTMLElement}
          */
         value: function buildFacebookButton(options) {
-            return SocialMediaShare.buildButton('social-button facebook-colors icon-facebook', SocialMediaShare.buildFacebookUrl(options));
+            return ShareBox.buildButton('social-button facebook-colors icon-facebook', ShareBox.buildFacebookUrl(options));
         }
 
         /**
@@ -2613,7 +2614,7 @@ var SocialMediaShare = function () {
     }, {
         key: "buildTwitterButton",
         value: function buildTwitterButton(options) {
-            return SocialMediaShare.buildButton('social-button twitter-colors icon-twitter', SocialMediaShare.buildTwitterUrl(options));
+            return ShareBox.buildButton('social-button twitter-colors icon-twitter', ShareBox.buildTwitterUrl(options));
         }
 
         /**
@@ -2624,7 +2625,7 @@ var SocialMediaShare = function () {
     }, {
         key: "buildMailButton",
         value: function buildMailButton(options) {
-            return SocialMediaShare.buildButton('social-button mail-colors icon-envelop', SocialMediaShare.buildMailUrl(options));
+            return ShareBox.buildButton('social-button mail-colors icon-envelop', ShareBox.buildMailUrl(options));
         }
 
         /**
@@ -2632,29 +2633,27 @@ var SocialMediaShare = function () {
          */
 
     }, {
-        key: "buildShareBox",
-        value: function buildShareBox(socialMediaOptions) {
-            var elementBox = _domHelper2.default.createElement('div', { 'class': 'social-share-box' });
-            var elementShareButton = _domHelper2.default.createElement('div', { 'class': 'social-button share-colors icon-share2' });
+        key: "build",
+        value: function build(socialMediaOptions) {
+            var box = _domHelper2.default.createElement('div', { 'class': 'social-share-box' });
+            var shareButton = _domHelper2.default.createElement('div', { 'class': 'social-button share-colors icon-share2' });
 
-            elementBox.appendChild(this.buildFacebookButton(socialMediaOptions));
-            elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
-            elementBox.appendChild(this.buildMailButton(socialMediaOptions));
-            elementBox.appendChild(elementShareButton);
+            box.appendChild(this.buildFacebookButton(socialMediaOptions));
+            box.appendChild(this.buildTwitterButton(socialMediaOptions));
+            box.appendChild(this.buildMailButton(socialMediaOptions));
+            box.appendChild(shareButton);
 
-            this.$image.append(elementBox);
-
-            this.bindEvents();
+            this.scene.appendChild(box);
         }
     }, {
         key: "bindEvents",
         value: function bindEvents() {
-            $('.social-button.share-colors').on('mouseenter', function () {
-                $(this).parent().addClass('expanded');
+            document.querySelector('.social-button.share-colors').addEventListener('mouseenter', function (event) {
+                event.target.parentNode.classList.add('expanded');
             });
 
-            $('.social-share-box').on('mouseleave', function () {
-                $(this).removeClass('expanded');
+            document.querySelector('.social-share-box').addEventListener('mouseleave', function (event) {
+                event.target.classList.remove('expanded');
             });
         }
     }], [{
@@ -2725,10 +2724,10 @@ var SocialMediaShare = function () {
         }
     }]);
 
-    return SocialMediaShare;
+    return ShareBox;
 }();
 
-exports.default = SocialMediaShare;
+exports.default = ShareBox;
 module.exports = exports.default;
 
 /***/ }),

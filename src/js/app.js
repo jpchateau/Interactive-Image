@@ -5,7 +5,7 @@ import ItemFactory from "./item/factory";
 import ItemHelper from "./helper/itemHelper";
 import Logger from "./service/logger";
 import Resizer from "./event/resizer";
-import SocialMediaShare from "./service/socialMediaShare";
+import ShareBox from "./service/shareBox";
 
 export default class App {
     /**
@@ -150,18 +150,19 @@ export default class App {
         });
     }
 
-    processShareCapabilities() {
+    processShareBox() {
         return new Promise((resolve) => {
-            this.logger.log('Starting to evaluate social media share capabilities...');
+            this.logger.log('Starting to build ShareBox...');
             const start = Date.now();
 
             if (true === this.settings.shareBox) {
-                const socialMediaShare = new SocialMediaShare(this.$image);
-                socialMediaShare.buildShareBox(this.settings.socialMedia || {});
+                const shareBox = new ShareBox(this.$image[0]);
+                shareBox.build(this.settings.socialMedia || {});
+                shareBox.bindEvents();
             }
 
             const end = Date.now();
-            this.logger.log('Social media share capabilities executed', end - start, 'green');
+            this.logger.log('ShareBox built', end - start, 'green');
             resolve();
         });
     }
@@ -201,7 +202,7 @@ export default class App {
         }).then(() => {
             return this.bindEvents();
         }) .then(() => {
-            return this.processShareCapabilities();
+            return this.processShareBox();
         }).catch((exception) => {
             this.logger.log(exception.message, undefined, 'red');
         }).finally( () => {

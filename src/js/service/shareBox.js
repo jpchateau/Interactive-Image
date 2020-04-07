@@ -1,12 +1,12 @@
 import DomHelper from "../helper/domHelper";
 import Utils from "../service/utils";
 
-export default class SocialMediaShare {
+export default class ShareBox {
     /**
-     * @param {jQuery} $image
+     * @param {HTMLElement} scene
      */
-    constructor($image) {
-        this.$image = $image;
+    constructor(scene) {
+        this.scene = scene;
     }
 
     /**
@@ -74,7 +74,7 @@ export default class SocialMediaShare {
      * @returns {HTMLElement}
      */
     buildFacebookButton(options) {
-        return SocialMediaShare.buildButton('social-button facebook-colors icon-facebook', SocialMediaShare.buildFacebookUrl(options));
+        return ShareBox.buildButton('social-button facebook-colors icon-facebook', ShareBox.buildFacebookUrl(options));
     }
 
     /**
@@ -82,7 +82,7 @@ export default class SocialMediaShare {
      * @returns {HTMLElement}
      */
     buildTwitterButton(options) {
-        return SocialMediaShare.buildButton('social-button twitter-colors icon-twitter', SocialMediaShare.buildTwitterUrl(options));
+        return ShareBox.buildButton('social-button twitter-colors icon-twitter', ShareBox.buildTwitterUrl(options));
     }
 
     /**
@@ -90,33 +90,31 @@ export default class SocialMediaShare {
      * @returns {HTMLElement}
      */
     buildMailButton(options) {
-        return SocialMediaShare.buildButton('social-button mail-colors icon-envelop', SocialMediaShare.buildMailUrl(options));
+        return ShareBox.buildButton('social-button mail-colors icon-envelop', ShareBox.buildMailUrl(options));
     }
 
     /**
      * @param {object} socialMediaOptions
      */
-    buildShareBox(socialMediaOptions) {
-        const elementBox = DomHelper.createElement('div', {'class': 'social-share-box'});
-        const elementShareButton = DomHelper.createElement('div', {'class': 'social-button share-colors icon-share2'});
+    build(socialMediaOptions) {
+        const box = DomHelper.createElement('div', {'class': 'social-share-box'});
+        const shareButton = DomHelper.createElement('div', {'class': 'social-button share-colors icon-share2'});
 
-        elementBox.appendChild(this.buildFacebookButton(socialMediaOptions));
-        elementBox.appendChild(this.buildTwitterButton(socialMediaOptions));
-        elementBox.appendChild(this.buildMailButton(socialMediaOptions));
-        elementBox.appendChild(elementShareButton);
+        box.appendChild(this.buildFacebookButton(socialMediaOptions));
+        box.appendChild(this.buildTwitterButton(socialMediaOptions));
+        box.appendChild(this.buildMailButton(socialMediaOptions));
+        box.appendChild(shareButton);
 
-        this.$image.append(elementBox);
-
-        this.bindEvents();
+        this.scene.appendChild(box);
     }
 
     bindEvents() {
-        $('.social-button.share-colors').on('mouseenter', function() {
-            $(this).parent().addClass('expanded');
+        document.querySelector('.social-button.share-colors').addEventListener('mouseenter', function(event) {
+            event.target.parentNode.classList.add('expanded');
         });
 
-        $('.social-share-box').on('mouseleave', function() {
-            $(this).removeClass('expanded');
+        document.querySelector('.social-share-box').addEventListener('mouseleave', function(event) {
+            event.target.classList.remove('expanded');
         });
     }
 }
