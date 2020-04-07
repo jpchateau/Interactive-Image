@@ -2123,19 +2123,20 @@ var ProviderItem = function (_BaseItem) {
          * @returns {string[]}
          */
         value: function supportedProviders() {
-            return ['youtube', 'dailymotion'];
+            return ['dailymotion', 'vimeo', 'youtube'];
         }
 
         /**
-         * @returns {{youtube: string, dailymotion: string}}
+         * @returns {{dailymotion: string, vimeo: string, youtube: string}}
          */
 
     }, {
         key: "providersUrls",
         value: function providersUrls() {
             return {
-                'youtube': 'https://www.youtube.com/embed/',
-                'dailymotion': 'https://www.dailymotion.com/embed/video/'
+                'dailymotion': 'https://www.dailymotion.com/embed/video/',
+                'vimeo': 'https://player.vimeo.com/video/',
+                'youtube': 'https://www.youtube.com/embed/'
             };
         }
 

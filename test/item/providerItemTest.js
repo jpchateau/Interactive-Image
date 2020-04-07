@@ -35,7 +35,7 @@ describe('ProviderItem', function() {
 
         it('should throw an exception when given provider is not supported', function() {
             let parameters = {
-                providerName: "vimeo",
+                providerName: "unsupported-video-platform-name",
                 parameters: {
                     videoId: "XXXYYYZZZ"
                 },
@@ -44,7 +44,7 @@ describe('ProviderItem', function() {
                     left: 100
                 }
             };
-            expect(() => new ProviderItem(parameters)).to.throw('Unsupported provider "vimeo"');
+            expect(() => new ProviderItem(parameters)).to.throw('Unsupported provider "unsupported-video-platform-name"');
         });
     });
 });
