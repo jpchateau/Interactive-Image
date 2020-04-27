@@ -867,6 +867,7 @@ var App = function () {
         value: function execute() {
             var _this8 = this;
 
+            this.logger.group('Interactive Image');
             var t0 = performance.now();
 
             this.checkSettings().then(function () {
@@ -886,6 +887,7 @@ var App = function () {
             }).finally(function () {
                 var t1 = performance.now();
                 _this8.logger.log('Execution completed in ' + (t1 - t0) + 'ms');
+                _this8.logger.groupEnd();
             });
         }
     }]);

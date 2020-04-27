@@ -195,6 +195,7 @@ export default class App {
     }
 
     execute() {
+        this.logger.group('Interactive Image');
         const t0 = performance.now();
 
         this.checkSettings().then(() => {
@@ -214,6 +215,7 @@ export default class App {
         }).finally( () => {
             const t1 = performance.now();
             this.logger.log('Execution completed in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
         });
     }
 }
