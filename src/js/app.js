@@ -29,8 +29,8 @@ export default class App {
 
     checkSettings() {
         return new Promise((resolve, reject) => {
-            this.logger.log('Starting settings check...');
-            const start = Date.now();
+            this.logger.group('Settings');
+            const t0 = performance.now();
 
             if ('boolean' !== typeof this.settings.allowHtml) {
                 throw Error('Check the "allowHtml" option. Allowed type: boolean.');
@@ -44,8 +44,9 @@ export default class App {
                 throw Error('Check the "socialMedia" option.');
             }
 
-            const end = Date.now();
-            this.logger.log('Options checked', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('Options checked in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
 
             resolve();
         });
@@ -53,8 +54,8 @@ export default class App {
 
     consolidateDOM() {
         return new Promise((resolve, reject) => {
-            this.logger.log('Starting DOM consolidation...');
-            const start = Date.now();
+            this.logger.group('DOM consolidation');
+            const t0 = performance.now();
 
             // Add interactive-image class on the main scene
             if (!this.$image.hasClass('interactive-image')) {
@@ -69,8 +70,9 @@ export default class App {
             );
             this.$image.append(unsupportedScreenElement);
 
-            const end = Date.now();
-            this.logger.log('DOM consolidated', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('DOM consolidated in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
 
             resolve();
         });
@@ -81,7 +83,7 @@ export default class App {
      * @returns {jQuery|HTMLElement}
      */
     createElement(options) {
-        this.logger.log(JSON.stringify(options), undefined, 'blue');
+        this.logger.log(options);
 
         const type = options.type;
         delete options.type;
@@ -90,22 +92,21 @@ export default class App {
         element.applicationSettings = this.settings;
         this.$image.append(element.createHotspotElement());
 
-        this.logger.log('Item (' + type + ') created.');
-
         return $(element.renderHtml());
     }
 
     createElements() {
         return new Promise((resolve) => {
-            this.logger.log('Starting elements creation...');
-            const start = Date.now();
+            this.logger.group('Items creation');
+            const t0 = performance.now();
 
             this.items.forEach((item) => {
                 this.$image.append(this.createElement(item));
             });
 
-            const end = Date.now();
-            this.logger.log('All items have been created', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('All items created in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
 
             resolve();
         });
@@ -113,8 +114,8 @@ export default class App {
 
     positionItems() {
         return new Promise((resolve) => {
-            this.logger.log('Starting items positioning...');
-            const start = Date.now();
+            this.logger.group('Items positioning');
+            const t0 = performance.now();
 
             const $items = this.$image.find('.item');
             $.each($items, function() {
@@ -125,8 +126,9 @@ export default class App {
                 $(this).css('top', top);
             });
 
-            const end = Date.now();
-            this.logger.log('All items have been positioned', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('All items positioned in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
 
             resolve();
         });
@@ -134,8 +136,8 @@ export default class App {
 
     bindEvents() {
         return new Promise((resolve) => {
-            this.logger.log('Starting events binding...');
-            const start = Date.now();
+            this.logger.group('Events binding');
+            const t0 = performance.now();
 
             const behavior = new Behavior(this.$image);
             behavior.bindAll();
@@ -143,8 +145,9 @@ export default class App {
             const resizer = new Resizer(behavior);
             resizer.bind();
 
-            const end = Date.now();
-            this.logger.log('All events have been bound', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('All events bound in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
 
             resolve();
         });
@@ -152,8 +155,8 @@ export default class App {
 
     processShareBox() {
         return new Promise((resolve) => {
-            this.logger.log('Starting to build ShareBox...');
-            const start = Date.now();
+            this.logger.group('ShareBox');
+            const t0 = performance.now();
 
             if (true === this.settings.shareBox) {
                 const shareBox = new ShareBox(this.$image[0]);
@@ -161,27 +164,30 @@ export default class App {
                 shareBox.bindEvents();
             }
 
-            const end = Date.now();
-            this.logger.log('ShareBox built', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('ShareBox built in ' + (t1 - t0) + 'ms');
+            this.logger.groupEnd();
+
             resolve();
         });
     }
 
     loadImages() {
         return new Promise((resolve) => {
-            this.logger.log('Starting images loading...');
-            const start = Date.now();
+            this.logger.group('Images');
 
             if (this.$image.find('img').length) {
+                const t0 = performance.now();
                 ImagesLoaded(this.$image, () => {
-                    const end = Date.now();
-                    this.logger.log('All images have been detected and loaded', end - start, 'green');
+                    const t1 = performance.now();
+                    this.logger.log('All images detected and loaded in ' + (t1 - t0) + 'ms');
+                    this.logger.groupEnd();
 
                     resolve();
                 });
             } else {
-                const end = Date.now();
-                this.logger.log('No image detected', end - start, 'green');
+                this.logger.log('No image detected');
+                this.logger.groupEnd();
 
                 resolve();
             }
@@ -189,7 +195,7 @@ export default class App {
     }
 
     execute() {
-        const start = Date.now();
+        const t0 = performance.now();
 
         this.checkSettings().then(() => {
             return this.consolidateDOM();
@@ -204,10 +210,10 @@ export default class App {
         }) .then(() => {
             return this.processShareBox();
         }).catch((exception) => {
-            this.logger.log(exception.message, undefined, 'red');
+            this.logger.log(exception.message);
         }).finally( () => {
-            const end = Date.now();
-            this.logger.log('Execution completed', end - start, 'green');
+            const t1 = performance.now();
+            this.logger.log('Execution completed in ' + (t1 - t0) + 'ms');
         });
     }
 }

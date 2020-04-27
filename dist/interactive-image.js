@@ -677,8 +677,8 @@ var App = function () {
             var _this = this;
 
             return new Promise(function (resolve, reject) {
-                _this.logger.log('Starting settings check...');
-                var start = Date.now();
+                _this.logger.group('Settings');
+                var t0 = performance.now();
 
                 if ('boolean' !== typeof _this.settings.allowHtml) {
                     throw Error('Check the "allowHtml" option. Allowed type: boolean.');
@@ -692,8 +692,9 @@ var App = function () {
                     throw Error('Check the "socialMedia" option.');
                 }
 
-                var end = Date.now();
-                _this.logger.log('Options checked', end - start, 'green');
+                var t1 = performance.now();
+                _this.logger.log('Options checked in ' + (t1 - t0) + 'ms');
+                _this.logger.groupEnd();
 
                 resolve();
             });
@@ -704,8 +705,8 @@ var App = function () {
             var _this2 = this;
 
             return new Promise(function (resolve, reject) {
-                _this2.logger.log('Starting DOM consolidation...');
-                var start = Date.now();
+                _this2.logger.group('DOM consolidation');
+                var t0 = performance.now();
 
                 // Add interactive-image class on the main scene
                 if (!_this2.$image.hasClass('interactive-image')) {
@@ -716,8 +717,9 @@ var App = function () {
                 var unsupportedScreenElement = _domHelper2.default.createElement('div', { class: 'unsupported-screen' }, 'Please rotate your device.');
                 _this2.$image.append(unsupportedScreenElement);
 
-                var end = Date.now();
-                _this2.logger.log('DOM consolidated', end - start, 'green');
+                var t1 = performance.now();
+                _this2.logger.log('DOM consolidated in ' + (t1 - t0) + 'ms');
+                _this2.logger.groupEnd();
 
                 resolve();
             });
@@ -731,7 +733,7 @@ var App = function () {
     }, {
         key: "createElement",
         value: function createElement(options) {
-            this.logger.log(JSON.stringify(options), undefined, 'blue');
+            this.logger.log(options);
 
             var type = options.type;
             delete options.type;
@@ -739,8 +741,6 @@ var App = function () {
             var element = this.itemFactory.create(type, options);
             element.applicationSettings = this.settings;
             this.$image.append(element.createHotspotElement());
-
-            this.logger.log('Item (' + type + ') created.');
 
             return $(element.renderHtml());
         }
@@ -750,15 +750,16 @@ var App = function () {
             var _this3 = this;
 
             return new Promise(function (resolve) {
-                _this3.logger.log('Starting elements creation...');
-                var start = Date.now();
+                _this3.logger.group('Items creation');
+                var t0 = performance.now();
 
                 _this3.items.forEach(function (item) {
                     _this3.$image.append(_this3.createElement(item));
                 });
 
-                var end = Date.now();
-                _this3.logger.log('All items have been created', end - start, 'green');
+                var t1 = performance.now();
+                _this3.logger.log('All items created in ' + (t1 - t0) + 'ms');
+                _this3.logger.groupEnd();
 
                 resolve();
             });
@@ -769,8 +770,8 @@ var App = function () {
             var _this4 = this;
 
             return new Promise(function (resolve) {
-                _this4.logger.log('Starting items positioning...');
-                var start = Date.now();
+                _this4.logger.group('Items positioning');
+                var t0 = performance.now();
 
                 var $items = _this4.$image.find('.item');
                 $.each($items, function () {
@@ -785,8 +786,9 @@ var App = function () {
                     $(this).css('top', top);
                 });
 
-                var end = Date.now();
-                _this4.logger.log('All items have been positioned', end - start, 'green');
+                var t1 = performance.now();
+                _this4.logger.log('All items positioned in ' + (t1 - t0) + 'ms');
+                _this4.logger.groupEnd();
 
                 resolve();
             });
@@ -797,8 +799,8 @@ var App = function () {
             var _this5 = this;
 
             return new Promise(function (resolve) {
-                _this5.logger.log('Starting events binding...');
-                var start = Date.now();
+                _this5.logger.group('Events binding');
+                var t0 = performance.now();
 
                 var behavior = new _behavior2.default(_this5.$image);
                 behavior.bindAll();
@@ -806,8 +808,9 @@ var App = function () {
                 var resizer = new _resizer2.default(behavior);
                 resizer.bind();
 
-                var end = Date.now();
-                _this5.logger.log('All events have been bound', end - start, 'green');
+                var t1 = performance.now();
+                _this5.logger.log('All events bound in ' + (t1 - t0) + 'ms');
+                _this5.logger.groupEnd();
 
                 resolve();
             });
@@ -818,8 +821,8 @@ var App = function () {
             var _this6 = this;
 
             return new Promise(function (resolve) {
-                _this6.logger.log('Starting to build ShareBox...');
-                var start = Date.now();
+                _this6.logger.group('ShareBox');
+                var t0 = performance.now();
 
                 if (true === _this6.settings.shareBox) {
                     var shareBox = new _shareBox2.default(_this6.$image[0]);
@@ -827,8 +830,10 @@ var App = function () {
                     shareBox.bindEvents();
                 }
 
-                var end = Date.now();
-                _this6.logger.log('ShareBox built', end - start, 'green');
+                var t1 = performance.now();
+                _this6.logger.log('ShareBox built in ' + (t1 - t0) + 'ms');
+                _this6.logger.groupEnd();
+
                 resolve();
             });
         }
@@ -838,19 +843,20 @@ var App = function () {
             var _this7 = this;
 
             return new Promise(function (resolve) {
-                _this7.logger.log('Starting images loading...');
-                var start = Date.now();
+                _this7.logger.group('Images');
 
                 if (_this7.$image.find('img').length) {
+                    var t0 = performance.now();
                     (0, _imagesloaded2.default)(_this7.$image, function () {
-                        var end = Date.now();
-                        _this7.logger.log('All images have been detected and loaded', end - start, 'green');
+                        var t1 = performance.now();
+                        _this7.logger.log('All images detected and loaded in ' + (t1 - t0) + 'ms');
+                        _this7.logger.groupEnd();
 
                         resolve();
                     });
                 } else {
-                    var end = Date.now();
-                    _this7.logger.log('No image detected', end - start, 'green');
+                    _this7.logger.log('No image detected');
+                    _this7.logger.groupEnd();
 
                     resolve();
                 }
@@ -861,7 +867,7 @@ var App = function () {
         value: function execute() {
             var _this8 = this;
 
-            var start = Date.now();
+            var t0 = performance.now();
 
             this.checkSettings().then(function () {
                 return _this8.consolidateDOM();
@@ -876,10 +882,10 @@ var App = function () {
             }).then(function () {
                 return _this8.processShareBox();
             }).catch(function (exception) {
-                _this8.logger.log(exception.message, undefined, 'red');
+                _this8.logger.log(exception.message);
             }).finally(function () {
-                var end = Date.now();
-                _this8.logger.log('Execution completed', end - start, 'green');
+                var t1 = performance.now();
+                _this8.logger.log('Execution completed in ' + (t1 - t0) + 'ms');
             });
         }
     }]);
@@ -2494,6 +2500,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2515,23 +2523,41 @@ var Logger = function () {
 
 
         /**
-         * @param {string} message         - message to display in console
-         * @param {?number} [milliseconds] - time
-         * @param {string} [color=black]   - message color
+         * @param {string,object} message - message or object to display in console
          */
         value: function log(message) {
-            var milliseconds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-            var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'black';
-
             if (!window.console || !window.console.log || false === this.enable) {
                 return;
             }
 
-            if ('number' === typeof milliseconds) {
-                message += ' in ' + milliseconds.toFixed(0) + ' ms';
+            if ((typeof message === 'undefined' ? 'undefined' : _typeof(message)) === 'object') {
+                return window.console.dir(message);
             }
 
-            window.console.log('%c' + message, 'color:' + color);
+            window.console.log(message);
+        }
+
+        /**
+         * @param {string} label - group name
+         */
+
+    }, {
+        key: 'group',
+        value: function group(label) {
+            if (!window.console || !window.console.log || false === this.enable) {
+                return;
+            }
+
+            window.console.group(label);
+        }
+    }, {
+        key: 'groupEnd',
+        value: function groupEnd() {
+            if (!window.console || !window.console.log || false === this.enable) {
+                return;
+            }
+
+            window.console.groupEnd();
         }
     }, {
         key: 'debug',

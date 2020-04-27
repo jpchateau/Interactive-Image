@@ -11,19 +11,36 @@ export default class Logger {
     }
 
     /**
-     * @param {string} message         - message to display in console
-     * @param {?number} [milliseconds] - time
-     * @param {string} [color=black]   - message color
+     * @param {string,object} message - message or object to display in console
      */
-    log(message, milliseconds = null, color = 'black') {
+    log(message) {
         if (!window.console || !window.console.log || false === this.enable) {
             return;
         }
 
-        if ('number' === typeof milliseconds) {
-            message += ' in ' + milliseconds.toFixed(0) + ' ms';
+        if (typeof message === 'object') {
+            return window.console.dir(message);
         }
 
-        window.console.log('%c' + message, 'color:' + color);
+        window.console.log(message);
+    }
+
+    /**
+     * @param {string} label - group name
+     */
+    group(label) {
+        if (!window.console || !window.console.log || false === this.enable) {
+            return;
+        }
+
+        window.console.group(label);
+    }
+
+    groupEnd() {
+        if (!window.console || !window.console.log || false === this.enable) {
+            return;
+        }
+
+        window.console.groupEnd();
     }
 }
