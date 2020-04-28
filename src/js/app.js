@@ -85,10 +85,10 @@ export default class App {
     createElement(options) {
         this.logger.log(options);
 
-        const type = options.type;
-        delete options.type;
+        let parameters = Object.assign({}, options);
+        delete parameters.type;
 
-        const element = this.itemFactory.create(type, options);
+        const element = this.itemFactory.create(options.type, parameters);
         element.applicationSettings = this.settings;
         this.$image.append(element.createHotspotElement());
 

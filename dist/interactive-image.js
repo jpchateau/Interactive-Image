@@ -735,10 +735,10 @@ var App = function () {
         value: function createElement(options) {
             this.logger.log(options);
 
-            var type = options.type;
-            delete options.type;
+            var parameters = Object.assign({}, options);
+            delete parameters.type;
 
-            var element = this.itemFactory.create(type, options);
+            var element = this.itemFactory.create(options.type, parameters);
             element.applicationSettings = this.settings;
             this.$image.append(element.createHotspotElement());
 
