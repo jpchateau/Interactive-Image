@@ -1,10 +1,10 @@
+import AbstractMediaItem from "./abstractMediaItem";
 import DomHelper from "../helper/domHelper";
-import MediaItem from "./mediaItem";
 
 /**
- * @extends MediaItem
+ * @extends AbstractMediaItem
  */
-export default class VideoItem extends MediaItem {
+export default class VideoItem extends AbstractMediaItem {
     /**
      * @returns {string}
      */

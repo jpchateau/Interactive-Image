@@ -1,7 +1,7 @@
 import DomHelper from "../helper/domHelper";
 import UniqueId from "../service/uniqueId";
 
-export default class BaseItem {
+export default class AbstractItem {
     /**
      * @returns {string}
      */
@@ -13,6 +13,10 @@ export default class BaseItem {
      * @param {object} parameters
      */
     constructor(parameters) {
+        if (this.constructor === AbstractItem) {
+            throw new TypeError('Abstract Class "AbstractItem" cannot be instantiated directly');
+        }
+
         this.identifier = UniqueId.generate('item');
         this.position = typeof parameters.position !== 'undefined' ? parameters.position : {left: 0, top: 0};
         this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
@@ -55,7 +59,7 @@ export default class BaseItem {
     createItemElement() {
         let itemClass = 'item';
         if (this.sticky === true) {
-            itemClass += ' ' + BaseItem.stickyClassName();
+            itemClass += ' ' + AbstractItem.stickyClassName();
         }
 
         if (typeof this.customClassName === 'string') {

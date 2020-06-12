@@ -1,10 +1,10 @@
-import BaseItem from "./baseItem";
+import AbstractItem from "./abstractItem";
 import DomHelper from "../helper/domHelper";
 
 /**
- * @extends BaseItem
+ * @extends AbstractItem
  */
-export default class PictureItem extends BaseItem {
+export default class PictureItem extends AbstractItem {
     /**
      * @param {object} parameters
      */

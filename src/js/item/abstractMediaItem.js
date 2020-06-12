@@ -1,11 +1,11 @@
-import BaseItem from "./baseItem";
-import FileHelper from "./../helper/fileHelper";
+import AbstractItem from "./abstractItem";
 import DomHelper from "../helper/domHelper";
+import FileHelper from "./../helper/fileHelper";
 
 /**
- * @extends BaseItem
+ * @extends AbstractItem
  */
-export default class MediaItem extends BaseItem {
+export default class AbstractMediaItem extends AbstractItem {
     static unsupportedTagMessage() {
         throw Error('UnsupportedTagMessage method not implemented');
     }
@@ -15,6 +15,10 @@ export default class MediaItem extends BaseItem {
      */
     constructor(parameters) {
         super(parameters);
+
+        if (this.constructor === AbstractMediaItem) {
+            throw new TypeError('Abstract Class "AbstractMediaItem" cannot be instantiated directly');
+        }
 
         this.checkRequiredParameters(parameters, ['path']);
 

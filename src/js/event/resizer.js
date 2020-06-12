@@ -1,5 +1,14 @@
 export default class Resizer {
     /**
+     * @returns {{"smartphones-portrait": number}}
+     */
+    static breakpoints() {
+        return {
+            'smartphones-portrait': 320
+        };
+    }
+
+    /**
      * @param {Behavior} behavior
      */
     constructor(behavior) {
@@ -23,7 +32,7 @@ export default class Resizer {
         let that = this;
 
         let enableEffects = () => {
-            if (window.innerWidth <= 320) {
+            if (window.innerWidth <= Resizer.breakpoints()['smartphones-portrait']) {
                 that.disable();
 
                 return;
@@ -34,7 +43,7 @@ export default class Resizer {
 
         $(window).on('resize', function() {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(enableEffects, 250);
+            resizeTimer = setTimeout(enableEffects, 300);
         });
     }
 }

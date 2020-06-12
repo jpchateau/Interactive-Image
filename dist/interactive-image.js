@@ -1121,9 +1121,24 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Resizer = function () {
-    /**
-     * @param {Behavior} behavior
-     */
+    _createClass(Resizer, null, [{
+        key: 'breakpoints',
+
+        /**
+         * @returns {{"smartphones-portrait": number}}
+         */
+        value: function breakpoints() {
+            return {
+                'smartphones-portrait': 320
+            };
+        }
+
+        /**
+         * @param {Behavior} behavior
+         */
+
+    }]);
+
     function Resizer(behavior) {
         _classCallCheck(this, Resizer);
 
@@ -1151,7 +1166,7 @@ var Resizer = function () {
             var that = this;
 
             var enableEffects = function enableEffects() {
-                if (window.innerWidth <= 320) {
+                if (window.innerWidth <= Resizer.breakpoints()['smartphones-portrait']) {
                     that.disable();
 
                     return;
@@ -1162,7 +1177,7 @@ var Resizer = function () {
 
             $(window).on('resize', function () {
                 clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(enableEffects, 250);
+                resizeTimer = setTimeout(enableEffects, 300);
             });
         }
     }]);
@@ -1516,10 +1531,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ "./src/js/item/audioItem.js":
-/*!**********************************!*\
-  !*** ./src/js/item/audioItem.js ***!
-  \**********************************/
+/***/ "./src/js/item/abstractItem.js":
+/*!*************************************!*\
+  !*** ./src/js/item/abstractItem.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1536,9 +1551,150 @@ var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
 
-var _mediaItem = __webpack_require__(/*! ./mediaItem */ "./src/js/item/mediaItem.js");
+var _uniqueId = __webpack_require__(/*! ../service/uniqueId */ "./src/js/service/uniqueId.js");
 
-var _mediaItem2 = _interopRequireDefault(_mediaItem);
+var _uniqueId2 = _interopRequireDefault(_uniqueId);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AbstractItem = function () {
+    _createClass(AbstractItem, null, [{
+        key: "stickyClassName",
+
+        /**
+         * @returns {string}
+         */
+        value: function stickyClassName() {
+            return 'behavior-sticky';
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
+    function AbstractItem(parameters) {
+        _classCallCheck(this, AbstractItem);
+
+        if (this.constructor === AbstractItem) {
+            throw new TypeError('Abstract Class "AbstractItem" cannot be instantiated directly');
+        }
+
+        this.identifier = _uniqueId2.default.generate('item');
+        this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
+        this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
+        this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
+        this.globalSettings = {
+            allowHtml: false
+        };
+    }
+
+    /**
+     * @param {object} settings
+     */
+
+
+    _createClass(AbstractItem, [{
+        key: "checkRequiredParameters",
+        value: function checkRequiredParameters(parameters, requiredParameters) {
+            for (var i in requiredParameters) {
+                if ('undefined' === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
+                    throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
+                }
+            }
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: "createHotspotElement",
+        value: function createHotspotElement() {
+            var element = _domHelper2.default.createElement('div', { 'class': 'hotspot icon-radio-checked' });
+            element.setAttribute('data-for', this.identifier);
+            element.style.left = this.position.left + 'px';
+            element.style.top = this.position.top + 'px';
+
+            return element;
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: "createItemElement",
+        value: function createItemElement() {
+            var itemClass = 'item';
+            if (this.sticky === true) {
+                itemClass += ' ' + AbstractItem.stickyClassName();
+            }
+
+            if (typeof this.customClassName === 'string') {
+                itemClass += ' ' + this.customClassName;
+            }
+
+            var element = _domHelper2.default.createElement('div', { 'class': itemClass });
+            element.setAttribute('data-id', this.identifier);
+
+            if (this.sticky === true) {
+                var closeButton = _domHelper2.default.createElement('div', { 'class': 'close-button icon-cancel-circle' });
+                element.appendChild(closeButton);
+            }
+
+            return element;
+        }
+    }, {
+        key: "renderHtml",
+        value: function renderHtml() {
+            throw Error('Render method not implemented');
+        }
+    }, {
+        key: "applicationSettings",
+        set: function set(settings) {
+            this.globalSettings = settings;
+        }
+    }]);
+
+    return AbstractItem;
+}();
+
+exports.default = AbstractItem;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./src/js/item/abstractMediaItem.js":
+/*!******************************************!*\
+  !*** ./src/js/item/abstractMediaItem.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _abstractItem = __webpack_require__(/*! ./abstractItem */ "./src/js/item/abstractItem.js");
+
+var _abstractItem2 = _interopRequireDefault(_abstractItem);
+
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
+var _fileHelper = __webpack_require__(/*! ./../helper/fileHelper */ "./src/js/helper/fileHelper.js");
+
+var _fileHelper2 = _interopRequireDefault(_fileHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1549,10 +1705,135 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * @extends MediaItem
+ * @extends AbstractItem
  */
-var AudioItem = function (_MediaItem) {
-    _inherits(AudioItem, _MediaItem);
+var AbstractMediaItem = function (_AbstractItem) {
+    _inherits(AbstractMediaItem, _AbstractItem);
+
+    _createClass(AbstractMediaItem, null, [{
+        key: "unsupportedTagMessage",
+        value: function unsupportedTagMessage() {
+            throw Error('UnsupportedTagMessage method not implemented');
+        }
+
+        /**
+         * @param {object} parameters
+         */
+
+    }]);
+
+    function AbstractMediaItem(parameters) {
+        _classCallCheck(this, AbstractMediaItem);
+
+        var _this = _possibleConstructorReturn(this, (AbstractMediaItem.__proto__ || Object.getPrototypeOf(AbstractMediaItem)).call(this, parameters));
+
+        if (_this.constructor === AbstractMediaItem) {
+            throw new TypeError('Abstract Class "AbstractMediaItem" cannot be instantiated directly');
+        }
+
+        _this.checkRequiredParameters(parameters, ['path']);
+
+        _this.path = parameters.path;
+        _this.caption = parameters.caption;
+        _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
+
+        _fileHelper2.default.checkFileFormat(_this.fileExtension, _this.supportedFileFormats());
+        return _this;
+    }
+
+    _createClass(AbstractMediaItem, [{
+        key: "supportedFileFormats",
+        value: function supportedFileFormats() {
+            throw Error('SupportedFileFormats method not implemented');
+        }
+
+        /**
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: "createSource",
+        value: function createSource() {
+            var source = _domHelper2.default.createElement('source');
+            source.setAttribute('src', this.path);
+            source.setAttribute('type', this.supportedFileFormats()[this.fileExtension]);
+
+            return source;
+        }
+
+        /**
+         * @param {string} className
+         * @returns {HTMLElement}
+         */
+
+    }, {
+        key: "createItem",
+        value: function createItem(className) {
+            var item = _domHelper2.default.createElement('div', { 'class': className });
+            item.appendChild(this.createMedia());
+
+            if ('undefined' !== typeof this.caption) {
+                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption, this.globalSettings.allowHtml);
+                item.appendChild(caption);
+            }
+
+            var element = this.createItemElement();
+            element.appendChild(item);
+
+            return element;
+        }
+    }, {
+        key: "createMedia",
+        value: function createMedia() {
+            throw Error('CreateMedia method not implemented');
+        }
+    }]);
+
+    return AbstractMediaItem;
+}(_abstractItem2.default);
+
+exports.default = AbstractMediaItem;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./src/js/item/audioItem.js":
+/*!**********************************!*\
+  !*** ./src/js/item/audioItem.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _abstractMediaItem = __webpack_require__(/*! ./abstractMediaItem */ "./src/js/item/abstractMediaItem.js");
+
+var _abstractMediaItem2 = _interopRequireDefault(_abstractMediaItem);
+
+var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
+
+var _domHelper2 = _interopRequireDefault(_domHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * @extends AbstractMediaItem
+ */
+var AudioItem = function (_AbstractMediaItem) {
+    _inherits(AudioItem, _AbstractMediaItem);
 
     _createClass(AudioItem, null, [{
         key: "unsupportedTagMessage",
@@ -1621,142 +1902,9 @@ var AudioItem = function (_MediaItem) {
     }]);
 
     return AudioItem;
-}(_mediaItem2.default);
+}(_abstractMediaItem2.default);
 
 exports.default = AudioItem;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./src/js/item/baseItem.js":
-/*!*********************************!*\
-  !*** ./src/js/item/baseItem.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
-
-var _domHelper2 = _interopRequireDefault(_domHelper);
-
-var _uniqueId = __webpack_require__(/*! ../service/uniqueId */ "./src/js/service/uniqueId.js");
-
-var _uniqueId2 = _interopRequireDefault(_uniqueId);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BaseItem = function () {
-    _createClass(BaseItem, null, [{
-        key: "stickyClassName",
-
-        /**
-         * @returns {string}
-         */
-        value: function stickyClassName() {
-            return 'behavior-sticky';
-        }
-
-        /**
-         * @param {object} parameters
-         */
-
-    }]);
-
-    function BaseItem(parameters) {
-        _classCallCheck(this, BaseItem);
-
-        this.identifier = _uniqueId2.default.generate('item');
-        this.position = typeof parameters.position !== 'undefined' ? parameters.position : { left: 0, top: 0 };
-        this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
-        this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
-        this.globalSettings = {
-            allowHtml: false
-        };
-    }
-
-    /**
-     * @param {object} settings
-     */
-
-
-    _createClass(BaseItem, [{
-        key: "checkRequiredParameters",
-        value: function checkRequiredParameters(parameters, requiredParameters) {
-            for (var i in requiredParameters) {
-                if ('undefined' === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                    throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
-                }
-            }
-        }
-
-        /**
-         * @returns {HTMLElement}
-         */
-
-    }, {
-        key: "createHotspotElement",
-        value: function createHotspotElement() {
-            var element = _domHelper2.default.createElement('div', { 'class': 'hotspot icon-radio-checked' });
-            element.setAttribute('data-for', this.identifier);
-            element.style.left = this.position.left + 'px';
-            element.style.top = this.position.top + 'px';
-
-            return element;
-        }
-
-        /**
-         * @returns {HTMLElement}
-         */
-
-    }, {
-        key: "createItemElement",
-        value: function createItemElement() {
-            var itemClass = 'item';
-            if (this.sticky === true) {
-                itemClass += ' ' + BaseItem.stickyClassName();
-            }
-
-            if (typeof this.customClassName === 'string') {
-                itemClass += ' ' + this.customClassName;
-            }
-
-            var element = _domHelper2.default.createElement('div', { 'class': itemClass });
-            element.setAttribute('data-id', this.identifier);
-
-            if (this.sticky === true) {
-                var closeButton = _domHelper2.default.createElement('div', { 'class': 'close-button icon-cancel-circle' });
-                element.appendChild(closeButton);
-            }
-
-            return element;
-        }
-    }, {
-        key: "renderHtml",
-        value: function renderHtml() {
-            throw Error('Render method not implemented');
-        }
-    }, {
-        key: "applicationSettings",
-        set: function set(settings) {
-            this.globalSettings = settings;
-        }
-    }]);
-
-    return BaseItem;
-}();
-
-exports.default = BaseItem;
 module.exports = exports.default;
 
 /***/ }),
@@ -1849,131 +1997,6 @@ module.exports = exports.default;
 
 /***/ }),
 
-/***/ "./src/js/item/mediaItem.js":
-/*!**********************************!*\
-  !*** ./src/js/item/mediaItem.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
-
-var _baseItem2 = _interopRequireDefault(_baseItem);
-
-var _fileHelper = __webpack_require__(/*! ./../helper/fileHelper */ "./src/js/helper/fileHelper.js");
-
-var _fileHelper2 = _interopRequireDefault(_fileHelper);
-
-var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
-
-var _domHelper2 = _interopRequireDefault(_domHelper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/**
- * @extends BaseItem
- */
-var MediaItem = function (_BaseItem) {
-    _inherits(MediaItem, _BaseItem);
-
-    _createClass(MediaItem, null, [{
-        key: "unsupportedTagMessage",
-        value: function unsupportedTagMessage() {
-            throw Error('UnsupportedTagMessage method not implemented');
-        }
-
-        /**
-         * @param {object} parameters
-         */
-
-    }]);
-
-    function MediaItem(parameters) {
-        _classCallCheck(this, MediaItem);
-
-        var _this = _possibleConstructorReturn(this, (MediaItem.__proto__ || Object.getPrototypeOf(MediaItem)).call(this, parameters));
-
-        _this.checkRequiredParameters(parameters, ['path']);
-
-        _this.path = parameters.path;
-        _this.caption = parameters.caption;
-        _this.fileExtension = _fileHelper2.default.guessExtension(_this.path);
-
-        _fileHelper2.default.checkFileFormat(_this.fileExtension, _this.supportedFileFormats());
-        return _this;
-    }
-
-    _createClass(MediaItem, [{
-        key: "supportedFileFormats",
-        value: function supportedFileFormats() {
-            throw Error('SupportedFileFormats method not implemented');
-        }
-
-        /**
-         * @returns {HTMLElement}
-         */
-
-    }, {
-        key: "createSource",
-        value: function createSource() {
-            var source = _domHelper2.default.createElement('source');
-            source.setAttribute('src', this.path);
-            source.setAttribute('type', this.supportedFileFormats()[this.fileExtension]);
-
-            return source;
-        }
-
-        /**
-         * @param {string} className
-         * @returns {HTMLElement}
-         */
-
-    }, {
-        key: "createItem",
-        value: function createItem(className) {
-            var item = _domHelper2.default.createElement('div', { 'class': className });
-            item.appendChild(this.createMedia());
-
-            if ('undefined' !== typeof this.caption) {
-                var caption = _domHelper2.default.createElement('span', { 'class': 'caption' }, this.caption, this.globalSettings.allowHtml);
-                item.appendChild(caption);
-            }
-
-            var element = this.createItemElement();
-            element.appendChild(item);
-
-            return element;
-        }
-    }, {
-        key: "createMedia",
-        value: function createMedia() {
-            throw Error('CreateMedia method not implemented');
-        }
-    }]);
-
-    return MediaItem;
-}(_baseItem2.default);
-
-exports.default = MediaItem;
-module.exports = exports.default;
-
-/***/ }),
-
 /***/ "./src/js/item/pictureItem.js":
 /*!************************************!*\
   !*** ./src/js/item/pictureItem.js ***!
@@ -1990,9 +2013,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+var _abstractItem = __webpack_require__(/*! ./abstractItem */ "./src/js/item/abstractItem.js");
 
-var _baseItem2 = _interopRequireDefault(_baseItem);
+var _abstractItem2 = _interopRequireDefault(_abstractItem);
 
 var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
 
@@ -2007,10 +2030,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * @extends BaseItem
+ * @extends AbstractItem
  */
-var PictureItem = function (_BaseItem) {
-    _inherits(PictureItem, _BaseItem);
+var PictureItem = function (_AbstractItem) {
+    _inherits(PictureItem, _AbstractItem);
 
     /**
      * @param {object} parameters
@@ -2079,7 +2102,7 @@ var PictureItem = function (_BaseItem) {
     }]);
 
     return PictureItem;
-}(_baseItem2.default);
+}(_abstractItem2.default);
 
 exports.default = PictureItem;
 module.exports = exports.default;
@@ -2102,9 +2125,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+var _abstractItem = __webpack_require__(/*! ./abstractItem */ "./src/js/item/abstractItem.js");
 
-var _baseItem2 = _interopRequireDefault(_baseItem);
+var _abstractItem2 = _interopRequireDefault(_abstractItem);
 
 var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
 
@@ -2119,10 +2142,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * @extends BaseItem
+ * @extends AbstractItem
  */
-var ProviderItem = function (_BaseItem) {
-    _inherits(ProviderItem, _BaseItem);
+var ProviderItem = function (_AbstractItem) {
+    _inherits(ProviderItem, _AbstractItem);
 
     _createClass(ProviderItem, null, [{
         key: "supportedProviders",
@@ -2214,7 +2237,7 @@ var ProviderItem = function (_BaseItem) {
     }]);
 
     return ProviderItem;
-}(_baseItem2.default);
+}(_abstractItem2.default);
 
 exports.default = ProviderItem;
 module.exports = exports.default;
@@ -2237,9 +2260,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _baseItem = __webpack_require__(/*! ./baseItem */ "./src/js/item/baseItem.js");
+var _abstractItem = __webpack_require__(/*! ./abstractItem */ "./src/js/item/abstractItem.js");
 
-var _baseItem2 = _interopRequireDefault(_baseItem);
+var _abstractItem2 = _interopRequireDefault(_abstractItem);
 
 var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
 
@@ -2254,10 +2277,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * @extends BaseItem
+ * @extends AbstractItem
  */
-var TextItem = function (_BaseItem) {
-    _inherits(TextItem, _BaseItem);
+var TextItem = function (_AbstractItem) {
+    _inherits(TextItem, _AbstractItem);
 
     /**
      * @param {object} parameters
@@ -2362,7 +2385,7 @@ var TextItem = function (_BaseItem) {
     }]);
 
     return TextItem;
-}(_baseItem2.default);
+}(_abstractItem2.default);
 
 exports.default = TextItem;
 module.exports = exports.default;
@@ -2385,13 +2408,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _abstractMediaItem = __webpack_require__(/*! ./abstractMediaItem */ "./src/js/item/abstractMediaItem.js");
+
+var _abstractMediaItem2 = _interopRequireDefault(_abstractMediaItem);
+
 var _domHelper = __webpack_require__(/*! ../helper/domHelper */ "./src/js/helper/domHelper.js");
 
 var _domHelper2 = _interopRequireDefault(_domHelper);
-
-var _mediaItem = __webpack_require__(/*! ./mediaItem */ "./src/js/item/mediaItem.js");
-
-var _mediaItem2 = _interopRequireDefault(_mediaItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2402,10 +2425,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * @extends MediaItem
+ * @extends AbstractMediaItem
  */
-var VideoItem = function (_MediaItem) {
-    _inherits(VideoItem, _MediaItem);
+var VideoItem = function (_AbstractMediaItem) {
+    _inherits(VideoItem, _AbstractMediaItem);
 
     _createClass(VideoItem, null, [{
         key: "unsupportedTagMessage",
@@ -2481,7 +2504,7 @@ var VideoItem = function (_MediaItem) {
     }]);
 
     return VideoItem;
-}(_mediaItem2.default);
+}(_abstractMediaItem2.default);
 
 exports.default = VideoItem;
 module.exports = exports.default;
