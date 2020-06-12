@@ -4,7 +4,7 @@
 
 [![Demo](docs/_static/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
 
-[Online Demo](https://www.jpchateau.com/demo/interactive-image).
+[Online Demo](https://www.jpchateau.com/demo/interactive-image) | [CodePen](https://codepen.io/jpchateau/pen/vYOvGeE)
 
 ## Features
 
@@ -18,7 +18,7 @@
 ## Documentation
 
 The complete documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).  
-Use _Interactive Image_ on [CodePen](https://codepen.io/jpchateau/pen/vYOvGeE)!
+You can discover how to use _Interactive Image_ on [CodePen](https://codepen.io/jpchateau/pen/vYOvGeE).
 
 ## Browser Support
 
@@ -48,7 +48,7 @@ See the contributing guidelines [here](CONTRIBUTING.md).
 
 ## Design philosophy
 
-_Interactive Image_ is designed for developers. To that end, there is a focus on code quality, tests and web performances.  
+_Interactive Image_ is designed for developers. To that end, it is focused on code quality, tests and web performances.  
 The API and documentation have to be simple and clear as well.
 
 ## License

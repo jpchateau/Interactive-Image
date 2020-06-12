@@ -73,13 +73,13 @@ customClassName string  "my-css-class"          No       --              Custom 
 Provider Item
 ~~~~~~~~~~~~~
 
-=============== ======= ========================= ======== =============== =============================
-Property        Type    Example                   Required Default         Purpose
-=============== ======= ========================= ======== =============== =============================
-type            string  "provider"                Yes      --              Item type
-position        object  See ``Position`` object   No       {left:0, top:0} Hotspot position on the scene
-providerName    string  "youtube|dailymotion"     Yes      --              Content provider name
-parameters      object  See ``Parameters`` object Yes      --              Content parameters
-sticky          boolean true                      No       false           Sticky behavior
-customClassName string  "my-css-class"            No       --              Custom CSS class of the item
-=============== ======= ========================= ======== =============== =============================
+=============== ======= =========================== ======== =============== =============================
+Property        Type    Example                     Required Default         Purpose
+=============== ======= =========================== ======== =============== =============================
+type            string  "provider"                  Yes      --              Item type
+position        object  See ``Position`` object     No       {left:0, top:0} Hotspot position on the scene
+providerName    string  "dailymotion|vimeo|youtube" Yes      --              Content provider name
+parameters      object  See ``Parameters`` object   Yes      --              Content parameters
+sticky          boolean true                        No       false           Sticky behavior
+customClassName string  "my-css-class"              No       --              Custom CSS class of the item
+=============== ======= =========================== ======== =============== =============================

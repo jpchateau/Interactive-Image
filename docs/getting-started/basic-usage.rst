@@ -31,7 +31,7 @@ Edit the source code of your web page:
      <script src="interactive-image.min.js"></script>
    </body>
 
-**Note regarding the css file:** You may have to rewrite the relative
+**Note regarding the CSS file:** You may have to rewrite the relative
 paths of the fonts.
 
 **JavaScript**
