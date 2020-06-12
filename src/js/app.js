@@ -65,8 +65,7 @@ export default class App {
             // Add message for unsupported screen sizes
             const unsupportedScreenElement = DomHelper.createElement(
                 'div',
-                {class: 'unsupported-screen'},
-                'Please rotate your device.'
+                {class: 'unsupported-screen'}
             );
             this.$image.append(unsupportedScreenElement);
 

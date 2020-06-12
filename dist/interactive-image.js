@@ -714,7 +714,7 @@ var App = function () {
                 }
 
                 // Add message for unsupported screen sizes
-                var unsupportedScreenElement = _domHelper2.default.createElement('div', { class: 'unsupported-screen' }, 'Please rotate your device.');
+                var unsupportedScreenElement = _domHelper2.default.createElement('div', { class: 'unsupported-screen' });
                 _this2.$image.append(unsupportedScreenElement);
 
                 var t1 = performance.now();

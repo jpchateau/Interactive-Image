@@ -13,12 +13,17 @@
     color: $black-small-text;
     box-shadow: 0 3px 5px rgba(0, 0, 0, .7);
     font-size: 13px;
+    text-align: center;
+
+    &::before {
+      content: 'Please rotate your device.'
+    }
   }
 
   @media screen and (max-width: $break-smartphone-portrait) {
     background-image: none;
     background-color: white;
-    max-width: 320px;
+    max-width: $break-smartphone-portrait;
 
     .unsupported-screen {
       display: block;
