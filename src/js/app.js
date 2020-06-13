@@ -9,14 +9,26 @@ import ShareBox from "./service/shareBox";
 
 export default class App {
     /**
+     * @returns {{allowHtml: boolean, debug: boolean, shareBox: boolean, triggerEvent: string}}
+     */
+    static defaultSettings() {
+        return {
+            allowHtml: false,
+            debug: false,
+            shareBox: true,
+            triggerEvent: 'hover'
+        };
+    }
+
+    /**
      * @param {jQuery} $image
      * @param {array}  items
-     * @param {object} settings
+     * @param {object} options
      */
-    constructor($image, items, settings) {
+    constructor($image, items, options) {
+        this.settings = Object.assign(App.defaultSettings(), options);
         this.$image = $image;
         this.items = items;
-        this.settings = settings;
         this.itemFactory = new ItemFactory();
 
         if ('boolean' !== typeof this.settings.debug) {
@@ -30,10 +42,16 @@ export default class App {
     checkSettings() {
         return new Promise((resolve, reject) => {
             this.logger.group('Settings');
+            this.logger.log(this.settings);
+
             const t0 = performance.now();
 
             if ('boolean' !== typeof this.settings.allowHtml) {
                 throw Error('Check the "allowHtml" option. Allowed type: boolean.');
+            }
+
+            if (this.settings.triggerEvent !== 'click' && this.settings.triggerEvent !== 'hover') {
+                throw Error('Check the "triggerEvent" option. Allowed values: "hover", "click".');
             }
 
             if ('boolean' !== typeof this.settings.shareBox) {
@@ -45,7 +63,7 @@ export default class App {
             }
 
             const t1 = performance.now();
-            this.logger.log('Options checked in ' + (t1 - t0) + 'ms');
+            this.logger.log('Settings checked in ' + (t1 - t0) + 'ms');
             this.logger.groupEnd();
 
             resolve();
@@ -138,7 +156,7 @@ export default class App {
             this.logger.group('Events binding');
             const t0 = performance.now();
 
-            const behavior = new Behavior(this.$image);
+            const behavior = new Behavior(this.$image, this.settings.triggerEvent);
             behavior.bindAll();
 
             const resizer = new Resizer(behavior);

@@ -202,10 +202,11 @@
 
         // Plugin configuration
         var options = {
-            debug: true,     // console logs
-            allowHtml: true, // allow HTML markup
-            shareBox: true,  // display the social media share box
-            socialMedia: {   // configuration of the social media share box
+            debug: true,           // display console logs (default: false)
+            allowHtml: true,       // allow HTML markup inside items (default: false)
+            shareBox: true,        // display the social media share box (default: true)
+            triggerEvent: 'hover', // event on the hotspots that triggers the display of items (default: 'hover')
+            socialMedia: {         // custom configuration of the social media share box
                 url: "https://www.jpchateau.com/demo/interactive-image",
                 text: "Clouded Leopard",
                 hashtags: ["jQuery", "cloudedLeopard"],

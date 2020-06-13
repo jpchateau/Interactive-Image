@@ -4,14 +4,15 @@ Plugin configuration options
 Options
 ~~~~~~~
 
-=========== ======= ========================== ======== ======= ==================================
-Property    Type    Example                    Required Default Purpose
-=========== ======= ========================== ======== ======= ==================================
-debug       boolean true                       No       false   Enable logs in console
-allowHtml   boolean true                       No       false   Enable HTML markup in descriptions
-shareBox    boolean false                      No       true    Enable social media share
-socialMedia object  See ``SocialMedia`` object No       --      Social media configuration
-=========== ======= ========================== ======== ======= ==================================
+============ ======= ========================== ======== ======= =============================================
+Property     Type    Example                    Required Default Purpose
+============ ======= ========================== ======== ======= =============================================
+allowHtml    boolean true                       No       false   Enable HTML markup in descriptions
+debug        boolean true                       No       false   Enable logs in console
+shareBox     boolean false                      No       true    Enable social media share
+socialMedia  object  See ``SocialMedia`` object No       --      Social media configuration
+triggerEvent string  "click|hover"              No       'hover' Mouse event to trigger the display of an item
+============ ======= ========================== ======== ======= =============================================
 
 SocialMedia
 ~~~~~~~~~~~

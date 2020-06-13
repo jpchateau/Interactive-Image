@@ -2,10 +2,22 @@ import DomHelper from "../helper/domHelper";
 
 export default class Behavior {
     /**
+     * @returns {{hover: string, click: string}}
+     */
+    static mouseEvents() {
+        return {
+            'hover': 'mouseenter',
+            'click': 'click'
+        };
+    }
+
+    /**
+     * @param {string} triggerEvent
      * @param {jQuery} $image
      */
-    constructor($image) {
+    constructor($image, triggerEvent) {
         this.$image = $image;
+        this.triggerEvent = triggerEvent;
         this.enabled = false;
     }
 
@@ -132,7 +144,7 @@ export default class Behavior {
     bindHotspotsEvents() {
         let that = this;
 
-        that.$image.on('mouseenter', '.hotspot', function(event) {
+        that.$image.on(Behavior.mouseEvents()[this.triggerEvent], '.hotspot', function(event) {
             const $hotspot = $(this);
             const $relatedTarget = $(event.relatedTarget);
             if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {

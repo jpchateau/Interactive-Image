@@ -2,7 +2,6 @@ Destroying and recreating an instance
 -------------------------------------
 
 | Sometimes you might need to destroy an instance and recreate it.
-| Here is how to achieve it.
 
 .. code:: javascript
 

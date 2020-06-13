@@ -29,6 +29,7 @@ This documentation is organized into the following sections:
    :caption: Advanced features
 
    advanced-features/allow-html
+   advanced-features/trigger-event
    advanced-features/social-media-share
    advanced-features/sticky-items
    advanced-features/style-customization

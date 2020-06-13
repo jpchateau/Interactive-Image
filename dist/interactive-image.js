@@ -650,17 +650,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var App = function () {
-    /**
-     * @param {jQuery} $image
-     * @param {array}  items
-     * @param {object} settings
-     */
-    function App($image, items, settings) {
+    _createClass(App, null, [{
+        key: "defaultSettings",
+
+        /**
+         * @returns {{allowHtml: boolean, debug: boolean, shareBox: boolean, triggerEvent: string}}
+         */
+        value: function defaultSettings() {
+            return {
+                allowHtml: false,
+                debug: false,
+                shareBox: true,
+                triggerEvent: 'hover'
+            };
+        }
+
+        /**
+         * @param {jQuery} $image
+         * @param {array}  items
+         * @param {object} options
+         */
+
+    }]);
+
+    function App($image, items, options) {
         _classCallCheck(this, App);
 
+        this.settings = Object.assign(App.defaultSettings(), options);
         this.$image = $image;
         this.items = items;
-        this.settings = settings;
         this.itemFactory = new _factory2.default();
 
         if ('boolean' !== typeof this.settings.debug) {
@@ -678,10 +696,16 @@ var App = function () {
 
             return new Promise(function (resolve, reject) {
                 _this.logger.group('Settings');
+                _this.logger.log(_this.settings);
+
                 var t0 = performance.now();
 
                 if ('boolean' !== typeof _this.settings.allowHtml) {
                     throw Error('Check the "allowHtml" option. Allowed type: boolean.');
+                }
+
+                if (_this.settings.triggerEvent !== 'click' && _this.settings.triggerEvent !== 'hover') {
+                    throw Error('Check the "triggerEvent" option. Allowed values: "hover", "click".');
                 }
 
                 if ('boolean' !== typeof _this.settings.shareBox) {
@@ -693,7 +717,7 @@ var App = function () {
                 }
 
                 var t1 = performance.now();
-                _this.logger.log('Options checked in ' + (t1 - t0) + 'ms');
+                _this.logger.log('Settings checked in ' + (t1 - t0) + 'ms');
                 _this.logger.groupEnd();
 
                 resolve();
@@ -802,7 +826,7 @@ var App = function () {
                 _this5.logger.group('Events binding');
                 var t0 = performance.now();
 
-                var behavior = new _behavior2.default(_this5.$image);
+                var behavior = new _behavior2.default(_this5.$image, _this5.settings.triggerEvent);
                 behavior.bindAll();
 
                 var resizer = new _resizer2.default(behavior);
@@ -925,13 +949,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Behavior = function () {
-    /**
-     * @param {jQuery} $image
-     */
-    function Behavior($image) {
+    _createClass(Behavior, null, [{
+        key: 'mouseEvents',
+
+        /**
+         * @returns {{hover: string, click: string}}
+         */
+        value: function mouseEvents() {
+            return {
+                'hover': 'mouseenter',
+                'click': 'click'
+            };
+        }
+
+        /**
+         * @param {string} triggerEvent
+         * @param {jQuery} $image
+         */
+
+    }]);
+
+    function Behavior($image, triggerEvent) {
         _classCallCheck(this, Behavior);
 
         this.$image = $image;
+        this.triggerEvent = triggerEvent;
         this.enabled = false;
     }
 
@@ -1073,7 +1115,7 @@ var Behavior = function () {
         value: function bindHotspotsEvents() {
             var that = this;
 
-            that.$image.on('mouseenter', '.hotspot', function (event) {
+            that.$image.on(Behavior.mouseEvents()[this.triggerEvent], '.hotspot', function (event) {
                 var $hotspot = $(this);
                 var $relatedTarget = $(event.relatedTarget);
                 if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
@@ -1514,16 +1556,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     $.fn.interactiveImage = function (items, options) {
         var _this = this;
 
-        var defaults = {
-            debug: false,
-            allowHtml: false,
-            shareBox: true
-        };
-
-        var settings = Object.assign(defaults, options);
-
         return this.each(function () {
-            new _app2.default($(_this), items, settings).execute();
+            new _app2.default($(_this), items, options).execute();
         });
     };
 })(jQuery, window, document);
