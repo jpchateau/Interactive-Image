@@ -1,11 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.6.0 (2020-06-XX)
+## 2.6.0 (2020-06-17)
 * Added support of Vimeo videos
 * Mouse click event available to trigger the display of items
 * Possibility to destroy an instance of the plugin and recreate it
-* Possibility to translate a message related to unsupported screen size using CSS
+* Possibility to translate a message related to unsupported screen sizes using CSS
 * Console logs improved for debugging purposes
 * Some jQuery code replaced by equivalent in vanilla JavaScript
 * Code coverage augmented
