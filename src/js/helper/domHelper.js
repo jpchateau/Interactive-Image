@@ -11,8 +11,8 @@ export default class DomHelper {
     static createElement(name, attributes, text, allowHtml = false) {
         let node = document.createElement(name);
 
-        node = DomHelper.addAttributes(node, attributes);
-        node = DomHelper.addText(node, allowHtml, text);
+        DomHelper.addAttributes(node, attributes);
+        DomHelper.addText(node, allowHtml, text);
 
         return node;
     }
@@ -20,11 +20,10 @@ export default class DomHelper {
     /**
      * @param {HTMLElement} node
      * @param {object} [attributes]
-     * @returns {HTMLElement}
      */
     static addAttributes(node, attributes) {
         if ('undefined' === typeof attributes) {
-            return node;
+            return;
         }
 
         for (let attribute in attributes) {
@@ -32,72 +31,78 @@ export default class DomHelper {
                 node.setAttribute(attribute, attributes[attribute]);
             }
         }
-
-        return node;
     }
 
     /**
      * @param {HTMLElement} node
      * @param {boolean} allowHtml
      * @param {string} text
-     * @returns {HTMLElement}
      */
     static addText(node, allowHtml, text) {
         if ('undefined' === typeof text) {
-            return node;
+            return;
         }
 
         if (false === allowHtml) {
             node.textContent = text;
-        } else {
-            node.innerHTML = text;
+
+            return;
         }
 
-        return node;
+        node.innerHTML = text;
     }
 
     /**
-     * Hide a jQuery wrapped DOM element
+     * Hide a DOM element
      *
-     * @param {jQuery} $element
+     * @param {HTMLElement} element
      */
-    static hideElement($element) {
-        if ($element.css('display') === 'block') {
-            $element.hide();
+    static hideElement(element) {
+        if (element.style.display === 'block' || element.style.display === 'flex') {
+            element.style.display = 'none';
 
-            const $mediaItem = $element.find('.audio-item, .video-item, .provider-item');
-            if ($mediaItem.length !== 0) {
-                DomHelper.stopMedia($element);
+            if (DomHelper.elementContainsMediaItem(element) === true) {
+                DomHelper.stopMedia(element);
             }
         }
     }
 
     /**
-     * Show a jQuery wrapped DOM element
+     * Show a DOM element
      *
-     * @param {jQuery} $element
+     * @param {HTMLElement} element
      */
-    static showElement($element) {
-        if ($element.css('display') !== 'block') {
-            $element.show();
+    static showElement(element) {
+        if (element.style.display !== 'block') {
+            element.style.display = 'block';
         }
     }
 
     /**
-     * @param {jQuery} $hotspot
-     * @returns {jQuery}
+     * @param {HTMLElement} hotspot
+     * @returns {HTMLElement}
      */
-    static retrieveContainerFromHotspot($hotspot) {
-        return $('div[data-id="' + $hotspot.attr('data-for') + '"]');
+    static retrieveContainerFromHotspot(hotspot) {
+        return document.querySelector('div[data-id="' + hotspot.getAttribute('data-for') + '"]');
+    }
+
+    /**
+     * Detect if an item contains media
+     *
+     * @param {HTMLElement} element
+     * @returns {boolean}
+     */
+    static elementContainsMediaItem(element) {
+        return element.querySelectorAll('.audio-item, .video-item, .provider-item').length !== 0;
     }
 
     /**
      * Stop a Media Element from playing and reinitialize it
      *
-     * @param {jQuery} $element
+     * @param {HTMLElement} element
      */
-    static stopMedia($element) {
-        const selector = "div[data-id='" + $element.data('id') + "'] ";
+    static stopMedia(element) {
+        const selector = "div[data-id='" + element.getAttribute('data-id') + "'] ";
         const htmlMedia = document.querySelector(selector + 'audio, ' + selector + 'video');
         if (null !== htmlMedia) {
             htmlMedia.pause();

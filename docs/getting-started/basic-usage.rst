@@ -25,13 +25,13 @@ Edit the source code of your web page:
      <div id="my-interactive-image"></div>
 
      <!-- Include jQuery -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
      <!-- Include Interactive Image jQuery plugin JavaScript -->
      <script src="interactive-image.min.js"></script>
    </body>
 
-**Note regarding the css file:** You may have to rewrite the relative
+**Note regarding the CSS file:** You may have to rewrite the relative
 paths of the fonts.
 
 **JavaScript**

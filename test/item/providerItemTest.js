@@ -1,7 +1,14 @@
 const expect = require('chai').expect;
 const ProviderItem = require('./../../src/js/item/providerItem');
 
-describe('Provider Item', function() {
+describe('ProviderItem', function() {
+    describe('supportedProviders', function() {
+        it('should return an array of supported providers names', function() {
+            expect(ProviderItem.supportedProviders()).to.be.an('array');
+            expect(ProviderItem.supportedProviders()).to.deep.equal(['dailymotion', 'vimeo', 'youtube']);
+        });
+    });
+
     describe('renderHtml', function() {
         it('should return a complete provider item', function() {
             let parameters = {
@@ -35,7 +42,7 @@ describe('Provider Item', function() {
 
         it('should throw an exception when given provider is not supported', function() {
             let parameters = {
-                providerName: "vimeo",
+                providerName: "unsupported-video-platform-name",
                 parameters: {
                     videoId: "XXXYYYZZZ"
                 },
@@ -44,7 +51,7 @@ describe('Provider Item', function() {
                     left: 100
                 }
             };
-            expect(() => new ProviderItem(parameters)).to.throw('Unsupported provider "vimeo"');
+            expect(() => new ProviderItem(parameters)).to.throw('Unsupported provider "unsupported-video-platform-name"');
         });
     });
 });

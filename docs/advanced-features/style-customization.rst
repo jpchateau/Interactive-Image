@@ -16,7 +16,7 @@ Style customization
 | You may also want to change the global rendering of all items, as for example the
   background and the front color of text items.
 | Adapt this CSS snippet to your needs and add it after the
-  ``interactive-image`` css file is loaded:
+  ``interactive-image`` CSS file is loaded:
 
 .. code:: css
 

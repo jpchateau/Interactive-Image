@@ -1,0 +1,13 @@
+I18n
+----
+
+| Only one message can be translated.
+| "Please rotate your device." appears when the width of the user's screen is less than 320 pixels (smartphones portrait)
+  to prevent bad user experience.
+| You can override this text using CSS after the Interactive Image stylesheet.
+
+.. code:: css
+
+   .interactive-image .unsupported-screen::before {
+     content: 'Localized message.'
+   }

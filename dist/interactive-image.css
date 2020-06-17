@@ -1,5 +1,5 @@
 /*!
- * interactive-image v2.5.0
+ * interactive-image v2.6.0
  * https://github.com/jpchateau
  * Jean-Philippe Chateau - <contact@jpchateau.com>
  * MIT License
@@ -18,7 +18,10 @@
     padding: 20px;
     color: #1d2129;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.7);
-    font-size: 13px; }
+    font-size: 13px;
+    text-align: center; }
+    .interactive-image .unsupported-screen::before {
+      content: 'Please rotate your device.'; }
   @media screen and (max-width: 320px) {
     .interactive-image {
       background-image: none;

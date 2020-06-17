@@ -1,8 +1,7 @@
-const expect = require('chai').expect;
 const DomHelper = require('./../../src/js/helper/domHelper');
-const jQuery = require('jquery');
+const expect = require('chai').expect;
 
-describe('DOM Helper', function() {
+describe('DOMHelper', function() {
     describe('createElement', function() {
         it('should return a simple tag', function() {
             expect(DomHelper.createElement('span').nodeName).to.equal('SPAN');
@@ -37,9 +36,8 @@ describe('DOM Helper', function() {
         it('should change css property', function() {
             let element = document.createElement('div');
             element.style.display = 'none';
-            let $element = jQuery(element);
-            DomHelper.showElement($element);
-            expect($element.css('display')).to.equal('block');
+            DomHelper.showElement(element);
+            expect(element.style.display).to.equal('block');
         });
     });
 
@@ -47,9 +45,26 @@ describe('DOM Helper', function() {
         it('should change css property', function() {
             let element = document.createElement('div');
             element.style.display = 'block';
-            let $element = jQuery(element);
-            DomHelper.hideElement($element);
-            expect($element.css('display')).to.equal('none');
+            DomHelper.hideElement(element);
+            expect(element.style.display).to.equal('none');
+        });
+    });
+
+    describe('elementContainsMediaItem', function() {
+        it('should indicate an element contains a media', function() {
+            let element = document.createElement('div');
+            let mediaElement = document.createElement('div');
+            mediaElement.classList.add('audio-item');
+            element.appendChild(mediaElement);
+            expect(DomHelper.elementContainsMediaItem(element)).to.be.true;
+        });
+
+        it('should indicate an element does not contain a media', function() {
+            let element = document.createElement('div');
+            let mediaElement = document.createElement('div');
+            mediaElement.classList.add('text-item');
+            element.appendChild(mediaElement);
+            expect(DomHelper.elementContainsMediaItem(element)).to.be.false;
         });
     });
 });

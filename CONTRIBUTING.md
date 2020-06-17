@@ -11,7 +11,12 @@ Please follow the typical [GitHub Flow](https://guides.github.com/introduction/f
 
 ## Installing and building the project
 
-You will need [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed on your computer.  
+You will need [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed on your computer.
+
+The building process is guaranteed to work with the latest Active LTS version of Node.js.
+Check the releases [here](https://nodejs.org/en/about/releases/).  
+Thus, the Travis file mentions Node.js `12`. It might work with previous Node.js versions, but there are unsupported.
+
 Building is done through npm scripts.
 
 **Scripts to run:**
@@ -81,3 +86,7 @@ It uses the reStructuredText format.
 | `npm run test`               | Run unit tests                                          |
 | `npm run test-with-coverage` | Run unit tests and display code coverage                |
 | `npm run watch`              | Run the watcher for local development                   |
+
+## Interactive Image Tester
+
+[Here](https://github.com/jpchateau/interactive-image-tester), a repository made to test `Interactive Image` in different contexts.

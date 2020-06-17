@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const PictureItem = require('./../../src/js/item/pictureItem');
 
-describe('Picture Item', function() {
+describe('PictureItem', function() {
     describe('renderHtml', function() {
         it('should return a complete picture item', function() {
             let parameters = {

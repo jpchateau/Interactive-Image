@@ -4,7 +4,7 @@
 
 [![Demo](docs/_static/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
 
-[Online Demo](https://www.jpchateau.com/demo/interactive-image).
+[Online Demo](https://www.jpchateau.com/demo/interactive-image) | [CodePen](https://codepen.io/jpchateau/pen/vYOvGeE)
 
 ## Features
 
@@ -17,13 +17,14 @@
 
 ## Documentation
 
-The complete documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).
+The complete documentation is hosted at [Read the docs](https://interactive-image.readthedocs.io).  
+You can discover how to use _Interactive Image_ on [CodePen](https://codepen.io/jpchateau/pen/vYOvGeE).
 
 ## Browser Support
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |
-| --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) |
+| --- | --- | --- | --- |
+| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
 
 ## Changelog
 
@@ -45,11 +46,12 @@ See the contributing guidelines [here](CONTRIBUTING.md).
 * Free:
   * [jquery.hotspot.js](https://github.com/skypluto/jquery.hotspot.js)
 
-## Philosophy
+## Design philosophy
 
-This library is not just a means to create rich media contents. It focuses on code quality and cares about web performances.
+_Interactive Image_ is designed for developers. To that end, it is focused on code quality, tests and web performances.  
+The API and documentation have to be simple and clear as well.
 
 ## License
 
-Copyright (c) 2015-2019 Jean-Philippe Chateau.  
-This content is released under [the MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
+Copyright © 2020 [Jean-Philippe Chateau](https://github.com/jpchateau/).  
+This content is released under the [MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).

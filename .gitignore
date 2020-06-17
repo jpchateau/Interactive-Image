@@ -2,5 +2,5 @@
 .nyc_output/
 coverage/
 dist/*.map
-node_modules/
 docs/_build
+node_modules/

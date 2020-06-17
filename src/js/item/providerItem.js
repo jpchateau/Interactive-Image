@@ -1,24 +1,25 @@
-import BaseItem from "./baseItem";
+import AbstractItem from "./abstractItem";
 import DomHelper from "../helper/domHelper";
 
 /**
- * @extends BaseItem
+ * @extends AbstractItem
  */
-export default class ProviderItem extends BaseItem {
+export default class ProviderItem extends AbstractItem {
     /**
      * @returns {string[]}
      */
     static supportedProviders() {
-        return ['youtube', 'dailymotion'];
+        return Object.keys(ProviderItem.providersUrls());
     }
 
     /**
-     * @returns {{youtube: string, dailymotion: string}}
+     * @returns {{dailymotion: string, vimeo: string, youtube: string}}
      */
     static providersUrls() {
         return {
-            'youtube': 'https://www.youtube.com/embed/',
-            'dailymotion': 'https://www.dailymotion.com/embed/video/'
+            'dailymotion': 'https://www.dailymotion.com/embed/video/',
+            'vimeo': 'https://player.vimeo.com/video/',
+            'youtube': 'https://www.youtube.com/embed/'
         };
     }
 
@@ -59,7 +60,6 @@ export default class ProviderItem extends BaseItem {
         const providerItem = DomHelper.createElement('div', {'class': 'provider-item'});
 
         providerItem.appendChild(this.createIframe());
-
         element.appendChild(providerItem);
 
         return element;

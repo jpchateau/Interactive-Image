@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const VideoItem = require('./../../src/js/item/videoItem');
 
-describe('Video Item', function() {
+describe('VideoItem', function() {
     describe('renderHtml', function() {
         it('should return a complete video item', function() {
             let parameters = {

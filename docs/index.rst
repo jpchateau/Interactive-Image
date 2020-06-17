@@ -1,5 +1,5 @@
 .. meta::
-   :description: Interactive Image documentation
+   :description: Documentation of the Interactive Image jQuery plugin.
    :keywords: interactive-image, storytelling, rich content, javascript, jquery-plugin
 
 Interactive Image
@@ -13,7 +13,7 @@ Interactive Image is a jQuery plugin that eases the creation of media experience
    :align: center
    :target: https://www.jpchateau.com/demo/interactive-image
 
-`Online Demo <https://www.jpchateau.com/demo/interactive-image>`_.
+`Online Demo <https://www.jpchateau.com/demo/interactive-image>`_ | `CodePen <https://codepen.io/jpchateau/pen/vYOvGeE>`_
 
 This documentation is organized into the following sections:
 
@@ -29,9 +29,12 @@ This documentation is organized into the following sections:
    :caption: Advanced features
 
    advanced-features/allow-html
+   advanced-features/trigger-event
    advanced-features/social-media-share
    advanced-features/sticky-items
    advanced-features/style-customization
+   advanced-features/destroying-recreating-instance
+   advanced-features/i18n
    advanced-features/debugging
 
 .. toctree::
