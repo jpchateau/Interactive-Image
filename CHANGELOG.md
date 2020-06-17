@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.6.1 (2020-06-17)
+* Fixed a problem of npm package size
+
 ## 2.6.0 (2020-06-17)
 * Added support of Vimeo videos
 * Mouse click event available to trigger the display of items

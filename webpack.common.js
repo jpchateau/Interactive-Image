@@ -39,7 +39,7 @@ module.exports = {
             filename: '../examples/index.html'
         }),
         new webpack.BannerPlugin({
-            banner: '[name] v2.6.0\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
+            banner: '[name] v2.6.1\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],
     externals: {
