@@ -1,6 +1,6 @@
 {
   "name": "interactiveimagejs",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "A jQuery plugin to embed interactive images on your website",
   "author": "Jean-Philippe Chateau",
   "browser": "./src/js/index.js",
