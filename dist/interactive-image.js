@@ -1291,7 +1291,7 @@ var DomHelper = function () {
             }
 
             for (var attribute in attributes) {
-                if (attributes.hasOwnProperty(attribute)) {
+                if (Object.prototype.hasOwnProperty.call(attributes, attribute)) {
                     node.setAttribute(attribute, attributes[attribute]);
                 }
             }
@@ -1455,7 +1455,7 @@ var FileHelper = function () {
     }, {
         key: 'checkFileFormat',
         value: function checkFileFormat(extension, allowedFormats) {
-            if (allowedFormats.hasOwnProperty(extension)) {
+            if (Object.prototype.hasOwnProperty.call(allowedFormats, extension)) {
                 return;
             }
 
@@ -1552,7 +1552,7 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(function ($, window, document, undefined) {
+(function ($, window, document) {
     $.fn.interactiveImage = function (items, options) {
         var _this = this;
 

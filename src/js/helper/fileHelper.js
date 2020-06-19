@@ -16,7 +16,7 @@ export default class FileHelper {
      * @param {object} allowedFormats
      */
     static checkFileFormat(extension, allowedFormats) {
-        if (allowedFormats.hasOwnProperty(extension)) {
+        if (Object.prototype.hasOwnProperty.call(allowedFormats,extension)) {
             return;
         }
 
