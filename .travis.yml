@@ -11,6 +11,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
+  - npm run sass-lint
   - npm run eslint
   - npm run test-with-coverage
 after_script:

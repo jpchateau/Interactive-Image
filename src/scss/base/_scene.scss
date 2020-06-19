@@ -105,6 +105,7 @@
 [class^='icon-'],
 [class*=' icon-'] {
   // use !important to prevent issues with browser extensions that change fonts
+  // sass-lint:disable no-important
   font-family: '#{$icomoon-font-family}' !important;
   speak: none;
   font-style: normal;
@@ -114,6 +115,7 @@
   line-height: 1;
 
   // Better Font Rendering
+  // sass-lint:disable no-vendor-prefixes
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

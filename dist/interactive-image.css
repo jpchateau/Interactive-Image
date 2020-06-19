@@ -4,7 +4,6 @@
  * Jean-Philippe Chateau - <contact@jpchateau.com>
  * MIT License
  */
-@charset "UTF-8";
 .interactive-image {
   font-family: Arial, sans-serif;
   position: relative;
@@ -97,22 +96,22 @@
   -moz-osx-font-smoothing: grayscale; }
 
 .icon-envelop::before {
-  content: "\E900"; }
+  content: '\E900'; }
 
 .icon-cancel-circle::before {
-  content: "\EA0D"; }
+  content: '\EA0D'; }
 
 .icon-radio-checked::before {
-  content: "\EA54"; }
+  content: '\EA54'; }
 
 .icon-share2::before {
-  content: "\EA82"; }
+  content: '\EA82'; }
 
 .icon-facebook::before {
-  content: "\E901"; }
+  content: '\E901'; }
 
 .icon-twitter::before {
-  content: "\EA96"; }
+  content: '\EA96'; }
 
 .interactive-image .social-share-box {
   position: absolute;
