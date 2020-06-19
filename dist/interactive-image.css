@@ -168,6 +168,8 @@
   .interactive-image .audio-item audio {
     width: 280px;
     margin-bottom: -4px; }
+    .interactive-image .audio-item audio:focus {
+      outline: none; }
 
 .interactive-image .picture-item {
   position: relative;
@@ -246,6 +248,8 @@
     height: 270px;
     margin-bottom: -4px;
     object-fit: cover; }
+    .interactive-image .video-item video:focus {
+      outline: none; }
 
 
 /*# sourceMappingURL=interactive-image.css.map*/
