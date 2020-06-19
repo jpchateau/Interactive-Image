@@ -1,4 +1,4 @@
 recursive: true
 require:
-    - babel-core/register
+    - '@babel/register'
     - jsdom-global/register

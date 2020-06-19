@@ -63,12 +63,13 @@
     "imagesloaded": "^4.1.4"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-loader": "7.1.5",
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "7.10.3",
+    "@babel/register": "^7.10.3",
+    "babel-loader": "8.1.0",
     "babel-plugin-add-module-exports": "1.0.2",
-    "babel-plugin-istanbul": "5.1.1",
-    "babel-preset-env": "1.7.0",
+    "babel-plugin-istanbul": "6.0.0",
     "chai": "4.2.0",
     "cross-env": "7.0.2",
     "css-loader": "1.0.1",
@@ -94,7 +95,7 @@
   },
   "nyc": {
     "require": [
-      "babel-register"
+      "@babel/register"
     ],
     "sourceMap": false,
     "instrument": false

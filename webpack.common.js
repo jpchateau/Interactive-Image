@@ -1,7 +1,7 @@
-const webpack = require('webpack');
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -14,7 +14,10 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env'],
+                },
             },
             {
                 test: /\.scss$/,
