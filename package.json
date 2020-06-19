@@ -2,7 +2,11 @@
   "name": "interactiveimagejs",
   "version": "2.6.1",
   "description": "A jQuery plugin to embed interactive images on your website",
-  "author": "Jean-Philippe Chateau",
+  "author": {
+    "name" : "Jean-Philippe Chateau",
+    "email" : "contact@jpchateau.com",
+    "url" : "https://www.jpchateau.com/"
+  },
   "browser": "./src/js/index.js",
   "license": "MIT",
   "scripts": {
@@ -44,6 +48,9 @@
     "youtube",
     "dailymotion",
     "twitter",
+    "facebook",
+    "vimeo",
+    "soundCloud",
     "javascript",
     "es6",
     "sass"
