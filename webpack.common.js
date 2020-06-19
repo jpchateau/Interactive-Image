@@ -29,7 +29,12 @@ module.exports = {
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file-loader?name=fonts/[name].[ext]'
+                loader: 'file-loader',
+                options: {
+                    esModule: false,
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                },
             }
         ],
     },

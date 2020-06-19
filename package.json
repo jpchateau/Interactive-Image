@@ -74,7 +74,7 @@
     "cross-env": "7.0.2",
     "css-loader": "1.0.1",
     "eslint": "7.3.0",
-    "file-loader": "4.3.0",
+    "file-loader": "6.0.0",
     "html-webpack-plugin": "4.3.0",
     "jquery": "3.5.1",
     "jsdom": "16.2.2",
