@@ -48,7 +48,7 @@ See the contributing guidelines [here](CONTRIBUTING.md).
 
 ## Design philosophy
 
-_Interactive Image_ is designed for developers. To that end, it is focused on code quality, tests and web performances.  
+_Interactive Image_ is designed for developers. To that end, it is focused on code quality, tests, security and web performances.  
 The API and documentation have to be simple and clear as well.
 
 ## License

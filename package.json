@@ -3,9 +3,9 @@
   "version": "2.6.1",
   "description": "A jQuery plugin to embed interactive images on your website",
   "author": {
-    "name" : "Jean-Philippe Chateau",
-    "email" : "contact@jpchateau.com",
-    "url" : "https://www.jpchateau.com/"
+    "name": "Jean-Philippe Chateau",
+    "email": "contact@jpchateau.com",
+    "url": "https://www.jpchateau.com/"
   },
   "browser": "./src/js/index.js",
   "license": "MIT",
@@ -43,7 +43,6 @@
     "multimedia content",
     "rich content",
     "jquery-plugin",
-    "plugin",
     "ecosystem:jquery",
     "youtube",
     "dailymotion",
@@ -52,8 +51,9 @@
     "vimeo",
     "soundCloud",
     "javascript",
-    "es6",
-    "sass"
+    "es2020",
+    "sass",
+    "travis"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
