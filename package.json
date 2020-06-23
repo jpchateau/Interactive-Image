@@ -50,10 +50,11 @@
     "facebook",
     "vimeo",
     "soundCloud",
-    "javascript",
     "es2020",
     "sass",
-    "travis"
+    "travis",
+    "mocha",
+    "webpack"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
@@ -73,7 +74,7 @@
     "chai": "4.2.0",
     "cross-env": "7.0.2",
     "css-loader": "3.6.0",
-    "eslint": "7.3.0",
+    "eslint": "7.3.1",
     "file-loader": "6.0.0",
     "html-webpack-plugin": "4.3.0",
     "jquery": "3.5.1",
