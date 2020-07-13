@@ -16,10 +16,10 @@ export default class FileHelper {
      * @param {object} allowedFormats
      */
     static checkFileFormat(extension, allowedFormats) {
-        if (Object.prototype.hasOwnProperty.call(allowedFormats,extension)) {
-            return;
-        }
+        const formatsMap = new Map(Object.entries(allowedFormats));
 
-        throw Error('Unsupported file extension "' + extension + '"');
+        if (false === formatsMap.has(extension)) {
+            throw Error('Unsupported file extension "' + extension + '"');
+        }
     }
 }

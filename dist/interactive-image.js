@@ -863,8 +863,10 @@ var App = /*#__PURE__*/function () {
         var t0 = performance.now();
 
         if (true === _this6.settings.shareBox) {
+          var _this6$settings$socia;
+
           var shareBox = new _service_shareBox__WEBPACK_IMPORTED_MODULE_7__["default"](_this6.$image[0]);
-          shareBox.build(_this6.settings.socialMedia || {});
+          shareBox.build((_this6$settings$socia = _this6.settings.socialMedia) !== null && _this6$settings$socia !== void 0 ? _this6$settings$socia : {});
           shareBox.bindEvents();
         }
 
@@ -1438,11 +1440,11 @@ var FileHelper = /*#__PURE__*/function () {
   }, {
     key: "checkFileFormat",
     value: function checkFileFormat(extension, allowedFormats) {
-      if (Object.prototype.hasOwnProperty.call(allowedFormats, extension)) {
-        return;
-      }
+      var formatsMap = new Map(Object.entries(allowedFormats));
 
-      throw Error('Unsupported file extension "' + extension + '"');
+      if (false === formatsMap.has(extension)) {
+        throw Error('Unsupported file extension "' + extension + '"');
+      }
     }
   }]);
 
@@ -1603,11 +1605,17 @@ var AbstractItem = /*#__PURE__*/function () {
   _createClass(AbstractItem, [{
     key: "checkRequiredParameters",
     value: function checkRequiredParameters(parameters, requiredParameters) {
-      for (var i in requiredParameters) {
-        if ('undefined' === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-          throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
+      var parametersMap = new Map(Object.entries(parameters));
+
+      var isParameterDefined = function isParameterDefined(name) {
+        return parametersMap.has(name);
+      };
+
+      requiredParameters.forEach(function (name) {
+        if (false === isParameterDefined(name)) {
+          throw Error('Missing required parameter named "' + name + '"');
         }
-      }
+      });
     }
     /**
      * @returns {HTMLElement}
@@ -2714,8 +2722,10 @@ var ShareBox = /*#__PURE__*/function () {
   }], [{
     key: "buildFacebookUrl",
     value: function buildFacebookUrl(options) {
+      var _options$url;
+
       var parameters = {
-        u: options.url || window.location.href
+        u: (_options$url = options.url) !== null && _options$url !== void 0 ? _options$url : window.location.href
       };
       return 'https://www.facebook.com/sharer.php?' + _service_utils__WEBPACK_IMPORTED_MODULE_1__["default"].param(parameters);
     }
@@ -2727,9 +2737,11 @@ var ShareBox = /*#__PURE__*/function () {
   }, {
     key: "buildTwitterUrl",
     value: function buildTwitterUrl(options) {
+      var _options$url2, _options$text;
+
       var parameters = {
-        url: options.url || window.location.href,
-        text: options.text || window.document.title
+        url: (_options$url2 = options.url) !== null && _options$url2 !== void 0 ? _options$url2 : window.location.href,
+        text: (_options$text = options.text) !== null && _options$text !== void 0 ? _options$text : window.document.title
       };
 
       if (typeof options.twitterUsername === 'string') {
@@ -2750,9 +2762,11 @@ var ShareBox = /*#__PURE__*/function () {
   }, {
     key: "buildMailUrl",
     value: function buildMailUrl(options) {
+      var _options$text2, _options$url3;
+
       var parameters = {
         subject: window.document.title,
-        body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
+        body: ((_options$text2 = options.text) !== null && _options$text2 !== void 0 ? _options$text2 : window.document.title) + ' ' + ((_options$url3 = options.url) !== null && _options$url3 !== void 0 ? _options$url3 : window.location.href)
       };
       return 'mailto:?' + _service_utils__WEBPACK_IMPORTED_MODULE_1__["default"].param(parameters);
     }
@@ -2810,8 +2824,10 @@ var UniqueId = /*#__PURE__*/function () {
      * @returns {number}
      */
     value: function now() {
+      var _this$last;
+
       var time = Date.now();
-      this.last = this.last || time;
+      this.last = (_this$last = this.last) !== null && _this$last !== void 0 ? _this$last : time;
       this.last = time > this.last ? time : this.last + 1;
       return this.last;
     }

@@ -34,11 +34,14 @@ export default class AbstractItem {
     }
 
     checkRequiredParameters(parameters, requiredParameters) {
-        for (let i in requiredParameters) {
-            if ('undefined' === typeof parameters[requiredParameters[i]] || null === parameters[requiredParameters[i]] || '' === parameters[requiredParameters[i]]) {
-                throw Error('Missing required parameter named "' + requiredParameters[i] + '"');
+        const parametersMap = new Map(Object.entries(parameters));
+        const isParameterDefined = (name => parametersMap.has(name));
+
+        requiredParameters.forEach((name) => {
+            if (false === isParameterDefined(name)) {
+                throw Error('Missing required parameter named "' + name + '"');
             }
-        }
+        });
     }
 
     /**

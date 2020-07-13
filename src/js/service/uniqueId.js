@@ -4,7 +4,7 @@ export default class UniqueId {
      */
     static now() {
         let time = Date.now();
-        this.last = this.last || time;
+        this.last = this.last ?? time;
         this.last = time > this.last ? time : this.last + 1;
 
         return this.last;
