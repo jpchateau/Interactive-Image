@@ -42,19 +42,10 @@
     "media links",
     "multimedia content",
     "rich content",
+    "javascript",
     "jquery-plugin",
     "ecosystem:jquery",
-    "youtube",
-    "dailymotion",
-    "twitter",
-    "facebook",
-    "vimeo",
-    "soundCloud",
-    "es2020",
-    "sass",
-    "travis",
-    "mocha",
-    "webpack"
+    "es2020"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
