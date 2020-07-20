@@ -204,5 +204,45 @@ describe('TextItem', function() {
             expect(descriptionElement.getAttribute('class')).to.equal('description');
             expect(descriptionElement.textContent).to.equal('my description 5');
         });
+
+        it('should set applicationSettings', function () {
+            let parameters = {
+                title: "my title 6",
+                description: "my description 6",
+                position: {
+                    top: 100,
+                    left: 100
+                }
+            };
+
+            let item = new TextItem(parameters);
+
+            item.applicationSettings = {
+                property1: "value1"
+            };
+
+            expect(item.globalSettings.property1).to.equal('value1');
+        });
+
+        it('should return a valid hotspot', function () {
+            let parameters = {
+                title: "my title 7",
+                description: "my description 7",
+                position: {
+                    top: 200,
+                    left: 100
+                }
+            };
+
+            let item = new TextItem(parameters);
+            let hotspot = item.createHotspotElement();
+            let containerElement = item.renderHtml();
+
+            expect(hotspot.nodeName).to.equal('DIV');
+            expect(hotspot.getAttribute('class')).to.equal('hotspot icon-radio-checked');
+            expect(hotspot.getAttribute('data-for')).to.equal(containerElement.getAttribute('data-id'));
+            expect(hotspot.style.top).to.equal('200px');
+            expect(hotspot.style.left).to.equal('100px');
+        });
     });
 });
