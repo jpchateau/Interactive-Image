@@ -2186,9 +2186,10 @@ var ProviderItem = /*#__PURE__*/function (_AbstractItem) {
     key: "providersUrls",
     value: function providersUrls() {
       return {
-        'dailymotion': 'https://www.dailymotion.com/embed/video/',
-        'vimeo': 'https://player.vimeo.com/video/',
-        'youtube': 'https://www.youtube.com/embed/'
+        'dailymotion': 'https://www.dailymotion.com/embed/video/%id%',
+        'soundcloud': 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/%id%&color=%2326203e&auto_play=false&hide_related=false&sharing=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true',
+        'vimeo': 'https://player.vimeo.com/video/%id%',
+        'youtube': 'https://www.youtube.com/embed/%id%?origin=' + ProviderItem.guessOrigin()
       };
     }
     /**
@@ -2223,9 +2224,12 @@ var ProviderItem = /*#__PURE__*/function (_AbstractItem) {
   _createClass(ProviderItem, [{
     key: "createIframe",
     value: function createIframe() {
+      var _this$parameters$vide;
+
+      var id = (_this$parameters$vide = this.parameters.videoId) !== null && _this$parameters$vide !== void 0 ? _this$parameters$vide : this.parameters.soundId;
       return _helper_domHelper__WEBPACK_IMPORTED_MODULE_1__["default"].createElement('iframe', {
-        'frameborder': '0',
-        'src': ProviderItem.providersUrls()[this.providerName] + this.parameters.videoId + (this.providerName === 'youtube' ? '?origin=' + ProviderItem.guessOrigin() : '')
+        'loading': 'lazy',
+        'src': ProviderItem.providersUrls()[this.providerName].replace('%id%', id)
       });
     }
     /**

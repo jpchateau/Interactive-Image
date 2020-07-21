@@ -198,7 +198,8 @@
   .interactive-image .provider-item iframe {
     width: 480px;
     height: 270px;
-    margin-bottom: -4px; }
+    margin-bottom: -4px;
+    border: none; }
 
 .interactive-image .text-item {
   padding: 20px;
