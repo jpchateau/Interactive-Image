@@ -199,7 +199,7 @@
     width: 480px;
     height: 270px;
     margin-bottom: -4px;
-    border: none; }
+    border: 0; }
 
 .interactive-image .text-item {
   padding: 20px;
