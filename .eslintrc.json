@@ -1,8 +1,11 @@
 {
     "env": {
+        "amd": true,
         "browser": true,
-        "es6": true,
-        "jquery": true
+        "commonjs": true,
+        "es2020": true,
+        "jquery": true,
+        "mocha": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {

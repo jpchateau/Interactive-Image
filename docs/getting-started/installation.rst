@@ -26,11 +26,23 @@ You can also include Interactive Image from a CDN:
 
 **jsDelivr**
 
+.. code:: html
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/interactiveimagejs@2.7.0/dist/interactive-image.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/interactiveimagejs@2.7.0/dist/interactive-image.min.js"></script>
+
 `View Interactive Image at jsDelivr <https://www.jsdelivr.com/package/npm/interactiveimagejs>`_.
 
 **unpkg**
 
-`View Interactive Image at unpkg <https://unpkg.com/interactiveimagejs>`_.
+.. code:: html
+
+    <link rel="stylesheet" href="https://unpkg.com/interactiveimagejs@2.7.0/dist/interactive-image.min.css" />
+
+    <script src="https://unpkg.com/interactiveimagejs@2.7.0/dist/interactive-image.min.js"></script>
+
+`View unpkg <https://unpkg.com/>`_.
 
 Download
 ~~~~~~~~

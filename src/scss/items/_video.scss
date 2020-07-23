@@ -15,6 +15,10 @@
       height: 270px;
       margin-bottom: -4px;
       object-fit: cover;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 }

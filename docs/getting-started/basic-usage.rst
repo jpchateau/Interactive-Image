@@ -31,8 +31,7 @@ Edit the source code of your web page:
      <script src="interactive-image.min.js"></script>
    </body>
 
-**Note regarding the CSS file:** You may have to rewrite the relative
-paths of the fonts.
+**Note regarding the CSS file:** You may have to rewrite the relative paths of the fonts.
 
 **JavaScript**
 
@@ -99,4 +98,5 @@ a sound, a video, and a content provided by a tier.
      $("#my-interactive-image").interactiveImage(items);
    });
 
-You can see a full working example including all types of items in the ``examples`` directory.
+You can see a full working example including all types of items in the ``examples`` directory
+or a simple example at `CodePen <https://codepen.io/jpchateau/pen/vYOvGeE>`_.

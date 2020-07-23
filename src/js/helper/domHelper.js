@@ -27,7 +27,7 @@ export default class DomHelper {
         }
 
         for (let attribute in attributes) {
-            if (attributes.hasOwnProperty(attribute)) {
+            if (Object.prototype.hasOwnProperty.call(attributes, attribute)) {
                 node.setAttribute(attribute, attributes[attribute]);
             }
         }

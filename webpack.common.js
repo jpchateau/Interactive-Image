@@ -1,7 +1,7 @@
-const webpack = require('webpack');
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -14,7 +14,10 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env'],
+                },
             },
             {
                 test: /\.scss$/,
@@ -26,7 +29,12 @@ module.exports = {
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file-loader?name=fonts/[name].[ext]'
+                loader: 'file-loader',
+                options: {
+                    esModule: false,
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                },
             }
         ],
     },
@@ -39,7 +47,7 @@ module.exports = {
             filename: '../examples/index.html'
         }),
         new webpack.BannerPlugin({
-            banner: '[name] v2.6.1\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
+            banner: '[name] v2.7.0\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],
     externals: {

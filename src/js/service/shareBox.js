@@ -15,7 +15,7 @@ export default class ShareBox {
      */
     static buildFacebookUrl(options) {
         let parameters = {
-            u: options.url || window.location.href
+            u: options.url ?? window.location.href
         };
 
         return 'https://www.facebook.com/sharer.php?' + Utils.param(parameters);
@@ -27,8 +27,8 @@ export default class ShareBox {
      */
     static buildTwitterUrl(options) {
         let parameters = {
-            url: options.url || window.location.href,
-            text: options.text || window.document.title
+            url: options.url ?? window.location.href,
+            text: options.text ?? window.document.title
         };
 
         if (typeof options.twitterUsername === 'string') {
@@ -49,7 +49,7 @@ export default class ShareBox {
     static buildMailUrl(options) {
         let parameters = {
             subject: window.document.title,
-            body: (options.text || window.document.title) + ' ' + (options.url || window.location.href)
+            body: (options.text ?? window.document.title) + ' ' + (options.url ?? window.location.href)
         };
 
         return 'mailto:?' + Utils.param(parameters);

@@ -1,8 +1,12 @@
 {
   "name": "interactiveimagejs",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "A jQuery plugin to embed interactive images on your website",
-  "author": "Jean-Philippe Chateau",
+  "author": {
+    "name": "Jean-Philippe Chateau",
+    "email": "contact@jpchateau.com",
+    "url": "https://www.jpchateau.com/"
+  },
   "browser": "./src/js/index.js",
   "license": "MIT",
   "scripts": {
@@ -38,15 +42,10 @@
     "media links",
     "multimedia content",
     "rich content",
-    "jquery-plugin",
-    "plugin",
-    "ecosystem:jquery",
-    "youtube",
-    "dailymotion",
-    "twitter",
     "javascript",
-    "es6",
-    "sass"
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "es2020"
   ],
   "homepage": "https://github.com/jpchateau/Interactive-Image#readme",
   "bugs": {
@@ -56,38 +55,39 @@
     "imagesloaded": "^4.1.4"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-loader": "7.1.5",
+    "@babel/cli": "7.10.5",
+    "@babel/core": "7.10.5",
+    "@babel/preset-env": "7.10.4",
+    "@babel/register": "7.10.5",
+    "babel-loader": "8.1.0",
     "babel-plugin-add-module-exports": "1.0.2",
-    "babel-plugin-istanbul": "5.1.1",
-    "babel-preset-env": "1.7.0",
+    "babel-plugin-istanbul": "6.0.0",
     "chai": "4.2.0",
-    "cross-env": "5.2.0",
-    "css-loader": "1.0.1",
-    "eslint": "5.16.0",
-    "file-loader": "4.1.0",
-    "html-webpack-plugin": "3.2.0",
+    "cross-env": "7.0.2",
+    "css-loader": "3.6.0",
+    "eslint": "7.5.0",
+    "file-loader": "6.0.0",
+    "html-webpack-plugin": "4.3.0",
     "jquery": "3.5.1",
-    "jsdom": "16.2.2",
+    "jsdom": "16.3.0",
     "jsdom-global": "3.0.2",
-    "mini-css-extract-plugin": "0.8.0",
-    "mocha": "6.2.0",
+    "mini-css-extract-plugin": "0.9.0",
+    "mocha": "8.0.1",
     "node-sass": "4.14.1",
-    "nyc": "14.1.1",
+    "nyc": "15.1.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "sass-lint": "1.13.1",
-    "sass-loader": "7.1.0",
-    "style-loader": "1.0.0",
+    "sass-loader": "9.0.2",
+    "style-loader": "1.2.1",
     "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.43.0",
-    "webpack-cli": "3.3.11",
+    "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0",
-    "webpack-merge": "4.2.2"
+    "webpack-merge": "5.0.9"
   },
   "nyc": {
     "require": [
-      "babel-register"
+      "@babel/register"
     ],
     "sourceMap": false,
     "instrument": false

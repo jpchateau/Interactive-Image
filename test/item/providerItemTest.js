@@ -5,7 +5,7 @@ describe('ProviderItem', function() {
     describe('supportedProviders', function() {
         it('should return an array of supported providers names', function() {
             expect(ProviderItem.supportedProviders()).to.be.an('array');
-            expect(ProviderItem.supportedProviders()).to.deep.equal(['dailymotion', 'vimeo', 'youtube']);
+            expect(ProviderItem.supportedProviders()).to.deep.equal(['dailymotion', 'soundcloud', 'vimeo', 'youtube']);
         });
     });
 
@@ -37,7 +37,7 @@ describe('ProviderItem', function() {
             let iframeElement = providerContainerElement.childNodes[0];
             expect(iframeElement.nodeName).to.equal('IFRAME');
             expect(iframeElement.getAttribute('src')).to.contain('https://www.youtube.com/embed/XXXYYYZZZ');
-            expect(iframeElement.getAttribute('frameborder')).to.equal('0');
+            expect(iframeElement.getAttribute('loading')).to.equal('lazy');
         });
 
         it('should throw an exception when given provider is not supported', function() {

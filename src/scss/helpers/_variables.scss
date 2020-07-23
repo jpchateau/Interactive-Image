@@ -6,9 +6,10 @@ $break-smartphone-portrait: 320px;
 $icomoon-font-family: 'icomoon' !default;
 $icomoon-font-path: '../fonts' !default;
 
-$icon-envelop: '\e900';
-$icon-cancel-circle: '\ea0d';
-$icon-radio-checked: '\ea54';
-$icon-share2: '\ea82';
-$icon-facebook: '\e901';
-$icon-twitter: '\ea96';
+// unquote comes with the css-loader update. See workaround https://github.com/sass/sass/issues/659
+$icon-envelop: unquote('\'\\#{E900}\'');
+$icon-cancel-circle: unquote('\'\\#{EA0D}\'');
+$icon-radio-checked: unquote('\'\\#{EA54}\'');
+$icon-share2: unquote('\'\\#{EA82}\'');
+$icon-facebook: unquote('\'\\#{E901}\'');
+$icon-twitter: unquote('\'\\#{EA96}\'');

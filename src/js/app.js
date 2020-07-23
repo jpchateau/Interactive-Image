@@ -177,7 +177,7 @@ export default class App {
 
             if (true === this.settings.shareBox) {
                 const shareBox = new ShareBox(this.$image[0]);
-                shareBox.build(this.settings.socialMedia || {});
+                shareBox.build(this.settings.socialMedia ?? {});
                 shareBox.bindEvents();
             }
 

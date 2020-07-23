@@ -69,6 +69,17 @@ $ npm run test
 $ npm run test-with-coverage
 ```
 
+## Project structure
+
+* `dist` - Generated distribution files created by [Webpack](https://webpack.js.org/).
+* `docs/_build` - Generated documentation files created by [Sphinx](http://www.sphinx-doc.org/en/master/).
+* `docs` - Documentation files using reStructuredText format.
+* `examples` - An HTML file that shows how to use the library.
+* `src/fonts` - Fonts used by the project.
+* `src/js` - Source files (ES2020).
+* `src/scss` - Source files (Sass).
+* `test` - Unit tests.
+
 ## Documentation
 
 The technical documentation is built with [Sphinx](http://www.sphinx-doc.org/en/master/) and hosted at [Read the docs](https://interactive-image.readthedocs.io).  

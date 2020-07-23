@@ -1,6 +1,13 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.7.0 (2020-07-24)
+* Added support of SoundCloud tracks
+* Fixed an outline focus css issue on video/audio tags appeared on latest Google Chrome versions
+* Package size has been reduced to the minimum by removing unnecessary files
+* Codebase improvements regarding loading of iframe elements and ES2020
+* Code coverage augmented
+
 ## 2.6.1 (2020-06-17)
 * Fixed a problem of npm package size
 
