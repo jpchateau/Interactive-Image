@@ -12,12 +12,12 @@ export default class Behavior {
     }
 
     /**
-     * @param {string} triggerEvent
      * @param {jQuery} $image
+     * @param {string} triggerEventName
      */
-    constructor($image, triggerEvent) {
+    constructor($image, triggerEventName) {
         this.$image = $image;
-        this.triggerEvent = triggerEvent;
+        this.triggerEventName = triggerEventName;
         this.enabled = false;
     }
 
@@ -39,7 +39,10 @@ export default class Behavior {
         this.$image.off();
     }
 
-    bindHostpotMouseLeave($hotspot) {
+    /**
+     * @param {jQuery} $hotspot
+     */
+    bindHotspotMouseLeave($hotspot) {
         $hotspot.on('mouseleave', function(event) {
             const $relatedTarget = $(event.relatedTarget);
             // If parent has class "item", it enters container so there is no need to hide it
@@ -64,7 +67,7 @@ export default class Behavior {
     }
 
     bindSceneEvents() {
-        // Mouse enters scene -> show all hotspots and share box
+        // Mouse enters scene -> show all hotspots and share box (if exists)
         this.$image.on('mouseenter', function() {
             const $hotspots = $(this).find('.hotspot');
             $.each($hotspots, function() {
@@ -72,12 +75,16 @@ export default class Behavior {
             });
 
             const $shareBox = $(this).find('.social-share-box');
+            if (!$shareBox.length) {
+                return;
+            }
+
             setTimeout(() => {
                 $shareBox.css('display', 'flex');
             }, 100);
         });
 
-        // Mouse leaves scene -> hide all hotspots, containers and share box
+        // Mouse leaves scene -> hide all hotspots, containers and share box (if exists)
         this.$image.on('mouseleave', function() {
             const $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
@@ -85,6 +92,10 @@ export default class Behavior {
             });
 
             const $shareBox = $(this).find('.social-share-box');
+            if (!$shareBox.length) {
+                return;
+            }
+
             DomHelper.hideElement($shareBox[0]);
         });
     }
@@ -117,7 +128,7 @@ export default class Behavior {
                 return;
             }
 
-            that.bindHostpotMouseLeave($hotspot);
+            that.bindHotspotMouseLeave($hotspot);
             $container.on('mouseenter', function() {
                 that.unbindHotspotMouseLeave($hotspot[0]);
             });
@@ -131,7 +142,7 @@ export default class Behavior {
                 }
 
                 DomHelper.hideElement($(this)[0]);
-                that.bindHostpotMouseLeave($hotspot);
+                that.bindHotspotMouseLeave($hotspot);
             });
         });
 
@@ -144,12 +155,12 @@ export default class Behavior {
     bindHotspotsEvents() {
         let that = this;
 
-        that.$image.on(Behavior.mouseEvents()[this.triggerEvent], '.hotspot', function(event) {
+        that.$image.on(Behavior.mouseEvents()[this.triggerEventName], '.hotspot', function(event) {
             const $hotspot = $(this);
             const $relatedTarget = $(event.relatedTarget);
             if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
                 // If parent has class "item", it only re-enters from item
-                return that.bindHostpotMouseLeave($hotspot);
+                return that.bindHotspotMouseLeave($hotspot);
             }
 
             // Hide all other containers that are not sticky

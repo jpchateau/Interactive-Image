@@ -17,3 +17,4 @@ webpack.dev.js
 webpack.prod.js                                          
 .eslintrc.json
 examples/
+.mocharc.yml

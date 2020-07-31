@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.7.1 (2020-07-31)
+* Fixed an issue when share box is hidden - issue [#8](https://github.com/jpchateau/Interactive-Image/issues/8)
+
 ## 2.7.0 (2020-07-24)
 * Added support of SoundCloud tracks
 * Fixed an outline focus css issue on video/audio tags appeared on latest Google Chrome versions
