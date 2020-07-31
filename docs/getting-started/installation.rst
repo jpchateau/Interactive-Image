@@ -28,9 +28,9 @@ You can also include Interactive Image from a CDN:
 
 .. code:: html
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/interactiveimagejs@2.7.0/dist/interactive-image.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/interactiveimagejs@2.7.1/dist/interactive-image.min.css" />
 
-    <script src="https://cdn.jsdelivr.net/npm/interactiveimagejs@2.7.0/dist/interactive-image.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactiveimagejs@2.7.1/dist/interactive-image.min.js"></script>
 
 `View Interactive Image at jsDelivr <https://www.jsdelivr.com/package/npm/interactiveimagejs>`_.
 
@@ -38,9 +38,9 @@ You can also include Interactive Image from a CDN:
 
 .. code:: html
 
-    <link rel="stylesheet" href="https://unpkg.com/interactiveimagejs@2.7.0/dist/interactive-image.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/interactiveimagejs@2.7.1/dist/interactive-image.min.css" />
 
-    <script src="https://unpkg.com/interactiveimagejs@2.7.0/dist/interactive-image.min.js"></script>
+    <script src="https://unpkg.com/interactiveimagejs@2.7.1/dist/interactive-image.min.js"></script>
 
 `View unpkg <https://unpkg.com/>`_.
 
