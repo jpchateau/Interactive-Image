@@ -9,7 +9,7 @@ describe('Behavior', function() {
             const behavior = new Behavior($image, 'hover');
             expect(behavior.constructor.name).to.equal('Behavior');
             expect(behavior.enabled).to.be.false;
-            expect(behavior.triggerEvent).to.be.a('string');
+            expect(behavior.triggerEventName).to.be.a('string');
         });
     });
 });
