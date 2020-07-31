@@ -64,7 +64,7 @@ export default class Behavior {
     }
 
     bindSceneEvents() {
-        // Mouse enters scene -> show all hotspots and share box
+        // Mouse enters scene -> show all hotspots and share box (if exists)
         this.$image.on('mouseenter', function() {
             const $hotspots = $(this).find('.hotspot');
             $.each($hotspots, function() {
@@ -72,12 +72,16 @@ export default class Behavior {
             });
 
             const $shareBox = $(this).find('.social-share-box');
+            if (!$shareBox.length) {
+                return;
+            }
+
             setTimeout(() => {
                 $shareBox.css('display', 'flex');
             }, 100);
         });
 
-        // Mouse leaves scene -> hide all hotspots, containers and share box
+        // Mouse leaves scene -> hide all hotspots, containers and share box (if exists)
         this.$image.on('mouseleave', function() {
             const $elements = $(this).find('.hotspot, .item');
             $.each($elements, function() {
@@ -85,6 +89,10 @@ export default class Behavior {
             });
 
             const $shareBox = $(this).find('.social-share-box');
+            if (!$shareBox.length) {
+                return;
+            }
+
             DomHelper.hideElement($shareBox[0]);
         });
     }
