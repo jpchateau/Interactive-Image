@@ -632,7 +632,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -654,28 +654,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 var App = /*#__PURE__*/function () {
-  _createClass(App, null, [{
-    key: "defaultSettings",
-
-    /**
-     * @returns {{allowHtml: boolean, debug: boolean, shareBox: boolean, triggerEvent: string}}
-     */
-    value: function defaultSettings() {
-      return {
-        allowHtml: false,
-        debug: false,
-        shareBox: true,
-        triggerEvent: 'hover'
-      };
-    }
-    /**
-     * @param {jQuery} $image
-     * @param {array}  items
-     * @param {object} options
-     */
-
-  }]);
-
+  /**
+   * @param {jQuery} $image
+   * @param {array}  items
+   * @param {object} options
+   */
   function App($image, items, options) {
     _classCallCheck(this, App);
 
@@ -936,6 +919,20 @@ var App = /*#__PURE__*/function () {
         _this8.logger.groupEnd();
       });
     }
+  }], [{
+    key: "defaultSettings",
+    value:
+    /**
+     * @returns {{allowHtml: boolean, debug: boolean, shareBox: boolean, triggerEvent: string}}
+     */
+    function defaultSettings() {
+      return {
+        allowHtml: false,
+        debug: false,
+        shareBox: true,
+        triggerEvent: 'hover'
+      };
+    }
   }]);
 
   return App;
@@ -965,25 +962,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 var Behavior = /*#__PURE__*/function () {
-  _createClass(Behavior, null, [{
-    key: "mouseEvents",
-
-    /**
-     * @returns {{hover: string, click: string}}
-     */
-    value: function mouseEvents() {
-      return {
-        'hover': 'mouseenter',
-        'click': 'click'
-      };
-    }
-    /**
-     * @param {jQuery} $image
-     * @param {string} triggerEventName
-     */
-
-  }]);
-
+  /**
+   * @param {jQuery} $image
+   * @param {string} triggerEventName
+   */
   function Behavior($image, triggerEventName) {
     _classCallCheck(this, Behavior);
 
@@ -1155,6 +1137,18 @@ var Behavior = /*#__PURE__*/function () {
         _helper_domHelper__WEBPACK_IMPORTED_MODULE_0__["default"].showElement(container);
       });
     }
+  }], [{
+    key: "mouseEvents",
+    value:
+    /**
+     * @returns {{hover: string, click: string}}
+     */
+    function mouseEvents() {
+      return {
+        'hover': 'mouseenter',
+        'click': 'click'
+      };
+    }
   }]);
 
   return Behavior;
@@ -1181,23 +1175,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Resizer = /*#__PURE__*/function () {
-  _createClass(Resizer, null, [{
-    key: "breakpoints",
-
-    /**
-     * @returns {{"smartphones-portrait": number}}
-     */
-    value: function breakpoints() {
-      return {
-        'smartphones-portrait': 320
-      };
-    }
-    /**
-     * @param {Behavior} behavior
-     */
-
-  }]);
-
+  /**
+   * @param {Behavior} behavior
+   */
   function Resizer(behavior) {
     _classCallCheck(this, Resizer);
 
@@ -1238,6 +1218,17 @@ var Resizer = /*#__PURE__*/function () {
         resizeTimer = setTimeout(enableEffects, 300);
       });
     }
+  }], [{
+    key: "breakpoints",
+    value:
+    /**
+     * @returns {{"smartphones-portrait": number}}
+     */
+    function breakpoints() {
+      return {
+        'smartphones-portrait': 320
+      };
+    }
   }]);
 
   return Resizer;
@@ -1270,7 +1261,7 @@ var DomHelper = /*#__PURE__*/function () {
 
   _createClass(DomHelper, null, [{
     key: "createElement",
-
+    value:
     /**
      * Create a DOM element
      *
@@ -1280,7 +1271,7 @@ var DomHelper = /*#__PURE__*/function () {
      * @param {?boolean} allowHtml  - allow HTML markup
      * @returns {HTMLElement}
      */
-    value: function createElement(name, attributes, text) {
+    function createElement(name, attributes, text) {
       var allowHtml = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
       var node = document.createElement(name);
       DomHelper.addAttributes(node, attributes);
@@ -1434,14 +1425,14 @@ var FileHelper = /*#__PURE__*/function () {
 
   _createClass(FileHelper, null, [{
     key: "guessExtension",
-
+    value:
     /**
      * Guess extension of a filename
      *
      * @param {string} filename
      * @returns {string}
      */
-    value: function guessExtension(filename) {
+    function guessExtension(filename) {
       return filename.split('.').pop();
     }
     /**
@@ -1492,7 +1483,7 @@ var ItemHelper = /*#__PURE__*/function () {
 
   _createClass(ItemHelper, null, [{
     key: "calculateInitialContainerPosition",
-
+    value:
     /**
      * Determinate the position (left, top) of the item container after the hotspot position
      *
@@ -1501,7 +1492,7 @@ var ItemHelper = /*#__PURE__*/function () {
      * @param {number} width
      * @returns {*[]}
      */
-    value: function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
+    function calculateInitialContainerPosition(hotspotLeft, hotspotTop, width) {
       return [hotspotLeft + 25 - width / 2, // 25 is the width of the hotspot (50px) divided by 2
       hotspotTop + 40 // 40 is the offset to position the container below the hotspot
       ];
@@ -1578,21 +1569,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 var AbstractItem = /*#__PURE__*/function () {
-  _createClass(AbstractItem, null, [{
-    key: "stickyClassName",
-
-    /**
-     * @returns {string}
-     */
-    value: function stickyClassName() {
-      return 'behavior-sticky';
-    }
-    /**
-     * @param {object} parameters
-     */
-
-  }]);
-
+  /**
+   * @param {object} parameters
+   */
   function AbstractItem(parameters) {
     _classCallCheck(this, AbstractItem);
 
@@ -1617,6 +1596,11 @@ var AbstractItem = /*#__PURE__*/function () {
 
 
   _createClass(AbstractItem, [{
+    key: "applicationSettings",
+    set: function set(settings) {
+      this.globalSettings = settings;
+    }
+  }, {
     key: "checkRequiredParameters",
     value: function checkRequiredParameters(parameters, requiredParameters) {
       var parametersMap = new Map(Object.entries(parameters));
@@ -1682,10 +1666,14 @@ var AbstractItem = /*#__PURE__*/function () {
     value: function renderHtml() {
       throw Error('Render method not implemented');
     }
-  }, {
-    key: "applicationSettings",
-    set: function set(settings) {
-      this.globalSettings = settings;
+  }], [{
+    key: "stickyClassName",
+    value:
+    /**
+     * @returns {string}
+     */
+    function stickyClassName() {
+      return 'behavior-sticky';
     }
   }]);
 
@@ -1727,7 +1715,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -1743,17 +1731,9 @@ var AbstractMediaItem = /*#__PURE__*/function (_AbstractItem) {
 
   var _super = _createSuper(AbstractMediaItem);
 
-  _createClass(AbstractMediaItem, null, [{
-    key: "unsupportedTagMessage",
-    value: function unsupportedTagMessage() {
-      throw Error('UnsupportedTagMessage method not implemented');
-    }
-    /**
-     * @param {object} parameters
-     */
-
-  }]);
-
+  /**
+   * @param {object} parameters
+   */
   function AbstractMediaItem(parameters) {
     var _this;
 
@@ -1820,6 +1800,11 @@ var AbstractMediaItem = /*#__PURE__*/function (_AbstractItem) {
     value: function createMedia() {
       throw Error('CreateMedia method not implemented');
     }
+  }], [{
+    key: "unsupportedTagMessage",
+    value: function unsupportedTagMessage() {
+      throw Error('UnsupportedTagMessage method not implemented');
+    }
   }]);
 
   return AbstractMediaItem;
@@ -1859,7 +1844,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -1874,21 +1859,9 @@ var AudioItem = /*#__PURE__*/function (_AbstractMediaItem) {
 
   var _super = _createSuper(AudioItem);
 
-  _createClass(AudioItem, null, [{
-    key: "unsupportedTagMessage",
-
-    /**
-     * @returns {string}
-     */
-    value: function unsupportedTagMessage() {
-      return 'Your browser does not support the audio tag.';
-    }
-    /**
-     * @param {object} parameters
-     */
-
-  }]);
-
+  /**
+   * @param {object} parameters
+   */
   function AudioItem(parameters) {
     _classCallCheck(this, AudioItem);
 
@@ -1933,6 +1906,15 @@ var AudioItem = /*#__PURE__*/function (_AbstractMediaItem) {
     key: "renderHtml",
     value: function renderHtml() {
       return this.createItem('audio-item');
+    }
+  }], [{
+    key: "unsupportedTagMessage",
+    value:
+    /**
+     * @returns {string}
+     */
+    function unsupportedTagMessage() {
+      return 'Your browser does not support the audio tag.';
     }
   }]);
 
@@ -1984,13 +1966,13 @@ var Factory = /*#__PURE__*/function () {
 
   _createClass(Factory, [{
     key: "create",
-
+    value:
     /**
      * @param {string} name
      * @param {object} parameters
      * @returns {AudioItem|PictureItem|ProviderItem|TextItem|VideoItem}
      */
-    value: function create(name, parameters) {
+    function create(name, parameters) {
       var className = name.toLowerCase() + 'Item';
       className = className.charAt(0).toUpperCase() + className.slice(1);
 
@@ -2047,7 +2029,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -2168,7 +2150,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -2183,35 +2165,9 @@ var ProviderItem = /*#__PURE__*/function (_AbstractItem) {
 
   var _super = _createSuper(ProviderItem);
 
-  _createClass(ProviderItem, null, [{
-    key: "supportedProviders",
-
-    /**
-     * @returns {string[]}
-     */
-    value: function supportedProviders() {
-      return Object.keys(ProviderItem.providersUrls());
-    }
-    /**
-     * @returns {{dailymotion: string, vimeo: string, youtube: string}}
-     */
-
-  }, {
-    key: "providersUrls",
-    value: function providersUrls() {
-      return {
-        'dailymotion': 'https://www.dailymotion.com/embed/video/%id%',
-        'soundcloud': 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/%id%&color=%2326203e&auto_play=false&hide_related=false&sharing=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true',
-        'vimeo': 'https://player.vimeo.com/video/%id%',
-        'youtube': 'https://www.youtube.com/embed/%id%?origin=' + ProviderItem.guessOrigin()
-      };
-    }
-    /**
-     * @param {object} parameters
-     */
-
-  }]);
-
+  /**
+   * @param {object} parameters
+   */
   function ProviderItem(parameters) {
     var _this;
 
@@ -2266,6 +2222,29 @@ var ProviderItem = /*#__PURE__*/function (_AbstractItem) {
      */
 
   }], [{
+    key: "supportedProviders",
+    value:
+    /**
+     * @returns {string[]}
+     */
+    function supportedProviders() {
+      return Object.keys(ProviderItem.providersUrls());
+    }
+    /**
+     * @returns {{dailymotion: string, vimeo: string, youtube: string}}
+     */
+
+  }, {
+    key: "providersUrls",
+    value: function providersUrls() {
+      return {
+        'dailymotion': 'https://www.dailymotion.com/embed/video/%id%',
+        'soundcloud': 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/%id%&color=%2326203e&auto_play=false&hide_related=false&sharing=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true',
+        'vimeo': 'https://player.vimeo.com/video/%id%',
+        'youtube': 'https://www.youtube.com/embed/%id%?origin=' + ProviderItem.guessOrigin()
+      };
+    }
+  }, {
     key: "guessOrigin",
     value: function guessOrigin() {
       var urlSplit = window.location.href.split("/");
@@ -2310,7 +2289,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -2465,7 +2444,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -2480,21 +2459,9 @@ var VideoItem = /*#__PURE__*/function (_AbstractMediaItem) {
 
   var _super = _createSuper(VideoItem);
 
-  _createClass(VideoItem, null, [{
-    key: "unsupportedTagMessage",
-
-    /**
-     * @returns {string}
-     */
-    value: function unsupportedTagMessage() {
-      return 'Your browser does not support the video tag.';
-    }
-    /**
-     * @param {object} parameters
-     */
-
-  }]);
-
+  /**
+   * @param {object} parameters
+   */
   function VideoItem(parameters) {
     var _this;
 
@@ -2549,6 +2516,15 @@ var VideoItem = /*#__PURE__*/function (_AbstractMediaItem) {
     value: function renderHtml() {
       return this.createItem('video-item');
     }
+  }], [{
+    key: "unsupportedTagMessage",
+    value:
+    /**
+     * @returns {string}
+     */
+    function unsupportedTagMessage() {
+      return 'Your browser does not support the video tag.';
+    }
   }]);
 
   return VideoItem;
@@ -2588,11 +2564,16 @@ var Logger = /*#__PURE__*/function () {
 
 
   _createClass(Logger, [{
-    key: "log",
-
+    key: "debug",
+    set: function set(value) {
+      this.enable = value;
+    }
     /**
      * @param {string,object} message - message or object to display in console
      */
+
+  }, {
+    key: "log",
     value: function log(message) {
       if (!window.console || !window.console.log || false === this.enable) {
         return;
@@ -2625,11 +2606,6 @@ var Logger = /*#__PURE__*/function () {
       }
 
       window.console.groupEnd();
-    }
-  }, {
-    key: "debug",
-    set: function set(value) {
-      this.enable = value;
     }
   }]);
 
@@ -2680,12 +2656,12 @@ var ShareBox = /*#__PURE__*/function () {
 
   _createClass(ShareBox, [{
     key: "buildFacebookButton",
-
+    value:
     /**
      * @param {object} options
      * @returns {HTMLElement}
      */
-    value: function buildFacebookButton(options) {
+    function buildFacebookButton(options) {
       return ShareBox.buildButton('social-button facebook-colors icon-facebook', ShareBox.buildFacebookUrl(options));
     }
     /**
@@ -2837,11 +2813,11 @@ var UniqueId = /*#__PURE__*/function () {
 
   _createClass(UniqueId, null, [{
     key: "now",
-
+    value:
     /**
      * @returns {number}
      */
-    value: function now() {
+    function now() {
       var _this$last;
 
       var time = Date.now();
