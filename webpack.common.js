@@ -1,14 +1,18 @@
+const fs = require('fs');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveAppPath = relativePath => path.resolve(appDirectory, relativePath);
+
 module.exports = {
     entry: {
-        'interactive-image': './src/js/index.js'
+        'interactive-image': resolveAppPath('src/js'),
     },
     output: {
-        path: path.resolve(__dirname, 'dist')
+        path: resolveAppPath('dist'),
     },
     module: {
         rules: [
@@ -56,5 +60,9 @@ module.exports = {
     watchOptions: {
         aggregateTimeout: 300,
         ignored: /node_modules/
+    },
+    devServer: {
+        compress: true,
+        port: 8080
     }
 };

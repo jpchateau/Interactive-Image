@@ -93,7 +93,7 @@ It uses the reStructuredText format.
 | `npm run dev`                | Build all the distributable files for local development |
 | `npm run eslint`             | Run the ES linter                                       |
 | `npm run sass-lint`          | Run the Sass linter                                     |
-| `npm run start:dev`          | Start a local server                                    |
+| `npm run start:dev`          | Start a local server: http://localhost:8080/examples/   |
 | `npm run test`               | Run unit tests                                          |
 | `npm run test-with-coverage` | Run unit tests and display code coverage                |
 | `npm run watch`              | Run the watcher for local development                   |
