@@ -7,7 +7,7 @@
     "email": "contact@jpchateau.com",
     "url": "https://www.jpchateau.com/"
   },
-  "browser": "./src/js/index.js",
+  "main": "./dist/interactive-image.js",
   "license": "MIT",
   "scripts": {
     "build": "webpack --progress --colors --config webpack.prod.js",
