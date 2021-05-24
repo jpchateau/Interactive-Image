@@ -12,4 +12,13 @@ describe('Behavior', function() {
             expect(behavior.triggerEventName).to.be.a('string');
         });
     });
+
+    describe('mouseEvents', function() {
+        it('should return an associative array of mouse events', function() {
+            expect(Behavior.mouseEvents()).to.deep.equal({
+                'hover': 'mouseenter',
+                'click': 'click'
+            });
+        });
+    });
 });

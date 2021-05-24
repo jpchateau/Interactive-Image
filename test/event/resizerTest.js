@@ -12,4 +12,10 @@ describe('Resizer', function() {
             expect(resizer.constructor.name).to.equal('Resizer');
         });
     });
+
+    describe('breakpoints', function() {
+        it('should return an associative array of breakpoints', function() {
+            expect(Resizer.breakpoints()).to.deep.equal({'smartphones-portrait': 320});
+        });
+    });
 });
