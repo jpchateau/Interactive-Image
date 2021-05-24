@@ -50,6 +50,7 @@ export default class TextItem extends AbstractItem {
     createLink() {
         const element = DomHelper.createElement('a');
         element.href = this.link.url;
+        element.rel = 'noopener noreferrer';
 
         let label;
         if ('undefined' !== typeof this.link.label) {

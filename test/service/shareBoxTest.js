@@ -96,18 +96,21 @@ describe('ShareBox', function() {
             expect(facebookButton.nodeName).to.equal('A');
             expect(facebookButton.getAttribute('target')).to.equal('_blank');
             expect(facebookButton.getAttribute('href')).to.equal(expectedFacebookUrl);
+            expect(facebookButton.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(facebookButton.getAttribute('class')).to.equal('social-button facebook-colors icon-facebook');
 
             let twitterButton = box.childNodes[1];
             expect(twitterButton.nodeName).to.equal('A');
             expect(twitterButton.getAttribute('target')).to.equal('_blank');
             expect(twitterButton.getAttribute('href')).to.equal(expectedTwitterUrl);
+            expect(twitterButton.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(twitterButton.getAttribute('class')).to.equal('social-button twitter-colors icon-twitter');
 
             let mailButton = box.childNodes[2];
             expect(mailButton.nodeName).to.equal('A');
             expect(mailButton.getAttribute('target')).to.equal('_blank');
             expect(mailButton.getAttribute('href')).to.equal(expectedMailUrl);
+            expect(mailButton.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(mailButton.getAttribute('class')).to.equal('social-button mail-colors icon-envelop');
 
             let shareButton = box.childNodes[3];

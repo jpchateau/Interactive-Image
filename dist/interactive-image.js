@@ -2102,6 +2102,7 @@ var PictureItem = /*#__PURE__*/function (_AbstractItem) {
       if ('undefined' !== typeof this.linkUrl) {
         var link = _helper_domHelper__WEBPACK_IMPORTED_MODULE_1__["default"].createElement('a');
         link.href = this.linkUrl;
+        link.rel = 'noopener noreferrer';
         link.appendChild(this.createPicture());
         pictureItem.appendChild(link);
       } else {
@@ -2368,6 +2369,7 @@ var TextItem = /*#__PURE__*/function (_AbstractItem) {
     value: function createLink() {
       var element = _helper_domHelper__WEBPACK_IMPORTED_MODULE_1__["default"].createElement('a');
       element.href = this.link.url;
+      element.rel = 'noopener noreferrer';
       var label;
 
       if ('undefined' !== typeof this.link.label) {
@@ -2779,6 +2781,7 @@ var ShareBox = /*#__PURE__*/function () {
       });
       link.setAttribute('target', '_blank');
       link.setAttribute('href', href);
+      link.setAttribute('rel', 'noopener noreferrer');
       return link;
     }
   }]);

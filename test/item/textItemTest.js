@@ -115,6 +115,7 @@ describe('TextItem', function() {
             let linkElement = textContainerElement.childNodes[2];
             expect(linkElement.nodeName).to.equal('A');
             expect(linkElement.getAttribute('href')).to.equal('https://www.jpchateau.com/demo/interactive-image');
+            expect(linkElement.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(linkElement.textContent).to.equal('Interactive Image Demo');
         });
 
@@ -163,6 +164,7 @@ describe('TextItem', function() {
             let linkElement = textContainerElement.childNodes[3];
             expect(linkElement.nodeName).to.equal('A');
             expect(linkElement.getAttribute('href')).to.equal('https://www.jpchateau.com/demo/interactive-image');
+            expect(linkElement.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(linkElement.textContent).to.equal('https://www.jpchateau.com/demo/interactive-image');
         });
 

@@ -58,6 +58,7 @@ describe('PictureItem', function() {
             let linkElement = pictureContainerElement.childNodes[0];
             expect(linkElement.nodeName).to.equal('A');
             expect(linkElement.getAttribute('href')).to.equal('https://www.nationalgeographic.com');
+            expect(linkElement.getAttribute('rel')).to.equal('noopener noreferrer');
 
             let pictureElement = linkElement.childNodes[0];
             expect(pictureElement.nodeName).to.equal('IMG');

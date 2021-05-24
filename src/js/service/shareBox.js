@@ -65,6 +65,7 @@ export default class ShareBox {
         const link = DomHelper.createElement('a', {'class': classes});
         link.setAttribute('target', '_blank');
         link.setAttribute('href', href);
+        link.setAttribute('rel', 'noopener noreferrer');
 
         return link;
     }

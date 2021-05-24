@@ -49,6 +49,7 @@ export default class PictureItem extends AbstractItem {
         if ('undefined' !== typeof this.linkUrl) {
             const link = DomHelper.createElement('a');
             link.href = this.linkUrl;
+            link.rel = 'noopener noreferrer';
             link.appendChild(this.createPicture());
             pictureItem.appendChild(link);
         } else {
