@@ -25,6 +25,18 @@ export default class ShareBox {
      * @param {object} options
      * @returns {string}
      */
+    static buildWhatsAppUrl(options) {
+        let parameters = {
+            text: options.url ?? window.location.href
+        };
+
+        return 'whatsapp://send?' + Utils.param(parameters);
+    }
+
+    /**
+     * @param {object} options
+     * @returns {string}
+     */
     static buildTwitterUrl(options) {
         let parameters = {
             url: options.url ?? window.location.href,
@@ -90,6 +102,14 @@ export default class ShareBox {
      * @param {object} options
      * @returns {HTMLElement}
      */
+    buildWhatsAppButton(options) {
+        return ShareBox.buildButton('social-button whatsapp-colors icon-whatsapp', ShareBox.buildWhatsAppUrl(options));
+    }
+
+    /**
+     * @param {object} options
+     * @returns {HTMLElement}
+     */
     buildMailButton(options) {
         return ShareBox.buildButton('social-button mail-colors icon-envelop', ShareBox.buildMailUrl(options));
     }
@@ -101,9 +121,10 @@ export default class ShareBox {
         const box = DomHelper.createElement('div', {'class': 'social-share-box'});
         const shareButton = DomHelper.createElement('div', {'class': 'social-button share-colors icon-share2'});
 
-        box.appendChild(this.buildFacebookButton(socialMediaOptions));
-        box.appendChild(this.buildTwitterButton(socialMediaOptions));
         box.appendChild(this.buildMailButton(socialMediaOptions));
+        box.appendChild(this.buildWhatsAppButton(socialMediaOptions));
+        box.appendChild(this.buildTwitterButton(socialMediaOptions));
+        box.appendChild(this.buildFacebookButton(socialMediaOptions));
         box.appendChild(shareButton);
 
         this.scene.appendChild(box);

@@ -2,6 +2,7 @@ $arrow-width: 7px;
 $black-small-text: #1d2129;
 $black-heading-text: #333;
 $break-smartphone-portrait: 320px;
+$break-medium-screen: 768px; // Medium devices (tablets, 768px and up)
 
 $icomoon-font-family: 'icomoon' !default;
 $icomoon-font-path: '../fonts' !default;
@@ -13,3 +14,4 @@ $icon-radio-checked: unquote('\'\\#{EA54}\'');
 $icon-share2: unquote('\'\\#{EA82}\'');
 $icon-facebook: unquote('\'\\#{E901}\'');
 $icon-twitter: unquote('\'\\#{EA96}\'');
+$icon-whatsapp: unquote('\'\\#{EA93}\'');

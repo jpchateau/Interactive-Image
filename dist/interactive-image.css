@@ -113,6 +113,9 @@
 .icon-twitter::before {
   content: '\EA96'; }
 
+.icon-whatsapp::before {
+  content: '\EA93'; }
+
 .interactive-image .social-share-box {
   position: absolute;
   bottom: 20px;
@@ -128,7 +131,10 @@
   cursor: pointer; }
   .interactive-image .social-share-box.expanded {
     transition: height .3s;
-    height: 128px; }
+    height: 160px; }
+    @media screen and (min-width: 768px) {
+      .interactive-image .social-share-box.expanded {
+        height: 128px; } }
   .interactive-image .social-share-box .social-button {
     width: 32px;
     height: 32px;
@@ -140,6 +146,9 @@
       font-size: 18px;
       padding-top: 7px;
       padding-bottom: 7px; }
+    @media screen and (min-width: 768px) {
+      .interactive-image .social-share-box .social-button.whatsapp-colors {
+        display: none; } }
   .interactive-image .social-share-box .share-colors {
     background: rgba(0, 0, 0, 0.7);
     color: white; }
@@ -149,6 +158,9 @@
   .interactive-image .social-share-box .twitter-colors {
     background-color: #1da1f2;
     color: #f5f8fa; }
+  .interactive-image .social-share-box .whatsapp-colors {
+    background-color: #4ac959;
+    color: white; }
   .interactive-image .social-share-box .mail-colors {
     background-color: #a1adb3;
     color: white; }

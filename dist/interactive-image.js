@@ -2682,6 +2682,16 @@ var ShareBox = /*#__PURE__*/function () {
      */
 
   }, {
+    key: "buildWhatsAppButton",
+    value: function buildWhatsAppButton(options) {
+      return ShareBox.buildButton('social-button whatsapp-colors icon-whatsapp', ShareBox.buildWhatsAppUrl(options));
+    }
+    /**
+     * @param {object} options
+     * @returns {HTMLElement}
+     */
+
+  }, {
     key: "buildMailButton",
     value: function buildMailButton(options) {
       return ShareBox.buildButton('social-button mail-colors icon-envelop', ShareBox.buildMailUrl(options));
@@ -2699,9 +2709,10 @@ var ShareBox = /*#__PURE__*/function () {
       var shareButton = _helper_domHelper__WEBPACK_IMPORTED_MODULE_0__["default"].createElement('div', {
         'class': 'social-button share-colors icon-share2'
       });
-      box.appendChild(this.buildFacebookButton(socialMediaOptions));
-      box.appendChild(this.buildTwitterButton(socialMediaOptions));
       box.appendChild(this.buildMailButton(socialMediaOptions));
+      box.appendChild(this.buildWhatsAppButton(socialMediaOptions));
+      box.appendChild(this.buildTwitterButton(socialMediaOptions));
+      box.appendChild(this.buildFacebookButton(socialMediaOptions));
       box.appendChild(shareButton);
       this.scene.appendChild(box);
     }
@@ -2731,12 +2742,27 @@ var ShareBox = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "buildTwitterUrl",
-    value: function buildTwitterUrl(options) {
-      var _options$url2, _options$text;
+    key: "buildWhatsAppUrl",
+    value: function buildWhatsAppUrl(options) {
+      var _options$url2;
 
       var parameters = {
-        url: (_options$url2 = options.url) !== null && _options$url2 !== void 0 ? _options$url2 : window.location.href,
+        text: (_options$url2 = options.url) !== null && _options$url2 !== void 0 ? _options$url2 : window.location.href
+      };
+      return 'whatsapp://send?' + _service_utils__WEBPACK_IMPORTED_MODULE_1__["default"].param(parameters);
+    }
+    /**
+     * @param {object} options
+     * @returns {string}
+     */
+
+  }, {
+    key: "buildTwitterUrl",
+    value: function buildTwitterUrl(options) {
+      var _options$url3, _options$text;
+
+      var parameters = {
+        url: (_options$url3 = options.url) !== null && _options$url3 !== void 0 ? _options$url3 : window.location.href,
         text: (_options$text = options.text) !== null && _options$text !== void 0 ? _options$text : window.document.title
       };
 
@@ -2758,11 +2784,11 @@ var ShareBox = /*#__PURE__*/function () {
   }, {
     key: "buildMailUrl",
     value: function buildMailUrl(options) {
-      var _options$text2, _options$url3;
+      var _options$text2, _options$url4;
 
       var parameters = {
         subject: window.document.title,
-        body: ((_options$text2 = options.text) !== null && _options$text2 !== void 0 ? _options$text2 : window.document.title) + ' ' + ((_options$url3 = options.url) !== null && _options$url3 !== void 0 ? _options$url3 : window.location.href)
+        body: ((_options$text2 = options.text) !== null && _options$text2 !== void 0 ? _options$text2 : window.document.title) + ' ' + ((_options$url4 = options.url) !== null && _options$url4 !== void 0 ? _options$url4 : window.location.href)
       };
       return 'mailto:?' + _service_utils__WEBPACK_IMPORTED_MODULE_1__["default"].param(parameters);
     }

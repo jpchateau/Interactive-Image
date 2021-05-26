@@ -155,3 +155,9 @@
     content: $icon-twitter;
   }
 }
+
+.icon-whatsapp {
+  &::before {
+    content: $icon-whatsapp;
+  }
+}

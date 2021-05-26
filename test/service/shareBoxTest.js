@@ -22,7 +22,7 @@ describe('ShareBox', function() {
             expect(ShareBox.buildFacebookUrl({})).to.equal(expectedUrl);
         });
 
-        it('should build a URL for Facebook from given parameters', function() {
+        it('should build a URL for Facebook with given parameters', function() {
             let parameters = {
                 url: 'https://example.com'
             };
@@ -40,7 +40,7 @@ describe('ShareBox', function() {
             expect(ShareBox.buildTwitterUrl({})).to.equal(expectedUrl);
         });
 
-        it('should build a URL for Twitter from given parameters', function() {
+        it('should build a URL for Twitter with given parameters', function() {
             let parameters = {
                 url: 'https://example.com',
                 text: 'title',
@@ -55,6 +55,23 @@ describe('ShareBox', function() {
         });
     });
 
+    describe('buildWhatsAppUrl', function() {
+        it('should build a URL for WhatsApp from default parameters', function() {
+            let expectedUrl = 'whatsapp://send?text=' +
+                encodeURIComponent('about:blank');
+            expect(ShareBox.buildWhatsAppUrl({})).to.equal(expectedUrl);
+        });
+
+        it('should build a URL for WhatsApp with given parameters', function() {
+            let parameters = {
+                url: 'https://example.com'
+            };
+            let expectedUrl = 'whatsapp://send?text=' +
+                encodeURIComponent('https://example.com');
+            expect(ShareBox.buildWhatsAppUrl(parameters)).to.equal(expectedUrl);
+        });
+    });
+
     describe('buildMailUrl', function() {
         it('should build a URL for sending email from default parameters', function() {
             let expectedUrl = 'mailto:?subject=&body=+' +
@@ -62,7 +79,7 @@ describe('ShareBox', function() {
             expect(ShareBox.buildMailUrl({})).to.equal(expectedUrl);
         });
 
-        it('should build a URL for sending email from given parameters', function() {
+        it('should build a URL for sending email with given parameters', function() {
             let parameters = {
                 text: 'discover',
                 url: 'https://example.com'
@@ -83,6 +100,8 @@ describe('ShareBox', function() {
             let expectedTwitterUrl = 'https://twitter.com/intent/tweet?url=' +
                 encodeURIComponent(parameters.url) +
                 '&text=';
+            let expectedWhatsAppUrl = 'whatsapp://send?text=' +
+                encodeURIComponent(parameters.url);
             let expectedMailUrl = 'mailto:?subject=&body=+' +
                 encodeURIComponent(parameters.url);
 
@@ -92,28 +111,35 @@ describe('ShareBox', function() {
             expect(box.nodeName).to.equal('DIV');
             expect(box.getAttribute('class')).to.equal('social-share-box');
 
-            let facebookButton = box.childNodes[0];
+            let facebookButton = box.childNodes[3];
             expect(facebookButton.nodeName).to.equal('A');
             expect(facebookButton.getAttribute('target')).to.equal('_blank');
             expect(facebookButton.getAttribute('href')).to.equal(expectedFacebookUrl);
             expect(facebookButton.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(facebookButton.getAttribute('class')).to.equal('social-button facebook-colors icon-facebook');
 
-            let twitterButton = box.childNodes[1];
+            let twitterButton = box.childNodes[2];
             expect(twitterButton.nodeName).to.equal('A');
             expect(twitterButton.getAttribute('target')).to.equal('_blank');
             expect(twitterButton.getAttribute('href')).to.equal(expectedTwitterUrl);
             expect(twitterButton.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(twitterButton.getAttribute('class')).to.equal('social-button twitter-colors icon-twitter');
 
-            let mailButton = box.childNodes[2];
+            let whatsAppButton = box.childNodes[1];
+            expect(whatsAppButton.nodeName).to.equal('A');
+            expect(whatsAppButton.getAttribute('target')).to.equal('_blank');
+            expect(whatsAppButton.getAttribute('href')).to.equal(expectedWhatsAppUrl);
+            expect(whatsAppButton.getAttribute('rel')).to.equal('noopener noreferrer');
+            expect(whatsAppButton.getAttribute('class')).to.equal('social-button whatsapp-colors icon-whatsapp');
+
+            let mailButton = box.childNodes[0];
             expect(mailButton.nodeName).to.equal('A');
             expect(mailButton.getAttribute('target')).to.equal('_blank');
             expect(mailButton.getAttribute('href')).to.equal(expectedMailUrl);
             expect(mailButton.getAttribute('rel')).to.equal('noopener noreferrer');
             expect(mailButton.getAttribute('class')).to.equal('social-button mail-colors icon-envelop');
 
-            let shareButton = box.childNodes[3];
+            let shareButton = box.childNodes[4];
             expect(shareButton.nodeName).to.equal('DIV');
             expect(shareButton.getAttribute('class')).to.equal('social-button share-colors icon-share2');
         });

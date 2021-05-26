@@ -15,7 +15,11 @@
 
     &.expanded {
       transition: height .3s;
-      height: 128px;
+      height: 160px;
+
+      @media screen and (min-width: $break-medium-screen) {
+        height: 128px;
+      }
     }
 
     .social-button {
@@ -30,6 +34,12 @@
         font-size: 18px;
         padding-top: 7px;
         padding-bottom: 7px;
+      }
+
+      &.whatsapp-colors {
+        @media screen and (min-width: $break-medium-screen) {
+          display: none;
+        }
       }
     }
 
@@ -46,6 +56,11 @@
     .twitter-colors {
       background-color: #1da1f2;
       color: #f5f8fa;
+    }
+
+    .whatsapp-colors {
+      background-color: #4ac959;
+      color: white;
     }
 
     .mail-colors {
