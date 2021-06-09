@@ -40,16 +40,25 @@ export default class Behavior {
     }
 
     /**
+     * Attach event to hide container when mouse leaves hotspot
+     *
      * @param {jQuery} $hotspot
      */
     bindHotspotMouseLeave($hotspot) {
         $hotspot.on('mouseleave', function(event) {
             const $relatedTarget = $(event.relatedTarget);
-            // If parent has class "item", it enters container so there is no need to hide it
+
+            // If relatedTarget has class "item", it enters container so there is no need to hide it
+            if ($relatedTarget.hasClass('item')) {
+                return;
+            }
+
+            // Idem for the parent of the relatedTarget
             if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
                 return;
             }
 
+            // If container is sticky, no need to hide it
             const container = DomHelper.retrieveContainerFromHotspot($hotspot[0]);
             if (container.classList.contains('behavior-sticky')) {
                 return;
@@ -60,6 +69,8 @@ export default class Behavior {
     }
 
     /**
+     * Remove event to hide container when mouse leaves hotspot
+     *
      * @param {HTMLElement} hotspot
      */
     unbindHotspotMouseLeave(hotspot) {
@@ -102,7 +113,7 @@ export default class Behavior {
 
     bindStickyItemsEvents() {
         this.$image.find('.item').each(function() {
-            let $container = $(this);
+            const $container = $(this);
             if (!$container[0].classList.contains('behavior-sticky')) {
                 return;
             }
@@ -124,6 +135,7 @@ export default class Behavior {
             const $hotspot = $(this);
             const $container = $(DomHelper.retrieveContainerFromHotspot($hotspot[0]));
 
+            // If item is sticky, no need to bind events
             if ($container[0].classList.contains('behavior-sticky')) {
                 return;
             }
@@ -135,14 +147,13 @@ export default class Behavior {
 
             // Bind event to hide the related container when mouse leaves it
             $container.on('mouseleave', function(event) {
+                // If relatedTarget has class "hotspot", it enters hotspot so there is no need to hide the container
                 const $relatedTarget = $(event.relatedTarget);
-                // If related target has class "hotpost", it enters hotspot so there is no need to hide the container
                 if ($relatedTarget.hasClass('hotspot')) {
                     return;
                 }
 
                 DomHelper.hideElement($(this)[0]);
-                that.bindHotspotMouseLeave($hotspot);
             });
         });
 
