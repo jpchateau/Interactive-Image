@@ -995,6 +995,8 @@ var Behavior = /*#__PURE__*/function () {
       this.$image.off();
     }
     /**
+     * Attach event to hide container when mouse leaves hotspot
+     *
      * @param {jQuery} $hotspot
      */
 
@@ -1002,11 +1004,17 @@ var Behavior = /*#__PURE__*/function () {
     key: "bindHotspotMouseLeave",
     value: function bindHotspotMouseLeave($hotspot) {
       $hotspot.on('mouseleave', function (event) {
-        var $relatedTarget = $(event.relatedTarget); // If parent has class "item", it enters container so there is no need to hide it
+        var $relatedTarget = $(event.relatedTarget); // If relatedTarget has class "item", it enters container so there is no need to hide it
+
+        if ($relatedTarget.hasClass('item')) {
+          return;
+        } // Idem for the parent of the relatedTarget
+
 
         if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
           return;
-        }
+        } // If container is sticky, no need to hide it
+
 
         var container = _helper_domHelper__WEBPACK_IMPORTED_MODULE_0__["default"].retrieveContainerFromHotspot($hotspot[0]);
 
@@ -1018,6 +1026,8 @@ var Behavior = /*#__PURE__*/function () {
       });
     }
     /**
+     * Remove event to hide container when mouse leaves hotspot
+     *
      * @param {HTMLElement} hotspot
      */
 
@@ -1086,7 +1096,7 @@ var Behavior = /*#__PURE__*/function () {
       var that = this;
       that.$image.find('.hotspot').each(function () {
         var $hotspot = $(this);
-        var $container = $(_helper_domHelper__WEBPACK_IMPORTED_MODULE_0__["default"].retrieveContainerFromHotspot($hotspot[0]));
+        var $container = $(_helper_domHelper__WEBPACK_IMPORTED_MODULE_0__["default"].retrieveContainerFromHotspot($hotspot[0])); // If item is sticky, no need to bind events
 
         if ($container[0].classList.contains('behavior-sticky')) {
           return;
@@ -1098,14 +1108,14 @@ var Behavior = /*#__PURE__*/function () {
         }); // Bind event to hide the related container when mouse leaves it
 
         $container.on('mouseleave', function (event) {
-          var $relatedTarget = $(event.relatedTarget); // If related target has class "hotpost", it enters hotspot so there is no need to hide the container
+          // If relatedTarget has class "hotspot", it enters hotspot so there is no need to hide the container
+          var $relatedTarget = $(event.relatedTarget);
 
           if ($relatedTarget.hasClass('hotspot')) {
             return;
           }
 
           _helper_domHelper__WEBPACK_IMPORTED_MODULE_0__["default"].hideElement($(this)[0]);
-          that.bindHotspotMouseLeave($hotspot);
         });
       });
       this.bindStickyItemsEvents();
