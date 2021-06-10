@@ -1,6 +1,12 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.8.0 (2021-06-11)
+* Added WhatsApp share button for small screens
+* Added `rel` attribute on all generated links for security purposes
+* Fixed an issue causing picture items to be hidden as soon as a mouseevent is fired on its hotspot
+* Small codebase improvements
+
 ## 2.7.1 (2020-07-31)
 * Fixed an issue when share box is hidden - issue [#8](https://github.com/jpchateau/Interactive-Image/issues/8)
 

@@ -27,8 +27,10 @@ Social Media Share
 
    $("#my-interactive-image").interactiveImage(items, options);
 
-| Supported social media: email, `Twitter`_ and `Facebook`_.
+| Supported social media: email, `Facebook`_, `Twitter`_ and `WhatsApp`_.
 | In case of email share, the subject of the email is the webpage title.
+| WhatsApp button only appears on small screens.
 
-.. _Twitter: https://twitter.com/
 .. _Facebook: https://www.facebook.com/
+.. _Twitter: https://twitter.com/
+.. _WhatsApp: https://www.whatsapp.com/
