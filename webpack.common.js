@@ -43,9 +43,6 @@ module.exports = {
         ],
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            jQuery: 'jquery'
-        }),
         new HtmlWebPackPlugin({
             template: './src/index.html',
             filename: '../examples/index.html'
@@ -54,9 +51,6 @@ module.exports = {
             banner: '[name] v2.7.1\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],
-    externals: {
-        jquery: 'jQuery'
-    },
     watchOptions: {
         aggregateTimeout: 300,
         ignored: /node_modules/

@@ -1,16 +1,16 @@
-# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image) [![Code Climate](https://codeclimate.com/github/jpchateau/Interactive-Image/badges/gpa.svg)](https://codeclimate.com/github/jpchateau/Interactive-Image) [![Known Vulnerabilities](https://snyk.io//test/github/jpchateau/Interactive-Image/badge.svg?targetFile=package.json)](https://snyk.io//test/github/jpchateau/Interactive-Image?targetFile=package.json)
+# Interactive Image [![npm version](https://badge.fury.io/js/interactiveimagejs.svg)](http://badge.fury.io/js/interactiveimagejs) [![Build Status](https://travis-ci.org/jpchateau/Interactive-Image.svg?branch=master)](https://travis-ci.org/jpchateau/Interactive-Image)
 
-> A jQuery plugin to embed interactive images on your website.
+> A library to embed interactive images.
 
 [![Demo](docs/_static/demo.jpg)](https://www.jpchateau.com/demo/interactive-image)
 
-[Online Demo](https://www.jpchateau.com/demo/interactive-image) | [CodePen](https://codepen.io/jpchateau/pen/vYOvGeE)
+[CodePen](https://codepen.io/jpchateau/pen/vYOvGeE)
 
 ## Features
 
 * Interactive videos, sounds, images and texts over large pictures
 * Support for popular content providers
-* Social Media sharing capabilities
+* Social Media sharing capabilities (Facebook, X, Whatsapp)
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)
@@ -39,10 +39,7 @@ See the contributing guidelines [here](CONTRIBUTING.md).
 
 * For business:
   * [genially](https://www.genial.ly/)
-  * [ImageMarker](https://www.imagemarker.com/)
   * [ThingLink](https://www.thinglink.com/)
-* Premium:
-  * [imageLinks](http://avirtum.com/imagelinks-jquery-plugin/)
 * Free:
   * [jquery.hotspot.js](https://github.com/skypluto/jquery.hotspot.js)
 
@@ -53,5 +50,5 @@ The API and documentation have to be simple and clear as well.
 
 ## License
 
-Copyright © 2021 [Jean-Philippe Chateau](https://github.com/jpchateau/).  
+Copyright © 2025 [Jean-Philippe Chateau](https://github.com/jpchateau/).  
 This content is released under the [MIT license](https://github.com/jpchateau/Interactive-Image/blob/master/LICENSE).
