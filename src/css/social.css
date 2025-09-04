@@ -17,7 +17,7 @@
       transition: height .3s;
       height: 160px;
 
-      @media screen and (min-width: $break-medium-screen) {
+      @media screen and (min-width: var(--break-medium-screen)) {
         height: 128px;
       }
     }
@@ -37,7 +37,7 @@
       }
 
       &.whatsapp-colors {
-        @media screen and (min-width: $break-medium-screen) {
+        @media screen and (min-width: var(--break-medium-screen)) {
           display: none;
         }
       }

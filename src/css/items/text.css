@@ -11,7 +11,7 @@
       font-weight: bold;
       font-variant: small-caps;
       display: inline-block;
-      color: $black-heading-text;
+      color: var(--black-heading-text);
     }
 
     .description {
@@ -35,15 +35,15 @@
       margin-top: 10px;
 
       &:visited {
-        color: $black-small-text;
+        color: var(--black-small-text);
       }
 
       &:hover {
-        color: $black-small-text;
+        color: var(--black-small-text);
       }
 
       &:active {
-        color: $black-small-text;
+        color: var(--black-small-text);
       }
     }
   }
