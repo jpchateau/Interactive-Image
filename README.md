@@ -10,7 +10,7 @@
 
 * Interactive videos, sounds, images and texts over large pictures
 * Support for popular content providers
-* Social Media sharing capabilities (Facebook, X, Whatsapp)
+* Social Media sharing capabilities (Facebook, X, WhatsApp)
 * Flexible configuration of markers and items
 * Easily customizable with CSS
 * Unit tested with [Mocha](https://mochajs.org/)

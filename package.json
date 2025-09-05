@@ -15,6 +15,7 @@
     "dev": "webpack --progress --colors --config webpack.dev.js",
     "eslint": "./node_modules/.bin/eslint ./src/js/",
     "start:dev": "./node_modules/.bin/webpack-dev-server --config webpack.dev.js",
+    "stylelint": "./node_modules/.bin/stylelint ./src/css",
     "test": "./node_modules/.bin/mocha",
     "watch": "webpack --watch --colors --config webpack.dev.js"
   },

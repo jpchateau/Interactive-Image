@@ -15,5 +15,3 @@ function interactiveImage(selector, items, options) {
         new App(element, items, options).execute();
     });
 }
-
-// Call: interactiveImage('.myImgs', items, options);

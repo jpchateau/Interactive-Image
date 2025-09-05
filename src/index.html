@@ -15,14 +15,11 @@
         }
     </style>
 
-    <!-- Include Interactive Image jQuery plugin Styles -->
+    <!-- Include Interactive Image Styles -->
 </head>
 <body>
     <!-- Main container of a scene -->
     <div id="my-interactive-image"></div>
-
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
         // Plugin Items collection
@@ -226,11 +223,11 @@
         };
 
         // Plugin activation
-        $(document).ready(function() {
-            $("#my-interactive-image").interactiveImage(items, options);
+        document.addEventListener("DOMContentLoaded", function() {
+            interactiveImage('#my-interactive-image', items, options);
         });
     </script>
 
-    <!-- Include Interactive Image jQuery plugin JavaScript -->
+    <!-- Include Interactive Image JavaScript -->
 </body>
 </html>
