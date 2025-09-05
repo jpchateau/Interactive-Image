@@ -2,6 +2,7 @@
   "name": "interactiveimagejs",
   "version": "3.0.0",
   "description": "A library to embed interactive images.",
+  "type": "module",
   "author": {
     "name": "Jean-Philippe Chateau",
     "email": "contact@jpchateau.com",

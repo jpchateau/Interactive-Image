@@ -1,8 +1,8 @@
 const fs = require('fs');
-const BannerPlugin = require("html-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveAppPath = relativePath => path.resolve(appDirectory, relativePath);
@@ -36,7 +36,7 @@ module.exports = {
             template: './src/index.html',
             filename: '../examples/index.html'
         }),
-        new BannerPlugin({
+        new webpack.BannerPlugin({
             banner: '[name] v2.7.1\nhttps://github.com/jpchateau\nJean-Philippe Chateau - <contact@jpchateau.com>\nMIT License'
         })
     ],

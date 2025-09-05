@@ -1,5 +1,5 @@
-import AbstractItem from "./abstractItem";
-import DomHelper from "../helper/domHelper";
+import AbstractItem from './abstractItem';
+import DomHelper from '../helper/domHelper';
 
 /**
  * @extends AbstractItem
@@ -43,7 +43,7 @@ export default class PictureItem extends AbstractItem {
 
         if ('undefined' !== typeof this.caption) {
             pictureItem.setAttribute('data-caption', this.caption);
-            pictureItem.classList.add("with-caption");
+            pictureItem.classList.add('with-caption');
         }
 
         if ('undefined' !== typeof this.linkUrl) {

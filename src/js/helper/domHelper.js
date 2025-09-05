@@ -2,14 +2,14 @@ export default class DomHelper {
     /**
      * Create a DOM element
      *
-     * @param {string} name         - tag name
-     * @param {object} [attributes] - html attributes
-     * @param {string} [text]       - text
-     * @param {?boolean} allowHtml  - allow HTML markup
+     * @param {string} name         - A tag name.
+     * @param {object} [attributes] - HTML attributes.
+     * @param {string} [text]       - A text.
+     * @param {?boolean} allowHtml  - To allow HTML markup.
      * @returns {HTMLElement}
      */
     static createElement(name, attributes, text, allowHtml = false) {
-        let node = document.createElement(name);
+        const node = document.createElement(name);
 
         DomHelper.addAttributes(node, attributes);
         DomHelper.addText(node, allowHtml, text);
@@ -18,7 +18,7 @@ export default class DomHelper {
     }
 
     /**
-     * @param {HTMLElement} node
+     * @param {HTMLElement} node - HTML Element.
      * @param {object} [attributes]
      */
     static addAttributes(node, attributes) {
@@ -26,7 +26,7 @@ export default class DomHelper {
             return;
         }
 
-        for (let attribute in attributes) {
+        for (const attribute in attributes) {
             if (Object.prototype.hasOwnProperty.call(attributes, attribute)) {
                 node.setAttribute(attribute, attributes[attribute]);
             }
@@ -34,9 +34,9 @@ export default class DomHelper {
     }
 
     /**
-     * @param {HTMLElement} node
-     * @param {boolean} allowHtml
-     * @param {string} text
+     * @param {HTMLElement} node  - HTML Element.
+     * @param {boolean} allowHtml - To Allow HTML markup.
+     * @param {string} text       - A text.
      */
     static addText(node, allowHtml, text) {
         if ('undefined' === typeof text) {
@@ -55,7 +55,7 @@ export default class DomHelper {
     /**
      * Hide a DOM element
      *
-     * @param {HTMLElement} element
+     * @param {HTMLElement} element - HTML Element.
      */
     static hideElement(element) {
         if (element.style.display === 'block' || element.style.display === 'flex') {
@@ -70,7 +70,7 @@ export default class DomHelper {
     /**
      * Show a DOM element
      *
-     * @param {HTMLElement} element
+     * @param {HTMLElement} element - HTML Element.
      */
     static showElement(element) {
         if (element.style.display !== 'block') {
@@ -79,7 +79,7 @@ export default class DomHelper {
     }
 
     /**
-     * @param {HTMLElement} hotspot
+     * @param {HTMLElement} hotspot - Hotspot HTML Element.
      * @returns {HTMLElement}
      */
     static retrieveContainerFromHotspot(hotspot) {
@@ -89,7 +89,7 @@ export default class DomHelper {
     /**
      * Detect if an item contains media
      *
-     * @param {HTMLElement} element
+     * @param {HTMLElement} element - HTML Element.
      * @returns {boolean}
      */
     static elementContainsMediaItem(element) {
@@ -99,10 +99,10 @@ export default class DomHelper {
     /**
      * Stop a Media Element from playing and reinitialize it
      *
-     * @param {HTMLElement} element
+     * @param {HTMLElement} element - HTML Element.
      */
     static stopMedia(element) {
-        const selector = "div[data-id='" + element.getAttribute('data-id') + "'] ";
+        const selector = 'div[data-id=\'' + element.getAttribute('data-id') + '\'] ';
         const htmlMedia = document.querySelector(selector + 'audio, ' + selector + 'video');
         if (null !== htmlMedia) {
             htmlMedia.pause();

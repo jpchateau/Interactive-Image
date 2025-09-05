@@ -1,5 +1,5 @@
-import DomHelper from "../helper/domHelper";
-import UniqueId from "../service/uniqueId";
+import DomHelper from '../helper/domHelper';
+import UniqueId from '../service/uniqueId';
 
 export default class AbstractItem {
     /**
@@ -22,8 +22,8 @@ export default class AbstractItem {
         this.sticky = typeof parameters.sticky !== 'undefined' ? parameters.sticky : false;
         this.customClassName = typeof parameters.customClassName !== 'undefined' ? parameters.customClassName : null;
         this.globalSettings = {
-            allowHtml: false
-        }
+            allowHtml: false,
+        };
     }
 
     /**

@@ -3,7 +3,7 @@ export default class UniqueId {
      * @returns {number}
      */
     static now() {
-        let time = Date.now();
+        const time = Date.now();
         this.last = this.last ?? time;
         this.last = time > this.last ? time : this.last + 1;
 
@@ -13,7 +13,7 @@ export default class UniqueId {
     /**
      * Get a unique identifier from date and a prefix
      *
-     * @param {string} prefix
+     * @param {string} prefix - A prefix.
      * @returns {string}
      */
     static generate(prefix) {

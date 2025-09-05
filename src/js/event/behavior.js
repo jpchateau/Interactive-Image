@@ -1,4 +1,5 @@
-import DomHelper from "../helper/domHelper";
+import DomHelper from '../helper/domHelper';
+import EventManager from './eventManager';
 
 export default class Behavior {
     /**
@@ -7,16 +8,17 @@ export default class Behavior {
     static mouseEvents() {
         return {
             'hover': 'mouseenter',
-            'click': 'click'
+            'click': 'click',
         };
     }
 
     /**
-     * @param {jQuery} $image
-     * @param {string} triggerEventName
+     * @param {HTMLElement} image       - A scene.
+     * @param {string} triggerEventName - A trigger event name.
      */
-    constructor($image, triggerEventName) {
-        this.$image = $image;
+    constructor(image, triggerEventName) {
+        this.image = image;
+        this.eventManager = new EventManager(this.image);
         this.triggerEventName = triggerEventName;
         this.enabled = false;
     }
@@ -36,30 +38,30 @@ export default class Behavior {
             this.enabled = false;
         }
 
-        this.$image.off();
+        this.eventManager.offAll();
     }
 
     /**
      * Attach event to hide container when mouse leaves hotspot
      *
-     * @param {jQuery} $hotspot
+     * @param {HTMLElement} hotspot
      */
-    bindHotspotMouseLeave($hotspot) {
-        $hotspot.on('mouseleave', function(event) {
-            const $relatedTarget = $(event.relatedTarget);
+    bindHotspotMouseLeave(hotspot) {
+        hotspot.addEventListener('mouseleave', (event) => {
+            const relatedTarget = event.relatedTarget;
 
             // If relatedTarget has class "item", it enters container so there is no need to hide it
-            if ($relatedTarget.hasClass('item')) {
+            if (relatedTarget.classList.contains('item')) {
                 return;
             }
 
             // Idem for the parent of the relatedTarget
-            if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
+            if (relatedTarget.parentNode && relatedTarget.parentNode.classList.contains('item')) {
                 return;
             }
 
             // If container is sticky, no need to hide it
-            const container = DomHelper.retrieveContainerFromHotspot($hotspot[0]);
+            const container = DomHelper.retrieveContainerFromHotspot(hotspot[0]);
             if (container.classList.contains('behavior-sticky')) {
                 return;
             }
@@ -74,53 +76,53 @@ export default class Behavior {
      * @param {HTMLElement} hotspot
      */
     unbindHotspotMouseLeave(hotspot) {
-        hotspot.removeEventListener('mouseleave', function() {});
+        hotspot.removeEventListener('mouseleave', () => {});
     }
 
     bindSceneEvents() {
         // Mouse enters scene -> show all hotspots and share box (if exists)
-        this.$image.on('mouseenter', function() {
-            const $hotspots = $(this).find('.hotspot');
-            $.each($hotspots, function() {
-                $(this).fadeIn();
+        this.image.addEventListener('mouseenter', function() {
+            const hotspots = this.image.querySelectorAll('.hotspot');
+            hotspots.forEach((item) => {
+                item.classList.add('display', 'block');
+                //$(this).fadeIn();
             });
 
-            const $shareBox = $(this).find('.social-share-box');
-            if (!$shareBox.length) {
+            const shareBox = this.image.querySelectorAll('.social-share-box');
+            if (!shareBox.length) {
                 return;
             }
 
-            setTimeout(() => {
-                $shareBox.css('display', 'flex');
+            window.setTimeout(() => {
+                shareBox[0].classList.add('display', 'flex');
             }, 100);
         });
 
         // Mouse leaves scene -> hide all hotspots, containers and share box (if exists)
-        this.$image.on('mouseleave', function() {
-            const $elements = $(this).find('.hotspot, .item');
-            $.each($elements, function() {
-                DomHelper.hideElement($(this)[0]);
+        this.image.addEventListener('mouseleave', function() {
+            const elements = this.image.querySelectorAll('.hotspot, .item');
+            elements.forEach( (element) => {
+                DomHelper.hideElement(element[0]);
             });
 
-            const $shareBox = $(this).find('.social-share-box');
-            if (!$shareBox.length) {
+            const shareBox = this.images.querySelectorAll('.social-share-box');
+            if (!shareBox.length) {
                 return;
             }
 
-            DomHelper.hideElement($shareBox[0]);
+            DomHelper.hideElement(shareBox[0]);
         });
     }
 
     bindStickyItemsEvents() {
-        this.$image.find('.item').each(function() {
-            const $container = $(this);
-            if (!$container[0].classList.contains('behavior-sticky')) {
+        this.image.querySelectorAll('.item').forEach( (item) => {
+            if (!item[0].classList.contains('behavior-sticky')) {
                 return;
             }
 
             // Bind event to hide the related sticky container when close button is clicked
-            $container.on('click', '.close-button' , function() {
-                DomHelper.hideElement($container[0]);
+            item.addEventListener('click', '.close-button' , () => {
+                DomHelper.hideElement(item[0]);
             });
         });
     }
@@ -129,31 +131,30 @@ export default class Behavior {
      * Initialize events on each item
      */
     bindItemsEvents() {
-        let that = this;
+        const that = this;
 
-        that.$image.find('.hotspot').each(function() {
-            const $hotspot = $(this);
-            const $container = $(DomHelper.retrieveContainerFromHotspot($hotspot[0]));
+        that.image.querySelectorAll('.hotspot').forEach((hotspot) => {
+            const container = DomHelper.retrieveContainerFromHotspot(hotspot[0]);
 
             // If item is sticky, no need to bind events
-            if ($container[0].classList.contains('behavior-sticky')) {
+            if (container[0].classList.contains('behavior-sticky')) {
                 return;
             }
 
-            that.bindHotspotMouseLeave($hotspot);
-            $container.on('mouseenter', function() {
-                that.unbindHotspotMouseLeave($hotspot[0]);
+            that.bindHotspotMouseLeave(hotspot);
+            container.addEventListener('mouseenter', () => {
+                that.unbindHotspotMouseLeave(hotspot[0]);
             });
 
             // Bind event to hide the related container when mouse leaves it
-            $container.on('mouseleave', function(event) {
+            container.addEventListener('mouseleave', (event) => {
                 // If relatedTarget has class "hotspot", it enters hotspot so there is no need to hide the container
-                const $relatedTarget = $(event.relatedTarget);
-                if ($relatedTarget.hasClass('hotspot')) {
+                const relatedTarget = event.relatedTarget;
+                if (relatedTarget.classList.contains('hotspot')) {
                     return;
                 }
 
-                DomHelper.hideElement($(this)[0]);
+                DomHelper.hideElement(event[0]);
             });
         });
 
@@ -164,24 +165,32 @@ export default class Behavior {
      * Initialize events on each hotspot
      */
     bindHotspotsEvents() {
-        let that = this;
+        const that = this;
+        const eventName = Behavior.mouseEvents()[this.triggerEventName];
 
-        that.$image.on(Behavior.mouseEvents()[this.triggerEventName], '.hotspot', function(event) {
-            const $hotspot = $(this);
-            const $relatedTarget = $(event.relatedTarget);
-            if ($relatedTarget.parent() && $relatedTarget.parent().hasClass('item')) {
-                // If parent has class "item", it only re-enters from item
-                return that.bindHotspotMouseLeave($hotspot);
+        that.image.addEventListener(eventName, (event) => {
+            const hotspot = event.target.closest('.hotspot');
+            if (!hotspot || !that.image.contains(hotspot)) {
+                return;
+            }
+
+            const relatedTarget = event.relatedTarget;
+            if (
+                relatedTarget &&
+                relatedTarget.parentElement &&
+                relatedTarget.parentElement.classList.contains('item')
+            ) {
+                return that.bindHotspotMouseLeave(hotspot);
             }
 
             // Hide all other containers that are not sticky
-            const $containers = that.$image.find('.item').not('.behavior-sticky');
-            $.each($containers, function() {
-                DomHelper.hideElement($(this)[0]);
+            const containers = that.image.querySelectorAll('.item:not(.behavior-sticky)');
+            containers.forEach(container => {
+                DomHelper.hideElement(container);
             });
 
             // Finally, show the related item
-            const container = DomHelper.retrieveContainerFromHotspot($hotspot[0]);
+            const container = DomHelper.retrieveContainerFromHotspot(hotspot[0]);
             DomHelper.showElement(container);
         });
     }

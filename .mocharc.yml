@@ -1,4 +1,0 @@
-recursive: true
-require:
-    - '@babel/register'
-    - jsdom-global/register

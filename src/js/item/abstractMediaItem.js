@@ -1,6 +1,6 @@
-import AbstractItem from "./abstractItem";
-import DomHelper from "../helper/domHelper";
-import FileHelper from "./../helper/fileHelper";
+import AbstractItem from './abstractItem';
+import DomHelper from '../helper/domHelper';
+import FileHelper from './../helper/fileHelper';
 
 /**
  * @extends AbstractItem

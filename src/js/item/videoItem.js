@@ -1,5 +1,5 @@
-import AbstractMediaItem from "./abstractMediaItem";
-import DomHelper from "../helper/domHelper";
+import AbstractMediaItem from './abstractMediaItem';
+import DomHelper from '../helper/domHelper';
 
 /**
  * @extends AbstractMediaItem
@@ -29,7 +29,7 @@ export default class VideoItem extends AbstractMediaItem {
     supportedFileFormats() {
         return {
             'mp4': 'video/mp4',
-            'webm': 'video/webm'
+            'webm': 'video/webm',
         };
     }
 

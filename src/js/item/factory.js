@@ -1,15 +1,15 @@
-import AudioItem from "./audioItem";
-import PictureItem from "./pictureItem";
-import ProviderItem from "./providerItem";
-import TextItem from "./textItem";
-import VideoItem from "./videoItem";
+import AudioItem from './audioItem';
+import PictureItem from './pictureItem';
+import ProviderItem from './providerItem';
+import TextItem from './textItem';
+import VideoItem from './videoItem';
 
 const classes = {
     AudioItem,
     PictureItem,
     ProviderItem,
     TextItem,
-    VideoItem
+    VideoItem,
 };
 
 export default class Factory {

@@ -7,12 +7,13 @@ import '../css/items/provider.css';
 import '../css/items/text.css';
 import '../css/items/video.css';
 
-import App from "./app";
+import App from './app';
 
-(($, window, document) => {
-    $.fn.interactiveImage = function(items, options) {
-        return this.each(() => {
-            new App($(this), items, options).execute();
-        });
-    };
-})(jQuery, window, document);
+// eslint-disable-next-line no-unused-vars
+function interactiveImage(selector, items, options) {
+    document.querySelectorAll(selector).forEach(element => {
+        new App(element, items, options).execute();
+    });
+}
+
+// Call: interactiveImage('.myImgs', items, options);

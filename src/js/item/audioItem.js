@@ -1,5 +1,5 @@
-import AbstractMediaItem from "./abstractMediaItem";
-import DomHelper from "../helper/domHelper";
+import AbstractMediaItem from './abstractMediaItem';
+import DomHelper from '../helper/domHelper';
 
 /**
  * @extends AbstractMediaItem
@@ -28,7 +28,7 @@ export default class AudioItem extends AbstractMediaItem {
         return {
             'mp3': 'audio/mpeg',
             'ogg': 'audio/ogg',
-            'wav': 'audio/wav'
+            'wav': 'audio/wav',
         };
     }
 

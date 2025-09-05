@@ -4,14 +4,14 @@ export default class Logger {
     }
 
     /**
-     * @param {boolean} value
+     * @param {boolean} value - A value.
      */
     set debug(value) {
         this.enable = value;
     }
 
     /**
-     * @param {string,object} message - message or object to display in console
+     * @param {string|object} message - A message or an object to display in the console.
      */
     log(message) {
         if (!window.console || !window.console.log || false === this.enable) {
@@ -26,7 +26,7 @@ export default class Logger {
     }
 
     /**
-     * @param {string} label - group name
+     * @param {string} label - A group name.
      */
     group(label) {
         if (!window.console || !window.console.log || false === this.enable) {

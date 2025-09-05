@@ -4,12 +4,12 @@ export default class Resizer {
      */
     static breakpoints() {
         return {
-            'smartphones-portrait': 320
+            'smartphones-portrait': 320,
         };
     }
 
     /**
-     * @param {Behavior} behavior
+     * @param {Behavior} behavior - Behavior instance.
      */
     constructor(behavior) {
         this.behavior = behavior;
@@ -29,9 +29,9 @@ export default class Resizer {
 
     bind() {
         let resizeTimer;
-        let that = this;
+        const that = this;
 
-        let enableEffects = () => {
+        const enableEffects = () => {
             if (window.innerWidth <= Resizer.breakpoints()['smartphones-portrait']) {
                 that.disable();
 
@@ -41,9 +41,9 @@ export default class Resizer {
             that.enable();
         };
 
-        $(window).on('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(enableEffects, 300);
+        window.addEventListener('resize', () => {
+            window.clearTimeout(resizeTimer);
+            resizeTimer = window.setTimeout(enableEffects, 300);
         });
     }
 }

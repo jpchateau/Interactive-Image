@@ -1,11 +1,11 @@
-import Behavior from "./event/behavior";
-import DomHelper from "./helper/domHelper";
-import ImagesLoaded from "imagesloaded";
-import ItemFactory from "./item/factory";
-import ItemHelper from "./helper/itemHelper";
-import Logger from "./service/logger";
-import Resizer from "./event/resizer";
-import ShareBox from "./service/shareBox";
+import Behavior from './event/behavior';
+import DomHelper from './helper/domHelper';
+import ImagesLoaded from 'imagesloaded';
+import ItemFactory from './item/factory';
+import ItemHelper from './helper/itemHelper';
+import Logger from './service/logger';
+import Resizer from './event/resizer';
+import ShareBox from './service/shareBox';
 
 export default class App {
     /**
@@ -16,18 +16,18 @@ export default class App {
             allowHtml: false,
             debug: false,
             shareBox: true,
-            triggerEvent: 'hover'
+            triggerEvent: 'hover',
         };
     }
 
     /**
-     * @param {jQuery} $image
-     * @param {array}  items
-     * @param {object} options
+     * @param {HTMLElement} image - A scene to apply Interactive elements.
+     * @param {array}  items      - Items.
+     * @param {object} options    - Configuration.
      */
-    constructor($image, items, options) {
+    constructor(image, items, options) {
         this.settings = Object.assign(App.defaultSettings(), options);
-        this.$image = $image;
+        this.image = image;
         this.items = items;
         this.itemFactory = new ItemFactory();
 
@@ -76,16 +76,16 @@ export default class App {
             const t0 = performance.now();
 
             // Add interactive-image class on the main scene
-            if (!this.$image.hasClass('interactive-image')) {
-                this.$image.addClass('interactive-image');
+            if (!this.image.classList.contains('interactive-image')) {
+                this.image.classList.add('interactive-image');
             }
 
             // Add message for unsupported screen sizes
             const unsupportedScreenElement = DomHelper.createElement(
                 'div',
-                {class: 'unsupported-screen'}
+                {class: 'unsupported-screen'},
             );
-            this.$image.append(unsupportedScreenElement);
+            this.image.append(unsupportedScreenElement);
 
             const t1 = performance.now();
             this.logger.log('DOM consolidated in ' + (t1 - t0) + 'ms');
@@ -96,20 +96,20 @@ export default class App {
     }
 
     /**
-     * @param {object} options
-     * @returns {jQuery|HTMLElement}
+     * @param {object} options - Options.
+     * @returns {HTMLElement}
      */
     createElement(options) {
         this.logger.log(options);
 
-        let parameters = Object.assign({}, options);
+        const parameters = Object.assign({}, options);
         delete parameters.type;
 
         const element = this.itemFactory.create(options.type, parameters);
         element.applicationSettings = this.settings;
-        this.$image.append(element.createHotspotElement());
+        this.image.append(element.createHotspotElement());
 
-        return $(element.renderHtml());
+        return element.renderHtml();
     }
 
     createElements() {
@@ -118,7 +118,7 @@ export default class App {
             const t0 = performance.now();
 
             this.items.forEach((item) => {
-                this.$image.append(this.createElement(item));
+                this.image.append(this.createElement(item));
             });
 
             const t1 = performance.now();
@@ -134,13 +134,18 @@ export default class App {
             this.logger.group('Items positioning');
             const t0 = performance.now();
 
-            const $items = this.$image.find('.item');
-            $.each($items, function() {
-                const $hotspot = $('div[data-for="' + $(this).attr('data-id') + '"]');
-                let [left, top] = ItemHelper.calculateInitialContainerPosition(parseInt($hotspot.css('left'), 10), parseInt($hotspot.css('top'), 10), $(this).width());
+            const items = document.querySelectorAll('.item');
+            items.forEach((item) => {
+                const id = item.getAttribute('data-id');
+                const hotspot = document.querySelector(`div[data-for="${id}"]`);
+                const [left, top] = ItemHelper.calculateInitialContainerPosition(
+                    parseInt(hotspot.css('left'), 10),
+                    parseInt(hotspot.css('top'), 10),
+                    item.attr('width'),
+                );
 
-                $(this).css('left', left);
-                $(this).css('top', top);
+                item.style.left = left;
+                item.style.top = top;
             });
 
             const t1 = performance.now();
@@ -156,7 +161,7 @@ export default class App {
             this.logger.group('Events binding');
             const t0 = performance.now();
 
-            const behavior = new Behavior(this.$image, this.settings.triggerEvent);
+            const behavior = new Behavior(this.image, this.settings.triggerEvent);
             behavior.bindAll();
 
             const resizer = new Resizer(behavior);
@@ -176,7 +181,7 @@ export default class App {
             const t0 = performance.now();
 
             if (true === this.settings.shareBox) {
-                const shareBox = new ShareBox(this.$image[0]);
+                const shareBox = new ShareBox(this.image[0]);
                 shareBox.build(this.settings.socialMedia ?? {});
                 shareBox.bindEvents();
             }
@@ -193,9 +198,9 @@ export default class App {
         return new Promise((resolve) => {
             this.logger.group('Images');
 
-            if (this.$image.find('img').length) {
+            if (this.image.querySelectorAll('img').length) {
                 const t0 = performance.now();
-                ImagesLoaded(this.$image, () => {
+                ImagesLoaded(this.image, () => {
                     const t1 = performance.now();
                     this.logger.log('All images detected and loaded in ' + (t1 - t0) + 'ms');
                     this.logger.groupEnd();

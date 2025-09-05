@@ -1,46 +1,46 @@
-import DomHelper from "../helper/domHelper";
-import Utils from "../service/utils";
+import DomHelper from '../helper/domHelper';
+import Utils from '../service/utils';
 
 export default class ShareBox {
     /**
-     * @param {HTMLElement} scene
+     * @param {HTMLElement} scene - A scene.
      */
     constructor(scene) {
         this.scene = scene;
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {string}
      */
     static buildFacebookUrl(options) {
-        let parameters = {
-            u: options.url ?? window.location.href
+        const parameters = {
+            u: options.url ?? window.location.href,
         };
 
         return 'https://www.facebook.com/sharer.php?' + Utils.param(parameters);
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {string}
      */
     static buildWhatsAppUrl(options) {
-        let parameters = {
-            text: options.url ?? window.location.href
+        const parameters = {
+            text: options.url ?? window.location.href,
         };
 
         return 'whatsapp://send?' + Utils.param(parameters);
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {string}
      */
     static buildTwitterUrl(options) {
-        let parameters = {
+        const parameters = {
             url: options.url ?? window.location.href,
-            text: options.text ?? window.document.title
+            text: options.text ?? window.document.title,
         };
 
         if (typeof options.twitterUsername === 'string') {
@@ -55,13 +55,13 @@ export default class ShareBox {
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {string}
      */
     static buildMailUrl(options) {
-        let parameters = {
+        const parameters = {
             subject: window.document.title,
-            body: (options.text ?? window.document.title) + ' ' + (options.url ?? window.location.href)
+            body: (options.text ?? window.document.title) + ' ' + (options.url ?? window.location.href),
         };
 
         return 'mailto:?' + Utils.param(parameters);
@@ -69,8 +69,8 @@ export default class ShareBox {
 
     /**
      *
-     * @param {string} classes
-     * @param {string} href
+     * @param {string} classes - CSS classes.
+     * @param {string} href    - Href value.
      * @returns {HTMLElement}
      */
     static buildButton(classes, href) {
@@ -83,7 +83,7 @@ export default class ShareBox {
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {HTMLElement}
      */
     buildFacebookButton(options) {
@@ -91,7 +91,7 @@ export default class ShareBox {
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {HTMLElement}
      */
     buildTwitterButton(options) {
@@ -99,7 +99,7 @@ export default class ShareBox {
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {HTMLElement}
      */
     buildWhatsAppButton(options) {
@@ -107,7 +107,7 @@ export default class ShareBox {
     }
 
     /**
-     * @param {object} options
+     * @param {object} options - Options.
      * @returns {HTMLElement}
      */
     buildMailButton(options) {
@@ -115,7 +115,7 @@ export default class ShareBox {
     }
 
     /**
-     * @param {object} socialMediaOptions
+     * @param {object} socialMediaOptions - Options.
      */
     build(socialMediaOptions) {
         const box = DomHelper.createElement('div', {'class': 'social-share-box'});
@@ -131,11 +131,11 @@ export default class ShareBox {
     }
 
     bindEvents() {
-        document.querySelector('.social-button.share-colors').addEventListener('mouseenter', function(event) {
+        document.querySelector('.social-button.share-colors').addEventListener('mouseenter', (event) => {
             event.target.parentNode.classList.add('expanded');
         });
 
-        document.querySelector('.social-share-box').addEventListener('mouseleave', function(event) {
+        document.querySelector('.social-share-box').addEventListener('mouseleave', (event) => {
             event.target.classList.remove('expanded');
         });
     }

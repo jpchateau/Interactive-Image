@@ -1,5 +1,5 @@
-import AbstractItem from "./abstractItem";
-import DomHelper from "../helper/domHelper";
+import AbstractItem from './abstractItem';
+import DomHelper from '../helper/domHelper';
 
 /**
  * @extends AbstractItem
@@ -20,7 +20,7 @@ export default class ProviderItem extends AbstractItem {
             'dailymotion': 'https://www.dailymotion.com/embed/video/%id%',
             'soundcloud': 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/%id%&color=%2326203e&auto_play=false&hide_related=false&sharing=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true',
             'vimeo': 'https://player.vimeo.com/video/%id%',
-            'youtube': 'https://www.youtube.com/embed/%id%?origin=' + ProviderItem.guessOrigin()
+            'youtube': 'https://www.youtube.com/embed/%id%?origin=' + ProviderItem.guessOrigin(),
         };
     }
     /**
@@ -43,14 +43,14 @@ export default class ProviderItem extends AbstractItem {
      * @returns {HTMLElement}
      */
     createIframe() {
-        let id = this.parameters.videoId ?? this.parameters.soundId;
+        const id = this.parameters.videoId ?? this.parameters.soundId;
 
         return DomHelper.createElement(
             'iframe',
             {
                 'loading': 'lazy',
-                'src': ProviderItem.providersUrls()[this.providerName].replace('%id%', id)
-            }
+                'src': ProviderItem.providersUrls()[this.providerName].replace('%id%', id),
+            },
         );
     }
 
@@ -71,8 +71,8 @@ export default class ProviderItem extends AbstractItem {
      * @returns {string}
      */
     static guessOrigin() {
-        let urlSplit = window.location.href.split("/");
+        const urlSplit = window.location.href.split('/');
 
-        return urlSplit[0] + "//" + urlSplit[2];
+        return urlSplit[0] + '//' + urlSplit[2];
     }
 }

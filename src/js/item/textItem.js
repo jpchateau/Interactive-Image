@@ -1,5 +1,5 @@
-import AbstractItem from "./abstractItem"
-import DomHelper from "../helper/domHelper";
+import AbstractItem from './abstractItem';
+import DomHelper from '../helper/domHelper';
 
 /**
  * @extends AbstractItem
